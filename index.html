@@ -1,0 +1,253 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>KINO</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff8fa;
+      color: #5f4a50;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 7%;
+      background: #fff8fa;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: #c78391;
+      letter-spacing: 2px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #765b63;
+      margin-left: 20px;
+      font-size: 14px;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 80px 20px 70px;
+      background: #fbe8ed;
+      border-radius: 0 0 40px 40px;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      color: #b96f80;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      font-size: 16px;
+      max-width: 500px;
+      margin: 0 auto 28px;
+      color: #765b63;
+    }
+
+    .button {
+      display: inline-block;
+      background: #c78391;
+      color: white;
+      text-decoration: none;
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-size: 14px;
+    }
+
+    /* Categories */
+    .section {
+      padding: 60px 7%;
+      text-align: center;
+    }
+
+    .section h2 {
+      color: #b96f80;
+      margin-bottom: 10px;
+      font-size: 26px;
+    }
+
+    .section-intro {
+      margin-bottom: 30px;
+      color: #8a7077;
+      font-size: 14px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 30px 20px;
+      border-radius: 25px;
+      box-shadow: 0 5px 20px rgba(160, 110, 120, 0.08);
+    }
+
+    .card-icon {
+      font-size: 40px;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      color: #765b63;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: #927b82;
+    }
+
+    /* About */
+    .about {
+      background: #fff0f3;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .about h2 {
+      color: #b96f80;
+      margin-bottom: 12px;
+    }
+
+    .about p {
+      max-width: 550px;
+      margin: auto;
+      font-size: 14px;
+      color: #765b63;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 12px;
+      color: #9a7f87;
+    }
+
+    /* Mobile */
+    @media (max-width: 700px) {
+      .products {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      nav {
+        padding: 18px 5%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">KINO</div>
+
+    <div>
+      <a href="#">Home</a>
+      <a href="#shop">Shop</a>
+      <a href="#about">About</a>
+    </div>
+  </nav>
+
+
+  <!-- Hero Section -->
+  <section class="hero">
+
+    <h1>little things, made with love ♡</h1>
+
+    <p>
+      Cozy digital goodies made for your little everyday moments.
+    </p>
+
+    <a href="#shop" class="button">SHOP NOW</a>
+
+  </section>
+
+
+  <!-- Shop Categories -->
+  <section class="section" id="shop">
+
+    <h2>♡ KINO SHOP ♡</h2>
+
+    <p class="section-intro">
+      Find something cute for your cozy little moments.
+    </p>
+
+    <div class="products">
+
+      <div class="card">
+        <div class="card-icon">🎀</div>
+        <h3>Digital Stickers</h3>
+        <p>Cute digital stickers for your journal and everyday planning.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📖</div>
+        <h3>Journals</h3>
+        <p>Simple and cozy digital journals made for you.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🖍️</div>
+        <h3>Coloring Pages</h3>
+        <p>Relaxing little coloring pages to enjoy at home.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- About -->
+  <section class="about" id="about">
+
+    <h2>Made for cozy moments ♡</h2>
+
+    <p>
+      KINO creates simple, cute and cozy digital products
+      to bring a little joy into your everyday life.
+    </p>
+
+  </section>
+
+
+  <!-- Footer -->
+  <footer>
+
+    © 2026 KINO · Made with ♡
+
+  </footer>
+
+</body>
+</html>
