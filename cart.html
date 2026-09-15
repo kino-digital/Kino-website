@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <title>Cart | KINO</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Baloo 2', sans-serif;
+      background: #fff8fa;
+      color: #5f4a50;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #ffffff;
+      padding: 25px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 700;
+      color: #c47794;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #5f4a50;
+      margin-left: 20px;
+      font-size: 14px;
+    }
+
+    .cart {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #b96f8a;
+      font-size: 34px;
+      margin-bottom: 30px;
+    }
+
+    .cart-item {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 20px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 5px 18px rgba(190, 130, 150, 0.10);
+    }
+
+    .item-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: #b96f8a;
+    }
+
+    .item-price {
+      color: #8a747b;
+    }
+
+    .total-box {
+      background: #fde6ee;
+      padding: 25px;
+      border-radius: 20px;
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .total {
+      font-size: 26px;
+      font-weight: 700;
+      color: #b96f8a;
+      margin-bottom: 20px;
+    }
+
+    .checkout-button {
+      display: inline-block;
+      background: #d9829e;
+      color: white;
+      text-decoration: none;
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-size: 16px;
+    }
+
+    .empty {
+      text-align: center;
+      color: #8a747b;
+      padding: 40px;
+      background: #ffffff;
+      border-radius: 20px;
+    }
+
+    footer {
+      margin-top: 70px;
+      background: #fde6ee;
+      padding: 25px;
+      text-align: center;
+      color: #8a747b;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">KINO</div>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="stickers.html">Shop</a>
+    </nav>
+  </header>
+
+  <main class="cart">
+
+    <h1>Your Cart ♡</h1>
+
+    <div id="cart-items">
+
+      <div class="empty">
+        Your cart is empty.
+      </div>
+
+    </div>
+
+    <div class="total-box">
+
+      <div class="total">
+        Total: RM0
+      </div>
+
+      <a href="#" class="checkout-button">
+        CHECKOUT
+      </a>
+
+    </div>
+
+  </main>
+
+  <footer>
+    Made for cozy moments ♡
+  </footer>
+
+</body>
+</html>
