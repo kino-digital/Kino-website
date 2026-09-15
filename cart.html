@@ -175,17 +175,28 @@
       total += item.price;
 
       cartItems.innerHTML += `
-        <div class="cart-item">
-          <div>
-            <div class="item-name">${item.name}</div>
-            <div class="item-price">RM${item.price}</div>
-          </div>
-        </div>
-      `;
+  <div class="cart-item">
+    <div>
+      <div class="item-name">${item.name}</div>
+      <div class="item-price">RM${item.price}</div>
+    </div>
+
+    <button onclick="removeItem(${index})" class="remove-button">
+      REMOVE
+    </button>
+  </div>
+`;
     });
   }
 
   totalElement.textContent = `Total: RM${total}`;
+  function removeItem(index) {
+  cart.splice(index, 1);
+
+  localStorage.setItem("kinoCart", JSON.stringify(cart));
+
+  location.reload();
+}
 </script>
   
 </body>
