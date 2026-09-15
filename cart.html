@@ -136,14 +136,8 @@
 
     <h1>Your Cart ♡</h1>
 
-    <div id="cart-items">
-
-      <div class="empty">
-        Your cart is empty.
-      </div>
-
-    </div>
-
+    <div id="cart-items"></div>
+    
     <div class="total-box">
 
       <div class="total">
@@ -162,5 +156,37 @@
     Made for cozy moments ♡
   </footer>
 
+<script>
+  const cartItems = document.getElementById("cart-items");
+  const totalElement = document.querySelector(".total");
+
+  let cart = JSON.parse(localStorage.getItem("kinoCart")) || [];
+
+  let total = 0;
+
+  if (cart.length === 0) {
+    cartItems.innerHTML = `
+      <div class="empty">
+        Your cart is empty.
+      </div>
+    `;
+  } else {
+    cart.forEach((item, index) => {
+      total += item.price;
+
+      cartItems.innerHTML += `
+        <div class="cart-item">
+          <div>
+            <div class="item-name">${item.name}</div>
+            <div class="item-price">RM${item.price}</div>
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  totalElement.textContent = `Total: RM${total}`;
+</script>
+  
 </body>
 </html>
