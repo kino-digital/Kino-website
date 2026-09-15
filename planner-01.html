@@ -138,9 +138,9 @@
       RM10
     </div>
 
-    <a href="#" class="buy-button">
-      BUY NOW
-    </a>
+    <button onclick="addToCart()" class="buy-button">
+  ADD TO CART
+</button>
 
     <p class="description">
       A cozy digital planner made to help you organize
@@ -153,5 +153,22 @@
     Made for cozy moments ♡
   </footer>
 
+<script>
+  function addToCart() {
+    const product = {
+      name: "Planner 01",
+      price: 10
+    };
+
+    let cart = JSON.parse(localStorage.getItem("kinoCart")) || [];
+
+    cart.push(product);
+
+    localStorage.setItem("kinoCart", JSON.stringify(cart));
+
+    window.location.href = "cart.html";
+  }
+</script>
+  
 </body>
 </html>
