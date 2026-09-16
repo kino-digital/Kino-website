@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <title>Checkout | KINO</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Baloo 2', sans-serif;
+      background: #fff8fa;
+      color: #5f4a50;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #ffffff;
+      padding: 25px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 700;
+      color: #c47794;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #5f4a50;
+      margin-left: 20px;
+      font-size: 14px;
+    }
+
+    .checkout {
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #b96f8a;
+      font-size: 34px;
+      margin-bottom: 30px;
+    }
+
+    .checkout-box {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 5px 18px rgba(190, 130, 150, 0.10);
+    }
+
+    .section-title {
+      color: #b96f8a;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .total {
+      background: #fde6ee;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      margin-top: 25px;
+    }
+
+    .total-amount {
+      font-size: 28px;
+      font-weight: 700;
+      color: #b96f8a;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #a96b82;
+      font-size: 14px;
+    }
+
+    footer {
+      margin-top: 70px;
+      background: #fde6ee;
+      padding: 25px;
+      text-align: center;
+      color: #8a747b;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">KINO</div>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="stickers.html">Shop</a>
+    </nav>
+  </header>
+
+  <main class="checkout">
+
+    <h1>Checkout ♡</h1>
+
+    <div class="checkout-box">
+
+      <div class="section-title">
+        Your Order
+      </div>
+
+      <div id="order-items"></div>
+
+      <div class="total">
+        <div>Total</div>
+        <div class="total-amount" id="total-amount">
+          RM0
+        </div>
+      </div>
+
+      <a href="cart.html" class="back-button">
+        ← Back to Cart
+      </a>
+
+    </div>
+
+  </main>
+
+  <footer>
+    Made for cozy moments ♡
+  </footer>
+
+</body>
+</html>
