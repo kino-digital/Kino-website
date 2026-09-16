@@ -220,21 +220,21 @@ cart.forEach((item, index) => {
 
   cartItems.innerHTML += `
     <div class="cart-item">
-      <div>
-        <div class="item-name">${item.name}</div>
-        <div class="item-price">RM${item.price} × ${quantity}</div>
+  <div>
+    <div class="item-name">${item.name}</div>
+    <div class="item-price">RM${item.price} × ${quantity}</div>
 
-<div class="quantity-controls">
-  <button onclick="decreaseQuantity(${index})">−</button>
-  <span>${quantity}</span>
-  <button onclick="increaseQuantity(${index})">+</button>
+    <div class="quantity-controls">
+      <button onclick="decreaseQuantity(${index})">−</button>
+      <span>${quantity}</span>
+      <button onclick="increaseQuantity(${index})">+</button>
+    </div>
+  </div>
+
+  <button onclick="removeItem(${index})" class="remove-button">
+    REMOVE
+  </button>
 </div>
-
-      <button onclick="removeItem(${index})" class="remove-button">
-        REMOVE
-      </button>
-    </div>
-    </div>
   `;
 });
 }
