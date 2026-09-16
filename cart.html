@@ -197,7 +197,12 @@ cart.forEach((item, index) => {
       <div>
         <div class="item-name">${item.name}</div>
         <div class="item-price">RM${item.price} × ${quantity}</div>
-      </div>
+
+<div class="quantity-controls">
+  <button onclick="decreaseQuantity(${index})">−</button>
+  <span>${quantity}</span>
+  <button onclick="increaseQuantity(${index})">+</button>
+</div>
 
       <button onclick="removeItem(${index})" class="remove-button">
         REMOVE
@@ -214,7 +219,30 @@ cart.forEach((item, index) => {
 
   location.reload();
 }
+
+function increaseQuantity(index) {
+  cart[index].quantity = (cart[index].quantity || 1) + 1;
+
+  localStorage.setItem("kinoCart", JSON.stringify(cart));
+
+  location.reload();
+}
+
+function decreaseQuantity(index) {
+  const quantity = cart[index].quantity || 1;
+
+  if (quantity > 1) {
+    cart[index].quantity = quantity - 1;
+  } else {
+    cart.splice(index, 1);
+  }
+
+  localStorage.setItem("kinoCart", JSON.stringify(cart));
+
+  location.reload();
+}
+    
 </script>
-  
+
 </body>
 </html>
