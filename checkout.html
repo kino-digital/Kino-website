@@ -58,30 +58,150 @@
 
     .checkout-box {
       background: #ffffff;
-      padding: 25px;
-      border-radius: 20px;
+      padding: 30px;
+      border-radius: 25px;
       box-shadow: 0 5px 18px rgba(190, 130, 150, 0.10);
     }
 
     .section-title {
       color: #b96f8a;
-      font-size: 20px;
+      font-size: 21px;
       font-weight: 600;
       margin-bottom: 15px;
+    }
+
+    .order-item {
+      background: #fff8fa;
+      padding: 15px;
+      border-radius: 15px;
+      margin-bottom: 10px;
+    }
+
+    .order-name {
+      color: #b96f8a;
+      font-weight: 600;
+      font-size: 17px;
+    }
+
+    .order-price {
+      color: #8a747b;
+      font-size: 14px;
+    }
+
+    .form-section {
+      margin-top: 30px;
+    }
+
+    label {
+      display: block;
+      color: #8a747b;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="file"] {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #f0d5df;
+      border-radius: 15px;
+      background: #fff8fa;
+      font-family: 'Baloo 2', sans-serif;
+      font-size: 14px;
+      color: #5f4a50;
+      margin-bottom: 15px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #d9829e;
+    }
+
+    .payment-box {
+      background: #fde6ee;
+      padding: 20px;
+      border-radius: 20px;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .payment-title {
+      color: #b96f8a;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .payment-note {
+      color: #8a747b;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .qr-placeholder {
+      width: 180px;
+      height: 180px;
+      margin: 15px auto;
+      background: #ffffff;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #b96f8a;
+      font-size: 14px;
+    }
+
+    .payment-instruction {
+      color: #8a747b;
+      font-size: 14px;
+      margin-top: 10px;
     }
 
     .total {
       background: #fde6ee;
       padding: 20px;
-      border-radius: 15px;
+      border-radius: 18px;
       text-align: center;
-      margin-top: 25px;
+      margin-top: 30px;
+    }
+
+    .total-label {
+      color: #8a747b;
+      font-size: 16px;
     }
 
     .total-amount {
-      font-size: 28px;
+      font-size: 30px;
       font-weight: 700;
       color: #b96f8a;
+    }
+
+    .confirmation {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #8a747b;
+    }
+
+    .confirmation input {
+      margin-right: 8px;
+    }
+
+    .submit-button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 14px;
+      border: none;
+      border-radius: 30px;
+      background: #d9829e;
+      color: white;
+      font-family: 'Baloo 2', sans-serif;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .submit-button:hover {
+      background: #c97491;
     }
 
     .back-button {
@@ -100,25 +220,66 @@
       color: #8a747b;
       font-size: 14px;
     }
+
+    @media (max-width: 600px) {
+
+      header {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      nav {
+        text-align: center;
+      }
+
+      nav a {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+
+      .checkout {
+        margin: 30px auto;
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      .checkout-box {
+        padding: 22px;
+      }
+    }
   </style>
 </head>
 
 <body>
 
   <header>
-    <div class="logo">KINO</div>
+
+    <div class="logo">
+      KINO
+    </div>
 
     <nav>
       <a href="index.html">Home</a>
       <a href="stickers.html">Shop</a>
+      <a href="cart.html">Cart</a>
     </nav>
+
   </header>
+
 
   <main class="checkout">
 
-    <h1>Checkout ♡</h1>
+    <h1>
+      Checkout ♡
+    </h1>
+
 
     <div class="checkout-box">
+
+      <!-- ORDER -->
 
       <div class="section-title">
         Your Order
@@ -126,12 +287,133 @@
 
       <div id="order-items"></div>
 
+
+      <!-- CUSTOMER DETAILS -->
+
+      <div class="form-section">
+
+        <div class="section-title">
+          Customer Details
+        </div>
+
+        <label for="customer-name">
+          Name
+        </label>
+
+        <input
+          type="text"
+          id="customer-name"
+          placeholder="Your name"
+          required
+        >
+
+
+        <label for="customer-email">
+          Email
+        </label>
+
+        <input
+          type="email"
+          id="customer-email"
+          placeholder="Your email"
+          required
+        >
+
+      </div>
+
+
+      <!-- PAYMENT -->
+
+      <div class="form-section">
+
+        <div class="section-title">
+          Payment
+        </div>
+
+        <div class="payment-box">
+
+          <div class="payment-title">
+            TNG eWallet
+          </div>
+
+          <div class="payment-note">
+            Please make payment using the TNG QR below.
+          </div>
+
+          <div class="qr-placeholder">
+            TNG QR
+          </div>
+
+          <div class="payment-instruction">
+            Please pay the exact amount shown below.
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- PAYMENT PROOF -->
+
+      <div class="form-section">
+
+        <div class="section-title">
+          Payment Proof
+        </div>
+
+        <label for="payment-proof">
+          Upload your payment screenshot
+        </label>
+
+        <input
+          type="file"
+          id="payment-proof"
+          accept="image/*"
+          required
+        >
+
+      </div>
+
+
+      <!-- TOTAL -->
+
       <div class="total">
-        <div>Total</div>
+
+        <div class="total-label">
+          Total
+        </div>
+
         <div class="total-amount" id="total-amount">
           RM0
         </div>
+
       </div>
+
+
+      <!-- CONFIRMATION -->
+
+      <label class="confirmation">
+
+        <input
+          type="checkbox"
+          id="confirmation"
+        >
+
+        I confirm that I have made the payment.
+
+      </label>
+
+
+      <!-- SUBMIT -->
+
+      <button
+        type="button"
+        class="submit-button"
+        onclick="submitOrder()"
+      >
+        SUBMIT ORDER
+      </button>
+
 
       <a href="cart.html" class="back-button">
         ← Back to Cart
@@ -141,39 +423,131 @@
 
   </main>
 
+
   <footer>
     Made for cozy moments ♡
   </footer>
 
+
   <script>
-  const orderItems = document.getElementById("order-items");
-  const totalAmount = document.getElementById("total-amount");
 
-  let cart = JSON.parse(localStorage.getItem("kinoCart")) || [];
+    const orderItems =
+      document.getElementById("order-items");
 
-  let total = 0;
+    const totalAmount =
+      document.getElementById("total-amount");
 
-  if (cart.length === 0) {
-    orderItems.innerHTML = `
-      <p>Your cart is empty.</p>
-    `;
-  } else {
-    cart.forEach(item => {
-      const quantity = item.quantity || 1;
 
-      total += item.price * quantity;
+    let cart =
+      JSON.parse(localStorage.getItem("kinoCart")) || [];
 
-      orderItems.innerHTML += `
-        <div style="margin-bottom: 12px;">
-          <strong>${item.name}</strong><br>
-          RM${item.price} × ${quantity}
+
+    let total = 0;
+
+
+    if (cart.length === 0) {
+
+      orderItems.innerHTML = `
+        <div class="order-item">
+          Your cart is empty.
         </div>
       `;
-    });
-  }
 
-  totalAmount.textContent = `RM${total}`;
-</script>
-  
+    } else {
+
+      cart.forEach(item => {
+
+        const quantity =
+          item.quantity || 1;
+
+
+        total +=
+          item.price * quantity;
+
+
+        orderItems.innerHTML += `
+
+          <div class="order-item">
+
+            <div class="order-name">
+              ${item.name}
+            </div>
+
+            <div class="order-price">
+              RM${item.price} × ${quantity}
+            </div>
+
+          </div>
+
+        `;
+
+      });
+
+    }
+
+
+    totalAmount.textContent =
+      `RM${total}`;
+
+
+    function submitOrder() {
+
+      const name =
+        document.getElementById("customer-name").value.trim();
+
+      const email =
+        document.getElementById("customer-email").value.trim();
+
+      const proof =
+        document.getElementById("payment-proof").files.length;
+
+      const confirmation =
+        document.getElementById("confirmation").checked;
+
+
+      if (!name) {
+
+        alert("Please enter your name.");
+
+        return;
+
+      }
+
+
+      if (!email) {
+
+        alert("Please enter your email.");
+
+        return;
+
+      }
+
+
+      if (!proof) {
+
+        alert("Please upload your payment proof.");
+
+        return;
+
+      }
+
+
+      if (!confirmation) {
+
+        alert("Please confirm that you have made the payment.");
+
+        return;
+
+      }
+
+
+      alert(
+        "Thank you! Your order has been submitted."
+      );
+
+    }
+
+  </script>
+
 </body>
 </html>
