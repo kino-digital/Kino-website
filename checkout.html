@@ -755,6 +755,20 @@
       return;
     }
 
+  // SAVE PAYMENT PROOF PATH TO ORDER
+const { error: proofPathError } =
+  await db.rpc("save_payment_proof_path", {
+    p_order_id: orderId,
+    p_proof_path: proofPath
+  });
+
+if (proofPathError) {
+  console.error(proofPathError);
+  alert(
+    "Your payment proof was uploaded, but the order record could not be updated. Please contact KINO."
+  );
+  return;
+}
 
     // ================================
     // SUCCESS
