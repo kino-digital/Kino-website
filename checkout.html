@@ -145,5 +145,35 @@
     Made for cozy moments ♡
   </footer>
 
+  <script>
+  const orderItems = document.getElementById("order-items");
+  const totalAmount = document.getElementById("total-amount");
+
+  let cart = JSON.parse(localStorage.getItem("kinoCart")) || [];
+
+  let total = 0;
+
+  if (cart.length === 0) {
+    orderItems.innerHTML = `
+      <p>Your cart is empty.</p>
+    `;
+  } else {
+    cart.forEach(item => {
+      const quantity = item.quantity || 1;
+
+      total += item.price * quantity;
+
+      orderItems.innerHTML += `
+        <div style="margin-bottom: 12px;">
+          <strong>${item.name}</strong><br>
+          RM${item.price} × ${quantity}
+        </div>
+      `;
+    });
+  }
+
+  totalAmount.textContent = `RM${total}`;
+</script>
+  
 </body>
 </html>
