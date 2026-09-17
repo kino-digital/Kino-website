@@ -431,125 +431,349 @@
   </footer>
 
 
-  <script>
+  <!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    const orderItems =
-      document.getElementById("order-items");
+<script>
 
-    const totalAmount =
-      document.getElementById("total-amount");
+  // ================================
+  // KINO SUPABASE CONNECTION
+  // ================================
+
+  const SUPABASE_URL = "https://vbdgzsapdbpgfcdksdoi.supabase.co";
+
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
+
+  const { createClient } = supabase;
+
+  const db = createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
 
 
-    let cart =
-      JSON.parse(localStorage.getItem("kinoCart")) || [];
+  // ================================
+  // CART
+  // ================================
+
+  const orderItems =
+    document.getElementById("order-items");
+
+  const totalAmount =
+    document.getElementById("total-amount");
+
+  let cart =
+    JSON.parse(localStorage.getItem("kinoCart")) || [];
+
+  let total = 0;
 
 
-    let total = 0;
+  if (cart.length === 0) {
 
+    orderItems.innerHTML = `
+      <div class="order-item">
+        Your cart is empty.
+      </div>
+    `;
+
+  } else {
+
+    cart.forEach(item => {
+
+      const quantity =
+        item.quantity || 1;
+
+      total +=
+        item.price * quantity;
+
+      orderItems.innerHTML += `
+
+        <div class="order-item">
+
+          <div class="order-name">
+            ${item.name}
+          </div>
+
+          <div class="order-price">
+            RM${item.price} × ${quantity}
+          </div>
+
+        </div>
+
+      `;
+
+    });
+
+  }
+
+
+  totalAmount.textContent =
+    `RM${total}`;
+
+
+  // ================================
+  // SUBMIT ORDER
+  // ================================
+
+  async function submitOrder() {
+
+    const name =
+      document.getElementById("customer-name")
+        .value.trim();
+
+    const email =
+      document.getElementById("customer-email")
+        .value.trim();
+
+    const proofFile =
+      document.getElementById("payment-proof")
+        .files[0];
+
+    const confirmation =
+      document.getElementById("confirmation")
+        .checked;
+
+
+    // BASIC CHECKS
 
     if (cart.length === 0) {
 
-      orderItems.innerHTML = `
-        <div class="order-item">
-          Your cart is empty.
-        </div>
-      `;
+      alert("Your cart is empty.");
 
-    } else {
+      return;
+    }
 
-      cart.forEach(item => {
+
+    if (!name) {
+
+      alert("Please enter your name.");
+
+      return;
+    }
+
+
+    if (!email) {
+
+      alert("Please enter your email.");
+
+      return;
+    }
+
+
+    if (!proofFile) {
+
+      alert("Please upload your payment proof.");
+
+      return;
+    }
+
+
+    if (!confirmation) {
+
+      alert(
+        "Please confirm that you have made the payment."
+      );
+
+      return;
+    }
+
+
+    // FILE SIZE CHECK
+
+    if (proofFile.size > 3 * 1024 * 1024) {
+
+      alert(
+        "Payment proof must be 3MB or smaller."
+      );
+
+      return;
+    }
+
+
+    // ================================
+    // ORDER ID
+    // ================================
+
+    const orderId =
+      crypto.randomUUID();
+
+
+    const randomCode =
+      Math.random()
+        .toString(36)
+        .substring(2, 8)
+        .toUpperCase();
+
+
+    const today =
+      new Date()
+        .toISOString()
+        .slice(0, 10)
+        .replaceAll("-", "");
+
+
+    const orderCode =
+      `KINO-${today}-${randomCode}`;
+
+
+    // ================================
+    // AFFILIATE REF
+    // ================================
+
+    const urlParams =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const affiliateCode =
+      urlParams.get("ref") ||
+      localStorage.getItem("kinoAffiliateRef") ||
+      null;
+
+
+    // ================================
+    // SAVE ORDER
+    // ================================
+
+    const { error: orderError } =
+      await db
+        .from("orders")
+        .insert({
+
+          id: orderId,
+
+          order_code: orderCode,
+
+          customer_name: name,
+
+          customer_email: email,
+
+          total: total,
+
+          status: "pending",
+
+          affiliate_code: affiliateCode
+
+        });
+
+
+    if (orderError) {
+
+      console.error(orderError);
+
+      alert(
+        "Unable to submit your order right now. Please try again."
+      );
+
+      return;
+    }
+
+
+    // ================================
+    // SAVE ORDER ITEMS
+    // ================================
+
+    const orderItemsData =
+      cart.map(item => {
 
         const quantity =
           item.quantity || 1;
 
+        return {
 
-        total +=
-          item.price * quantity;
+          order_id: orderId,
 
+          product_name: item.name,
 
-        orderItems.innerHTML += `
+          product_price: item.price,
 
-          <div class="order-item">
+          quantity: quantity,
 
-            <div class="order-name">
-              ${item.name}
-            </div>
+          subtotal:
+            item.price * quantity
 
-            <div class="order-price">
-              RM${item.price} × ${quantity}
-            </div>
-
-          </div>
-
-        `;
+        };
 
       });
 
-    }
+
+    const { error: itemsError } =
+      await db
+        .from("order_items")
+        .insert(orderItemsData);
 
 
-    totalAmount.textContent =
-      `RM${total}`;
+    if (itemsError) {
 
-
-    function submitOrder() {
-
-      const name =
-        document.getElementById("customer-name").value.trim();
-
-      const email =
-        document.getElementById("customer-email").value.trim();
-
-      const proof =
-        document.getElementById("payment-proof").files.length;
-
-      const confirmation =
-        document.getElementById("confirmation").checked;
-
-
-      if (!name) {
-
-        alert("Please enter your name.");
-
-        return;
-
-      }
-
-
-      if (!email) {
-
-        alert("Please enter your email.");
-
-        return;
-
-      }
-
-
-      if (!proof) {
-
-        alert("Please upload your payment proof.");
-
-        return;
-
-      }
-
-
-      if (!confirmation) {
-
-        alert("Please confirm that you have made the payment.");
-
-        return;
-
-      }
-
+      console.error(itemsError);
 
       alert(
-        "Thank you! Your order has been submitted."
+        "Your order was created but the items could not be saved. Please contact KINO."
       );
 
+      return;
     }
 
-  </script>
+
+    // ================================
+    // UPLOAD PAYMENT PROOF
+    // ================================
+
+    const fileExtension =
+      proofFile.name
+        .split(".")
+        .pop()
+        .toLowerCase();
+
+
+    const proofPath =
+      `${orderId}/payment-proof.${fileExtension}`;
+
+
+    const { error: uploadError } =
+      await db
+        .storage
+        .from("payment-proofs")
+        .upload(
+          proofPath,
+          proofFile,
+          {
+            upsert: false
+          }
+        );
+
+
+    if (uploadError) {
+
+      console.error(uploadError);
+
+      alert(
+        "Your order was received, but the payment proof could not be uploaded. Please contact KINO."
+      );
+
+      return;
+    }
+
+
+    // ================================
+    // SUCCESS
+    // ================================
+
+    localStorage.removeItem("kinoCart");
+
+
+    alert(
+      `Thank you! Your order ${orderCode} has been submitted successfully.`
+    );
+
+
+    window.location.href =
+      "index.html";
+
+  }
+
+</script>
 
 </body>
 </html>
