@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <title>KINO Admin</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Baloo 2', sans-serif;
+      background: #fff8fa;
+      color: #5f4a50;
+    }
+
+    header {
+      background: white;
+      padding: 22px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 700;
+      color: #c47794;
+    }
+
+    .admin-label {
+      color: #8a747b;
+      font-size: 14px;
+    }
+
+    .dashboard {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #b96f8a;
+      font-size: 32px;
+      margin-bottom: 25px;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .summary-box {
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 5px 18px rgba(190, 130, 150, 0.10);
+    }
+
+    .summary-label {
+      color: #8a747b;
+      font-size: 14px;
+    }
+
+    .summary-number {
+      color: #b96f8a;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .order-card {
+      background: white;
+      padding: 22px;
+      border-radius: 20px;
+      margin-bottom: 15px;
+      box-shadow: 0 5px 18px rgba(190, 130, 150, 0.10);
+    }
+
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .order-code {
+      color: #b96f8a;
+      font-weight: 700;
+      font-size: 17px;
+    }
+
+    .status {
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      background: #fde6ee;
+      color: #a96b82;
+    }
+
+    .customer {
+      margin-bottom: 12px;
+      color: #8a747b;
+    }
+
+    .total {
+      font-size: 20px;
+      font-weight: 700;
+      color: #b96f8a;
+      margin-bottom: 15px;
+    }
+
+    .proof-button {
+      display: inline-block;
+      text-decoration: none;
+      background: #f7dce5;
+      color: #a96b82;
+      padding: 9px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      margin-right: 8px;
+    }
+
+    .paid-button,
+    .reject-button {
+      border: none;
+      padding: 9px 16px;
+      border-radius: 20px;
+      font-family: 'Baloo 2', sans-serif;
+      cursor: pointer;
+      font-size: 13px;
+      margin-right: 8px;
+    }
+
+    .paid-button {
+      background: #d9829e;
+      color: white;
+    }
+
+    .reject-button {
+      background: #f7dce5;
+      color: #a96b82;
+    }
+
+    .empty {
+      background: white;
+      padding: 40px;
+      text-align: center;
+      border-radius: 20px;
+      color: #8a747b;
+    }
+
+    .error {
+      background: #fff0f3;
+      padding: 20px;
+      border-radius: 15px;
+      color: #a96b82;
+    }
+
+    @media (max-width: 650px) {
+
+      .summary {
+        grid-template-columns: 1fr;
+      }
+
+      .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .dashboard {
+        margin: 25px auto;
+        padding: 15px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+  <header>
+
+    <div class="logo">
+      KINO
+    </div>
+
+    <div class="admin-label">
+      Admin Dashboard
+    </div>
+
+  </header>
+
+
+  <main class="dashboard">
+
+    <h1>
+      Orders ♡
+    </h1>
+
+
+    <div class="summary">
+
+      <div class="summary-box">
+
+        <div class="summary-label">
+          Pending Orders
+        </div>
+
+        <div class="summary-number" id="pending-count">
+          0
+        </div>
+
+      </div>
+
+
+      <div class="summary-box">
+
+        <div class="summary-label">
+          Paid Orders
+        </div>
+
+        <div class="summary-number" id="paid-count">
+          0
+        </div>
+
+      </div>
+
+
+      <div class="summary-box">
+
+        <div class="summary-label">
+          Total Sales
+        </div>
+
+        <div class="summary-number" id="sales-total">
+          RM0
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div id="orders">
+
+      <div class="empty">
+        Loading orders...
+      </div>
+
+    </div>
+
+  </main>
+
+
+<script>
+
+  // ==================================
+  // SUPABASE
+  // ==================================
+
+  const SUPABASE_URL =
+    "https://vbdgzsapdbpgfcdksdoi.supabase.co";
+
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
+
+
+  const { createClient } = supabase;
+
+
+  const db =
+    createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+  // ==================================
+  // ELEMENTS
+  // ==================================
+
+  const ordersContainer =
+    document.getElementById("orders");
+
+  const pendingCount =
+    document.getElementById("pending-count");
+
+  const paidCount =
+    document.getElementById("paid-count");
+
+  const salesTotal =
+    document.getElementById("sales-total");
+
+
+  // ==================================
+  // LOAD ORDERS
+  // ==================================
+
+  async function loadOrders() {
+
+    ordersContainer.innerHTML = `
+      <div class="empty">
+        Loading orders...
+      </div>
+    `;
+
+
+    const { data, error } =
+      await db
+        .from("orders")
+        .select("*")
+        .order("created_at", {
+          ascending: false
+        });
+
+
+    if (error) {
+
+      console.error(error);
+
+      ordersContainer.innerHTML = `
+        <div class="error">
+          Unable to load orders.
+        </div>
+      `;
+
+      return;
+    }
+
+
+    updateSummary(data);
+
+
+    if (!data || data.length === 0) {
+
+      ordersContainer.innerHTML = `
+        <div class="empty">
+          No orders yet.
+        </div>
+      `;
+
+      return;
+    }
+
+
+    ordersContainer.innerHTML = "";
+
+
+    data.forEach(order => {
+
+      const card =
+        document.createElement("div");
+
+      card.className =
+        "order-card";
+
+
+      card.innerHTML = `
+
+        <div class="order-header">
+
+          <div class="order-code">
+            ${order.order_code}
+          </div>
+
+          <div class="status">
+            ${order.status}
+          </div>
+
+        </div>
+
+
+        <div class="customer">
+
+          <strong>
+            ${order.customer_name}
+          </strong>
+
+          <br>
+
+          ${order.customer_email}
+
+        </div>
+
+
+        <div class="total">
+
+          RM${Number(order.total).toFixed(2)}
+
+        </div>
+
+
+        <div>
+
+          ${
+            order.payment_proof_path
+            ?
+            `<a
+              class="proof-button"
+              href="${getProofUrl(order.payment_proof_path)}"
+              target="_blank"
+            >
+              VIEW PAYMENT PROOF
+            </a>`
+            :
+            ""
+          }
+
+
+          ${
+            order.status === "pending"
+            ?
+            `
+              <button
+                class="paid-button"
+                onclick="updateStatus('${order.id}', 'paid')"
+              >
+                MARK AS PAID
+              </button>
+
+              <button
+                class="reject-button"
+                onclick="updateStatus('${order.id}', 'rejected')"
+              >
+                REJECT
+              </button>
+            `
+            :
+            ""
+          }
+
+        </div>
+
+      `;
+
+
+      ordersContainer.appendChild(card);
+
+    });
+
+  }
+
+
+  // ==================================
+  // SUMMARY
+  // ==================================
+
+  function updateSummary(orders) {
+
+    const pending =
+      orders.filter(
+        order => order.status === "pending"
+      ).length;
+
+
+    const paidOrders =
+      orders.filter(
+        order => order.status === "paid"
+      );
+
+
+    const sales =
+      paidOrders.reduce(
+        (sum, order) =>
+          sum + Number(order.total || 0),
+        0
+      );
+
+
+    pendingCount.textContent =
+      pending;
+
+
+    paidCount.textContent =
+      paidOrders.length;
+
+
+    salesTotal.textContent =
+      `RM${sales.toFixed(2)}`;
+
+  }
+
+
+  // ==================================
+  // PAYMENT PROOF URL
+  // ==================================
+
+  function getProofUrl(path) {
+
+    const { data } =
+      db
+        .storage
+        .from("payment-proofs")
+        .getPublicUrl(path);
+
+
+    return data.publicUrl;
+
+  }
+
+
+  // ==================================
+  // UPDATE STATUS
+  // ==================================
+
+  async function updateStatus(
+    orderId,
+    status
+  ) {
+
+    const message =
+      status === "paid"
+      ?
+      "Mark this order as PAID?"
+      :
+      "Reject this order?";
+
+
+    if (!confirm(message)) {
+
+      return;
+
+    }
+
+
+    const { error } =
+      await db
+        .from("orders")
+        .update({
+          status: status
+        })
+        .eq("id", orderId);
+
+
+    if (error) {
+
+      console.error(error);
+
+      alert(
+        "Unable to update order."
+      );
+
+      return;
+
+    }
+
+
+    await loadOrders();
+
+  }
+
+
+  // ==================================
+  // START
+  // ==================================
+
+  loadOrders();
+
+</script>
+
+
+</body>
+
+</html>
