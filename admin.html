@@ -1,621 +1,575 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
 
-  <title>KINO Admin</title>
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>KINO Admin</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<link
+  href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+>
 
-    body {
-      font-family: 'Baloo 2', sans-serif;
-      background: #fff8fa;
-      color: #5f4a50;
-    }
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    button,
-    input {
-      font-family: 'Baloo 2', sans-serif;
-    }
+<style>
 
-    /* =========================
-       LOGIN
-    ========================= */
+* {
+  box-sizing: border-box;
+}
 
-    #login-page {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
+body {
+  margin: 0;
+  background: #fff8fb;
+  color: #8a747b;
+  font-family: 'Baloo 2', sans-serif;
+}
 
-    .login-box {
-      width: 100%;
-      max-width: 400px;
-      background: white;
-      padding: 35px;
-      border-radius: 25px;
-      box-shadow: 0 8px 25px rgba(190,130,150,.12);
-    }
+button,
+input {
+  font-family: inherit;
+}
 
-    .login-logo {
-      text-align: center;
-      font-size: 32px;
-      font-weight: 700;
-      color: #c47794;
-      margin-bottom: 5px;
-    }
+/* =========================
+   LOGIN
+========================= */
 
-    .login-title {
-      text-align: center;
-      color: #8a747b;
-      margin-bottom: 25px;
-    }
+#login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
 
-    .input-group {
-      margin-bottom: 15px;
-    }
+.login-box {
+  width: 100%;
+  max-width: 440px;
+  background: white;
+  padding: 45px 40px;
+  border-radius: 28px;
+  box-shadow: 0 8px 30px rgba(190,130,150,0.12);
+}
 
-    .input-group label {
-      display: block;
-      font-size: 14px;
-      color: #8a747b;
-      margin-bottom: 5px;
-    }
+.login-logo {
+  text-align: center;
+  color: #b96f8a;
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
 
-    .input-group input {
-      width: 100%;
-      padding: 12px 15px;
-      border: 1px solid #f0d9e1;
-      border-radius: 15px;
-      outline: none;
-      font-size: 15px;
-    }
+.login-title {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 30px;
+}
 
-    .input-group input:focus {
-      border-color: #d9829e;
-    }
+.input-group {
+  margin-bottom: 18px;
+}
 
-    .login-button {
-      width: 100%;
-      border: none;
-      padding: 12px;
-      border-radius: 18px;
-      background: #d9829e;
-      color: white;
-      cursor: pointer;
-      font-size: 15px;
-      font-weight: 600;
-    }
+.input-group label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 14px;
+}
 
-    .login-button:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-    }
+.input-group input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #eadce2;
+  border-radius: 15px;
+  outline: none;
+  font-size: 15px;
+}
 
-    .login-error {
-      background: #fff0f3;
-      color: #a96b82;
-      padding: 12px;
-      border-radius: 12px;
-      margin-bottom: 15px;
-      font-size: 14px;
-      display: none;
-    }
+.input-group input:focus {
+  border-color: #d9829e;
+}
 
-    /* =========================
-       HEADER
-    ========================= */
+.login-button {
+  width: 100%;
+  border: none;
+  background: #d9829e;
+  color: white;
+  padding: 14px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
 
-    header {
-      background: white;
-      padding: 18px 7%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+.login-button:disabled {
+  opacity: 0.6;
+}
 
-    .logo {
-      font-size: 26px;
-      font-weight: 700;
-      color: #c47794;
-    }
+.login-error {
+  display: none;
+  background: #fff0f3;
+  color: #a96b82;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  text-align: center;
+}
 
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+/* =========================
+   HEADER
+========================= */
 
-    .admin-label {
-      color: #8a747b;
-      font-size: 14px;
-    }
+#dashboard-page {
+  display: none;
+}
 
-    .logout-button {
-      border: none;
-      background: #f7dce5;
-      color: #a96b82;
-      padding: 7px 13px;
-      border-radius: 15px;
-      cursor: pointer;
-    }
+header {
+  background: white;
+  padding: 18px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 15px rgba(190,130,150,0.06);
+}
 
-    /* =========================
-       DASHBOARD
-    ========================= */
+.logo {
+  color: #b96f8a;
+  font-size: 25px;
+  font-weight: 700;
+}
 
-    .dashboard {
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 20px;
-    }
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
 
-    h1 {
-      color: #b96f8a;
-      font-size: 32px;
-      margin-bottom: 25px;
-    }
+.admin-label {
+  font-size: 14px;
+}
 
-    .summary {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin-bottom: 30px;
-    }
+.logout-button {
+  border: none;
+  background: #f7dce5;
+  color: #a96b82;
+  padding: 8px 15px;
+  border-radius: 18px;
+  cursor: pointer;
+}
 
-    .summary-box {
-      background: white;
-      padding: 20px;
-      border-radius: 20px;
-      box-shadow: 0 5px 18px rgba(190,130,150,.10);
-    }
+/* =========================
+   DASHBOARD
+========================= */
 
-    .summary-label {
-      color: #8a747b;
-      font-size: 14px;
-    }
+.dashboard {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+}
 
-    .summary-number {
-      color: #b96f8a;
-      font-size: 28px;
-      font-weight: 700;
-    }
+h1 {
+  color: #b96f8a;
+  font-size: 32px;
+  margin-bottom: 25px;
+}
 
-    /* =========================
-       ORDERS
-    ========================= */
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
 
-    .order-card {
-      background: white;
-      padding: 22px;
-      border-radius: 20px;
-      margin-bottom: 15px;
-      box-shadow: 0 5px 18px rgba(190,130,150,.10);
-    }
+.summary-box {
+  background: white;
+  padding: 22px;
+  border-radius: 20px;
+  box-shadow: 0 5px 18px rgba(190,130,150,0.10);
+}
 
-    .order-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      align-items: center;
-      margin-bottom: 12px;
-    }
+.summary-label {
+  font-size: 14px;
+}
 
-    .order-code {
-      color: #b96f8a;
-      font-weight: 700;
-      font-size: 17px;
-    }
+.summary-number {
+  color: #b96f8a;
+  font-size: 28px;
+  font-weight: 700;
+}
 
-    .status {
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      background: #fde6ee;
-      color: #a96b82;
-    }
+/* =========================
+   ORDERS
+========================= */
 
-    .status.paid {
-      background: #e8f7ee;
-      color: #4e8a66;
-    }
+.order-card {
+  background: white;
+  padding: 22px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 18px rgba(190,130,150,0.10);
+}
 
-    .status.rejected {
-      background: #f3eeee;
-      color: #8a747b;
-    }
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 12px;
+}
 
-    .customer {
-      margin-bottom: 12px;
-      color: #8a747b;
-    }
+.order-code {
+  color: #b96f8a;
+  font-weight: 700;
+  font-size: 17px;
+}
 
-    .total {
-      font-size: 20px;
-      font-weight: 700;
-      color: #b96f8a;
-      margin-bottom: 15px;
-    }
+.status {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  background: #fde6ee;
+  color: #a96b82;
+}
 
-    .button {
-      border: none;
-      padding: 9px 16px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 13px;
-      margin-right: 8px;
-      margin-bottom: 6px;
-    }
+.status.paid {
+  background: #e5f6ec;
+  color: #4f8a68;
+}
 
-    .proof-button {
-      background: #f7dce5;
-      color: #a96b82;
-    }
+.status.rejected {
+  background: #f1eeee;
+  color: #777;
+}
 
-    .paid-button {
-      background: #d9829e;
-      color: white;
-    }
+.customer {
+  margin-bottom: 12px;
+}
 
-    .reject-button {
-      background: #f7dce5;
-      color: #a96b82;
-    }
+.total {
+  font-size: 20px;
+  font-weight: 700;
+  color: #b96f8a;
+  margin-bottom: 15px;
+}
 
-    .empty {
-      background: white;
-      padding: 40px;
-      text-align: center;
-      border-radius: 20px;
-      color: #8a747b;
-    }
+.order-date {
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 15px;
+}
 
-    .error {
-      background: #fff0f3;
-      padding: 20px;
-      border-radius: 15px;
-      color: #a96b82;
-    }
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
 
-    .date {
-      color: #a9959b;
-      font-size: 12px;
-      margin-top: 8px;
-    }
+.actions button {
+  border: none;
+  padding: 9px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+}
 
-    @media (max-width: 650px) {
+.proof-button {
+  background: #f7dce5;
+  color: #a96b82;
+}
 
-      .summary {
-        grid-template-columns: 1fr;
-      }
+.paid-button {
+  background: #d9829e;
+  color: white;
+}
 
-      .order-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+.reject-button {
+  background: #f7dce5;
+  color: #a96b82;
+}
 
-      .dashboard {
-        margin: 25px auto;
-        padding: 15px;
-      }
+.loading,
+.empty,
+.error {
+  background: white;
+  padding: 35px;
+  text-align: center;
+  border-radius: 20px;
+}
 
-      header {
-        padding: 15px 5%;
-      }
+.error {
+  color: #a96b82;
+  background: #fff0f3;
+}
 
-      .header-right {
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 4px;
-      }
+/* =========================
+   MOBILE
+========================= */
 
-      .admin-label {
-        font-size: 12px;
-      }
+@media (max-width: 650px) {
 
-      .logout-button {
-        font-size: 12px;
-      }
-    }
-  </style>
+  .summary {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard {
+    margin: 25px auto;
+    padding: 15px;
+  }
+
+  header {
+    padding: 15px 5%;
+  }
+
+  .header-right {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+
+  .order-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-  <!-- =========================
-       LOGIN PAGE
-  ========================= -->
 
-  <section id="login-page">
+<!-- =========================================
+     LOGIN PAGE
+========================================= -->
 
-    <div class="login-box">
+<section id="login-page">
 
-      <div class="login-logo">
-        KINO ♡
+  <div class="login-box">
+
+    <div class="login-logo">
+      KINO ♡
+    </div>
+
+    <div class="login-title">
+      Admin Dashboard
+    </div>
+
+    <div
+      id="login-error"
+      class="login-error"
+    ></div>
+
+    <form id="login-form">
+
+      <div class="input-group">
+
+        <label>Email</label>
+
+        <input
+          type="email"
+          id="login-email"
+          placeholder="Admin email"
+          required
+        >
+
       </div>
 
-      <div class="login-title">
-        Admin Dashboard
+
+      <div class="input-group">
+
+        <label>Password</label>
+
+        <input
+          type="password"
+          id="login-password"
+          placeholder="Password"
+          required
+        >
+
+      </div>
+
+
+      <button
+        type="submit"
+        class="login-button"
+        id="login-button"
+      >
+        LOGIN
+      </button>
+
+    </form>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================
+     DASHBOARD
+========================================= -->
+
+<section id="dashboard-page">
+
+<header>
+
+  <div class="logo">
+    KINO
+  </div>
+
+  <div class="header-right">
+
+    <div class="admin-label">
+      Admin Dashboard
+    </div>
+
+    <button
+      class="logout-button"
+      onclick="logout()"
+    >
+      LOGOUT
+    </button>
+
+  </div>
+
+</header>
+
+
+<main class="dashboard">
+
+  <h1>
+    Orders ♡
+  </h1>
+
+
+  <div class="summary">
+
+    <div class="summary-box">
+
+      <div class="summary-label">
+        Pending Orders
       </div>
 
       <div
-        id="login-error"
-        class="login-error">
+        class="summary-number"
+        id="pending-count"
+      >
+        0
       </div>
-
-      <form id="login-form">
-
-        <div class="input-group">
-
-          <label for="login-email">
-            Email
-          </label>
-
-          <input
-            type="email"
-            id="login-email"
-            placeholder="Admin email"
-            autocomplete="username"
-            required
-          >
-
-        </div>
-
-        <div class="input-group">
-
-          <label for="login-password">
-            Password
-          </label>
-
-          <input
-            type="password"
-            id="login-password"
-            placeholder="Password"
-            autocomplete="current-password"
-            required
-          >
-
-        </div>
-
-        <button
-          type="submit"
-          class="login-button"
-          id="login-button">
-
-          LOGIN
-
-        </button>
-
-      </form>
 
     </div>
 
-  </section>
 
+    <div class="summary-box">
 
-  <!-- =========================
-       DASHBOARD
-  ========================= -->
-
-  <section
-    id="dashboard-page"
-    style="display:none;">
-
-    <header>
-
-      <div class="logo">
-        KINO
+      <div class="summary-label">
+        Paid Orders
       </div>
 
-      <div class="header-right">
-
-        <div class="admin-label">
-          Admin Dashboard
-        </div>
-
-        <button
-          class="logout-button"
-          id="logout-button">
-
-          LOGOUT
-
-        </button>
-
+      <div
+        class="summary-number"
+        id="paid-count"
+      >
+        0
       </div>
 
-    </header>
+    </div>
 
 
-    <main class="dashboard">
+    <div class="summary-box">
 
-      <h1>
-        Orders ♡
-      </h1>
-
-
-      <div class="summary">
-
-        <div class="summary-box">
-
-          <div class="summary-label">
-            Pending Orders
-          </div>
-
-          <div
-            class="summary-number"
-            id="pending-count">
-
-            0
-
-          </div>
-
-        </div>
-
-
-        <div class="summary-box">
-
-          <div class="summary-label">
-            Paid Orders
-          </div>
-
-          <div
-            class="summary-number"
-            id="paid-count">
-
-            0
-
-          </div>
-
-        </div>
-
-
-        <div class="summary-box">
-
-          <div class="summary-label">
-            Total Sales
-          </div>
-
-          <div
-            class="summary-number"
-            id="sales-total">
-
-            RM0.00
-
-          </div>
-
-        </div>
-
+      <div class="summary-label">
+        Total Sales
       </div>
 
-
-      <div id="orders">
-
-        <div class="empty">
-          Loading orders...
-        </div>
-
+      <div
+        class="summary-number"
+        id="sales-total"
+      >
+        RM0.00
       </div>
 
-    </main>
+    </div>
 
-  </section>
+  </div>
+
+
+  <div id="orders">
+
+    <div class="loading">
+      Loading orders...
+    </div>
+
+  </div>
+
+</main>
+
+</section>
 
 
 <script>
 
-/* ==========================================
+/* =========================================
    SUPABASE
-========================================== */
+========================================= */
 
 const SUPABASE_URL =
   "https://vbdgzsapdbpgfcdksdoi.supabase.co";
 
-
-/*
-  PASTE YOUR REAL SUPABASE
-  PUBLISHABLE / ANON KEY HERE.
-
-  Supabase:
-  Project Settings
-  → API
-  → Publishable key
-*/
-
 const SUPABASE_PUBLISHABLE_KEY =
   "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
 
+const { createClient } = supabase;
 
-const { createClient } =
-  supabase;
-
-
-const db =
-  createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-  );
+const db = createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
 
 
-/* ==========================================
+/* =========================================
    ELEMENTS
-========================================== */
+========================================= */
 
 const loginPage =
-  document.getElementById(
-    "login-page"
-  );
+  document.getElementById("login-page");
 
 const dashboardPage =
-  document.getElementById(
-    "dashboard-page"
-  );
+  document.getElementById("dashboard-page");
 
 const loginForm =
-  document.getElementById(
-    "login-form"
-  );
-
-const loginEmail =
-  document.getElementById(
-    "login-email"
-  );
-
-const loginPassword =
-  document.getElementById(
-    "login-password"
-  );
+  document.getElementById("login-form");
 
 const loginError =
-  document.getElementById(
-    "login-error"
-  );
+  document.getElementById("login-error");
 
 const loginButton =
-  document.getElementById(
-    "login-button"
-  );
-
-const logoutButton =
-  document.getElementById(
-    "logout-button"
-  );
+  document.getElementById("login-button");
 
 const ordersContainer =
-  document.getElementById(
-    "orders"
-  );
+  document.getElementById("orders");
 
 const pendingCount =
-  document.getElementById(
-    "pending-count"
-  );
+  document.getElementById("pending-count");
 
 const paidCount =
-  document.getElementById(
-    "paid-count"
-  );
+  document.getElementById("paid-count");
 
 const salesTotal =
-  document.getElementById(
-    "sales-total"
-  );
+  document.getElementById("sales-total");
 
 
-/* ==========================================
-   HELPERS
-========================================== */
+/* =========================================
+   ESCAPE HTML
+========================================= */
 
 function escapeHtml(value) {
 
@@ -629,113 +583,9 @@ function escapeHtml(value) {
 }
 
 
-function showLoginError(message) {
-
-  loginError.textContent =
-    message;
-
-  loginError.style.display =
-    "block";
-
-}
-
-
-function clearLoginError() {
-
-  loginError.textContent =
-    "";
-
-  loginError.style.display =
-    "none";
-
-}
-
-
-/* ==========================================
-   CHECK ADMIN
-========================================== */
-
-async function verifyAdmin() {
-
-  const {
-    data: {
-      session
-    },
-    error: sessionError
-  } =
-    await db.auth.getSession();
-
-
-  if (sessionError) {
-
-    throw new Error(
-      "Session error: " +
-      sessionError.message
-    );
-
-  }
-
-
-  if (!session) {
-
-    return false;
-
-  }
-
-
-  /*
-    Check existing is_admin()
-    function in Supabase.
-  */
-
-  const {
-    data: adminResult,
-    error: adminError
-  } =
-    await db.rpc(
-      "is_admin"
-    );
-
-
-  if (!adminError) {
-
-    return adminResult === true;
-
-  }
-
-
-  /*
-    Fallback:
-    Try reading orders.
-
-    Your existing RLS allows
-    authenticated admins to read
-    orders.
-  */
-
-  console.warn(
-    "is_admin() failed:",
-    adminError
-  );
-
-
-  const {
-    error: ordersCheckError
-  } =
-    await db
-      .from("orders")
-      .select("id")
-      .limit(1);
-
-
-  return !ordersCheckError;
-
-}
-
-
-/* ==========================================
+/* =========================================
    LOGIN
-========================================== */
+========================================= */
 
 loginForm.addEventListener(
   "submit",
@@ -743,201 +593,85 @@ loginForm.addEventListener(
 
     event.preventDefault();
 
+    loginError.style.display = "none";
 
-    clearLoginError();
-
-
-    loginButton.disabled =
-      true;
+    loginButton.disabled = true;
 
     loginButton.textContent =
       "LOGGING IN...";
 
 
     const email =
-      loginEmail.value.trim();
+      document
+        .getElementById("login-email")
+        .value
+        .trim();
+
 
     const password =
-      loginPassword.value;
+      document
+        .getElementById("login-password")
+        .value;
 
 
-    try {
+    const { error } =
+      await db.auth.signInWithPassword({
 
-      const {
-        data,
-        error
-      } =
-        await db.auth
-          .signInWithPassword({
+        email: email,
 
-            email: email,
+        password: password
 
-            password: password
-
-          });
+      });
 
 
-      if (error) {
+    if (error) {
 
-        console.error(
-          "LOGIN ERROR:",
-          error
-        );
+      console.error(error);
 
+      loginError.textContent =
+        "Email atau password salah.";
 
-        showLoginError(
-          "Login gagal: " +
-          error.message
-        );
+      loginError.style.display =
+        "block";
 
-
-        loginButton.disabled =
-          false;
-
-        loginButton.textContent =
-          "LOGIN";
-
-        return;
-
-      }
-
-
-      const isAdmin =
-        await verifyAdmin();
-
-
-      if (!isAdmin) {
-
-        await db.auth.signOut();
-
-
-        showLoginError(
-          "Akaun ini bukan Admin KINO."
-        );
-
-
-        loginButton.disabled =
-          false;
-
-        loginButton.textContent =
-          "LOGIN";
-
-        return;
-
-      }
-
-
-      loginPassword.value =
-        "";
-
-
-      await showDashboard();
-
-
-    } catch (error) {
-
-      console.error(
-        "ADMIN LOGIN ERROR:",
-        error
-      );
-
-
-      await db.auth.signOut();
-
-
-      showLoginError(
-        error.message ||
-        "Something went wrong."
-      );
-
-
-      loginButton.disabled =
-        false;
+      loginButton.disabled = false;
 
       loginButton.textContent =
         "LOGIN";
 
+      return;
+
     }
 
-  }
-);
+
+    /*
+      Supabase RLS decides whether
+      this account is actually admin.
+    */
+
+    const { error: adminError } =
+      await db
+        .from("orders")
+        .select("id")
+        .limit(1);
 
 
-/* ==========================================
-   SHOW DASHBOARD
-========================================== */
+    if (adminError) {
 
-async function showDashboard() {
+      console.error(adminError);
 
-  loginPage.style.display =
-    "none";
+      await db.auth.signOut();
 
-  dashboardPage.style.display =
-    "block";
+      loginError.textContent =
+        "Access denied. Admin sahaja boleh masuk.";
 
+      loginError.style.display =
+        "block";
 
-  loginButton.disabled =
-    false;
+      loginButton.disabled = false;
 
-  loginButton.textContent =
-    "LOGIN";
-
-
-  await loadOrders();
-
-}
-
-
-/* ==========================================
-   LOGOUT
-========================================== */
-
-logoutButton.addEventListener(
-  "click",
-  async function() {
-
-    await db.auth.signOut();
-
-
-    dashboardPage.style.display =
-      "none";
-
-    loginPage.style.display =
-      "flex";
-
-
-    loginEmail.value =
-      "";
-
-    loginPassword.value =
-      "";
-
-
-    clearLoginError();
-
-  }
-);
-
-
-/* ==========================================
-   CHECK EXISTING SESSION
-========================================== */
-
-async function checkSession() {
-
-  try {
-
-    const isAdmin =
-      await verifyAdmin();
-
-
-    if (!isAdmin) {
-
-      loginPage.style.display =
-        "flex";
-
-      dashboardPage.style.display =
-        "none";
+      loginButton.textContent =
+        "LOGIN";
 
       return;
 
@@ -946,76 +680,110 @@ async function checkSession() {
 
     await showDashboard();
 
-
-  } catch (error) {
-
-    console.error(
-      "SESSION ERROR:",
-      error
-    );
-
-
-    await db.auth.signOut();
-
-
-    loginPage.style.display =
-      "flex";
-
-    dashboardPage.style.display =
-      "none";
-
   }
+);
+
+
+/* =========================================
+   SHOW DASHBOARD
+========================================= */
+
+async function showDashboard() {
+
+  loginPage.style.display = "none";
+
+  dashboardPage.style.display = "block";
+
+  await loadOrders();
 
 }
 
 
-/* ==========================================
+/* =========================================
+   CHECK SESSION
+========================================= */
+
+async function checkSession() {
+
+  const {
+    data: {
+      session
+    }
+  } = await db.auth.getSession();
+
+
+  if (!session) {
+
+    loginPage.style.display = "flex";
+
+    dashboardPage.style.display = "none";
+
+    return;
+
+  }
+
+
+  const { error } =
+    await db
+      .from("orders")
+      .select("id")
+      .limit(1);
+
+
+  if (error) {
+
+    await db.auth.signOut();
+
+    loginPage.style.display = "flex";
+
+    dashboardPage.style.display = "none";
+
+    return;
+
+  }
+
+
+  await showDashboard();
+
+}
+
+
+/* =========================================
    LOAD ORDERS
-========================================== */
+========================================= */
 
 async function loadOrders() {
 
-  ordersContainer.innerHTML =
-    '<div class="empty">Loading orders...</div>';
+  ordersContainer.innerHTML = `
+    <div class="loading">
+      Loading orders...
+    </div>
+  `;
 
 
   const {
     data,
     error
-  } =
-    await db
-      .from("orders")
-      .select("*")
-      .order(
-        "created_at",
-        {
-          ascending: false
-        }
-      );
+  } = await db
+    .from("orders")
+    .select("*")
+    .order(
+      "created_at",
+      {
+        ascending: false
+      }
+    );
 
 
   if (error) {
 
-    console.error(
-      "LOAD ORDERS ERROR:",
-      error
-    );
-
+    console.error(error);
 
     ordersContainer.innerHTML = `
-
       <div class="error">
-
-        Unable to load orders.
-
-        <br><br>
-
-        ${escapeHtml(
-          error.message
-        )}
-
+        Unable to load orders.<br><br>
+        ${escapeHtml(error.message)}
       </div>
-
     `;
 
     return;
@@ -1027,21 +795,15 @@ async function loadOrders() {
     data || [];
 
 
-  updateSummary(
-    orders
-  );
+  updateSummary(orders);
 
 
-  if (
-    orders.length === 0
-  ) {
+  if (orders.length === 0) {
 
     ordersContainer.innerHTML = `
-
       <div class="empty">
         No orders yet ♡
       </div>
-
     `;
 
     return;
@@ -1049,56 +811,42 @@ async function loadOrders() {
   }
 
 
-  ordersContainer.innerHTML =
-    "";
+  ordersContainer.innerHTML = "";
 
 
   orders.forEach(
     order => {
 
       const card =
-        document.createElement(
-          "div"
-        );
-
+        document.createElement("div");
 
       card.className =
         "order-card";
 
 
-      const orderCode =
-        escapeHtml(
-          order.order_code
-        );
-
-
       const status =
-        String(
-          order.status ||
-          "pending"
-        );
+        String(order.status || "pending");
 
 
-      const customerName =
-        escapeHtml(
-          order.customer_name
-        );
+      const statusClass =
+        status === "paid"
+          ? "paid"
+          : status === "rejected"
+            ? "rejected"
+            : "";
 
 
-      const customerEmail =
-        escapeHtml(
-          order.customer_email
-        );
+      const createdAt =
+        order.created_at
+          ? new Date(
+              order.created_at
+            ).toLocaleString(
+              "en-MY"
+            )
+          : "-";
 
 
-      const total =
-        Number(
-          order.total || 0
-        ).toFixed(2);
-
-
-      let proofButton =
-        "";
+      let proofButton = "";
 
 
       if (
@@ -1106,93 +854,39 @@ async function loadOrders() {
       ) {
 
         proofButton = `
-
           <button
-            class="button proof-button"
-            onclick="viewPaymentProof('${encodeURIComponent(
-              order.payment_proof_path
-            )}')">
-
+            class="proof-button"
+            onclick="viewPaymentProof('${encodeURIComponent(order.payment_proof_path)}')"
+          >
             VIEW PAYMENT PROOF
-
           </button>
-
         `;
 
       }
 
 
-      let actionButtons =
-        "";
+      let actionButtons = "";
 
 
-      if (
-        status === "pending"
-      ) {
+      if (status === "pending") {
 
         actionButtons = `
 
           <button
-            class="button paid-button"
-            onclick="updateStatus(
-              '${order.id}',
-              'paid'
-            )">
-
+            class="paid-button"
+            onclick="updateStatus('${order.id}', 'paid')"
+          >
             MARK AS PAID
-
           </button>
 
-
           <button
-            class="button reject-button"
-            onclick="updateStatus(
-              '${order.id}',
-              'rejected'
-            )">
-
+            class="reject-button"
+            onclick="updateStatus('${order.id}', 'rejected')"
+          >
             REJECT
-
           </button>
 
         `;
-
-      }
-
-
-      let createdDate =
-        "";
-
-
-      if (
-        order.created_at
-      ) {
-
-        const date =
-          new Date(
-            order.created_at
-          );
-
-
-        if (
-          !Number.isNaN(
-            date.getTime()
-          )
-        ) {
-
-          createdDate =
-            date.toLocaleString(
-              "en-MY",
-              {
-                dateStyle:
-                  "medium",
-
-                timeStyle:
-                  "short"
-              }
-            );
-
-        }
 
       }
 
@@ -1202,17 +896,15 @@ async function loadOrders() {
         <div class="order-header">
 
           <div class="order-code">
-            ${orderCode}
+            ${escapeHtml(
+              order.order_code
+            )}
           </div>
 
-          <div class="status ${escapeHtml(
-            status
-          )}">
-
-            ${escapeHtml(
-              status
-            )}
-
+          <div
+            class="status ${statusClass}"
+          >
+            ${escapeHtml(status)}
           </div>
 
         </div>
@@ -1221,43 +913,39 @@ async function loadOrders() {
         <div class="customer">
 
           <strong>
-            ${customerName}
+            ${escapeHtml(
+              order.customer_name
+            )}
           </strong>
 
           <br>
 
-          ${customerEmail}
+          ${escapeHtml(
+            order.customer_email
+          )}
 
         </div>
 
 
         <div class="total">
-
-          RM${total}
-
+          RM${Number(
+            order.total || 0
+          ).toFixed(2)}
         </div>
 
 
-        <div>
+        <div class="order-date">
+          ${escapeHtml(createdAt)}
+        </div>
+
+
+        <div class="actions">
 
           ${proofButton}
 
           ${actionButtons}
 
         </div>
-
-
-        ${
-          createdDate
-            ? `
-              <div class="date">
-                ${escapeHtml(
-                  createdDate
-                )}
-              </div>
-            `
-            : ""
-        }
 
       `;
 
@@ -1272,66 +960,9 @@ async function loadOrders() {
 }
 
 
-/* ==========================================
-   SUMMARY
-========================================== */
-
-function updateSummary(
-  orders
-) {
-
-  const pending =
-    orders.filter(
-      order =>
-        order.status ===
-        "pending"
-    ).length;
-
-
-  const paidOrders =
-    orders.filter(
-      order =>
-        order.status ===
-        "paid"
-    );
-
-
-  const sales =
-    paidOrders.reduce(
-      (
-        sum,
-        order
-      ) => {
-
-        return (
-          sum +
-          Number(
-            order.total || 0
-          )
-        );
-
-      },
-      0
-    );
-
-
-  pendingCount.textContent =
-    pending;
-
-
-  paidCount.textContent =
-    paidOrders.length;
-
-
-  salesTotal.textContent =
-    `RM${sales.toFixed(2)}`;
-
-}
-
-
-/* ==========================================
-   PAYMENT PROOF
-========================================== */
+/* =========================================
+   VIEW PAYMENT PROOF
+========================================= */
 
 async function viewPaymentProof(
   encodedPath
@@ -1343,113 +974,111 @@ async function viewPaymentProof(
     );
 
 
-  const {
-    data,
-    error
-  } =
-    await db.storage
-      .from(
-        "payment-proofs"
-      )
+  try {
+
+    const {
+      data,
+      error
+    } = await db.storage
+      .from("payment-proofs")
       .createSignedUrl(
         path,
         300
       );
 
 
-  if (error) {
+    if (error) {
 
-    console.error(
-      "PAYMENT PROOF ERROR:",
-      error
+      console.error(error);
+
+      alert(
+        "Unable to open payment proof.\n\n"
+        + error.message
+      );
+
+      return;
+
+    }
+
+
+    if (!data || !data.signedUrl) {
+
+      alert(
+        "Payment proof was not found."
+      );
+
+      return;
+
+    }
+
+
+    window.open(
+      data.signedUrl,
+      "_blank"
     );
-
-
-    alert(
-      "Unable to open payment proof.\n\n" +
-      error.message
-    );
-
-
-    return;
 
   }
 
+  catch (error) {
 
-  if (
-    !data ||
-    !data.signedUrl
-  ) {
+    console.error(error);
 
     alert(
-      "Payment proof URL could not be created."
+      "Unable to open payment proof."
     );
 
-
-    return;
-
   }
-
-
-  window.open(
-    data.signedUrl,
-    "_blank"
-  );
 
 }
 
 
-/* ==========================================
-   UPDATE ORDER STATUS
-========================================== */
+/* =========================================
+   UPDATE STATUS
+========================================= */
 
 async function updateStatus(
   orderId,
   status
 ) {
 
-  const message =
+  const action =
     status === "paid"
-      ? "Mark this order as PAID?"
-      : "Reject this order?";
+      ? "mark this order as PAID"
+      : "REJECT this order";
 
 
-  if (
-    !confirm(message)
-  ) {
+  const confirmed =
+    confirm(
+      `Are you sure you want to ${action}?`
+    );
 
+
+  if (!confirmed) {
     return;
-
   }
 
 
   const {
     error
-  } =
-    await db
-      .from("orders")
-      .update({
-        status: status
-      })
-      .eq(
-        "id",
-        orderId
-      );
+  } = await db
+    .from("orders")
+    .update({
+      status: status
+    })
+    .eq(
+      "id",
+      orderId
+    );
 
 
   if (error) {
 
-    console.error(
-      "UPDATE ORDER ERROR:",
-      error
-    );
-
+    console.error(error);
 
     alert(
-      "Unable to update order.\n\n" +
-      error.message
+      "Unable to update order.\n\n"
+      + error.message
     );
-
 
     return;
 
@@ -1461,9 +1090,86 @@ async function updateStatus(
 }
 
 
-/* ==========================================
+/* =========================================
+   SUMMARY
+========================================= */
+
+function updateSummary(
+  orders
+) {
+
+  const pending =
+    orders.filter(
+      order =>
+        order.status === "pending"
+    ).length;
+
+
+  const paid =
+    orders.filter(
+      order =>
+        order.status === "paid"
+    ).length;
+
+
+  const sales =
+    orders
+      .filter(
+        order =>
+          order.status === "paid"
+      )
+      .reduce(
+        (
+          sum,
+          order
+        ) =>
+          sum +
+          Number(
+            order.total || 0
+          ),
+        0
+      );
+
+
+  pendingCount.textContent =
+    pending;
+
+
+  paidCount.textContent =
+    paid;
+
+
+  salesTotal.textContent =
+    "RM" +
+    sales.toFixed(2);
+
+}
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+async function logout() {
+
+  await db.auth.signOut();
+
+  dashboardPage.style.display =
+    "none";
+
+  loginPage.style.display =
+    "flex";
+
+  document
+    .getElementById("login-password")
+    .value = "";
+
+}
+
+
+/* =========================================
    START
-========================================== */
+========================================= */
 
 checkSession();
 
