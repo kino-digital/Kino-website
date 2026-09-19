@@ -6,7 +6,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
   <title>KINO Admin</title>
 
@@ -26,9 +29,106 @@
       color: #5f4a50;
     }
 
+    button,
+    input {
+      font-family: 'Baloo 2', sans-serif;
+    }
+
+
+    /* =========================
+       LOGIN
+    ========================= */
+
+    #login-page {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 400px;
+      background: white;
+      padding: 35px;
+      border-radius: 25px;
+      box-shadow: 0 8px 25px rgba(190, 130, 150, 0.12);
+    }
+
+    .login-logo {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 700;
+      color: #c47794;
+      margin-bottom: 5px;
+    }
+
+    .login-title {
+      text-align: center;
+      color: #8a747b;
+      margin-bottom: 25px;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 14px;
+      color: #8a747b;
+      margin-bottom: 5px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #f0d9e1;
+      border-radius: 15px;
+      outline: none;
+      font-size: 15px;
+    }
+
+    .input-group input:focus {
+      border-color: #d9829e;
+    }
+
+    .login-button {
+      width: 100%;
+      border: none;
+      padding: 12px;
+      border-radius: 18px;
+      background: #d9829e;
+      color: white;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .login-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .login-error {
+      background: #fff0f3;
+      color: #a96b82;
+      padding: 12px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      display: none;
+    }
+
+
+    /* =========================
+       HEADER
+    ========================= */
+
     header {
       background: white;
-      padding: 22px 7%;
+      padding: 18px 7%;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -40,10 +140,31 @@
       color: #c47794;
     }
 
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
     .admin-label {
       color: #8a747b;
       font-size: 14px;
     }
+
+    .logout-button {
+      border: none;
+      background: #f7dce5;
+      color: #a96b82;
+      padding: 7px 13px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-family: 'Baloo 2', sans-serif;
+    }
+
+
+    /* =========================
+       DASHBOARD
+    ========================= */
 
     .dashboard {
       max-width: 1000px;
@@ -81,6 +202,11 @@
       font-size: 28px;
       font-weight: 700;
     }
+
+
+    /* =========================
+       ORDERS
+    ========================= */
 
     .order-card {
       background: white;
@@ -124,17 +250,7 @@
       margin-bottom: 15px;
     }
 
-    .proof-button {
-      display: inline-block;
-      text-decoration: none;
-      background: #f7dce5;
-      color: #a96b82;
-      padding: 9px 16px;
-      border-radius: 20px;
-      font-size: 13px;
-      margin-right: 8px;
-    }
-
+    .proof-button,
     .paid-button,
     .reject-button {
       border: none;
@@ -144,6 +260,13 @@
       cursor: pointer;
       font-size: 13px;
       margin-right: 8px;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .proof-button {
+      background: #f7dce5;
+      color: #a96b82;
     }
 
     .paid-button {
@@ -155,6 +278,11 @@
       background: #f7dce5;
       color: #a96b82;
     }
+
+
+    /* =========================
+       GENERAL
+    ========================= */
 
     .empty {
       background: white;
@@ -170,6 +298,11 @@
       border-radius: 15px;
       color: #a96b82;
     }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
 
     @media (max-width: 650px) {
 
@@ -187,6 +320,24 @@
         padding: 15px;
       }
 
+      header {
+        padding: 15px 5%;
+      }
+
+      .header-right {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 4px;
+      }
+
+      .admin-label {
+        font-size: 12px;
+      }
+
+      .logout-button {
+        font-size: 12px;
+      }
+
     }
 
   </style>
@@ -196,91 +347,193 @@
 
 <body>
 
-  <header>
 
-    <div class="logo">
-      KINO
-    </div>
+  <!-- =========================
+       LOGIN PAGE
+  ========================= -->
 
-    <div class="admin-label">
-      Admin Dashboard
-    </div>
+  <section id="login-page">
 
-  </header>
+    <div class="login-box">
 
+      <div class="login-logo">
+        KINO ♡
+      </div>
 
-  <main class="dashboard">
+      <div class="login-title">
+        Admin Dashboard
+      </div>
 
-    <h1>
-      Orders ♡
-    </h1>
+      <div
+        id="login-error"
+        class="login-error"
+      ></div>
 
+      <form id="login-form">
 
-    <div class="summary">
+        <div class="input-group">
 
-      <div class="summary-box">
+          <label>
+            Email
+          </label>
 
-        <div class="summary-label">
-          Pending Orders
+          <input
+            type="email"
+            id="login-email"
+            placeholder="Admin email"
+            required
+          >
+
         </div>
 
-        <div class="summary-number" id="pending-count">
-          0
+
+        <div class="input-group">
+
+          <label>
+            Password
+          </label>
+
+          <input
+            type="password"
+            id="login-password"
+            placeholder="Password"
+            required
+          >
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="login-button"
+          id="login-button"
+        >
+          LOGIN
+        </button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       ADMIN DASHBOARD
+  ========================= -->
+
+  <section id="dashboard-page" style="display:none;">
+
+    <header>
+
+      <div class="logo">
+        KINO
+      </div>
+
+      <div class="header-right">
+
+        <div class="admin-label">
+          Admin Dashboard
+        </div>
+
+        <button
+          class="logout-button"
+          onclick="logout()"
+        >
+          LOGOUT
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <main class="dashboard">
+
+      <h1>
+        Orders ♡
+      </h1>
+
+
+      <div class="summary">
+
+        <div class="summary-box">
+
+          <div class="summary-label">
+            Pending Orders
+          </div>
+
+          <div
+            class="summary-number"
+            id="pending-count"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <div class="summary-box">
+
+          <div class="summary-label">
+            Paid Orders
+          </div>
+
+          <div
+            class="summary-number"
+            id="paid-count"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <div class="summary-box">
+
+          <div class="summary-label">
+            Total Sales
+          </div>
+
+          <div
+            class="summary-number"
+            id="sales-total"
+          >
+            RM0.00
+          </div>
+
         </div>
 
       </div>
 
 
-      <div class="summary-box">
+      <div id="orders">
 
-        <div class="summary-label">
-          Paid Orders
-        </div>
-
-        <div class="summary-number" id="paid-count">
-          0
+        <div class="empty">
+          Loading orders...
         </div>
 
       </div>
 
+    </main>
 
-      <div class="summary-box">
+  </section>
 
-        <div class="summary-label">
-          Total Sales
-        </div>
-
-        <div class="summary-number" id="sales-total">
-          RM0
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div id="orders">
-
-      <div class="empty">
-        Loading orders...
-      </div>
-
-    </div>
-
-  </main>
 
 
 <script>
+
 
   // ==================================
   // SUPABASE
   // ==================================
 
   const SUPABASE_URL =
-    "https://vbdgzsapdbpgfcdksdoi.supabase.co";
+    "...";
 
   const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
+    "...";
 
 
   const { createClient } = supabase;
@@ -293,9 +546,25 @@
     );
 
 
+
   // ==================================
   // ELEMENTS
   // ==================================
+
+  const loginPage =
+    document.getElementById("login-page");
+
+  const dashboardPage =
+    document.getElementById("dashboard-page");
+
+  const loginForm =
+    document.getElementById("login-form");
+
+  const loginError =
+    document.getElementById("login-error");
+
+  const loginButton =
+    document.getElementById("login-button");
 
   const ordersContainer =
     document.getElementById("orders");
@@ -308,6 +577,209 @@
 
   const salesTotal =
     document.getElementById("sales-total");
+
+
+
+  // ==================================
+  // ESCAPE HTML
+  // ==================================
+
+  function escapeHtml(value) {
+
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+
+  // ==================================
+  // LOGIN
+  // ==================================
+
+  loginForm.addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      loginError.style.display = "none";
+
+      loginButton.disabled = true;
+
+      loginButton.textContent =
+        "LOGGING IN...";
+
+
+      const email =
+        document
+          .getElementById("login-email")
+          .value
+          .trim();
+
+
+      const password =
+        document
+          .getElementById("login-password")
+          .value;
+
+
+      const { data, error } =
+        await db.auth.signInWithPassword({
+          email: email,
+          password: password
+        });
+
+
+      if (error) {
+
+        console.error(error);
+
+        loginError.textContent =
+          "Email atau password salah.";
+
+        loginError.style.display =
+          "block";
+
+        loginButton.disabled = false;
+
+        loginButton.textContent =
+          "LOGIN";
+
+        return;
+
+      }
+
+
+      /*
+       * IMPORTANT:
+       * We don't trust the browser to decide
+       * whether this person is an admin.
+       *
+       * We test access to the orders table.
+       * RLS + is_admin() on Supabase decides.
+       */
+
+      const { error: adminCheckError } =
+        await db
+          .from("orders")
+          .select("id")
+          .limit(1);
+
+
+      if (adminCheckError) {
+
+        console.error(adminCheckError);
+
+
+        await db.auth.signOut();
+
+
+        loginError.textContent =
+          "Access denied. Admin sahaja boleh masuk.";
+
+        loginError.style.display =
+          "block";
+
+        loginButton.disabled = false;
+
+        loginButton.textContent =
+          "LOGIN";
+
+        return;
+
+      }
+
+
+      showDashboard();
+
+    }
+  );
+
+
+
+  // ==================================
+  // SHOW DASHBOARD
+  // ==================================
+
+  async function showDashboard() {
+
+    loginPage.style.display =
+      "none";
+
+    dashboardPage.style.display =
+      "block";
+
+
+    await loadOrders();
+
+  }
+
+
+
+  // ==================================
+  // CHECK EXISTING SESSION
+  // ==================================
+
+  async function checkSession() {
+
+    const {
+      data: {
+        session
+      }
+    } =
+      await db.auth.getSession();
+
+
+    if (!session) {
+
+      loginPage.style.display =
+        "flex";
+
+      dashboardPage.style.display =
+        "none";
+
+      return;
+
+    }
+
+
+    /*
+     * Existing login session.
+     * Still test RLS before showing dashboard.
+     */
+
+    const { error } =
+      await db
+        .from("orders")
+        .select("id")
+        .limit(1);
+
+
+    if (error) {
+
+      await db.auth.signOut();
+
+      loginPage.style.display =
+        "flex";
+
+      dashboardPage.style.display =
+        "none";
+
+      return;
+
+    }
+
+
+    showDashboard();
+
+  }
+
 
 
   // ==================================
@@ -323,13 +795,19 @@
     `;
 
 
-    const { data, error } =
+    const {
+      data,
+      error
+    } =
       await db
         .from("orders")
         .select("*")
-        .order("created_at", {
-          ascending: false
-        });
+        .order(
+          "created_at",
+          {
+            ascending: false
+          }
+        );
 
 
     if (error) {
@@ -343,144 +821,206 @@
       `;
 
       return;
+
     }
 
 
-    updateSummary(data);
+    updateSummary(data || []);
 
 
     if (!data || data.length === 0) {
 
       ordersContainer.innerHTML = `
         <div class="empty">
-          No orders yet.
+          No orders yet ♡
         </div>
       `;
 
       return;
+
     }
 
 
     ordersContainer.innerHTML = "";
 
 
-    data.forEach(order => {
+    data.forEach(
+      order => {
 
-      const card =
-        document.createElement("div");
+        const card =
+          document.createElement("div");
 
-      card.className =
-        "order-card";
-
-
-      card.innerHTML = `
-
-        <div class="order-header">
-
-          <div class="order-code">
-            ${order.order_code}
-          </div>
-
-          <div class="status">
-            ${order.status}
-          </div>
-
-        </div>
+        card.className =
+          "order-card";
 
 
-        <div class="customer">
-
-          <strong>
-            ${order.customer_name}
-          </strong>
-
-          <br>
-
-          ${order.customer_email}
-
-        </div>
+        const orderCode =
+          escapeHtml(
+            order.order_code
+          );
 
 
-        <div class="total">
+        const status =
+          escapeHtml(
+            order.status
+          );
 
-          RM${Number(order.total).toFixed(2)}
 
-        </div>
+        const customerName =
+          escapeHtml(
+            order.customer_name
+          );
 
 
-        <div>
+        const customerEmail =
+          escapeHtml(
+            order.customer_email
+          );
 
-          ${
-            order.payment_proof_path
-            ?
-            `<a
+
+        const total =
+          Number(
+            order.total || 0
+          ).toFixed(2);
+
+
+        let proofButton = "";
+
+
+        if (
+          order.payment_proof_path
+        ) {
+
+          proofButton = `
+
+            <button
               class="proof-button"
-              href="${getProofUrl(order.payment_proof_path)}"
-              target="_blank"
+              onclick="viewPaymentProof('${encodeURIComponent(order.payment_proof_path)}')"
             >
               VIEW PAYMENT PROOF
-            </a>`
-            :
-            ""
-          }
+            </button>
+
+          `;
+
+        }
 
 
-          ${
-            order.status === "pending"
-            ?
-            `
-              <button
-                class="paid-button"
-                onclick="updateStatus('${order.id}', 'paid')"
-              >
-                MARK AS PAID
-              </button>
-
-              <button
-                class="reject-button"
-                onclick="updateStatus('${order.id}', 'rejected')"
-              >
-                REJECT
-              </button>
-            `
-            :
-            ""
-          }
-
-        </div>
-
-      `;
+        let actionButtons = "";
 
 
-      ordersContainer.appendChild(card);
+        if (
+          order.status === "pending"
+        ) {
 
-    });
+          actionButtons = `
+
+            <button
+              class="paid-button"
+              onclick="updateStatus('${order.id}', 'paid')"
+            >
+              MARK AS PAID
+            </button>
+
+
+            <button
+              class="reject-button"
+              onclick="updateStatus('${order.id}', 'rejected')"
+            >
+              REJECT
+            </button>
+
+          `;
+
+        }
+
+
+        card.innerHTML = `
+
+          <div class="order-header">
+
+            <div class="order-code">
+              ${orderCode}
+            </div>
+
+            <div class="status">
+              ${status}
+            </div>
+
+          </div>
+
+
+          <div class="customer">
+
+            <strong>
+              ${customerName}
+            </strong>
+
+            <br>
+
+            ${customerEmail}
+
+          </div>
+
+
+          <div class="total">
+            RM${total}
+          </div>
+
+
+          <div>
+
+            ${proofButton}
+
+            ${actionButtons}
+
+          </div>
+
+        `;
+
+
+        ordersContainer.appendChild(
+          card
+        );
+
+      }
+    );
 
   }
+
 
 
   // ==================================
   // SUMMARY
   // ==================================
 
-  function updateSummary(orders) {
+  function updateSummary(
+    orders
+  ) {
 
     const pending =
       orders.filter(
-        order => order.status === "pending"
+        order =>
+          order.status === "pending"
       ).length;
 
 
     const paidOrders =
       orders.filter(
-        order => order.status === "paid"
+        order =>
+          order.status === "paid"
       );
 
 
     const sales =
       paidOrders.reduce(
-        (sum, order) =>
-          sum + Number(order.total || 0),
+        (
+          sum,
+          order
+        ) =>
+          sum +
+          Number(
+            order.total || 0
+          ),
         0
       );
 
@@ -499,22 +1039,54 @@
   }
 
 
+
   // ==================================
-  // PAYMENT PROOF URL
+  // VIEW PAYMENT PROOF
   // ==================================
 
-  function getProofUrl(path) {
+  async function viewPaymentProof(
+    encodedPath
+  ) {
 
-    const { data } =
-      db
+    const path =
+      decodeURIComponent(
+        encodedPath
+      );
+
+
+    const {
+      data,
+      error
+    } =
+      await db
         .storage
         .from("payment-proofs")
-        .getPublicUrl(path);
+        .createSignedUrl(
+          path,
+          300
+        );
 
 
-    return data.publicUrl;
+    if (error) {
+
+      console.error(error);
+
+      alert(
+        "Unable to open payment proof."
+      );
+
+      return;
+
+    }
+
+
+    window.open(
+      data.signedUrl,
+      "_blank"
+    );
 
   }
+
 
 
   // ==================================
@@ -528,26 +1100,31 @@
 
     const message =
       status === "paid"
-      ?
-      "Mark this order as PAID?"
-      :
-      "Reject this order?";
+        ? "Mark this order as PAID?"
+        : "Reject this order?";
 
 
-    if (!confirm(message)) {
+    if (
+      !confirm(message)
+    ) {
 
       return;
 
     }
 
 
-    const { error } =
+    const {
+      error
+    } =
       await db
         .from("orders")
         .update({
           status: status
         })
-        .eq("id", orderId);
+        .eq(
+          "id",
+          orderId
+        );
 
 
     if (error) {
@@ -568,11 +1145,37 @@
   }
 
 
+
+  // ==================================
+  // LOGOUT
+  // ==================================
+
+  async function logout() {
+
+    await db.auth.signOut();
+
+
+    dashboardPage.style.display =
+      "none";
+
+    loginPage.style.display =
+      "flex";
+
+
+    document
+      .getElementById("login-password")
+      .value = "";
+
+  }
+
+
+
   // ==================================
   // START
   // ==================================
 
-  loadOrders();
+  checkSession();
+
 
 </script>
 
