@@ -22,6 +22,10 @@
 
 <style>
 
+/* =========================================
+   GLOBAL
+========================================= */
+
 * {
   box-sizing: border-box;
 }
@@ -45,32 +49,47 @@ input {
 
 #login-page {
   min-height: 100vh;
+
   display: flex;
+
   align-items: center;
   justify-content: center;
+
   padding: 20px;
 }
 
 .login-box {
   width: 100%;
   max-width: 440px;
+
   background: white;
+
   padding: 45px 40px;
+
   border-radius: 28px;
-  box-shadow: 0 8px 30px rgba(190,130,150,0.12);
+
+  box-shadow:
+    0 8px 30px
+    rgba(190,130,150,0.12);
 }
 
 .login-logo {
   text-align: center;
+
   color: #b96f8a;
+
   font-size: 34px;
+
   font-weight: 700;
+
   margin-bottom: 5px;
 }
 
 .login-title {
   text-align: center;
+
   font-size: 18px;
+
   margin-bottom: 30px;
 }
 
@@ -80,16 +99,24 @@ input {
 
 .input-group label {
   display: block;
+
   margin-bottom: 7px;
+
   font-size: 14px;
 }
 
 .input-group input {
   width: 100%;
+
   padding: 14px 16px;
-  border: 1px solid #eadce2;
+
+  border:
+    1px solid #eadce2;
+
   border-radius: 15px;
+
   outline: none;
+
   font-size: 15px;
 }
 
@@ -99,27 +126,47 @@ input {
 
 .login-button {
   width: 100%;
+
   border: none;
+
   background: #d9829e;
+
   color: white;
+
   padding: 14px;
+
   border-radius: 20px;
+
   font-size: 16px;
+
   font-weight: 600;
+
   cursor: pointer;
+}
+
+.login-button:hover {
+  background: #c97491;
 }
 
 .login-button:disabled {
   opacity: 0.6;
+
+  cursor: not-allowed;
 }
 
 .login-error {
   display: none;
+
   background: #fff0f3;
+
   color: #a96b82;
+
   padding: 12px;
+
   border-radius: 12px;
+
   margin-bottom: 18px;
+
   text-align: center;
 }
 
@@ -133,24 +180,39 @@ input {
 }
 
 
+/* =========================================
+   HEADER
+========================================= */
+
 header {
   background: white;
+
   padding: 18px 7%;
+
   display: flex;
+
   justify-content: space-between;
+
   align-items: center;
-  box-shadow: 0 2px 15px rgba(190,130,150,0.06);
+
+  box-shadow:
+    0 2px 15px
+    rgba(190,130,150,0.06);
 }
 
 .logo {
   color: #b96f8a;
+
   font-size: 25px;
+
   font-weight: 700;
 }
 
 .header-right {
   display: flex;
+
   align-items: center;
+
   gap: 15px;
 }
 
@@ -160,11 +222,20 @@ header {
 
 .logout-button {
   border: none;
+
   background: #f7dce5;
+
   color: #a96b82;
+
   padding: 8px 15px;
+
   border-radius: 18px;
+
   cursor: pointer;
+}
+
+.logout-button:hover {
+  background: #efd0db;
 }
 
 
@@ -174,13 +245,17 @@ header {
 
 .dashboard {
   max-width: 1000px;
+
   margin: 40px auto;
+
   padding: 20px;
 }
 
 h1 {
   color: #b96f8a;
+
   font-size: 32px;
+
   margin-bottom: 25px;
 }
 
@@ -191,16 +266,25 @@ h1 {
 
 .summary {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
   gap: 15px;
+
   margin-bottom: 30px;
 }
 
 .summary-box {
   background: white;
+
   padding: 22px;
+
   border-radius: 20px;
-  box-shadow: 0 5px 18px rgba(190,130,150,0.10);
+
+  box-shadow:
+    0 5px 18px
+    rgba(190,130,150,0.10);
 }
 
 .summary-label {
@@ -209,7 +293,9 @@ h1 {
 
 .summary-number {
   color: #b96f8a;
+
   font-size: 28px;
+
   font-weight: 700;
 }
 
@@ -220,41 +306,59 @@ h1 {
 
 .order-card {
   background: white;
+
   padding: 22px;
+
   border-radius: 20px;
+
   margin-bottom: 15px;
-  box-shadow: 0 5px 18px rgba(190,130,150,0.10);
+
+  box-shadow:
+    0 5px 18px
+    rgba(190,130,150,0.10);
 }
 
 .order-header {
   display: flex;
+
   justify-content: space-between;
+
   align-items: center;
+
   gap: 15px;
+
   margin-bottom: 12px;
 }
 
 .order-code {
   color: #b96f8a;
+
   font-weight: 700;
+
   font-size: 17px;
 }
 
 .status {
   padding: 5px 12px;
+
   border-radius: 20px;
+
   font-size: 12px;
+
   background: #fde6ee;
+
   color: #a96b82;
 }
 
 .status.paid {
   background: #e5f6ec;
+
   color: #4f8a68;
 }
 
 .status.rejected {
   background: #f1eeee;
+
   color: #777;
 }
 
@@ -264,12 +368,9 @@ h1 {
 ========================================= */
 
 .customer {
-  margin-bottom: 15px;
-  line-height: 1.6;
-}
+  margin-bottom: 12px;
 
-.customer strong {
-  color: #5f4a50;
+  line-height: 1.5;
 }
 
 
@@ -279,25 +380,37 @@ h1 {
 
 .products-box {
   background: #fff8fb;
-  padding: 15px;
-  border-radius: 15px;
-  margin-bottom: 15px;
+
+  padding: 16px;
+
+  border-radius: 16px;
+
+  margin: 15px 0;
 }
 
 .products-title {
   color: #b96f8a;
-  font-weight: 600;
-  margin-bottom: 8px;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  margin-bottom: 10px;
 }
 
 .product-row {
   display: flex;
+
   justify-content: space-between;
+
   align-items: center;
+
   gap: 15px;
-  padding: 7px 0;
-  font-size: 14px;
-  border-bottom: 1px solid #f3e4e9;
+
+  padding: 10px 0;
+
+  border-bottom:
+    1px solid #f3e4e9;
 }
 
 .product-row:last-child {
@@ -305,12 +418,35 @@ h1 {
 }
 
 .product-name {
-  color: #6f5b62;
+  color: #5f4a50;
+
+  font-size: 15px;
+
+  font-weight: 600;
 }
 
-.product-price {
-  color: #a96b82;
+.product-detail {
+  color: #a9959b;
+
+  font-size: 13px;
+
+  margin-top: 2px;
+}
+
+.product-subtotal {
+  color: #b96f8a;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
   white-space: nowrap;
+}
+
+.no-products {
+  color: #aaa;
+
+  font-size: 13px;
 }
 
 
@@ -320,14 +456,24 @@ h1 {
 
 .total {
   font-size: 20px;
+
   font-weight: 700;
+
   color: #b96f8a;
+
   margin-bottom: 15px;
 }
 
+
+/* =========================================
+   DATE
+========================================= */
+
 .order-date {
   font-size: 13px;
+
   color: #aaa;
+
   margin-bottom: 15px;
 }
 
@@ -338,53 +484,66 @@ h1 {
 
 .actions {
   display: flex;
+
   flex-wrap: wrap;
+
   gap: 8px;
 }
 
 .actions button {
   border: none;
+
   padding: 9px 16px;
+
   border-radius: 20px;
+
   cursor: pointer;
+
   font-size: 13px;
-}
-
-.proof-button {
-  background: #f7dce5;
-  color: #a96b82;
-}
-
-.paid-button {
-  background: #d9829e;
-  color: white;
-}
-
-.reject-button {
-  background: #f7dce5;
-  color: #a96b82;
 }
 
 .actions button:hover {
   opacity: 0.85;
 }
 
+.proof-button {
+  background: #f7dce5;
+
+  color: #a96b82;
+}
+
+.paid-button {
+  background: #d9829e;
+
+  color: white;
+}
+
+.reject-button {
+  background: #f7dce5;
+
+  color: #a96b82;
+}
+
 
 /* =========================================
-   STATES
+   LOADING / EMPTY / ERROR
 ========================================= */
 
 .loading,
 .empty,
 .error {
   background: white;
+
   padding: 35px;
+
   text-align: center;
+
   border-radius: 20px;
 }
 
 .error {
   color: #a96b82;
+
   background: #fff0f3;
 }
 
@@ -401,6 +560,7 @@ h1 {
 
   .dashboard {
     margin: 25px auto;
+
     padding: 15px;
   }
 
@@ -410,17 +570,24 @@ h1 {
 
   .header-right {
     flex-direction: column;
+
     align-items: flex-end;
+
     gap: 4px;
   }
 
   .order-header {
     flex-direction: column;
+
     align-items: flex-start;
   }
 
   .product-row {
     align-items: flex-start;
+  }
+
+  .login-box {
+    padding: 35px 25px;
   }
 
 }
@@ -457,6 +624,7 @@ h1 {
 
 
     <form id="login-form">
+
 
       <div class="input-group">
 
@@ -498,6 +666,7 @@ h1 {
         LOGIN
       </button>
 
+
     </form>
 
   </div>
@@ -507,7 +676,7 @@ h1 {
 
 
 <!-- =========================================
-     DASHBOARD
+     DASHBOARD PAGE
 ========================================= -->
 
 <section id="dashboard-page">
@@ -546,6 +715,7 @@ h1 {
   <h1>
     Orders ♡
   </h1>
+
 
 
   <!-- =======================================
@@ -604,6 +774,7 @@ h1 {
 
     </div>
 
+
   </div>
 
 
@@ -642,13 +813,15 @@ const SUPABASE_PUBLISHABLE_KEY =
   "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
 
 
-const { createClient } = supabase;
+const { createClient } =
+  supabase;
 
 
-const db = createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
-);
+const db =
+  createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
 
 
 
@@ -715,9 +888,13 @@ const salesTotal =
    ESCAPE HTML
 ========================================= */
 
-function escapeHtml(value) {
+function escapeHtml(
+  value
+) {
 
-  return String(value ?? "")
+  return String(
+    value ?? ""
+  )
 
     .replace(
       /&/g,
@@ -788,70 +965,104 @@ loginForm.addEventListener(
         .value;
 
 
-    const {
-      error
-    } =
-      await db.auth.signInWithPassword({
+    try {
 
-        email: email,
+      const {
+        error
+      } =
+        await db.auth.signInWithPassword({
 
-        password: password
+          email:
+            email,
 
-      });
+          password:
+            password
 
-
-    if (error) {
-
-      console.error(error);
-
-
-      loginError.textContent =
-        "Email atau password salah.";
+        });
 
 
-      loginError.style.display =
-        "block";
+      if (error) {
+
+        console.error(
+          error
+        );
+
+        loginError.textContent =
+          "Email atau password salah.";
+
+        loginError.style.display =
+          "block";
+
+        loginButton.disabled =
+          false;
+
+        loginButton.textContent =
+          "LOGIN";
+
+        return;
+
+      }
 
 
-      loginButton.disabled =
-        false;
+
+      /* =====================================
+         CHECK ADMIN ACCESS
+      ===================================== */
+
+      const {
+        error: adminError
+      } =
+        await db
+          .from("orders")
+          .select("id")
+          .limit(1);
 
 
-      loginButton.textContent =
-        "LOGIN";
+      if (adminError) {
+
+        console.error(
+          adminError
+        );
 
 
-      return;
+        await db.auth.signOut();
+
+
+        loginError.textContent =
+          "Access denied. Admin sahaja boleh masuk.";
+
+
+        loginError.style.display =
+          "block";
+
+
+        loginButton.disabled =
+          false;
+
+
+        loginButton.textContent =
+          "LOGIN";
+
+
+        return;
+
+      }
+
+
+      await showDashboard();
+
 
     }
 
-
-    /*
-      RLS decides whether this
-      account can access orders.
-    */
-
-    const {
-      error: adminError
-    } =
-      await db
-        .from("orders")
-        .select("id")
-        .limit(1);
-
-
-    if (adminError) {
+    catch (error) {
 
       console.error(
-        adminError
+        error
       );
 
 
-      await db.auth.signOut();
-
-
       loginError.textContent =
-        "Access denied. Admin sahaja boleh masuk.";
+        "Something went wrong. Please try again.";
 
 
       loginError.style.display =
@@ -865,13 +1076,7 @@ loginForm.addEventListener(
       loginButton.textContent =
         "LOGIN";
 
-
-      return;
-
     }
-
-
-    await showDashboard();
 
   }
 );
@@ -927,6 +1132,11 @@ async function checkSession() {
   }
 
 
+
+  /* =======================================
+     CHECK ADMIN ACCESS
+  ======================================= */
+
   const {
     error
   } =
@@ -966,6 +1176,7 @@ async function checkSession() {
 
 async function loadOrders() {
 
+
   ordersContainer.innerHTML = `
 
     <div class="loading">
@@ -975,38 +1186,18 @@ async function loadOrders() {
   `;
 
 
-  /*
-    IMPORTANT:
 
-    We load the orders together
-    with their order_items.
-
-    This is what allows Admin
-    to show exactly what the
-    customer purchased.
-  */
+  /* =======================================
+     GET ORDERS
+  ======================================= */
 
   const {
-    data,
-    error
+    data: orders,
+    error: ordersError
   } =
     await db
-
       .from("orders")
-
-      .select(`
-
-        *,
-
-        order_items (
-          product_name,
-          product_price,
-          quantity,
-          subtotal
-        )
-
-      `)
-
+      .select("*")
       .order(
         "created_at",
         {
@@ -1016,11 +1207,11 @@ async function loadOrders() {
 
 
 
-  if (error) {
+  if (ordersError) {
 
     console.error(
-      "LOAD ORDERS ERROR:",
-      error
+      "ORDERS ERROR:",
+      ordersError
     );
 
 
@@ -1030,10 +1221,11 @@ async function loadOrders() {
 
         Unable to load orders.
 
-        <br><br>
+        <br>
+        <br>
 
         ${escapeHtml(
-          error.message
+          ordersError.message
         )}
 
       </div>
@@ -1047,18 +1239,127 @@ async function loadOrders() {
 
 
 
-  const orders =
-    data || [];
+  const orderList =
+    orders || [];
 
 
-  updateSummary(
-    orders
-  );
+
+  /* =======================================
+     GET ORDER ITEMS
+  ======================================= */
+
+  let orderItemsData = [];
 
 
 
   if (
-    orders.length === 0
+    orderList.length > 0
+  ) {
+
+
+    const orderIds =
+      orderList.map(
+        order =>
+          order.id
+      );
+
+
+
+    const {
+      data: items,
+      error: itemsError
+    } =
+      await db
+        .from("order_items")
+        .select(
+          `
+          id,
+          order_id,
+          product_name,
+          product_price,
+          quantity,
+          subtotal
+          `
+        )
+        .in(
+          "order_id",
+          orderIds
+        );
+
+
+
+    if (itemsError) {
+
+      console.error(
+        "ORDER ITEMS ERROR:",
+        itemsError
+      );
+
+    }
+
+    else {
+
+      orderItemsData =
+        items || [];
+
+    }
+
+  }
+
+
+
+  /* =======================================
+     GROUP PRODUCTS BY ORDER
+  ======================================= */
+
+  const itemsByOrder = {};
+
+
+
+  orderItemsData.forEach(
+    item => {
+
+
+      if (
+        !itemsByOrder[
+          item.order_id
+        ]
+      ) {
+
+        itemsByOrder[
+          item.order_id
+        ] = [];
+
+      }
+
+
+      itemsByOrder[
+        item.order_id
+      ].push(
+        item
+      );
+
+    }
+  );
+
+
+
+  /* =======================================
+     UPDATE SUMMARY
+  ======================================= */
+
+  updateSummary(
+    orderList
+  );
+
+
+
+  /* =======================================
+     NO ORDERS
+  ======================================= */
+
+  if (
+    orderList.length === 0
   ) {
 
     ordersContainer.innerHTML = `
@@ -1076,12 +1377,20 @@ async function loadOrders() {
 
 
 
+  /* =======================================
+     CLEAR ORDERS
+  ======================================= */
+
   ordersContainer.innerHTML =
     "";
 
 
 
-  orders.forEach(
+  /* =======================================
+     DISPLAY EACH ORDER
+  ======================================= */
+
+  orderList.forEach(
     order => {
 
 
@@ -1130,25 +1439,148 @@ async function loadOrders() {
 
 
 
-      /* =====================================
-         PAYMENT PROOF BUTTON
-      ====================================== */
+      /* ===================================
+         PRODUCTS
+      =================================== */
+
+      const products =
+        itemsByOrder[
+          order.id
+        ] || [];
+
+
+
+      let productsHTML =
+        "";
+
+
+
+      if (
+        products.length === 0
+      ) {
+
+
+        productsHTML = `
+
+          <div class="no-products">
+            No product information.
+          </div>
+
+        `;
+
+      }
+
+      else {
+
+
+        productsHTML =
+          products
+            .map(
+              item => {
+
+
+                const quantity =
+                  Number(
+                    item.quantity ||
+                    1
+                  );
+
+
+                const price =
+                  Number(
+                    item.product_price ||
+                    0
+                  );
+
+
+                const subtotal =
+                  Number(
+                    item.subtotal ||
+                    (
+                      price *
+                      quantity
+                    )
+                  );
+
+
+
+                return `
+
+                  <div
+                    class="product-row"
+                  >
+
+                    <div
+                      class="product-info"
+                    >
+
+                      <div
+                        class="product-name"
+                      >
+                        ${escapeHtml(
+                          item.product_name
+                        )}
+                      </div>
+
+
+                      <div
+                        class="product-detail"
+                      >
+
+                        RM${price.toFixed(2)}
+
+                        ×
+
+                        ${quantity}
+
+                      </div>
+
+                    </div>
+
+
+                    <div
+                      class="product-subtotal"
+                    >
+
+                      RM${subtotal.toFixed(2)}
+
+                    </div>
+
+                  </div>
+
+                `;
+
+              }
+            )
+            .join("");
+
+      }
+
+
+
+      /* ===================================
+         PAYMENT PROOF
+      =================================== */
 
       let proofButton =
         "";
+
 
 
       if (
         order.payment_proof_path
       ) {
 
+
         proofButton = `
 
           <button
             class="proof-button"
-            onclick="viewPaymentProof('${encodeURIComponent(
-              order.payment_proof_path
-            )}')"
+            onclick="viewPaymentProof(
+              '${encodeURIComponent(
+                order.payment_proof_path
+              )}'
+            )"
           >
             VIEW PAYMENT PROOF
           </button>
@@ -1159,17 +1591,19 @@ async function loadOrders() {
 
 
 
-      /* =====================================
+      /* ===================================
          ACTION BUTTONS
-      ====================================== */
+      =================================== */
 
       let actionButtons =
         "";
 
 
+
       if (
         status === "pending"
       ) {
+
 
         actionButtons = `
 
@@ -1180,7 +1614,9 @@ async function loadOrders() {
               'paid'
             )"
           >
+
             MARK AS PAID
+
           </button>
 
 
@@ -1191,7 +1627,9 @@ async function loadOrders() {
               'rejected'
             )"
           >
+
             REJECT
+
           </button>
 
         `;
@@ -1200,88 +1638,19 @@ async function loadOrders() {
 
 
 
-      /* =====================================
-         PRODUCTS
-      ====================================== */
-
-      let productsHTML =
-        "";
-
-
-      if (
-        order.order_items &&
-        order.order_items.length > 0
-      ) {
-
-
-        productsHTML =
-          order.order_items
-            .map(
-              item => `
-
-                <div class="product-row">
-
-                  <div class="product-name">
-
-                    ${escapeHtml(
-                      item.product_name
-                    )}
-
-                    ×
-
-                    ${Number(
-                      item.quantity || 1
-                    )}
-
-                  </div>
-
-
-                  <div class="product-price">
-
-                    RM${Number(
-                      item.subtotal || 0
-                    ).toFixed(2)}
-
-                  </div>
-
-                </div>
-
-              `
-            )
-            .join("");
-
-
-      } else {
-
-
-        productsHTML = `
-
-          <div
-            style="
-              font-size:13px;
-              color:#aaa;
-            "
-          >
-            No product information.
-          </div>
-
-        `;
-
-      }
-
-
-
-      /* =====================================
-         CARD
-      ====================================== */
+      /* ===================================
+         CARD HTML
+      =================================== */
 
       card.innerHTML = `
 
+        <div
+          class="order-header"
+        >
 
-        <div class="order-header">
-
-
-          <div class="order-code">
+          <div
+            class="order-code"
+          >
 
             ${escapeHtml(
               order.order_code
@@ -1300,14 +1669,13 @@ async function loadOrders() {
 
           </div>
 
-
         </div>
 
 
 
-        <!-- CUSTOMER -->
-
-        <div class="customer">
+        <div
+          class="customer"
+        >
 
           <strong>
 
@@ -1331,10 +1699,13 @@ async function loadOrders() {
 
         <!-- PRODUCTS -->
 
-        <div class="products-box">
+        <div
+          class="products-box"
+        >
 
-
-          <div class="products-title">
+          <div
+            class="products-title"
+          >
 
             Products
 
@@ -1343,17 +1714,19 @@ async function loadOrders() {
 
           ${productsHTML}
 
-
         </div>
 
 
 
         <!-- TOTAL -->
 
-        <div class="total">
+        <div
+          class="total"
+        >
 
           RM${Number(
-            order.total || 0
+            order.total ||
+            0
           ).toFixed(2)}
 
         </div>
@@ -1362,7 +1735,9 @@ async function loadOrders() {
 
         <!-- DATE -->
 
-        <div class="order-date">
+        <div
+          class="order-date"
+        >
 
           ${escapeHtml(
             createdAt
@@ -1374,7 +1749,9 @@ async function loadOrders() {
 
         <!-- ACTIONS -->
 
-        <div class="actions">
+        <div
+          class="actions"
+        >
 
           ${proofButton}
 
@@ -1382,8 +1759,8 @@ async function loadOrders() {
 
         </div>
 
-
       `;
+
 
 
       ordersContainer.appendChild(
@@ -1405,10 +1782,12 @@ async function viewPaymentProof(
   encodedPath
 ) {
 
+
   const path =
     decodeURIComponent(
       encodedPath
     );
+
 
 
   try {
@@ -1419,11 +1798,9 @@ async function viewPaymentProof(
       error
     } =
       await db.storage
-
         .from(
           "payment-proofs"
         )
-
         .createSignedUrl(
           path,
           300
@@ -1439,8 +1816,7 @@ async function viewPaymentProof(
 
 
       alert(
-        "Unable to open payment proof.\n\n"
-        +
+        "Unable to open payment proof.\n\n" +
         error.message
       );
 
@@ -1471,7 +1847,6 @@ async function viewPaymentProof(
       data.signedUrl,
       "_blank"
     );
-
 
   }
 
@@ -1531,15 +1906,11 @@ async function updateStatus(
     error
   } =
     await db
-
       .from("orders")
-
       .update({
-
-        status: status
-
+        status:
+          status
       })
-
       .eq(
         "id",
         orderId
@@ -1550,14 +1921,12 @@ async function updateStatus(
   if (error) {
 
     console.error(
-      "UPDATE STATUS ERROR:",
       error
     );
 
 
     alert(
-      "Unable to update order.\n\n"
-      +
+      "Unable to update order.\n\n" +
       error.message
     );
 
@@ -1603,24 +1972,26 @@ function updateSummary(
 
   const sales =
     orders
-
       .filter(
         order =>
           order.status ===
           "paid"
       )
-
       .reduce(
         (
           sum,
           order
-        ) =>
+        ) => {
 
-          sum +
-          Number(
-            order.total || 0
-          ),
+          return (
+            sum +
+            Number(
+              order.total ||
+              0
+            )
+          );
 
+        },
         0
       );
 
@@ -1630,8 +2001,10 @@ function updateSummary(
     pending;
 
 
+
   paidCount.textContent =
     paid;
+
 
 
   salesTotal.textContent =
@@ -1648,7 +2021,9 @@ function updateSummary(
 
 async function logout() {
 
+
   await db.auth.signOut();
+
 
 
   dashboardPage.style.display =
@@ -1659,11 +2034,13 @@ async function logout() {
     "flex";
 
 
+
   document
     .getElementById(
       "login-password"
     )
-    .value = "";
+    .value =
+      "";
 
 }
 
@@ -1675,8 +2052,8 @@ async function logout() {
 
 checkSession();
 
-
 </script>
+
 
 </body>
 
