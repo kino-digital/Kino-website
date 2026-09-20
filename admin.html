@@ -19,6 +19,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
 <style>
 
 * {
@@ -37,9 +38,10 @@ input {
   font-family: inherit;
 }
 
-/* =========================
+
+/* =========================================
    LOGIN
-========================= */
+========================================= */
 
 #login-page {
   min-height: 100vh;
@@ -121,13 +123,15 @@ input {
   text-align: center;
 }
 
-/* =========================
-   HEADER
-========================= */
+
+/* =========================================
+   DASHBOARD
+========================================= */
 
 #dashboard-page {
   display: none;
 }
+
 
 header {
   background: white;
@@ -163,9 +167,10 @@ header {
   cursor: pointer;
 }
 
-/* =========================
+
+/* =========================================
    DASHBOARD
-========================= */
+========================================= */
 
 .dashboard {
   max-width: 1000px;
@@ -178,6 +183,11 @@ h1 {
   font-size: 32px;
   margin-bottom: 25px;
 }
+
+
+/* =========================================
+   SUMMARY
+========================================= */
 
 .summary {
   display: grid;
@@ -203,9 +213,10 @@ h1 {
   font-weight: 700;
 }
 
-/* =========================
+
+/* =========================================
    ORDERS
-========================= */
+========================================= */
 
 .order-card {
   background: white;
@@ -247,9 +258,65 @@ h1 {
   color: #777;
 }
 
+
+/* =========================================
+   CUSTOMER
+========================================= */
+
 .customer {
-  margin-bottom: 12px;
+  margin-bottom: 15px;
+  line-height: 1.6;
 }
+
+.customer strong {
+  color: #5f4a50;
+}
+
+
+/* =========================================
+   PRODUCTS
+========================================= */
+
+.products-box {
+  background: #fff8fb;
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+.products-title {
+  color: #b96f8a;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.product-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 7px 0;
+  font-size: 14px;
+  border-bottom: 1px solid #f3e4e9;
+}
+
+.product-row:last-child {
+  border-bottom: none;
+}
+
+.product-name {
+  color: #6f5b62;
+}
+
+.product-price {
+  color: #a96b82;
+  white-space: nowrap;
+}
+
+
+/* =========================================
+   TOTAL
+========================================= */
 
 .total {
   font-size: 20px;
@@ -263,6 +330,11 @@ h1 {
   color: #aaa;
   margin-bottom: 15px;
 }
+
+
+/* =========================================
+   ACTIONS
+========================================= */
 
 .actions {
   display: flex;
@@ -293,6 +365,15 @@ h1 {
   color: #a96b82;
 }
 
+.actions button:hover {
+  opacity: 0.85;
+}
+
+
+/* =========================================
+   STATES
+========================================= */
+
 .loading,
 .empty,
 .error {
@@ -307,9 +388,10 @@ h1 {
   background: #fff0f3;
 }
 
-/* =========================
+
+/* =========================================
    MOBILE
-========================= */
+========================================= */
 
 @media (max-width: 650px) {
 
@@ -334,6 +416,10 @@ h1 {
 
   .order-header {
     flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .product-row {
     align-items: flex-start;
   }
 
@@ -363,16 +449,20 @@ h1 {
       Admin Dashboard
     </div>
 
+
     <div
       id="login-error"
       class="login-error"
     ></div>
 
+
     <form id="login-form">
 
       <div class="input-group">
 
-        <label>Email</label>
+        <label>
+          Email
+        </label>
 
         <input
           type="email"
@@ -386,7 +476,9 @@ h1 {
 
       <div class="input-group">
 
-        <label>Password</label>
+        <label>
+          Password
+        </label>
 
         <input
           type="password"
@@ -413,11 +505,13 @@ h1 {
 </section>
 
 
+
 <!-- =========================================
      DASHBOARD
 ========================================= -->
 
 <section id="dashboard-page">
+
 
 <header>
 
@@ -425,11 +519,13 @@ h1 {
     KINO
   </div>
 
+
   <div class="header-right">
 
     <div class="admin-label">
       Admin Dashboard
     </div>
+
 
     <button
       class="logout-button"
@@ -443,14 +539,21 @@ h1 {
 </header>
 
 
+
 <main class="dashboard">
+
 
   <h1>
     Orders ♡
   </h1>
 
 
+  <!-- =======================================
+       SUMMARY
+  ======================================== -->
+
   <div class="summary">
+
 
     <div class="summary-box">
 
@@ -468,6 +571,7 @@ h1 {
     </div>
 
 
+
     <div class="summary-box">
 
       <div class="summary-label">
@@ -482,6 +586,7 @@ h1 {
       </div>
 
     </div>
+
 
 
     <div class="summary-box">
@@ -502,6 +607,11 @@ h1 {
   </div>
 
 
+
+  <!-- =======================================
+       ORDERS
+  ======================================== -->
+
   <div id="orders">
 
     <div class="loading">
@@ -510,12 +620,15 @@ h1 {
 
   </div>
 
+
 </main>
 
 </section>
 
 
+
 <script>
+
 
 /* =========================================
    SUPABASE
@@ -524,10 +637,13 @@ h1 {
 const SUPABASE_URL =
   "https://vbdgzsapdbpgfcdksdoi.supabase.co";
 
+
 const SUPABASE_PUBLISHABLE_KEY =
   "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
 
+
 const { createClient } = supabase;
+
 
 const db = createClient(
   SUPABASE_URL,
@@ -535,36 +651,64 @@ const db = createClient(
 );
 
 
+
 /* =========================================
    ELEMENTS
 ========================================= */
 
 const loginPage =
-  document.getElementById("login-page");
+  document.getElementById(
+    "login-page"
+  );
+
 
 const dashboardPage =
-  document.getElementById("dashboard-page");
+  document.getElementById(
+    "dashboard-page"
+  );
+
 
 const loginForm =
-  document.getElementById("login-form");
+  document.getElementById(
+    "login-form"
+  );
+
 
 const loginError =
-  document.getElementById("login-error");
+  document.getElementById(
+    "login-error"
+  );
+
 
 const loginButton =
-  document.getElementById("login-button");
+  document.getElementById(
+    "login-button"
+  );
+
 
 const ordersContainer =
-  document.getElementById("orders");
+  document.getElementById(
+    "orders"
+  );
+
 
 const pendingCount =
-  document.getElementById("pending-count");
+  document.getElementById(
+    "pending-count"
+  );
+
 
 const paidCount =
-  document.getElementById("paid-count");
+  document.getElementById(
+    "paid-count"
+  );
+
 
 const salesTotal =
-  document.getElementById("sales-total");
+  document.getElementById(
+    "sales-total"
+  );
+
 
 
 /* =========================================
@@ -574,13 +718,34 @@ const salesTotal =
 function escapeHtml(value) {
 
   return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
+
 
 
 /* =========================================
@@ -593,9 +758,14 @@ loginForm.addEventListener(
 
     event.preventDefault();
 
-    loginError.style.display = "none";
 
-    loginButton.disabled = true;
+    loginError.style.display =
+      "none";
+
+
+    loginButton.disabled =
+      true;
+
 
     loginButton.textContent =
       "LOGGING IN...";
@@ -603,18 +773,24 @@ loginForm.addEventListener(
 
     const email =
       document
-        .getElementById("login-email")
+        .getElementById(
+          "login-email"
+        )
         .value
         .trim();
 
 
     const password =
       document
-        .getElementById("login-password")
+        .getElementById(
+          "login-password"
+        )
         .value;
 
 
-    const { error } =
+    const {
+      error
+    } =
       await db.auth.signInWithPassword({
 
         email: email,
@@ -628,16 +804,22 @@ loginForm.addEventListener(
 
       console.error(error);
 
+
       loginError.textContent =
         "Email atau password salah.";
+
 
       loginError.style.display =
         "block";
 
-      loginButton.disabled = false;
+
+      loginButton.disabled =
+        false;
+
 
       loginButton.textContent =
         "LOGIN";
+
 
       return;
 
@@ -645,11 +827,13 @@ loginForm.addEventListener(
 
 
     /*
-      Supabase RLS decides whether
-      this account is actually admin.
+      RLS decides whether this
+      account can access orders.
     */
 
-    const { error: adminError } =
+    const {
+      error: adminError
+    } =
       await db
         .from("orders")
         .select("id")
@@ -658,20 +842,29 @@ loginForm.addEventListener(
 
     if (adminError) {
 
-      console.error(adminError);
+      console.error(
+        adminError
+      );
+
 
       await db.auth.signOut();
+
 
       loginError.textContent =
         "Access denied. Admin sahaja boleh masuk.";
 
+
       loginError.style.display =
         "block";
 
-      loginButton.disabled = false;
+
+      loginButton.disabled =
+        false;
+
 
       loginButton.textContent =
         "LOGIN";
+
 
       return;
 
@@ -684,19 +877,25 @@ loginForm.addEventListener(
 );
 
 
+
 /* =========================================
    SHOW DASHBOARD
 ========================================= */
 
 async function showDashboard() {
 
-  loginPage.style.display = "none";
+  loginPage.style.display =
+    "none";
 
-  dashboardPage.style.display = "block";
+
+  dashboardPage.style.display =
+    "block";
+
 
   await loadOrders();
 
 }
+
 
 
 /* =========================================
@@ -709,21 +908,28 @@ async function checkSession() {
     data: {
       session
     }
-  } = await db.auth.getSession();
+  } =
+    await db.auth.getSession();
 
 
   if (!session) {
 
-    loginPage.style.display = "flex";
+    loginPage.style.display =
+      "flex";
 
-    dashboardPage.style.display = "none";
+
+    dashboardPage.style.display =
+      "none";
+
 
     return;
 
   }
 
 
-  const { error } =
+  const {
+    error
+  } =
     await db
       .from("orders")
       .select("id")
@@ -734,9 +940,14 @@ async function checkSession() {
 
     await db.auth.signOut();
 
-    loginPage.style.display = "flex";
 
-    dashboardPage.style.display = "none";
+    loginPage.style.display =
+      "flex";
+
+
+    dashboardPage.style.display =
+      "none";
+
 
     return;
 
@@ -748,6 +959,7 @@ async function checkSession() {
 }
 
 
+
 /* =========================================
    LOAD ORDERS
 ========================================= */
@@ -755,98 +967,175 @@ async function checkSession() {
 async function loadOrders() {
 
   ordersContainer.innerHTML = `
+
     <div class="loading">
       Loading orders...
     </div>
+
   `;
 
+
+  /*
+    IMPORTANT:
+
+    We load the orders together
+    with their order_items.
+
+    This is what allows Admin
+    to show exactly what the
+    customer purchased.
+  */
 
   const {
     data,
     error
-  } = await db
-    .from("orders")
-    .select("*")
-    .order(
-      "created_at",
-      {
-        ascending: false
-      }
-    );
+  } =
+    await db
+
+      .from("orders")
+
+      .select(`
+
+        *,
+
+        order_items (
+          product_name,
+          product_price,
+          quantity,
+          subtotal
+        )
+
+      `)
+
+      .order(
+        "created_at",
+        {
+          ascending: false
+        }
+      );
+
 
 
   if (error) {
 
-    console.error(error);
+    console.error(
+      "LOAD ORDERS ERROR:",
+      error
+    );
+
 
     ordersContainer.innerHTML = `
+
       <div class="error">
-        Unable to load orders.<br><br>
-        ${escapeHtml(error.message)}
+
+        Unable to load orders.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+
       </div>
+
     `;
+
 
     return;
 
   }
+
 
 
   const orders =
     data || [];
 
 
-  updateSummary(orders);
+  updateSummary(
+    orders
+  );
 
 
-  if (orders.length === 0) {
+
+  if (
+    orders.length === 0
+  ) {
 
     ordersContainer.innerHTML = `
+
       <div class="empty">
         No orders yet ♡
       </div>
+
     `;
+
 
     return;
 
   }
 
 
-  ordersContainer.innerHTML = "";
+
+  ordersContainer.innerHTML =
+    "";
+
 
 
   orders.forEach(
     order => {
 
+
       const card =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
+
 
       card.className =
         "order-card";
 
 
+
       const status =
-        String(order.status || "pending");
+        String(
+          order.status ||
+          "pending"
+        );
+
 
 
       const statusClass =
         status === "paid"
+
           ? "paid"
+
           : status === "rejected"
+
             ? "rejected"
+
             : "";
+
 
 
       const createdAt =
         order.created_at
+
           ? new Date(
               order.created_at
             ).toLocaleString(
               "en-MY"
             )
+
           : "-";
 
 
-      let proofButton = "";
+
+      /* =====================================
+         PAYMENT PROOF BUTTON
+      ====================================== */
+
+      let proofButton =
+        "";
 
 
       if (
@@ -854,34 +1143,53 @@ async function loadOrders() {
       ) {
 
         proofButton = `
+
           <button
             class="proof-button"
-            onclick="viewPaymentProof('${encodeURIComponent(order.payment_proof_path)}')"
+            onclick="viewPaymentProof('${encodeURIComponent(
+              order.payment_proof_path
+            )}')"
           >
             VIEW PAYMENT PROOF
           </button>
+
         `;
 
       }
 
 
-      let actionButtons = "";
+
+      /* =====================================
+         ACTION BUTTONS
+      ====================================== */
+
+      let actionButtons =
+        "";
 
 
-      if (status === "pending") {
+      if (
+        status === "pending"
+      ) {
 
         actionButtons = `
 
           <button
             class="paid-button"
-            onclick="updateStatus('${order.id}', 'paid')"
+            onclick="updateStatus(
+              '${order.id}',
+              'paid'
+            )"
           >
             MARK AS PAID
           </button>
 
+
           <button
             class="reject-button"
-            onclick="updateStatus('${order.id}', 'rejected')"
+            onclick="updateStatus(
+              '${order.id}',
+              'rejected'
+            )"
           >
             REJECT
           </button>
@@ -891,34 +1199,127 @@ async function loadOrders() {
       }
 
 
+
+      /* =====================================
+         PRODUCTS
+      ====================================== */
+
+      let productsHTML =
+        "";
+
+
+      if (
+        order.order_items &&
+        order.order_items.length > 0
+      ) {
+
+
+        productsHTML =
+          order.order_items
+            .map(
+              item => `
+
+                <div class="product-row">
+
+                  <div class="product-name">
+
+                    ${escapeHtml(
+                      item.product_name
+                    )}
+
+                    ×
+
+                    ${Number(
+                      item.quantity || 1
+                    )}
+
+                  </div>
+
+
+                  <div class="product-price">
+
+                    RM${Number(
+                      item.subtotal || 0
+                    ).toFixed(2)}
+
+                  </div>
+
+                </div>
+
+              `
+            )
+            .join("");
+
+
+      } else {
+
+
+        productsHTML = `
+
+          <div
+            style="
+              font-size:13px;
+              color:#aaa;
+            "
+          >
+            No product information.
+          </div>
+
+        `;
+
+      }
+
+
+
+      /* =====================================
+         CARD
+      ====================================== */
+
       card.innerHTML = `
+
 
         <div class="order-header">
 
+
           <div class="order-code">
+
             ${escapeHtml(
               order.order_code
             )}
+
           </div>
+
 
           <div
             class="status ${statusClass}"
           >
-            ${escapeHtml(status)}
+
+            ${escapeHtml(
+              status
+            )}
+
           </div>
+
 
         </div>
 
 
+
+        <!-- CUSTOMER -->
+
         <div class="customer">
 
           <strong>
+
             ${escapeHtml(
               order.customer_name
             )}
+
           </strong>
 
+
           <br>
+
 
           ${escapeHtml(
             order.customer_email
@@ -927,17 +1328,51 @@ async function loadOrders() {
         </div>
 
 
+
+        <!-- PRODUCTS -->
+
+        <div class="products-box">
+
+
+          <div class="products-title">
+
+            Products
+
+          </div>
+
+
+          ${productsHTML}
+
+
+        </div>
+
+
+
+        <!-- TOTAL -->
+
         <div class="total">
+
           RM${Number(
             order.total || 0
           ).toFixed(2)}
+
         </div>
 
+
+
+        <!-- DATE -->
 
         <div class="order-date">
-          ${escapeHtml(createdAt)}
+
+          ${escapeHtml(
+            createdAt
+          )}
+
         </div>
 
+
+
+        <!-- ACTIONS -->
 
         <div class="actions">
 
@@ -946,6 +1381,7 @@ async function loadOrders() {
           ${actionButtons}
 
         </div>
+
 
       `;
 
@@ -958,6 +1394,7 @@ async function loadOrders() {
   );
 
 }
+
 
 
 /* =========================================
@@ -976,40 +1413,58 @@ async function viewPaymentProof(
 
   try {
 
+
     const {
       data,
       error
-    } = await db.storage
-      .from("payment-proofs")
-      .createSignedUrl(
-        path,
-        300
-      );
+    } =
+      await db.storage
+
+        .from(
+          "payment-proofs"
+        )
+
+        .createSignedUrl(
+          path,
+          300
+        );
+
 
 
     if (error) {
 
-      console.error(error);
+      console.error(
+        error
+      );
+
 
       alert(
         "Unable to open payment proof.\n\n"
-        + error.message
+        +
+        error.message
       );
+
 
       return;
 
     }
 
 
-    if (!data || !data.signedUrl) {
+
+    if (
+      !data ||
+      !data.signedUrl
+    ) {
 
       alert(
         "Payment proof was not found."
       );
 
+
       return;
 
     }
+
 
 
     window.open(
@@ -1017,11 +1472,16 @@ async function viewPaymentProof(
       "_blank"
     );
 
+
   }
+
 
   catch (error) {
 
-    console.error(error);
+    console.error(
+      error
+    );
+
 
     alert(
       "Unable to open payment proof."
@@ -1030,6 +1490,7 @@ async function viewPaymentProof(
   }
 
 }
+
 
 
 /* =========================================
@@ -1041,10 +1502,14 @@ async function updateStatus(
   status
 ) {
 
+
   const action =
     status === "paid"
+
       ? "mark this order as PAID"
+
       : "REJECT this order";
+
 
 
   const confirmed =
@@ -1053,41 +1518,60 @@ async function updateStatus(
     );
 
 
+
   if (!confirmed) {
+
     return;
+
   }
+
 
 
   const {
     error
-  } = await db
-    .from("orders")
-    .update({
-      status: status
-    })
-    .eq(
-      "id",
-      orderId
-    );
+  } =
+    await db
+
+      .from("orders")
+
+      .update({
+
+        status: status
+
+      })
+
+      .eq(
+        "id",
+        orderId
+      );
+
 
 
   if (error) {
 
-    console.error(error);
+    console.error(
+      "UPDATE STATUS ERROR:",
+      error
+    );
+
 
     alert(
       "Unable to update order.\n\n"
-      + error.message
+      +
+      error.message
     );
+
 
     return;
 
   }
+
 
 
   await loadOrders();
 
 }
+
 
 
 /* =========================================
@@ -1098,37 +1582,48 @@ function updateSummary(
   orders
 ) {
 
+
   const pending =
     orders.filter(
       order =>
-        order.status === "pending"
+        order.status ===
+        "pending"
     ).length;
+
 
 
   const paid =
     orders.filter(
       order =>
-        order.status === "paid"
+        order.status ===
+        "paid"
     ).length;
+
 
 
   const sales =
     orders
+
       .filter(
         order =>
-          order.status === "paid"
+          order.status ===
+          "paid"
       )
+
       .reduce(
         (
           sum,
           order
         ) =>
+
           sum +
           Number(
             order.total || 0
           ),
+
         0
       );
+
 
 
   pendingCount.textContent =
@@ -1146,6 +1641,7 @@ function updateSummary(
 }
 
 
+
 /* =========================================
    LOGOUT
 ========================================= */
@@ -1154,17 +1650,23 @@ async function logout() {
 
   await db.auth.signOut();
 
+
   dashboardPage.style.display =
     "none";
+
 
   loginPage.style.display =
     "flex";
 
+
   document
-    .getElementById("login-password")
+    .getElementById(
+      "login-password"
+    )
     .value = "";
 
 }
+
 
 
 /* =========================================
@@ -1173,7 +1675,9 @@ async function logout() {
 
 checkSession();
 
+
 </script>
 
 </body>
+
 </html>
