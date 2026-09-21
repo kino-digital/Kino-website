@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
 
 <meta
@@ -9,7 +10,7 @@
   content="width=device-width, initial-scale=1.0"
 >
 
-<title>KINO Admin Dashboard</title>
+<title>KINO Admin</title>
 
 <link
   href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap"
@@ -20,6 +21,10 @@
 
 <style>
 
+/* =========================
+   GLOBAL
+========================= */
+
 * {
   box-sizing: border-box;
 }
@@ -28,13 +33,15 @@ body {
   margin: 0;
   background: #fff8fb;
   color: #8a747b;
-  font-family: "Baloo 2", sans-serif;
+  font-family: 'Baloo 2', sans-serif;
 }
 
 button,
-input {
+input,
+select {
   font-family: inherit;
 }
+
 
 /* =========================
    LOGIN
@@ -54,7 +61,7 @@ input {
   background: white;
   padding: 45px 40px;
   border-radius: 28px;
-  box-shadow: 0 8px 30px rgba(190,130,150,.12);
+  box-shadow: 0 8px 30px rgba(190,130,150,0.12);
 }
 
 .login-logo {
@@ -62,6 +69,7 @@ input {
   color: #b96f8a;
   font-size: 34px;
   font-weight: 700;
+  margin-bottom: 5px;
 }
 
 .login-title {
@@ -106,7 +114,7 @@ input {
 }
 
 .login-button:disabled {
-  opacity: .6;
+  opacity: 0.6;
 }
 
 .login-error {
@@ -118,6 +126,7 @@ input {
   margin-bottom: 18px;
   text-align: center;
 }
+
 
 /* =========================
    DASHBOARD
@@ -133,7 +142,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 15px rgba(190,130,150,.06);
+  box-shadow: 0 2px 15px rgba(190,130,150,0.06);
 }
 
 .logo {
@@ -161,6 +170,11 @@ header {
   cursor: pointer;
 }
 
+
+/* =========================
+   MAIN
+========================= */
+
 .dashboard {
   max-width: 1100px;
   margin: 40px auto;
@@ -173,57 +187,23 @@ h1 {
   margin: 0 0 25px;
 }
 
-/* =========================
-   SALES CARDS
-========================= */
-
-.sales-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-  margin-bottom: 15px;
-}
-
-.sales-card {
-  background: white;
-  padding: 23px;
-  border-radius: 22px;
-  box-shadow: 0 5px 18px rgba(190,130,150,.10);
-}
-
-.sales-label {
-  font-size: 14px;
-  margin-bottom: 5px;
-}
-
-.sales-value {
-  color: #b96f8a;
-  font-size: 29px;
-  font-weight: 700;
-}
-
-.sales-sub {
-  font-size: 12px;
-  color: #aaa;
-  margin-top: 3px;
-}
 
 /* =========================
-   ORDER SUMMARY
+   SUMMARY
 ========================= */
 
 .summary {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
-  margin-bottom: 35px;
+  margin-bottom: 30px;
 }
 
 .summary-box {
   background: white;
-  padding: 20px;
+  padding: 22px;
   border-radius: 20px;
-  box-shadow: 0 5px 18px rgba(190,130,150,.10);
+  box-shadow: 0 5px 18px rgba(190,130,150,0.10);
 }
 
 .summary-label {
@@ -232,31 +212,76 @@ h1 {
 
 .summary-number {
   color: #b96f8a;
-  font-size: 27px;
+  font-size: 28px;
   font-weight: 700;
+  margin-top: 3px;
 }
 
+.summary-small {
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 3px;
+}
+
+
 /* =========================
-   ORDERS TITLE
+   SEARCH + FILTER
 ========================= */
 
-.orders-title {
-  color: #b96f8a;
-  font-size: 25px;
-  font-weight: 700;
-  margin-bottom: 18px;
+.order-tools {
+  background: white;
+  padding: 18px;
+  border-radius: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 5px 18px rgba(190,130,150,0.08);
 }
 
+.search-box {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1px solid #eadce2;
+  border-radius: 15px;
+  outline: none;
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.search-box:focus {
+  border-color: #d9829e;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-button {
+  border: none;
+  background: #f7edf1;
+  color: #a96b82;
+  padding: 9px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.filter-button.active {
+  background: #d9829e;
+  color: white;
+}
+
+
 /* =========================
-   ORDER CARD
+   ORDERS
 ========================= */
 
 .order-card {
   background: white;
-  padding: 23px;
-  border-radius: 22px;
-  margin-bottom: 16px;
-  box-shadow: 0 5px 18px rgba(190,130,150,.10);
+  padding: 22px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 18px rgba(190,130,150,0.10);
 }
 
 .order-header {
@@ -264,17 +289,17 @@ h1 {
   justify-content: space-between;
   align-items: center;
   gap: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .order-code {
   color: #b96f8a;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 17px;
 }
 
 .status {
-  padding: 5px 13px;
+  padding: 5px 12px;
   border-radius: 20px;
   font-size: 12px;
   background: #fde6ee;
@@ -292,18 +317,27 @@ h1 {
 }
 
 .customer {
-  line-height: 1.5;
   margin-bottom: 12px;
+  line-height: 1.5;
 }
 
-.customer-name {
-  color: #6f5960;
-  font-weight: 600;
+.customer strong {
+  color: #806d74;
 }
 
-.customer-email {
-  font-size: 14px;
+.total {
+  font-size: 20px;
+  font-weight: 700;
+  color: #b96f8a;
+  margin-bottom: 15px;
 }
+
+.order-date {
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 15px;
+}
+
 
 /* =========================
    PRODUCTS
@@ -311,50 +345,53 @@ h1 {
 
 .products-box {
   background: #fff8fb;
-  padding: 15px;
-  border-radius: 16px;
+  border-radius: 15px;
+  padding: 14px;
   margin: 15px 0;
 }
 
 .products-title {
   color: #b96f8a;
-  font-weight: 600;
-  margin-bottom: 8px;
+  font-weight: 700;
+  margin-bottom: 10px;
 }
 
 .product-row {
+  background: white;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 8px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 15px;
-  padding: 6px 0;
-  font-size: 14px;
-  border-bottom: 1px dashed #eadce2;
 }
 
 .product-row:last-child {
-  border-bottom: none;
+  margin-bottom: 0;
 }
 
 .product-name {
-  color: #6f5960;
+  font-weight: 600;
+  color: #806d74;
+}
+
+.product-qty {
+  font-size: 13px;
+  color: #aaa;
+  margin-top: 2px;
 }
 
 .product-price {
-  white-space: nowrap;
+  text-align: right;
+  color: #a96b82;
+  font-weight: 600;
 }
 
-.total {
-  font-size: 21px;
-  font-weight: 700;
-  color: #b96f8a;
-  margin: 15px 0 5px;
-}
 
-.order-date {
-  font-size: 13px;
-  color: #aaa;
-  margin-bottom: 16px;
-}
+/* =========================
+   ACTIONS
+========================= */
 
 .actions {
   display: flex;
@@ -364,7 +401,7 @@ h1 {
 
 .actions button {
   border: none;
-  padding: 9px 15px;
+  padding: 9px 16px;
   border-radius: 20px;
   cursor: pointer;
   font-size: 13px;
@@ -386,13 +423,15 @@ h1 {
 }
 
 .email-button {
-  background: #eadff8;
-  color: #76588d;
+  background: #eadff5;
+  color: #80649a;
 }
 
-.email-button:hover {
-  opacity: .85;
+.copy-button {
+  background: #eee7ea;
+  color: #806d74;
 }
+
 
 /* =========================
    STATES
@@ -412,13 +451,29 @@ h1 {
   background: #fff0f3;
 }
 
+.no-results {
+  background: white;
+  padding: 30px;
+  text-align: center;
+  border-radius: 20px;
+  color: #aaa;
+}
+
+
 /* =========================
    MOBILE
 ========================= */
 
 @media (max-width: 750px) {
 
-  .sales-grid,
+  .summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+@media (max-width: 650px) {
+
   .summary {
     grid-template-columns: 1fr;
   }
@@ -444,8 +499,19 @@ h1 {
   }
 
   .product-row {
-    flex-direction: column;
-    gap: 2px;
+    align-items: flex-start;
+  }
+
+  .product-price {
+    white-space: nowrap;
+  }
+
+  .filter-buttons {
+    gap: 6px;
+  }
+
+  .filter-button {
+    padding: 8px 12px;
   }
 
 }
@@ -494,6 +560,7 @@ h1 {
 
       </div>
 
+
       <div class="input-group">
 
         <label>Password</label>
@@ -506,6 +573,7 @@ h1 {
         >
 
       </div>
+
 
       <button
         type="submit"
@@ -559,79 +627,72 @@ h1 {
   </h1>
 
 
-  <!-- =======================================
-       SALES
-  ======================================== -->
+  <!-- =========================
+       SUMMARY
+  ========================== -->
 
-  <div class="sales-grid">
+  <div class="summary">
 
-    <div class="sales-card">
 
-      <div class="sales-label">
+    <div class="summary-box">
+
+      <div class="summary-label">
         Today's Sales
       </div>
 
       <div
-        class="sales-value"
+        class="summary-number"
         id="today-sales"
       >
         RM0.00
       </div>
 
-      <div class="sales-sub">
+      <div class="summary-small">
         Paid orders today
       </div>
 
     </div>
 
 
-    <div class="sales-card">
+    <div class="summary-box">
 
-      <div class="sales-label">
+      <div class="summary-label">
         This Month
       </div>
 
       <div
-        class="sales-value"
+        class="summary-number"
         id="month-sales"
       >
         RM0.00
       </div>
 
-      <div class="sales-sub">
+      <div class="summary-small">
         Paid orders this month
       </div>
 
     </div>
 
 
-    <div class="sales-card">
+    <div class="summary-box">
 
-      <div class="sales-label">
+      <div class="summary-label">
         Total Sales
       </div>
 
       <div
-        class="sales-value"
-        id="total-sales"
+        class="summary-number"
+        id="sales-total"
       >
         RM0.00
       </div>
 
-      <div class="sales-sub">
+      <div class="summary-small">
         All paid orders
       </div>
 
     </div>
 
-  </div>
-
-
-  <!-- =======================================
-       ORDER COUNTS
-  ======================================== -->
-
-  <div class="summary">
 
     <div class="summary-box">
 
@@ -683,13 +744,59 @@ h1 {
   </div>
 
 
-  <!-- =======================================
-       ORDERS
-  ======================================== -->
+  <!-- =========================
+       SEARCH / FILTER
+  ========================== -->
 
-  <div class="orders-title">
-    Orders ♡
+  <div class="order-tools">
+
+    <input
+      type="search"
+      id="search-input"
+      class="search-box"
+      placeholder="🔍 Search name, email or order code..."
+    >
+
+
+    <div class="filter-buttons">
+
+      <button
+        class="filter-button active"
+        data-filter="all"
+      >
+        ALL
+      </button>
+
+      <button
+        class="filter-button"
+        data-filter="pending"
+      >
+        PENDING
+      </button>
+
+      <button
+        class="filter-button"
+        data-filter="paid"
+      >
+        PAID
+      </button>
+
+      <button
+        class="filter-button"
+        data-filter="rejected"
+      >
+        REJECTED
+      </button>
+
+    </div>
+
   </div>
+
+
+  <h1 style="font-size:26px;">
+    Orders ♡
+  </h1>
+
 
   <div id="orders">
 
@@ -746,23 +853,31 @@ const loginButton =
 const ordersContainer =
   document.getElementById("orders");
 
+const pendingCount =
+  document.getElementById("pending-count");
+
+const paidCount =
+  document.getElementById("paid-count");
+
+const salesTotal =
+  document.getElementById("sales-total");
+
 const todaySales =
   document.getElementById("today-sales");
 
 const monthSales =
   document.getElementById("month-sales");
 
-const totalSales =
-  document.getElementById("total-sales");
-
 const todayOrders =
   document.getElementById("today-orders");
 
-const pendingCount =
-  document.getElementById("pending-count");
+const searchInput =
+  document.getElementById("search-input");
 
-const paidCount =
-  document.getElementById("paid-count");
+
+let allOrders = [];
+
+let currentFilter = "all";
 
 
 /* =========================================
@@ -782,6 +897,51 @@ function escapeHtml(value) {
 
 
 /* =========================================
+   DATE HELPERS
+========================================= */
+
+function isToday(dateString) {
+
+  if (!dateString) {
+    return false;
+  }
+
+  const date =
+    new Date(dateString);
+
+  const now =
+    new Date();
+
+  return (
+    date.getFullYear() === now.getFullYear() &&
+    date.getMonth() === now.getMonth() &&
+    date.getDate() === now.getDate()
+  );
+
+}
+
+
+function isThisMonth(dateString) {
+
+  if (!dateString) {
+    return false;
+  }
+
+  const date =
+    new Date(dateString);
+
+  const now =
+    new Date();
+
+  return (
+    date.getFullYear() === now.getFullYear() &&
+    date.getMonth() === now.getMonth()
+  );
+
+}
+
+
+/* =========================================
    LOGIN
 ========================================= */
 
@@ -791,9 +951,11 @@ loginForm.addEventListener(
 
     event.preventDefault();
 
-    loginError.style.display = "none";
+    loginError.style.display =
+      "none";
 
-    loginButton.disabled = true;
+    loginButton.disabled =
+      true;
 
     loginButton.textContent =
       "LOGGING IN...";
@@ -812,9 +974,7 @@ loginForm.addEventListener(
         .value;
 
 
-    const {
-      error
-    } =
+    const { error } =
       await db.auth.signInWithPassword({
 
         email: email,
@@ -834,7 +994,8 @@ loginForm.addEventListener(
       loginError.style.display =
         "block";
 
-      loginButton.disabled = false;
+      loginButton.disabled =
+        false;
 
       loginButton.textContent =
         "LOGIN";
@@ -844,14 +1005,7 @@ loginForm.addEventListener(
     }
 
 
-    /*
-      RLS decides whether
-      this account can access orders.
-    */
-
-    const {
-      error: adminError
-    } =
+    const { error: adminError } =
       await db
         .from("orders")
         .select("id")
@@ -870,7 +1024,8 @@ loginForm.addEventListener(
       loginError.style.display =
         "block";
 
-      loginButton.disabled = false;
+      loginButton.disabled =
+        false;
 
       loginButton.textContent =
         "LOGIN";
@@ -892,9 +1047,11 @@ loginForm.addEventListener(
 
 async function showDashboard() {
 
-  loginPage.style.display = "none";
+  loginPage.style.display =
+    "none";
 
-  dashboardPage.style.display = "block";
+  dashboardPage.style.display =
+    "block";
 
   await loadOrders();
 
@@ -916,18 +1073,18 @@ async function checkSession() {
 
   if (!session) {
 
-    loginPage.style.display = "flex";
+    loginPage.style.display =
+      "flex";
 
-    dashboardPage.style.display = "none";
+    dashboardPage.style.display =
+      "none";
 
     return;
 
   }
 
 
-  const {
-    error
-  } =
+  const { error } =
     await db
       .from("orders")
       .select("id")
@@ -938,9 +1095,11 @@ async function checkSession() {
 
     await db.auth.signOut();
 
-    loginPage.style.display = "flex";
+    loginPage.style.display =
+      "flex";
 
-    dashboardPage.style.display = "none";
+    dashboardPage.style.display =
+      "none";
 
     return;
 
@@ -968,16 +1127,15 @@ async function loadOrders() {
   const {
     data,
     error
-  } =
-    await db
-      .from("orders")
-      .select("*")
-      .order(
-        "created_at",
-        {
-          ascending: false
-        }
-      );
+  } = await db
+    .from("orders")
+    .select("*")
+    .order(
+      "created_at",
+      {
+        ascending: false
+      }
+    );
 
 
   if (error) {
@@ -996,20 +1154,357 @@ async function loadOrders() {
   }
 
 
-  const orders =
+  allOrders =
     data || [];
 
 
-  updateDashboard(
-    orders
-  );
+  await loadProducts();
+
+}
+
+
+/* =========================================
+   LOAD PRODUCTS
+========================================= */
+
+async function loadProducts() {
+
+  if (!allOrders.length) {
+
+    updateSummary(allOrders);
+
+    renderOrders();
+
+    return;
+
+  }
+
+
+  const orderIds =
+    allOrders
+      .map(order => order.id)
+      .filter(Boolean);
+
+
+  if (!orderIds.length) {
+
+    updateSummary(allOrders);
+
+    renderOrders();
+
+    return;
+
+  }
+
+
+  const {
+    data: items,
+    error
+  } = await db
+    .from("order_items")
+    .select("*")
+    .in(
+      "order_id",
+      orderIds
+    );
+
+
+  if (error) {
+
+    console.error(
+      "Unable to load order items:",
+      error
+    );
+
+    allOrders =
+      allOrders.map(order => ({
+        ...order,
+        items: []
+      }));
+
+  }
+
+  else {
+
+    const itemList =
+      items || [];
+
+
+    allOrders =
+      allOrders.map(order => ({
+
+        ...order,
+
+        items:
+          itemList.filter(
+            item =>
+              item.order_id === order.id
+          )
+
+      }));
+
+  }
+
+
+  updateSummary(allOrders);
+
+  renderOrders();
+
+}
+
+
+/* =========================================
+   SUMMARY
+========================================= */
+
+function updateSummary(
+  orders
+) {
+
+  const pending =
+    orders.filter(
+      order =>
+        String(order.status || "")
+          .toLowerCase() === "pending"
+    ).length;
+
+
+  const paidOrders =
+    orders.filter(
+      order =>
+        String(order.status || "")
+          .toLowerCase() === "paid"
+    );
+
+
+  const paid =
+    paidOrders.length;
+
+
+  const totalSales =
+    paidOrders.reduce(
+      (
+        sum,
+        order
+      ) =>
+        sum +
+        Number(
+          order.total || 0
+        ),
+      0
+    );
+
+
+  const todayPaidOrders =
+    paidOrders.filter(
+      order =>
+        isToday(
+          order.created_at
+        )
+    );
+
+
+  const todaySalesValue =
+    todayPaidOrders.reduce(
+      (
+        sum,
+        order
+      ) =>
+        sum +
+        Number(
+          order.total || 0
+        ),
+      0
+    );
+
+
+  const monthPaidOrders =
+    paidOrders.filter(
+      order =>
+        isThisMonth(
+          order.created_at
+        )
+    );
+
+
+  const monthSalesValue =
+    monthPaidOrders.reduce(
+      (
+        sum,
+        order
+      ) =>
+        sum +
+        Number(
+          order.total || 0
+        ),
+      0
+    );
+
+
+  const todayOrderCount =
+    orders.filter(
+      order =>
+        isToday(
+          order.created_at
+        )
+    ).length;
+
+
+  pendingCount.textContent =
+    pending;
+
+
+  paidCount.textContent =
+    paid;
+
+
+  salesTotal.textContent =
+    "RM" +
+    totalSales.toFixed(2);
+
+
+  todaySales.textContent =
+    "RM" +
+    todaySalesValue.toFixed(2);
+
+
+  monthSales.textContent =
+    "RM" +
+    monthSalesValue.toFixed(2);
+
+
+  todayOrders.textContent =
+    todayOrderCount;
+
+}
+
+
+/* =========================================
+   FILTER BUTTONS
+========================================= */
+
+document
+  .querySelectorAll(".filter-button")
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      function() {
+
+        document
+          .querySelectorAll(".filter-button")
+          .forEach(
+            item =>
+              item.classList.remove(
+                "active"
+              )
+          );
+
+
+        this.classList.add(
+          "active"
+        );
+
+
+        currentFilter =
+          this.dataset.filter;
+
+
+        renderOrders();
+
+      }
+    );
+
+  });
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+searchInput.addEventListener(
+  "input",
+  function() {
+
+    renderOrders();
+
+  }
+);
+
+
+/* =========================================
+   RENDER ORDERS
+========================================= */
+
+function renderOrders() {
+
+  let orders =
+    [...allOrders];
+
+
+  /* FILTER */
+
+  if (
+    currentFilter !== "all"
+  ) {
+
+    orders =
+      orders.filter(
+        order =>
+          String(
+            order.status || "pending"
+          ).toLowerCase()
+          === currentFilter
+      );
+
+  }
+
+
+  /* SEARCH */
+
+  const search =
+    searchInput.value
+      .trim()
+      .toLowerCase();
+
+
+  if (search) {
+
+    orders =
+      orders.filter(
+        order => {
+
+          const text = [
+
+            order.order_code,
+
+            order.customer_name,
+
+            order.customer_email,
+
+            order.status
+
+          ]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
+
+
+          return text.includes(
+            search
+          );
+
+        }
+      );
+
+  }
 
 
   if (orders.length === 0) {
 
     ordersContainer.innerHTML = `
-      <div class="empty">
-        No orders yet ♡
+      <div class="no-results">
+        No orders found ♡
       </div>
     `;
 
@@ -1018,45 +1513,8 @@ async function loadOrders() {
   }
 
 
-  /*
-    Get order items separately.
-  */
-
-  const orderIds =
-    orders.map(
-      order => order.id
-    );
-
-
-  let orderItems = [];
-
-
-  if (orderIds.length > 0) {
-
-    const {
-      data: itemsData,
-      error: itemsError
-    } =
-      await db
-        .from("order_items")
-        .select("*")
-        .in(
-          "order_id",
-          orderIds
-        );
-
-
-    if (!itemsError) {
-
-      orderItems =
-        itemsData || [];
-
-    }
-
-  }
-
-
-  ordersContainer.innerHTML = "";
+  ordersContainer.innerHTML =
+    "";
 
 
   orders.forEach(
@@ -1067,15 +1525,15 @@ async function loadOrders() {
           "div"
         );
 
+
       card.className =
         "order-card";
 
 
       const status =
         String(
-          order.status ||
-          "pending"
-        );
+          order.status || "pending"
+        ).toLowerCase();
 
 
       const statusClass =
@@ -1096,85 +1554,102 @@ async function loadOrders() {
           : "-";
 
 
-      /*
-        PRODUCTS
-      */
+      /* =========================
+         PRODUCTS
+      ========================== */
 
-      const products =
-        orderItems.filter(
-          item =>
-            item.order_id ===
-            order.id
-        );
+      const items =
+        order.items || [];
 
 
-      let productsHtml = "";
+      let productsHTML = "";
 
 
       if (
-        products.length === 0
+        items.length > 0
       ) {
 
-        productsHtml = `
-          <div class="product-row">
-            <span class="product-name">
-              Product information unavailable
-            </span>
+        productsHTML =
+          items
+            .map(
+              item => {
+
+                const name =
+                  item.product_name ||
+                  item.name ||
+                  "Product";
+
+
+                const quantity =
+                  Number(
+                    item.quantity || 1
+                  );
+
+
+                const subtotal =
+                  Number(
+                    item.subtotal ||
+                    (
+                      Number(
+                        item.product_price || 0
+                      ) *
+                      quantity
+                    )
+                  );
+
+
+                return `
+
+                  <div class="product-row">
+
+                    <div>
+
+                      <div class="product-name">
+                        ${escapeHtml(name)}
+                      </div>
+
+                      <div class="product-qty">
+                        RM${Number(
+                          item.product_price || 0
+                        ).toFixed(2)}
+                        × ${quantity}
+                      </div>
+
+                    </div>
+
+                    <div class="product-price">
+                      RM${subtotal.toFixed(2)}
+                    </div>
+
+                  </div>
+
+                `;
+
+              }
+            )
+            .join("");
+
+      }
+
+      else {
+
+        productsHTML = `
+          <div
+            style="
+              color:#aaa;
+              font-size:13px;
+            "
+          >
+            No product information.
           </div>
         `;
-
-      } else {
-
-        productsHtml =
-          products.map(
-            item => {
-
-              const quantity =
-                Number(
-                  item.quantity || 1
-                );
-
-              const subtotal =
-                Number(
-                  item.subtotal ||
-                  (
-                    Number(
-                      item.product_price ||
-                      0
-                    ) *
-                    quantity
-                  )
-                );
-
-
-              return `
-
-                <div class="product-row">
-
-                  <span class="product-name">
-                    ${escapeHtml(
-                      item.product_name
-                    )}
-                    × ${quantity}
-                  </span>
-
-                  <span class="product-price">
-                    RM${subtotal.toFixed(2)}
-                  </span>
-
-                </div>
-
-              `;
-
-            }
-          ).join("");
 
       }
 
 
-      /*
-        PAYMENT PROOF
-      */
+      /* =========================
+         PAYMENT PROOF
+      ========================== */
 
       let proofButton = "";
 
@@ -1187,11 +1662,9 @@ async function loadOrders() {
 
           <button
             class="proof-button"
-            onclick="viewPaymentProof(
-              '${encodeURIComponent(
-                order.payment_proof_path
-              )}'
-            )"
+            onclick="viewPaymentProof('${encodeURIComponent(
+              order.payment_proof_path
+            )}')"
           >
             VIEW PAYMENT PROOF
           </button>
@@ -1201,9 +1674,9 @@ async function loadOrders() {
       }
 
 
-      /*
-        ACTION BUTTONS
-      */
+      /* =========================
+         ACTIONS
+      ========================== */
 
       let actionButtons = "";
 
@@ -1217,7 +1690,7 @@ async function loadOrders() {
           <button
             class="paid-button"
             onclick="updateStatus(
-              '${order.id}',
+              '${escapeJs(order.id)}',
               'paid'
             )"
           >
@@ -1227,7 +1700,7 @@ async function loadOrders() {
           <button
             class="reject-button"
             onclick="updateStatus(
-              '${order.id}',
+              '${escapeJs(order.id)}',
               'rejected'
             )"
           >
@@ -1239,31 +1712,29 @@ async function loadOrders() {
       }
 
 
-      /*
-        EMAIL BUTTON
+      if (
+        status === "paid"
+      ) {
 
-        Opens Gmail on desktop
-        and mail app / Gmail handler
-        on supported phones.
-      */
+        actionButtons = `
 
-      const emailButton = `
+          <button
+            class="email-button"
+            onclick="emailCustomer('${escapeJs(order.id)}')"
+          >
+            EMAIL ORDER
+          </button>
 
-        <button
-          class="email-button"
-          onclick="emailOrder(
-            '${encodeURIComponent(
-              order.customer_email || ""
-            )}',
-            '${encodeURIComponent(
-              order.order_code || ""
-            )}'
-          )"
-        >
-          EMAIL ORDER
-        </button>
+          <button
+            class="copy-button"
+            onclick="copyOrderInfo('${escapeJs(order.id)}')"
+          >
+            COPY ORDER INFO
+          </button>
 
-      `;
+        `;
+
+      }
 
 
       card.innerHTML = `
@@ -1271,21 +1742,15 @@ async function loadOrders() {
         <div class="order-header">
 
           <div class="order-code">
-
             ${escapeHtml(
               order.order_code
             )}
-
           </div>
 
           <div
             class="status ${statusClass}"
           >
-
-            ${escapeHtml(
-              status
-            )}
-
+            ${escapeHtml(status)}
           </div>
 
         </div>
@@ -1293,21 +1758,17 @@ async function loadOrders() {
 
         <div class="customer">
 
-          <div class="customer-name">
-
+          <strong>
             ${escapeHtml(
               order.customer_name
             )}
+          </strong>
 
-          </div>
+          <br>
 
-          <div class="customer-email">
-
-            ${escapeHtml(
-              order.customer_email
-            )}
-
-          </div>
+          ${escapeHtml(
+            order.customer_email
+          )}
 
         </div>
 
@@ -1318,26 +1779,22 @@ async function loadOrders() {
             Products
           </div>
 
-          ${productsHtml}
+          ${productsHTML}
 
         </div>
 
 
         <div class="total">
-
           RM${Number(
             order.total || 0
           ).toFixed(2)}
-
         </div>
 
 
         <div class="order-date">
-
           ${escapeHtml(
             createdAt
           )}
-
         </div>
 
 
@@ -1346,8 +1803,6 @@ async function loadOrders() {
           ${proofButton}
 
           ${actionButtons}
-
-          ${emailButton}
 
         </div>
 
@@ -1365,220 +1820,30 @@ async function loadOrders() {
 
 
 /* =========================================
-   DASHBOARD CALCULATIONS
+   SAFE JS STRING
 ========================================= */
 
-function updateDashboard(
-  orders
-) {
+function escapeJs(value) {
 
-  const now =
-    new Date();
-
-
-  /*
-    Today
-  */
-
-  const todayStart =
-    new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate()
+  return String(
+    value ?? ""
+  )
+    .replace(
+      /\\/g,
+      "\\\\"
+    )
+    .replace(
+      /'/g,
+      "\\'"
+    )
+    .replace(
+      /\n/g,
+      "\\n"
+    )
+    .replace(
+      /\r/g,
+      "\\r"
     );
-
-
-  const tomorrowStart =
-    new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate() + 1
-    );
-
-
-  /*
-    Month
-  */
-
-  const monthStart =
-    new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      1
-    );
-
-
-  const nextMonthStart =
-    new Date(
-      now.getFullYear(),
-      now.getMonth() + 1,
-      1
-    );
-
-
-  /*
-    PAID ORDERS ONLY
-  */
-
-  const paidOrders =
-    orders.filter(
-      order =>
-        order.status === "paid"
-    );
-
-
-  /*
-    TODAY PAID
-  */
-
-  const todayPaid =
-    paidOrders.filter(
-      order => {
-
-        const date =
-          new Date(
-            order.created_at
-          );
-
-        return (
-          date >= todayStart &&
-          date < tomorrowStart
-        );
-
-      }
-    );
-
-
-  /*
-    MONTH PAID
-  */
-
-  const monthPaid =
-    paidOrders.filter(
-      order => {
-
-        const date =
-          new Date(
-            order.created_at
-          );
-
-        return (
-          date >= monthStart &&
-          date < nextMonthStart
-        );
-
-      }
-    );
-
-
-  /*
-    SALES
-  */
-
-  const todaySalesAmount =
-    todayPaid.reduce(
-      (
-        sum,
-        order
-      ) =>
-        sum +
-        Number(
-          order.total || 0
-        ),
-      0
-    );
-
-
-  const monthSalesAmount =
-    monthPaid.reduce(
-      (
-        sum,
-        order
-      ) =>
-        sum +
-        Number(
-          order.total || 0
-        ),
-      0
-    );
-
-
-  const totalSalesAmount =
-    paidOrders.reduce(
-      (
-        sum,
-        order
-      ) =>
-        sum +
-        Number(
-          order.total || 0
-        ),
-      0
-    );
-
-
-  /*
-    COUNTS
-  */
-
-  const todayOrderCount =
-    orders.filter(
-      order => {
-
-        const date =
-          new Date(
-            order.created_at
-          );
-
-        return (
-          date >= todayStart &&
-          date < tomorrowStart
-        );
-
-      }
-    ).length;
-
-
-  const pending =
-    orders.filter(
-      order =>
-        order.status === "pending"
-    ).length;
-
-
-  const paid =
-    paidOrders.length;
-
-
-  /*
-    DISPLAY
-  */
-
-  todaySales.textContent =
-    "RM" +
-    todaySalesAmount.toFixed(2);
-
-
-  monthSales.textContent =
-    "RM" +
-    monthSalesAmount.toFixed(2);
-
-
-  totalSales.textContent =
-    "RM" +
-    totalSalesAmount.toFixed(2);
-
-
-  todayOrders.textContent =
-    todayOrderCount;
-
-
-  pendingCount.textContent =
-    pending;
-
-
-  paidCount.textContent =
-    paid;
 
 }
 
@@ -1602,13 +1867,14 @@ async function viewPaymentProof(
     const {
       data,
       error
-    } =
-      await db.storage
-        .from("payment-proofs")
-        .createSignedUrl(
-          path,
-          300
-        );
+    } = await db.storage
+      .from(
+        "payment-proofs"
+      )
+      .createSignedUrl(
+        path,
+        300
+      );
 
 
     if (error) {
@@ -1616,7 +1882,8 @@ async function viewPaymentProof(
       console.error(error);
 
       alert(
-        "Unable to open payment proof.\n\n" +
+        "Unable to open payment proof.\n\n"
+        +
         error.message
       );
 
@@ -1687,16 +1954,15 @@ async function updateStatus(
 
   const {
     error
-  } =
-    await db
-      .from("orders")
-      .update({
-        status: status
-      })
-      .eq(
-        "id",
-        orderId
-      );
+  } = await db
+    .from("orders")
+    .update({
+      status: status
+    })
+    .eq(
+      "id",
+      orderId
+    );
 
 
   if (error) {
@@ -1704,7 +1970,8 @@ async function updateStatus(
     console.error(error);
 
     alert(
-      "Unable to update order.\n\n" +
+      "Unable to update order.\n\n"
+      +
       error.message
     );
 
@@ -1719,24 +1986,34 @@ async function updateStatus(
 
 
 /* =========================================
-   EMAIL ORDER
+   EMAIL CUSTOMER
 ========================================= */
 
-function emailOrder(
-  encodedEmail,
-  encodedOrderCode
+function emailCustomer(
+  orderId
 ) {
 
+  const order =
+    allOrders.find(
+      item =>
+        String(item.id) ===
+        String(orderId)
+    );
+
+
+  if (!order) {
+
+    alert(
+      "Order not found."
+    );
+
+    return;
+
+  }
+
+
   const email =
-    decodeURIComponent(
-      encodedEmail
-    );
-
-
-  const orderCode =
-    decodeURIComponent(
-      encodedOrderCode
-    );
+    order.customer_email || "";
 
 
   if (!email) {
@@ -1750,42 +2027,156 @@ function emailOrder(
   }
 
 
+  const items =
+    order.items || [];
+
+
+  const productText =
+    items.length
+      ? items
+          .map(
+            item =>
+              `${item.product_name || item.name || "Product"} x ${Number(item.quantity || 1)}`
+          )
+          .join("\n")
+      : "Digital product";
+
+
   const subject =
-    encodeURIComponent(
-      `KINO Order ${orderCode} ♡`
-    );
+    `KINO Order ${order.order_code}`;
 
 
   const body =
-    encodeURIComponent(
-`Hi!
+`Hi ${order.customer_name || "there"},
 
-Thank you for your order with KINO ♡
+Thank you for your purchase from KINO ♡
 
-Order: ${orderCode}
+Order: ${order.order_code}
 
-Your payment has been received and your digital products will be sent to this email.
+Products:
+${productText}
 
-Thank you for supporting KINO!
+Total: RM${Number(
+  order.total || 0
+).toFixed(2)}
 
-♡ KINO`
-    );
+Your digital product is attached to this email.
 
+Thank you for supporting KINO ♡`;
 
-  /*
-    mailto:
-    - On desktop it can open
-      the default email client.
-    - On phone it can open
-      Gmail / supported mail app.
-  */
 
   const mailto =
-    `mailto:${email}?subject=${subject}&body=${body}`;
+    "mailto:" +
+    encodeURIComponent(email) +
+    "?subject=" +
+    encodeURIComponent(subject) +
+    "&body=" +
+    encodeURIComponent(body);
 
 
   window.location.href =
     mailto;
+
+}
+
+
+/* =========================================
+   COPY ORDER INFO
+========================================= */
+
+async function copyOrderInfo(
+  orderId
+) {
+
+  const order =
+    allOrders.find(
+      item =>
+        String(item.id) ===
+        String(orderId)
+    );
+
+
+  if (!order) {
+
+    alert(
+      "Order not found."
+    );
+
+    return;
+
+  }
+
+
+  const items =
+    order.items || [];
+
+
+  const productText =
+    items.length
+      ? items
+          .map(
+            item =>
+              `${item.product_name || item.name || "Product"} x ${Number(item.quantity || 1)}`
+          )
+          .join("\n")
+      : "No product information";
+
+
+  const text =
+`KINO ORDER
+
+Order:
+${order.order_code}
+
+Customer:
+${order.customer_name || "-"}
+
+Email:
+${order.customer_email || "-"}
+
+Products:
+${productText}
+
+Total:
+RM${Number(
+  order.total || 0
+).toFixed(2)}
+
+Status:
+${order.status || "-"}
+
+Date:
+${
+  order.created_at
+    ? new Date(
+        order.created_at
+      ).toLocaleString("en-MY")
+    : "-"
+}`;
+
+
+  try {
+
+    await navigator.clipboard.writeText(
+      text
+    );
+
+
+    alert(
+      "Order information copied ♡"
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Unable to copy order information."
+    );
+
+  }
 
 }
 
@@ -1798,11 +2189,14 @@ async function logout() {
 
   await db.auth.signOut();
 
+
   dashboardPage.style.display =
     "none";
 
+
   loginPage.style.display =
     "flex";
+
 
   document
     .getElementById(
