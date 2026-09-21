@@ -21,6 +21,10 @@
 
 <style>
 
+/* =========================================
+   GLOBAL
+========================================= */
+
 * {
   box-sizing: border-box;
 }
@@ -37,9 +41,10 @@ input {
   font-family: inherit;
 }
 
-/* =========================
+
+/* =========================================
    LOGIN
-========================= */
+========================================= */
 
 #login-page {
   min-height: 100vh;
@@ -121,9 +126,10 @@ input {
   text-align: center;
 }
 
-/* =========================
+
+/* =========================================
    DASHBOARD
-========================= */
+========================================= */
 
 #dashboard-page {
   display: none;
@@ -163,12 +169,13 @@ header {
   cursor: pointer;
 }
 
-/* =========================
+
+/* =========================================
    DASHBOARD
-========================= */
+========================================= */
 
 .dashboard {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 40px auto;
   padding: 20px;
 }
@@ -178,6 +185,11 @@ h1 {
   font-size: 32px;
   margin-bottom: 25px;
 }
+
+
+/* =========================================
+   SUMMARY
+========================================= */
 
 .summary {
   display: grid;
@@ -203,9 +215,10 @@ h1 {
   font-weight: 700;
 }
 
-/* =========================
+
+/* =========================================
    ORDER CARD
-========================= */
+========================================= */
 
 .order-card {
   background: white;
@@ -247,42 +260,38 @@ h1 {
   color: #777;
 }
 
-/* =========================
+
+/* =========================================
    CUSTOMER
-========================= */
+========================================= */
 
 .customer {
   margin-bottom: 15px;
   line-height: 1.5;
 }
 
-.customer strong {
-  color: #80656e;
-  font-size: 17px;
-}
 
-/* =========================
+/* =========================================
    PRODUCTS
-========================= */
+========================================= */
 
 .products-box {
-  background: #fff8fb;
-  border-radius: 16px;
+  background: #fff7fa;
   padding: 15px;
+  border-radius: 15px;
   margin-bottom: 15px;
 }
 
 .products-title {
   color: #b96f8a;
-  font-size: 16px;
   font-weight: 700;
   margin-bottom: 10px;
 }
 
 .product-row {
   background: white;
-  border-radius: 12px;
   padding: 12px;
+  border-radius: 12px;
   margin-bottom: 8px;
 
   display: flex;
@@ -297,31 +306,30 @@ h1 {
 
 .product-name {
   font-weight: 600;
-  color: #80656e;
+  color: #8a747b;
 }
 
-.product-details {
+.product-quantity {
   font-size: 13px;
-  color: #a8989d;
-  margin-top: 2px;
+  color: #aaa;
 }
 
 .product-price {
-  text-align: right;
-  white-space: nowrap;
-  color: #9d7483;
   font-weight: 600;
+  color: #b96f8a;
+  white-space: nowrap;
 }
 
-/* =========================
-   TOTAL
-========================= */
+
+/* =========================================
+   TOTAL / DATE
+========================================= */
 
 .total {
-  font-size: 21px;
+  font-size: 20px;
   font-weight: 700;
   color: #b96f8a;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .order-date {
@@ -330,9 +338,10 @@ h1 {
   margin-bottom: 15px;
 }
 
-/* =========================
-   BUTTONS
-========================= */
+
+/* =========================================
+   ACTIONS
+========================================= */
 
 .actions {
   display: flex;
@@ -342,15 +351,11 @@ h1 {
 
 .actions button {
   border: none;
-  padding: 10px 15px;
+  padding: 9px 16px;
   border-radius: 20px;
   cursor: pointer;
   font-size: 13px;
   font-weight: 600;
-}
-
-.actions button:active {
-  transform: scale(0.98);
 }
 
 .proof-button {
@@ -374,13 +379,28 @@ h1 {
 }
 
 .copy-button {
-  background: #eee4e8;
-  color: #80656e;
+  background: #eee5e9;
+  color: #8a747b;
 }
 
-/* =========================
-   MESSAGES
-========================= */
+
+/* =========================================
+   INFO
+========================================= */
+
+.email-note {
+  background: #fff4f7;
+  color: #a96b82;
+  padding: 12px 15px;
+  border-radius: 12px;
+  margin-top: 15px;
+  font-size: 13px;
+}
+
+
+/* =========================================
+   STATES
+========================================= */
 
 .loading,
 .empty,
@@ -396,9 +416,10 @@ h1 {
   background: #fff0f3;
 }
 
-/* =========================
+
+/* =========================================
    MOBILE
-========================= */
+========================================= */
 
 @media (max-width: 650px) {
 
@@ -428,14 +449,12 @@ h1 {
 
   .product-row {
     align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
   }
 
   .product-price {
-    font-size: 13px;
-  }
-
-  .actions button {
-    width: 100%;
+    align-self: flex-end;
   }
 
 }
@@ -512,6 +531,7 @@ h1 {
   </div>
 
 </section>
+
 
 
 <!-- =========================================
@@ -614,6 +634,7 @@ h1 {
 </main>
 
 </section>
+
 
 
 <script>
@@ -746,8 +767,8 @@ loginForm.addEventListener(
 
 
     /*
-      RLS akan menentukan sama ada
-      account ini boleh baca orders.
+      RLS Supabase decides whether
+      this account can access orders.
     */
 
     const { error: adminError } =
@@ -862,12 +883,8 @@ async function loadOrders() {
   `;
 
 
-  /* -----------------------------------------
-     GET ORDERS
-  ----------------------------------------- */
-
   const {
-    data: orders,
+    data: ordersData,
     error: ordersError
   } = await db
     .from("orders")
@@ -896,27 +913,27 @@ async function loadOrders() {
   }
 
 
-  const orderList =
-    orders || [];
+  const orders =
+    ordersData || [];
 
 
-  /* -----------------------------------------
-     GET ORDER ITEMS
-  ----------------------------------------- */
+  /*
+    LOAD ALL PRODUCTS FOR THESE ORDERS
+  */
 
-  let orderItems = [];
+  let items = [];
 
 
-  if (orderList.length > 0) {
+  if (orders.length > 0) {
 
     const orderIds =
-      orderList.map(
+      orders.map(
         order => order.id
       );
 
 
     const {
-      data: items,
+      data: itemsData,
       error: itemsError
     } = await db
       .from("order_items")
@@ -929,35 +946,35 @@ async function loadOrders() {
 
     if (itemsError) {
 
-      console.error(itemsError);
+      console.error(
+        "Order items error:",
+        itemsError
+      );
 
-      ordersContainer.innerHTML = `
-        <div class="error">
-          Orders loaded, but product information
-          could not be loaded.<br><br>
-          ${escapeHtml(itemsError.message)}
-        </div>
-      `;
-
-      return;
+      /*
+        Don't stop dashboard.
+        We can still show orders.
+      */
 
     }
+    else {
 
+      items =
+        itemsData || [];
 
-    orderItems =
-      items || [];
+    }
 
   }
 
 
-  /* -----------------------------------------
-     GROUP ITEMS BY ORDER
-  ----------------------------------------- */
+  /*
+    GROUP PRODUCTS BY ORDER
+  */
 
   const itemsByOrder = {};
 
 
-  orderItems.forEach(
+  items.forEach(
     item => {
 
       if (
@@ -977,16 +994,24 @@ async function loadOrders() {
   );
 
 
-  /* -----------------------------------------
-     SUMMARY
-  ----------------------------------------- */
+  /*
+    ADD PRODUCTS INTO EACH ORDER
+  */
 
-  updateSummary(
-    orderList
+  orders.forEach(
+    order => {
+
+      order.products =
+        itemsByOrder[order.id] || [];
+
+    }
   );
 
 
-  if (orderList.length === 0) {
+  updateSummary(orders);
+
+
+  if (orders.length === 0) {
 
     ordersContainer.innerHTML = `
       <div class="empty">
@@ -1002,11 +1027,7 @@ async function loadOrders() {
   ordersContainer.innerHTML = "";
 
 
-  /* -----------------------------------------
-     RENDER ORDERS
-  ----------------------------------------- */
-
-  orderList.forEach(
+  orders.forEach(
     order => {
 
       const card =
@@ -1040,97 +1061,9 @@ async function loadOrders() {
           : "-";
 
 
-      const products =
-        itemsByOrder[order.id] || [];
-
-
-      /* -------------------------------------
-         PRODUCT HTML
-      ------------------------------------- */
-
-      let productsHtml = "";
-
-
-      if (products.length === 0) {
-
-        productsHtml = `
-          <div class="product-row">
-            <div>
-              <div class="product-name">
-                No product information
-              </div>
-            </div>
-          </div>
-        `;
-
-      }
-      else {
-
-        products.forEach(
-          item => {
-
-            const productName =
-              item.product_name ||
-              "Unnamed Product";
-
-
-            const price =
-              Number(
-                item.product_price || 0
-              );
-
-
-            const quantity =
-              Number(
-                item.quantity || 1
-              );
-
-
-            const subtotal =
-              Number(
-                item.subtotal ??
-                price * quantity
-              );
-
-
-            productsHtml += `
-
-              <div class="product-row">
-
-                <div>
-
-                  <div class="product-name">
-                    ${escapeHtml(
-                      productName
-                    )}
-                  </div>
-
-                  <div class="product-details">
-                    RM${price.toFixed(2)}
-                    ×
-                    ${quantity}
-                  </div>
-
-                </div>
-
-
-                <div class="product-price">
-                  RM${subtotal.toFixed(2)}
-                </div>
-
-              </div>
-
-            `;
-
-          }
-        );
-
-      }
-
-
-      /* -------------------------------------
+      /* =====================================
          PAYMENT PROOF
-      ------------------------------------- */
+      ===================================== */
 
       let proofButton = "";
 
@@ -1140,26 +1073,114 @@ async function loadOrders() {
       ) {
 
         proofButton = `
-
           <button
             class="proof-button"
-            onclick="viewPaymentProof(
-              '${encodeURIComponent(
-                order.payment_proof_path
-              )}'
-            )"
+            onclick="viewPaymentProof('${encodeURIComponent(order.payment_proof_path)}')"
           >
             VIEW PAYMENT PROOF
           </button>
-
         `;
 
       }
 
 
-      /* -------------------------------------
+      /* =====================================
+         PRODUCTS
+      ===================================== */
+
+      let productsHtml = "";
+
+
+      if (
+        order.products &&
+        order.products.length > 0
+      ) {
+
+        productsHtml = `
+          <div class="products-box">
+
+            <div class="products-title">
+              Products
+            </div>
+
+            ${order.products.map(
+              item => {
+
+                const name =
+                  item.product_name ||
+                  "Product";
+
+                const quantity =
+                  Number(
+                    item.quantity || 1
+                  );
+
+                const price =
+                  Number(
+                    item.product_price || 0
+                  );
+
+                const subtotal =
+                  Number(
+                    item.subtotal ||
+                    price * quantity
+                  );
+
+                return `
+
+                  <div class="product-row">
+
+                    <div>
+
+                      <div class="product-name">
+                        ${escapeHtml(name)}
+                      </div>
+
+                      <div class="product-quantity">
+                        RM${price.toFixed(2)}
+                        ×
+                        ${quantity}
+                      </div>
+
+                    </div>
+
+                    <div class="product-price">
+                      RM${subtotal.toFixed(2)}
+                    </div>
+
+                  </div>
+
+                `;
+
+              }
+            ).join("")}
+
+          </div>
+        `;
+
+      }
+      else {
+
+        productsHtml = `
+          <div class="products-box">
+
+            <div class="products-title">
+              Products
+            </div>
+
+            <div>
+              No product information.
+            </div>
+
+          </div>
+        `;
+
+      }
+
+
+      /* =====================================
          ACTION BUTTONS
-      ------------------------------------- */
+      ===================================== */
 
       let actionButtons = "";
 
@@ -1168,24 +1189,16 @@ async function loadOrders() {
 
         actionButtons = `
 
-          ${proofButton}
-
           <button
             class="paid-button"
-            onclick="updateStatus(
-              '${escapeHtml(order.id)}',
-              'paid'
-            )"
+            onclick="updateStatus('${order.id}', 'paid')"
           >
             MARK AS PAID
           </button>
 
           <button
             class="reject-button"
-            onclick="updateStatus(
-              '${escapeHtml(order.id)}',
-              'rejected'
-            )"
+            onclick="updateStatus('${order.id}', 'rejected')"
           >
             REJECT
           </button>
@@ -1195,26 +1208,25 @@ async function loadOrders() {
       }
 
 
+      /*
+        EMAIL + COPY BUTTON
+        ONLY SHOW AFTER PAID
+      */
+
       if (status === "paid") {
 
-        actionButtons = `
-
-          ${proofButton}
+        actionButtons += `
 
           <button
             class="email-button"
-            onclick="emailCustomer(
-              '${escapeHtml(order.id)}'
-            )"
+            onclick="emailCustomer('${order.id}')"
           >
             EMAIL CUSTOMER
           </button>
 
           <button
             class="copy-button"
-            onclick="copyOrderInfo(
-              '${escapeHtml(order.id)}'
-            )"
+            onclick="copyOrderInfo('${order.id}')"
           >
             COPY ORDER INFO
           </button>
@@ -1224,37 +1236,40 @@ async function loadOrders() {
       }
 
 
-      if (status === "rejected") {
+      /* =====================================
+         EMAIL NOTE
+      ===================================== */
 
-        actionButtons = `
+      let emailNote = "";
 
-          ${proofButton}
 
+      if (status === "paid") {
+
+        emailNote = `
+          <div class="email-note">
+
+            📧
+            Email customer dengan PDF produk
+            selepas payment disahkan.
+
+            <br>
+
+            Customer:
+            <strong>
+              ${escapeHtml(
+                order.customer_email
+              )}
+            </strong>
+
+          </div>
         `;
 
       }
 
 
-      /* -------------------------------------
-         SAVE ORDER DATA FOR BUTTONS
-      ------------------------------------- */
-
-      window.kinoOrders =
-        window.kinoOrders || {};
-
-
-      window.kinoOrders[order.id] = {
-
-        order: order,
-
-        products: products
-
-      };
-
-
-      /* -------------------------------------
-         CARD HTML
-      ------------------------------------- */
+      /* =====================================
+         CARD
+      ===================================== */
 
       card.innerHTML = `
 
@@ -1292,34 +1307,35 @@ async function loadOrders() {
         </div>
 
 
-        <div class="products-box">
-
-          <div class="products-title">
-            Products
-          </div>
-
-          ${productsHtml}
-
-        </div>
+        ${productsHtml}
 
 
         <div class="total">
+
           RM${Number(
             order.total || 0
           ).toFixed(2)}
+
         </div>
 
 
         <div class="order-date">
+
           ${escapeHtml(createdAt)}
+
         </div>
 
 
         <div class="actions">
 
+          ${proofButton}
+
           ${actionButtons}
 
         </div>
+
+
+        ${emailNote}
 
       `;
 
@@ -1366,7 +1382,8 @@ async function viewPaymentProof(
       console.error(error);
 
       alert(
-        "Unable to open payment proof.\n\n" +
+        "Unable to open payment proof.\n\n"
+        +
         error.message
       );
 
@@ -1453,7 +1470,8 @@ async function updateStatus(
     console.error(error);
 
     alert(
-      "Unable to update order.\n\n" +
+      "Unable to update order.\n\n"
+      +
       error.message
     );
 
@@ -1468,86 +1486,287 @@ async function updateStatus(
 
 
 /* =========================================
-   MAKE ORDER TEXT
+   GET ORDER FOR EMAIL
 ========================================= */
 
-function makeOrderText(
+async function getOrderForEmail(
   orderId
 ) {
 
-  const saved =
-    window.kinoOrders?.[orderId];
+  const {
+    data: order,
+    error: orderError
+  } = await db
+    .from("orders")
+    .select("*")
+    .eq(
+      "id",
+      orderId
+    )
+    .single();
 
 
-  if (!saved) {
+  if (orderError) {
 
-    return "";
+    throw orderError;
 
   }
 
 
-  const order =
-    saved.order;
+  const {
+    data: products,
+    error: productsError
+  } = await db
+    .from("order_items")
+    .select("*")
+    .eq(
+      "order_id",
+      orderId
+    );
 
 
-  const products =
-    saved.products || [];
+  if (productsError) {
 
+    throw productsError;
+
+  }
+
+
+  order.products =
+    products || [];
+
+
+  return order;
+
+}
+
+
+/* =========================================
+   CREATE EMAIL CONTENT
+========================================= */
+
+function createEmailContent(
+  order
+) {
 
   let productText = "";
 
 
-  products.forEach(
-    item => {
+  if (
+    order.products &&
+    order.products.length > 0
+  ) {
 
-      const name =
-        item.product_name ||
-        "Unnamed Product";
+    productText =
+      order.products
+        .map(
+          item => {
+
+            const name =
+              item.product_name ||
+              "Product";
+
+            const quantity =
+              Number(
+                item.quantity || 1
+              );
+
+            const subtotal =
+              Number(
+                item.subtotal || 0
+              );
+
+            return (
+              "- " +
+              name +
+              " x" +
+              quantity +
+              " — RM" +
+              subtotal.toFixed(2)
+            );
+
+          }
+        )
+        .join("\n");
+
+  }
+  else {
+
+    productText =
+      "- Product information unavailable";
+
+  }
 
 
-      const price =
-        Number(
-          item.product_price || 0
-        );
+  const total =
+    Number(
+      order.total || 0
+    ).toFixed(2);
 
 
-      const quantity =
-        Number(
-          item.quantity || 1
-        );
+  const subject =
+    `KINO Order ${order.order_code} — Your Digital Products`;
 
 
-      const subtotal =
-        Number(
-          item.subtotal ??
-          price * quantity
-        );
+  const body =
+`Hi ${order.customer_name},
+
+Thank you for your purchase from KINO ♡
+
+Your payment has been confirmed.
+
+ORDER DETAILS
+Order: ${order.order_code}
+
+Products:
+${productText}
+
+Total: RM${total}
+
+Your KINO digital product PDF is attached to this email.
+
+Please download and keep the files for your personal use.
+
+Thank you for supporting KINO ♡
+
+KINO
+Digital Products`;
 
 
-      productText +=
-        `- ${name} × ${quantity} = RM${subtotal.toFixed(2)}\n`;
+  return {
+    subject,
+    body
+  };
+
+}
+
+
+/* =========================================
+   EMAIL CUSTOMER
+========================================= */
+
+async function emailCustomer(
+  orderId
+) {
+
+  try {
+
+    const order =
+      await getOrderForEmail(
+        orderId
+      );
+
+
+    if (
+      !order.customer_email
+    ) {
+
+      alert(
+        "Customer email tidak dijumpai."
+      );
+
+      return;
 
     }
-  );
 
 
-  return (
-    `KINO ORDER\n\n` +
+    const {
+      subject,
+      body
+    } =
+      createEmailContent(
+        order
+      );
 
-    `Order: ${order.order_code}\n` +
 
-    `Customer: ${order.customer_name}\n` +
+    const email =
+      encodeURIComponent(
+        order.customer_email
+      );
 
-    `Email: ${order.customer_email}\n\n` +
+    const encodedSubject =
+      encodeURIComponent(
+        subject
+      );
 
-    `Products:\n` +
+    const encodedBody =
+      encodeURIComponent(
+        body
+      );
 
-    productText +
 
-    `\nTotal: RM${Number(
-      order.total || 0
-    ).toFixed(2)}`
-  );
+    /*
+      Gmail Android App
+    */
+
+    const gmailAppUrl =
+      `googlegmail://co?to=${email}&subject=${encodedSubject}&body=${encodedBody}`;
+
+
+    /*
+      Normal email fallback
+    */
+
+    const mailtoUrl =
+      `mailto:${email}?subject=${encodedSubject}&body=${encodedBody}`;
+
+
+    let appOpened = false;
+
+
+    const markOpened = () => {
+
+      appOpened = true;
+
+    };
+
+
+    window.addEventListener(
+      "blur",
+      markOpened,
+      {
+        once: true
+      }
+    );
+
+
+    window.location.href =
+      gmailAppUrl;
+
+
+    /*
+      If Gmail app cannot open,
+      fallback to normal email handler.
+    */
+
+    setTimeout(
+      function() {
+
+        if (!appOpened) {
+
+          window.location.href =
+            mailtoUrl;
+
+        }
+
+      },
+      1500
+    );
+
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Unable to prepare email.\n\n"
+      +
+      error.message
+    );
+
+  }
 
 }
 
@@ -1560,24 +1779,33 @@ async function copyOrderInfo(
   orderId
 ) {
 
-  const text =
-    makeOrderText(
-      orderId
-    );
-
-
-  if (!text) {
-
-    alert(
-      "Order information not found."
-    );
-
-    return;
-
-  }
-
-
   try {
+
+    const order =
+      await getOrderForEmail(
+        orderId
+      );
+
+
+    const {
+      subject,
+      body
+    } =
+      createEmailContent(
+        order
+      );
+
+
+    const text =
+`TO:
+${order.customer_email}
+
+SUBJECT:
+${subject}
+
+BODY:
+${body}`;
+
 
     await navigator.clipboard.writeText(
       text
@@ -1585,7 +1813,7 @@ async function copyOrderInfo(
 
 
     alert(
-      "Order info copied! ♡"
+      "Order info copied ♡"
     );
 
   }
@@ -1599,118 +1827,6 @@ async function copyOrderInfo(
     );
 
   }
-
-}
-
-
-/* =========================================
-   EMAIL CUSTOMER
-========================================= */
-
-function emailCustomer(
-  orderId
-) {
-
-  const saved =
-    window.kinoOrders?.[orderId];
-
-
-  if (!saved) {
-
-    alert(
-      "Order information not found."
-    );
-
-    return;
-
-  }
-
-
-  const order =
-    saved.order;
-
-
-  const products =
-    saved.products || [];
-
-
-  let productText = "";
-
-
-  products.forEach(
-    item => {
-
-      const name =
-        item.product_name ||
-        "Unnamed Product";
-
-
-      const quantity =
-        Number(
-          item.quantity || 1
-        );
-
-
-      const subtotal =
-        Number(
-          item.subtotal || 0
-        );
-
-
-      productText +=
-        `• ${name} × ${quantity} — RM${subtotal.toFixed(2)}%0A`;
-
-    }
-  );
-
-
-  const subject =
-    encodeURIComponent(
-      `KINO Digital Product - ${order.order_code}`
-    );
-
-
-  const body =
-    encodeURIComponent(
-      `Hi ${order.customer_name},
-
-Thank you for your purchase from KINO ♡
-
-Order: ${order.order_code}
-
-Products:
-${products.map(
-  item =>
-    `• ${item.product_name || "Product"} × ${Number(item.quantity || 1)} — RM${Number(item.subtotal || 0).toFixed(2)}`
-).join("\n")}
-
-Total: RM${Number(order.total || 0).toFixed(2)}
-
-Your digital product is attached in this email.
-
-Thank you for supporting KINO ♡`
-    );
-
-
-  const email =
-    encodeURIComponent(
-      order.customer_email || ""
-    );
-
-
-  /*
-    Buka Gmail compose.
-    PDF masih attach secara manual.
-  */
-
-  const gmailUrl =
-    `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${subject}&body=${body}`;
-
-
-  window.open(
-    gmailUrl,
-    "_blank"
-  );
 
 }
 
@@ -1784,7 +1900,6 @@ async function logout() {
 
   loginPage.style.display =
     "flex";
-
 
   document
     .getElementById("login-password")
