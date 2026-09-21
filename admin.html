@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
 
 <meta
@@ -10,7 +9,7 @@
   content="width=device-width, initial-scale=1.0"
 >
 
-<title>KINO Admin</title>
+<title>KINO Admin Dashboard</title>
 
 <link
   href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap"
@@ -29,7 +28,7 @@ body {
   margin: 0;
   background: #fff8fb;
   color: #8a747b;
-  font-family: 'Baloo 2', sans-serif;
+  font-family: "Baloo 2", sans-serif;
 }
 
 button,
@@ -55,7 +54,7 @@ input {
   background: white;
   padding: 45px 40px;
   border-radius: 28px;
-  box-shadow: 0 8px 30px rgba(190,130,150,0.12);
+  box-shadow: 0 8px 30px rgba(190,130,150,.12);
 }
 
 .login-logo {
@@ -63,7 +62,6 @@ input {
   color: #b96f8a;
   font-size: 34px;
   font-weight: 700;
-  margin-bottom: 5px;
 }
 
 .login-title {
@@ -108,7 +106,7 @@ input {
 }
 
 .login-button:disabled {
-  opacity: 0.6;
+  opacity: .6;
 }
 
 .login-error {
@@ -122,7 +120,7 @@ input {
 }
 
 /* =========================
-   HEADER
+   DASHBOARD
 ========================= */
 
 #dashboard-page {
@@ -135,7 +133,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 15px rgba(190,130,150,0.06);
+  box-shadow: 0 2px 15px rgba(190,130,150,.06);
 }
 
 .logo {
@@ -163,12 +161,8 @@ header {
   cursor: pointer;
 }
 
-/* =========================
-   DASHBOARD
-========================= */
-
 .dashboard {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 40px auto;
   padding: 20px;
 }
@@ -176,21 +170,60 @@ header {
 h1 {
   color: #b96f8a;
   font-size: 32px;
-  margin-bottom: 25px;
+  margin: 0 0 25px;
 }
+
+/* =========================
+   SALES CARDS
+========================= */
+
+.sales-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.sales-card {
+  background: white;
+  padding: 23px;
+  border-radius: 22px;
+  box-shadow: 0 5px 18px rgba(190,130,150,.10);
+}
+
+.sales-label {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.sales-value {
+  color: #b96f8a;
+  font-size: 29px;
+  font-weight: 700;
+}
+
+.sales-sub {
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 3px;
+}
+
+/* =========================
+   ORDER SUMMARY
+========================= */
 
 .summary {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
 }
 
 .summary-box {
   background: white;
-  padding: 22px;
+  padding: 20px;
   border-radius: 20px;
-  box-shadow: 0 5px 18px rgba(190,130,150,0.10);
+  box-shadow: 0 5px 18px rgba(190,130,150,.10);
 }
 
 .summary-label {
@@ -199,20 +232,31 @@ h1 {
 
 .summary-number {
   color: #b96f8a;
-  font-size: 28px;
+  font-size: 27px;
   font-weight: 700;
 }
 
 /* =========================
-   ORDERS
+   ORDERS TITLE
+========================= */
+
+.orders-title {
+  color: #b96f8a;
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+/* =========================
+   ORDER CARD
 ========================= */
 
 .order-card {
   background: white;
-  padding: 22px;
-  border-radius: 20px;
-  margin-bottom: 15px;
-  box-shadow: 0 5px 18px rgba(190,130,150,0.10);
+  padding: 23px;
+  border-radius: 22px;
+  margin-bottom: 16px;
+  box-shadow: 0 5px 18px rgba(190,130,150,.10);
 }
 
 .order-header {
@@ -220,17 +264,17 @@ h1 {
   justify-content: space-between;
   align-items: center;
   gap: 15px;
-  margin-bottom: 12px;
+  margin-bottom: 15px;
 }
 
 .order-code {
   color: #b96f8a;
   font-weight: 700;
-  font-size: 17px;
+  font-size: 18px;
 }
 
 .status {
-  padding: 5px 12px;
+  padding: 5px 13px;
   border-radius: 20px;
   font-size: 12px;
   background: #fde6ee;
@@ -248,20 +292,17 @@ h1 {
 }
 
 .customer {
+  line-height: 1.5;
   margin-bottom: 12px;
 }
 
-.total {
-  font-size: 20px;
-  font-weight: 700;
-  color: #b96f8a;
-  margin-bottom: 15px;
+.customer-name {
+  color: #6f5960;
+  font-weight: 600;
 }
 
-.order-date {
-  font-size: 13px;
-  color: #aaa;
-  margin-bottom: 15px;
+.customer-email {
+  font-size: 14px;
 }
 
 /* =========================
@@ -269,52 +310,51 @@ h1 {
 ========================= */
 
 .products-box {
-  background: #fff7fa;
-  padding: 14px;
-  border-radius: 15px;
+  background: #fff8fb;
+  padding: 15px;
+  border-radius: 16px;
   margin: 15px 0;
 }
 
 .products-title {
   color: #b96f8a;
-  font-weight: 700;
-  margin-bottom: 10px;
+  font-weight: 600;
+  margin-bottom: 8px;
 }
 
 .product-row {
-  background: white;
-  padding: 12px;
-  border-radius: 12px;
-  margin-bottom: 8px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 10px;
+  gap: 15px;
+  padding: 6px 0;
+  font-size: 14px;
+  border-bottom: 1px dashed #eadce2;
 }
 
 .product-row:last-child {
-  margin-bottom: 0;
+  border-bottom: none;
 }
 
 .product-name {
-  font-weight: 600;
-  color: #8a747b;
-}
-
-.product-detail {
-  font-size: 12px;
-  color: #aaa;
+  color: #6f5960;
 }
 
 .product-price {
-  color: #b96f8a;
-  font-weight: 600;
   white-space: nowrap;
 }
 
-/* =========================
-   BUTTONS
-========================= */
+.total {
+  font-size: 21px;
+  font-weight: 700;
+  color: #b96f8a;
+  margin: 15px 0 5px;
+}
+
+.order-date {
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 16px;
+}
 
 .actions {
   display: flex;
@@ -324,7 +364,7 @@ h1 {
 
 .actions button {
   border: none;
-  padding: 9px 16px;
+  padding: 9px 15px;
   border-radius: 20px;
   cursor: pointer;
   font-size: 13px;
@@ -346,21 +386,12 @@ h1 {
 }
 
 .email-button {
-  background: #d9829e;
-  color: white;
+  background: #eadff8;
+  color: #76588d;
 }
 
-.copy-button {
-  background: #eee5e9;
-  color: #8a747b;
-}
-
-.email-button:active,
-.copy-button:active,
-.paid-button:active,
-.reject-button:active,
-.proof-button:active {
-  transform: scale(0.97);
+.email-button:hover {
+  opacity: .85;
 }
 
 /* =========================
@@ -385,8 +416,9 @@ h1 {
    MOBILE
 ========================= */
 
-@media (max-width: 650px) {
+@media (max-width: 750px) {
 
+  .sales-grid,
   .summary {
     grid-template-columns: 1fr;
   }
@@ -412,7 +444,8 @@ h1 {
   }
 
   .product-row {
-    align-items: flex-start;
+    flex-direction: column;
+    gap: 2px;
   }
 
 }
@@ -426,7 +459,7 @@ h1 {
 
 
 <!-- =========================================
-     LOGIN PAGE
+     LOGIN
 ========================================= -->
 
 <section id="login-page">
@@ -461,7 +494,6 @@ h1 {
 
       </div>
 
-
       <div class="input-group">
 
         <label>Password</label>
@@ -474,7 +506,6 @@ h1 {
         >
 
       </div>
-
 
       <button
         type="submit"
@@ -524,11 +555,99 @@ h1 {
 <main class="dashboard">
 
   <h1>
-    Orders ♡
+    Dashboard ♡
   </h1>
 
 
+  <!-- =======================================
+       SALES
+  ======================================== -->
+
+  <div class="sales-grid">
+
+    <div class="sales-card">
+
+      <div class="sales-label">
+        Today's Sales
+      </div>
+
+      <div
+        class="sales-value"
+        id="today-sales"
+      >
+        RM0.00
+      </div>
+
+      <div class="sales-sub">
+        Paid orders today
+      </div>
+
+    </div>
+
+
+    <div class="sales-card">
+
+      <div class="sales-label">
+        This Month
+      </div>
+
+      <div
+        class="sales-value"
+        id="month-sales"
+      >
+        RM0.00
+      </div>
+
+      <div class="sales-sub">
+        Paid orders this month
+      </div>
+
+    </div>
+
+
+    <div class="sales-card">
+
+      <div class="sales-label">
+        Total Sales
+      </div>
+
+      <div
+        class="sales-value"
+        id="total-sales"
+      >
+        RM0.00
+      </div>
+
+      <div class="sales-sub">
+        All paid orders
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =======================================
+       ORDER COUNTS
+  ======================================== -->
+
   <div class="summary">
+
+    <div class="summary-box">
+
+      <div class="summary-label">
+        Today's Orders
+      </div>
+
+      <div
+        class="summary-number"
+        id="today-orders"
+      >
+        0
+      </div>
+
+    </div>
+
 
     <div class="summary-box">
 
@@ -561,24 +680,16 @@ h1 {
 
     </div>
 
-
-    <div class="summary-box">
-
-      <div class="summary-label">
-        Total Sales
-      </div>
-
-      <div
-        class="summary-number"
-        id="sales-total"
-      >
-        RM0.00
-      </div>
-
-    </div>
-
   </div>
 
+
+  <!-- =======================================
+       ORDERS
+  ======================================== -->
+
+  <div class="orders-title">
+    Orders ♡
+  </div>
 
   <div id="orders">
 
@@ -635,14 +746,23 @@ const loginButton =
 const ordersContainer =
   document.getElementById("orders");
 
+const todaySales =
+  document.getElementById("today-sales");
+
+const monthSales =
+  document.getElementById("month-sales");
+
+const totalSales =
+  document.getElementById("total-sales");
+
+const todayOrders =
+  document.getElementById("today-orders");
+
 const pendingCount =
   document.getElementById("pending-count");
 
 const paidCount =
   document.getElementById("paid-count");
-
-const salesTotal =
-  document.getElementById("sales-total");
 
 
 /* =========================================
@@ -692,7 +812,9 @@ loginForm.addEventListener(
         .value;
 
 
-    const { error } =
+    const {
+      error
+    } =
       await db.auth.signInWithPassword({
 
         email: email,
@@ -723,11 +845,13 @@ loginForm.addEventListener(
 
 
     /*
-      Supabase RLS decides whether
-      this account is actually admin.
+      RLS decides whether
+      this account can access orders.
     */
 
-    const { error: adminError } =
+    const {
+      error: adminError
+    } =
       await db
         .from("orders")
         .select("id")
@@ -801,7 +925,9 @@ async function checkSession() {
   }
 
 
-  const { error } =
+  const {
+    error
+  } =
     await db
       .from("orders")
       .select("id")
@@ -839,32 +965,29 @@ async function loadOrders() {
   `;
 
 
-  /*
-    Ambil orders dahulu
-  */
-
   const {
-    data: ordersData,
-    error: ordersError
-  } = await db
-    .from("orders")
-    .select("*")
-    .order(
-      "created_at",
-      {
-        ascending: false
-      }
-    );
+    data,
+    error
+  } =
+    await db
+      .from("orders")
+      .select("*")
+      .order(
+        "created_at",
+        {
+          ascending: false
+        }
+      );
 
 
-  if (ordersError) {
+  if (error) {
 
-    console.error(ordersError);
+    console.error(error);
 
     ordersContainer.innerHTML = `
       <div class="error">
         Unable to load orders.<br><br>
-        ${escapeHtml(ordersError.message)}
+        ${escapeHtml(error.message)}
       </div>
     `;
 
@@ -874,58 +997,12 @@ async function loadOrders() {
 
 
   const orders =
-    ordersData || [];
+    data || [];
 
 
-  /*
-    Ambil semua order_items
-  */
-
-  const orderIds =
-    orders.map(
-      order => order.id
-    );
-
-
-  let items = [];
-
-
-  if (orderIds.length > 0) {
-
-    const {
-      data: itemsData,
-      error: itemsError
-    } = await db
-      .from("order_items")
-      .select("*")
-      .in(
-        "order_id",
-        orderIds
-      );
-
-
-    if (!itemsError) {
-
-      items =
-        itemsData || [];
-
-    } else {
-
-      console.error(
-        "order_items error:",
-        itemsError
-      );
-
-    }
-
-  }
-
-
-  /*
-    Update summary
-  */
-
-  updateSummary(orders);
+  updateDashboard(
+    orders
+  );
 
 
   if (orders.length === 0) {
@@ -941,6 +1018,44 @@ async function loadOrders() {
   }
 
 
+  /*
+    Get order items separately.
+  */
+
+  const orderIds =
+    orders.map(
+      order => order.id
+    );
+
+
+  let orderItems = [];
+
+
+  if (orderIds.length > 0) {
+
+    const {
+      data: itemsData,
+      error: itemsError
+    } =
+      await db
+        .from("order_items")
+        .select("*")
+        .in(
+          "order_id",
+          orderIds
+        );
+
+
+    if (!itemsError) {
+
+      orderItems =
+        itemsData || [];
+
+    }
+
+  }
+
+
   ordersContainer.innerHTML = "";
 
 
@@ -948,7 +1063,9 @@ async function loadOrders() {
     order => {
 
       const card =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
       card.className =
         "order-card";
@@ -956,7 +1073,8 @@ async function loadOrders() {
 
       const status =
         String(
-          order.status || "pending"
+          order.status ||
+          "pending"
         );
 
 
@@ -979,40 +1097,37 @@ async function loadOrders() {
 
 
       /*
-        PRODUCT ITEMS
+        PRODUCTS
       */
 
-      const orderItems =
-        items.filter(
+      const products =
+        orderItems.filter(
           item =>
-            String(
-              item.order_id
-            ) === String(
-              order.id
-            )
+            item.order_id ===
+            order.id
         );
 
 
-      let productsHTML = "";
+      let productsHtml = "";
 
 
       if (
-        orderItems.length > 0
+        products.length === 0
       ) {
 
-        productsHTML =
-          orderItems.map(
+        productsHtml = `
+          <div class="product-row">
+            <span class="product-name">
+              Product information unavailable
+            </span>
+          </div>
+        `;
+
+      } else {
+
+        productsHtml =
+          products.map(
             item => {
-
-              const name =
-                escapeHtml(
-                  item.product_name
-                );
-
-              const price =
-                Number(
-                  item.product_price || 0
-                );
 
               const quantity =
                 Number(
@@ -1023,7 +1138,10 @@ async function loadOrders() {
                 Number(
                   item.subtotal ||
                   (
-                    price *
+                    Number(
+                      item.product_price ||
+                      0
+                    ) *
                     quantity
                   )
                 );
@@ -1033,23 +1151,16 @@ async function loadOrders() {
 
                 <div class="product-row">
 
-                  <div>
+                  <span class="product-name">
+                    ${escapeHtml(
+                      item.product_name
+                    )}
+                    × ${quantity}
+                  </span>
 
-                    <div class="product-name">
-                      ${name}
-                    </div>
-
-                    <div class="product-detail">
-                      RM${price.toFixed(2)}
-                      ×
-                      ${quantity}
-                    </div>
-
-                  </div>
-
-                  <div class="product-price">
+                  <span class="product-price">
                     RM${subtotal.toFixed(2)}
-                  </div>
+                  </span>
 
                 </div>
 
@@ -1057,39 +1168,6 @@ async function loadOrders() {
 
             }
           ).join("");
-
-
-        productsHTML = `
-
-          <div class="products-box">
-
-            <div class="products-title">
-              Products
-            </div>
-
-            ${productsHTML}
-
-          </div>
-
-        `;
-
-      } else {
-
-        productsHTML = `
-
-          <div class="products-box">
-
-            <div class="products-title">
-              Products
-            </div>
-
-            <div class="product-detail">
-              No product information.
-            </div>
-
-          </div>
-
-        `;
 
       }
 
@@ -1109,9 +1187,11 @@ async function loadOrders() {
 
           <button
             class="proof-button"
-            onclick="viewPaymentProof('${encodeURIComponent(
-              order.payment_proof_path
-            )}')"
+            onclick="viewPaymentProof(
+              '${encodeURIComponent(
+                order.payment_proof_path
+              )}'
+            )"
           >
             VIEW PAYMENT PROOF
           </button>
@@ -1122,7 +1202,7 @@ async function loadOrders() {
 
 
       /*
-        PENDING BUTTONS
+        ACTION BUTTONS
       */
 
       let actionButtons = "";
@@ -1137,18 +1217,17 @@ async function loadOrders() {
           <button
             class="paid-button"
             onclick="updateStatus(
-              '${escapeHtml(order.id)}',
+              '${order.id}',
               'paid'
             )"
           >
             MARK AS PAID
           </button>
 
-
           <button
             class="reject-button"
             onclick="updateStatus(
-              '${escapeHtml(order.id)}',
+              '${order.id}',
               'rejected'
             )"
           >
@@ -1161,126 +1240,52 @@ async function loadOrders() {
 
 
       /*
-        PAID BUTTONS
+        EMAIL BUTTON
+
+        Opens Gmail on desktop
+        and mail app / Gmail handler
+        on supported phones.
       */
 
-      let paidButtons = "";
+      const emailButton = `
 
+        <button
+          class="email-button"
+          onclick="emailOrder(
+            '${encodeURIComponent(
+              order.customer_email || ""
+            )}',
+            '${encodeURIComponent(
+              order.order_code || ""
+            )}'
+          )"
+        >
+          EMAIL ORDER
+        </button>
 
-      if (
-        status === "paid"
-      ) {
+      `;
 
-        paidButtons = `
-
-          <button
-            class="email-button"
-            onclick="emailCustomer(
-              '${encodeURIComponent(
-                order.customer_email || ""
-              )}',
-              '${encodeURIComponent(
-                order.customer_name || ""
-              )}',
-              '${encodeURIComponent(
-                order.order_code || ""
-              )}',
-              '${encodeURIComponent(
-                JSON.stringify(
-                  orderItems.map(
-                    item => ({
-                      name:
-                        item.product_name,
-                      price:
-                        Number(
-                          item.product_price || 0
-                        ),
-                      quantity:
-                        Number(
-                          item.quantity || 1
-                        ),
-                      subtotal:
-                        Number(
-                          item.subtotal || 0
-                        )
-                    })
-                  )
-                )
-              )}',
-              '${Number(
-                order.total || 0
-              ).toFixed(2)}'
-            )"
-          >
-            EMAIL CUSTOMER
-          </button>
-
-
-          <button
-            class="copy-button"
-            onclick="copyOrderInfo(
-              '${encodeURIComponent(
-                order.customer_name || ""
-              )}',
-              '${encodeURIComponent(
-                order.customer_email || ""
-              )}',
-              '${encodeURIComponent(
-                order.order_code || ""
-              )}',
-              '${encodeURIComponent(
-                JSON.stringify(
-                  orderItems.map(
-                    item => ({
-                      name:
-                        item.product_name,
-                      price:
-                        Number(
-                          item.product_price || 0
-                        ),
-                      quantity:
-                        Number(
-                          item.quantity || 1
-                        ),
-                      subtotal:
-                        Number(
-                          item.subtotal || 0
-                        )
-                    })
-                  )
-                )
-              )}',
-              '${Number(
-                order.total || 0
-              ).toFixed(2)}'
-            )"
-          >
-            COPY ORDER INFO
-          </button>
-
-        `;
-
-      }
-
-
-      /*
-        CARD
-      */
 
       card.innerHTML = `
 
         <div class="order-header">
 
           <div class="order-code">
+
             ${escapeHtml(
               order.order_code
             )}
+
           </div>
 
           <div
             class="status ${statusClass}"
           >
-            ${escapeHtml(status)}
+
+            ${escapeHtml(
+              status
+            )}
+
           </div>
 
         </div>
@@ -1288,33 +1293,51 @@ async function loadOrders() {
 
         <div class="customer">
 
-          <strong>
+          <div class="customer-name">
+
             ${escapeHtml(
               order.customer_name
             )}
-          </strong>
 
-          <br>
+          </div>
 
-          ${escapeHtml(
-            order.customer_email
-          )}
+          <div class="customer-email">
+
+            ${escapeHtml(
+              order.customer_email
+            )}
+
+          </div>
 
         </div>
 
 
-        ${productsHTML}
+        <div class="products-box">
+
+          <div class="products-title">
+            Products
+          </div>
+
+          ${productsHtml}
+
+        </div>
 
 
         <div class="total">
+
           RM${Number(
             order.total || 0
           ).toFixed(2)}
+
         </div>
 
 
         <div class="order-date">
-          ${escapeHtml(createdAt)}
+
+          ${escapeHtml(
+            createdAt
+          )}
+
         </div>
 
 
@@ -1324,7 +1347,7 @@ async function loadOrders() {
 
           ${actionButtons}
 
-          ${paidButtons}
+          ${emailButton}
 
         </div>
 
@@ -1337,6 +1360,225 @@ async function loadOrders() {
 
     }
   );
+
+}
+
+
+/* =========================================
+   DASHBOARD CALCULATIONS
+========================================= */
+
+function updateDashboard(
+  orders
+) {
+
+  const now =
+    new Date();
+
+
+  /*
+    Today
+  */
+
+  const todayStart =
+    new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate()
+    );
+
+
+  const tomorrowStart =
+    new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate() + 1
+    );
+
+
+  /*
+    Month
+  */
+
+  const monthStart =
+    new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      1
+    );
+
+
+  const nextMonthStart =
+    new Date(
+      now.getFullYear(),
+      now.getMonth() + 1,
+      1
+    );
+
+
+  /*
+    PAID ORDERS ONLY
+  */
+
+  const paidOrders =
+    orders.filter(
+      order =>
+        order.status === "paid"
+    );
+
+
+  /*
+    TODAY PAID
+  */
+
+  const todayPaid =
+    paidOrders.filter(
+      order => {
+
+        const date =
+          new Date(
+            order.created_at
+          );
+
+        return (
+          date >= todayStart &&
+          date < tomorrowStart
+        );
+
+      }
+    );
+
+
+  /*
+    MONTH PAID
+  */
+
+  const monthPaid =
+    paidOrders.filter(
+      order => {
+
+        const date =
+          new Date(
+            order.created_at
+          );
+
+        return (
+          date >= monthStart &&
+          date < nextMonthStart
+        );
+
+      }
+    );
+
+
+  /*
+    SALES
+  */
+
+  const todaySalesAmount =
+    todayPaid.reduce(
+      (
+        sum,
+        order
+      ) =>
+        sum +
+        Number(
+          order.total || 0
+        ),
+      0
+    );
+
+
+  const monthSalesAmount =
+    monthPaid.reduce(
+      (
+        sum,
+        order
+      ) =>
+        sum +
+        Number(
+          order.total || 0
+        ),
+      0
+    );
+
+
+  const totalSalesAmount =
+    paidOrders.reduce(
+      (
+        sum,
+        order
+      ) =>
+        sum +
+        Number(
+          order.total || 0
+        ),
+      0
+    );
+
+
+  /*
+    COUNTS
+  */
+
+  const todayOrderCount =
+    orders.filter(
+      order => {
+
+        const date =
+          new Date(
+            order.created_at
+          );
+
+        return (
+          date >= todayStart &&
+          date < tomorrowStart
+        );
+
+      }
+    ).length;
+
+
+  const pending =
+    orders.filter(
+      order =>
+        order.status === "pending"
+    ).length;
+
+
+  const paid =
+    paidOrders.length;
+
+
+  /*
+    DISPLAY
+  */
+
+  todaySales.textContent =
+    "RM" +
+    todaySalesAmount.toFixed(2);
+
+
+  monthSales.textContent =
+    "RM" +
+    monthSalesAmount.toFixed(2);
+
+
+  totalSales.textContent =
+    "RM" +
+    totalSalesAmount.toFixed(2);
+
+
+  todayOrders.textContent =
+    todayOrderCount;
+
+
+  pendingCount.textContent =
+    pending;
+
+
+  paidCount.textContent =
+    paid;
 
 }
 
@@ -1360,12 +1602,13 @@ async function viewPaymentProof(
     const {
       data,
       error
-    } = await db.storage
-      .from("payment-proofs")
-      .createSignedUrl(
-        path,
-        300
-      );
+    } =
+      await db.storage
+        .from("payment-proofs")
+        .createSignedUrl(
+          path,
+          300
+        );
 
 
     if (error) {
@@ -1444,15 +1687,16 @@ async function updateStatus(
 
   const {
     error
-  } = await db
-    .from("orders")
-    .update({
-      status: status
-    })
-    .eq(
-      "id",
-      orderId
-    );
+  } =
+    await db
+      .from("orders")
+      .update({
+        status: status
+      })
+      .eq(
+        "id",
+        orderId
+      );
 
 
   if (error) {
@@ -1475,27 +1719,17 @@ async function updateStatus(
 
 
 /* =========================================
-   EMAIL CUSTOMER
-   PHONE FRIENDLY
+   EMAIL ORDER
 ========================================= */
 
-function emailCustomer(
+function emailOrder(
   encodedEmail,
-  encodedName,
-  encodedOrderCode,
-  encodedItems,
-  total
+  encodedOrderCode
 ) {
 
   const email =
     decodeURIComponent(
       encodedEmail
-    );
-
-
-  const name =
-    decodeURIComponent(
-      encodedName
     );
 
 
@@ -1505,264 +1739,53 @@ function emailCustomer(
     );
 
 
-  let items = [];
+  if (!email) {
 
-
-  try {
-
-    items =
-      JSON.parse(
-        decodeURIComponent(
-          encodedItems
-        )
-      );
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "Unable to read products:",
-      error
+    alert(
+      "Customer email not found."
     );
 
-  }
-
-
-  let productText = "";
-
-
-  if (
-    items.length > 0
-  ) {
-
-    productText =
-      items.map(
-        item =>
-          `• ${item.name} × ${item.quantity} — RM${Number(
-            item.subtotal || 0
-          ).toFixed(2)}`
-      ).join("\n");
-
-  } else {
-
-    productText =
-      "• Product information unavailable";
+    return;
 
   }
 
 
   const subject =
-    `KINO Digital Product - ${orderCode}`;
+    encodeURIComponent(
+      `KINO Order ${orderCode} ♡`
+    );
 
 
   const body =
-`Hi ${name},
+    encodeURIComponent(
+`Hi!
 
-Thank you for your purchase from KINO ♡
+Thank you for your order with KINO ♡
 
 Order: ${orderCode}
 
-Products:
-${productText}
+Your payment has been received and your digital products will be sent to this email.
 
-Total: RM${Number(total).toFixed(2)}
+Thank you for supporting KINO!
 
-Your digital product is attached to this email.
-
-Thank you for supporting KINO ♡
-
-KINO Digital`;
+♡ KINO`
+    );
 
 
   /*
-    MAILTO
-    Ini akan cuba buka email app
-    seperti Gmail pada phone.
+    mailto:
+    - On desktop it can open
+      the default email client.
+    - On phone it can open
+      Gmail / supported mail app.
   */
 
   const mailto =
-    "mailto:" +
-    encodeURIComponent(email) +
-    "?subject=" +
-    encodeURIComponent(subject) +
-    "&body=" +
-    encodeURIComponent(body);
+    `mailto:${email}?subject=${subject}&body=${body}`;
 
 
   window.location.href =
     mailto;
-
-}
-
-
-/* =========================================
-   COPY ORDER INFO
-========================================= */
-
-async function copyOrderInfo(
-  encodedName,
-  encodedEmail,
-  encodedOrderCode,
-  encodedItems,
-  total
-) {
-
-  const name =
-    decodeURIComponent(
-      encodedName
-    );
-
-
-  const email =
-    decodeURIComponent(
-      encodedEmail
-    );
-
-
-  const orderCode =
-    decodeURIComponent(
-      encodedOrderCode
-    );
-
-
-  let items = [];
-
-
-  try {
-
-    items =
-      JSON.parse(
-        decodeURIComponent(
-          encodedItems
-        )
-      );
-
-  }
-
-  catch (error) {
-
-    console.error(error);
-
-  }
-
-
-  let productText = "";
-
-
-  if (
-    items.length > 0
-  ) {
-
-    productText =
-      items.map(
-        item =>
-          `${item.name} x ${item.quantity} - RM${Number(
-            item.subtotal || 0
-          ).toFixed(2)}`
-      ).join("\n");
-
-  } else {
-
-    productText =
-      "Product information unavailable";
-
-  }
-
-
-  const text =
-`CUSTOMER
-Name: ${name}
-Email: ${email}
-
-ORDER
-Order Code: ${orderCode}
-
-PRODUCTS
-${productText}
-
-TOTAL
-RM${Number(total).toFixed(2)}`;
-
-
-  try {
-
-    await navigator.clipboard.writeText(
-      text
-    );
-
-
-    alert(
-      "Order information copied ♡"
-    );
-
-  }
-
-  catch (error) {
-
-    console.error(error);
-
-    alert(
-      "Unable to copy order information."
-    );
-
-  }
-
-}
-
-
-/* =========================================
-   SUMMARY
-========================================= */
-
-function updateSummary(
-  orders
-) {
-
-  const pending =
-    orders.filter(
-      order =>
-        order.status === "pending"
-    ).length;
-
-
-  const paid =
-    orders.filter(
-      order =>
-        order.status === "paid"
-    ).length;
-
-
-  const sales =
-    orders
-      .filter(
-        order =>
-          order.status === "paid"
-      )
-      .reduce(
-        (
-          sum,
-          order
-        ) =>
-          sum +
-          Number(
-            order.total || 0
-          ),
-        0
-      );
-
-
-  pendingCount.textContent =
-    pending;
-
-
-  paidCount.textContent =
-    paid;
-
-
-  salesTotal.textContent =
-    "RM" +
-    sales.toFixed(2);
 
 }
 
@@ -1775,14 +1798,11 @@ async function logout() {
 
   await db.auth.signOut();
 
-
   dashboardPage.style.display =
     "none";
 
-
   loginPage.style.display =
     "flex";
-
 
   document
     .getElementById(
