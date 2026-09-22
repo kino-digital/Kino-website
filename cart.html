@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
   <meta charset="UTF-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link
     href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap"
@@ -16,7 +12,6 @@
   <title>Cart | KINO</title>
 
   <style>
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -51,10 +46,6 @@
       font-size: 14px;
     }
 
-    nav a:hover {
-      color: #c47794;
-    }
-
     .cart {
       max-width: 800px;
       margin: 50px auto;
@@ -68,36 +59,27 @@
       margin-bottom: 30px;
     }
 
-    /* =========================
-       SHOP STATUS
-    ========================= */
+    /* STORE STATUS */
 
-    .shop-status {
-      display: none;
-      padding: 15px 18px;
-      border-radius: 18px;
+    .store-status {
       text-align: center;
-      margin-bottom: 20px;
+      padding: 14px 20px;
+      border-radius: 18px;
+      margin-bottom: 18px;
       font-size: 14px;
     }
 
-    .shop-status.open {
-      display: block;
+    .store-status.open {
       background: #edf9f1;
-      color: #4e8a66;
+      color: #5d8b70;
     }
 
-    .shop-status.closed {
-      display: block;
+    .store-status.closed {
       background: #fff0f3;
       color: #a96b82;
     }
 
-    .shop-status.loading {
-      display: block;
-      background: #fde6ee;
-      color: #8a747b;
-    }
+    /* CART ITEM */
 
     .cart-item {
       background: #ffffff;
@@ -107,7 +89,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 15px;
       box-shadow: 0 5px 18px rgba(190, 130, 150, 0.10);
     }
 
@@ -120,6 +101,8 @@
     .item-price {
       color: #8a747b;
     }
+
+    /* TOTAL */
 
     .total-box {
       background: #fde6ee;
@@ -138,27 +121,21 @@
 
     .checkout-button {
       display: inline-block;
-      border: none;
       background: #d9829e;
       color: white;
       text-decoration: none;
       padding: 12px 30px;
       border-radius: 30px;
-      font-family: 'Baloo 2', sans-serif;
       font-size: 16px;
-      cursor: pointer;
-    }
-
-    .checkout-button:hover {
-      background: #c97491;
     }
 
     .checkout-button.disabled {
-      background: #d8c5cb;
-      color: #ffffff;
+      background: #d8c9ce;
       cursor: not-allowed;
       pointer-events: none;
     }
+
+    /* QUANTITY */
 
     .quantity-controls {
       display: flex;
@@ -179,8 +156,9 @@
       cursor: pointer;
     }
 
-    .quantity-controls button:hover {
-      background: #efc5d4;
+    .quantity-controls button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
 
     .quantity-controls span {
@@ -189,6 +167,8 @@
       color: #8a747b;
       font-weight: 600;
     }
+
+    /* REMOVE */
 
     .remove-button {
       background: #f7dce5;
@@ -205,6 +185,8 @@
       background: #efc5d4;
     }
 
+    /* EMPTY */
+
     .empty {
       text-align: center;
       color: #8a747b;
@@ -213,16 +195,7 @@
       border-radius: 20px;
     }
 
-    .limit-info {
-      display: none;
-      margin-top: 15px;
-      font-size: 13px;
-      color: #8a747b;
-    }
-
-    .limit-info.show {
-      display: block;
-    }
+    /* FOOTER */
 
     footer {
       margin-top: 70px;
@@ -233,14 +206,22 @@
       font-size: 14px;
     }
 
+    /* MOBILE */
+
     @media (max-width: 600px) {
 
       header {
-        padding: 20px;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      nav {
+        text-align: center;
       }
 
       nav a {
         margin-left: 10px;
+        margin-right: 10px;
       }
 
       .cart {
@@ -253,787 +234,499 @@
       }
 
       .cart-item {
-        align-items: flex-start;
-      }
-
-      .remove-button {
-        flex-shrink: 0;
+        gap: 15px;
       }
 
     }
 
   </style>
-
 </head>
 
 <body>
 
+<header>
 
-  <!-- =========================================
-       HEADER
-  ========================================== -->
+  <div class="logo">
+    KINO
+  </div>
 
-  <header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="stickers.html">Shop</a>
+  </nav>
 
-    <div class="logo">
-      KINO
-    </div>
-
-    <nav>
-
-      <a href="index.html">
-        Home
-      </a>
-
-      <a href="stickers.html">
-        Shop
-      </a>
-
-    </nav>
-
-  </header>
+</header>
 
 
-  <!-- =========================================
-       CART
-  ========================================== -->
+<main class="cart">
 
-  <main class="cart">
-
-    <h1>
-      Your Cart ♡
-    </h1>
+  <h1>
+    Your Cart ♡
+  </h1>
 
 
-    <!-- SHOP STATUS -->
+  <!-- STORE STATUS -->
+
+  <div
+    id="store-status"
+    class="store-status open"
+  >
+    Checking KINO status...
+  </div>
+
+
+  <!-- CART ITEMS -->
+
+  <div id="cart-items"></div>
+
+
+  <!-- TOTAL -->
+
+  <div class="total-box">
 
     <div
-      id="shop-status"
-      class="shop-status loading"
+      class="total"
+      id="total"
     >
-      Checking KINO shop status...
+      Total: RM0.00
     </div>
 
+    <a
+      href="checkout.html"
+      id="checkout-button"
+      class="checkout-button"
+    >
+      CHECKOUT
+    </a>
 
-    <!-- CART ITEMS -->
+  </div>
 
-    <div id="cart-items"></div>
-
-
-    <!-- TOTAL -->
-
-    <div class="total-box">
-
-      <div
-        class="total"
-        id="total"
-      >
-        Total: RM0.00
-      </div>
+</main>
 
 
-      <a
-        href="checkout.html"
-        id="checkout-button"
-        class="checkout-button"
-      >
-        CHECKOUT
-      </a>
+<footer>
+  Made for cozy moments ♡
+</footer>
 
 
-      <div
-        id="limit-info"
-        class="limit-info"
-      >
-        Daily KINO limit: RM2,000
-      </div>
+<!-- SUPABASE -->
 
-    </div>
-
-  </main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
-  <!-- =========================================
-       FOOTER
-  ========================================== -->
+<script>
 
-  <footer>
+  /* ==========================================
+     SUPABASE
+  ========================================== */
 
-    Made for cozy moments ♡
+  const SUPABASE_URL =
+    "https://vbdgzsapdbpgfcdksdoi.supabase.co";
 
-  </footer>
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
 
+  const { createClient } = supabase;
 
-  <!-- =========================================
-       SUPABASE
-  ========================================== -->
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-
-  <script>
-
-    /* =========================================
-       SUPABASE CONNECTION
-    ========================================= */
-
-    const SUPABASE_URL =
-      "https://vbdgzsapdbpgfcdksdoi.supabase.co";
-
-    const SUPABASE_PUBLISHABLE_KEY =
-      "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
-
-    const {
-      createClient
-    } = supabase;
-
-    const db =
-      createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
-      );
+  const db = createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
 
 
-    /* =========================================
-       ELEMENTS
-    ========================================= */
+  /* ==========================================
+     ELEMENTS
+  ========================================== */
 
-    const cartItems =
-      document.getElementById(
-        "cart-items"
-      );
+  const cartItems =
+    document.getElementById("cart-items");
 
-    const totalElement =
-      document.getElementById(
-        "total"
-      );
+  const totalElement =
+    document.getElementById("total");
 
-    const checkoutButton =
-      document.getElementById(
-        "checkout-button"
-      );
+  const checkoutButton =
+    document.getElementById("checkout-button");
 
-    const shopStatus =
-      document.getElementById(
-        "shop-status"
-      );
-
-    const limitInfo =
-      document.getElementById(
-        "limit-info"
-      );
+  const storeStatus =
+    document.getElementById("store-status");
 
 
-    /* =========================================
-       CART
-    ========================================= */
+  /* ==========================================
+     CART
+  ========================================== */
 
-    let cart = [];
+  let cart =
+    JSON.parse(
+      localStorage.getItem("kinoCart")
+    ) || [];
+
+
+  let total = 0;
+
+
+  /* ==========================================
+     STORE STATUS
+     
+     IMPORTANT:
+     CUSTOMER ONLY GETS OPEN/CLOSED.
+     NO SALES AMOUNT IS DISPLAYED.
+  ========================================== */
+
+  let storeIsOpen = true;
+
+
+  async function checkStoreStatus() {
 
     try {
 
-      cart =
-        JSON.parse(
-          localStorage.getItem(
-            "kinoCart"
-          )
-        ) || [];
+      /*
+        Supabase RPC akan return:
+        true  = open
+        false = closed
+      */
+
+      const {
+        data,
+        error
+      } = await db.rpc(
+        "get_kino_store_status"
+      );
+
+
+      if (error) {
+
+        console.error(
+          "STORE STATUS ERROR:",
+          error
+        );
+
+        /*
+          Kalau status gagal dibaca,
+          kita jangan terus tutup kedai.
+        */
+
+        storeIsOpen = true;
+
+      } else {
+
+        storeIsOpen = data === true;
+
+      }
+
 
     } catch (error) {
 
       console.error(
-        "CART ERROR:",
+        "STORE STATUS CHECK ERROR:",
         error
       );
 
-      cart = [];
+      storeIsOpen = true;
 
     }
 
 
-    /* =========================================
-       SHOP VARIABLES
-    ========================================= */
+    updateStoreUI();
 
-    let shopIsOpen = false;
+  }
 
-    let dailySales = 0;
 
-    const DAILY_LIMIT = 2000;
+  /* ==========================================
+     STORE UI
+  ========================================== */
 
+  function updateStoreUI() {
 
-    /* =========================================
-       ESCAPE HTML
-    ========================================= */
+    if (storeIsOpen) {
 
-    function escapeHtml(
-      value
-    ) {
+      storeStatus.textContent =
+        "KINO is open ♡";
 
-      return String(
-        value ?? ""
-      )
-      .replace(
-        /&/g,
-        "&amp;"
-      )
-      .replace(
-        /</g,
-        "&lt;"
-      )
-      .replace(
-        />/g,
-        "&gt;"
-      )
-      .replace(
-        /"/g,
-        "&quot;"
-      )
-      .replace(
-        /'/g,
-        "&#039;"
-      );
-
-    }
-
-
-    /* =========================================
-       CALCULATE CART TOTAL
-    ========================================= */
-
-    function getCartTotal() {
-
-      if (
-        !Array.isArray(cart)
-      ) {
-        return 0;
-      }
-
-
-      return cart.reduce(
-        (
-          sum,
-          item
-        ) => {
-
-          const price =
-            Number(
-              item.price || 0
-            );
-
-          const quantity =
-            Number(
-              item.quantity || 1
-            );
-
-          return (
-            sum +
-            (
-              price *
-              quantity
-            )
-          );
-
-        },
-        0
-      );
-
-    }
-
-
-    /* =========================================
-       DISPLAY CART
-    ========================================= */
-
-    function renderCart() {
-
-      cartItems.innerHTML =
-        "";
-
-      const total =
-        getCartTotal();
-
-
-      if (
-        cart.length === 0
-      ) {
-
-        cartItems.innerHTML = `
-          <div class="empty">
-            Your cart is empty.
-          </div>
-        `;
-
-      } else {
-
-        cart.forEach(
-          (
-            item,
-            index
-          ) => {
-
-            const quantity =
-              Number(
-                item.quantity || 1
-              );
-
-            const price =
-              Number(
-                item.price || 0
-              );
-
-            const subtotal =
-              price *
-              quantity;
-
-
-            cartItems.innerHTML += `
-
-              <div class="cart-item">
-
-                <div>
-
-                  <div class="item-name">
-                    ${escapeHtml(
-                      item.name
-                    )}
-                  </div>
-
-                  <div class="item-price">
-                    RM${price.toFixed(2)}
-                    ×
-                    ${quantity}
-                  </div>
-
-
-                  <div class="quantity-controls">
-
-                    <button
-                      onclick="decreaseQuantity(${index})"
-                      aria-label="Decrease quantity"
-                    >
-                      −
-                    </button>
-
-                    <span>
-                      ${quantity}
-                    </span>
-
-                    <button
-                      onclick="increaseQuantity(${index})"
-                      aria-label="Increase quantity"
-                    >
-                      +
-                    </button>
-
-                  </div>
-
-                </div>
-
-
-                <button
-                  onclick="removeItem(${index})"
-                  class="remove-button"
-                >
-                  REMOVE
-                </button>
-
-              </div>
-
-            `;
-
-          }
-        );
-
-      }
-
-
-      totalElement.textContent =
-        `Total: RM${total.toFixed(2)}`;
-
-
-      updateCheckoutButton();
-
-    }
-
-
-    /* =========================================
-       CHECK SHOP STATUS
-    ========================================== */
-
-    async function checkShopStatus() {
-
-      shopStatus.className =
-        "shop-status loading";
-
-      shopStatus.textContent =
-        "Checking KINO shop status...";
-
-
-      try {
-
-        const {
-          data,
-          error
-        } = await db.rpc(
-          "get_daily_shop_status"
-        );
-
-
-        if (error) {
-
-          console.error(
-            "SHOP STATUS ERROR:",
-            error
-          );
-
-          /*
-            Untuk keselamatan:
-            kalau status tak dapat disahkan,
-            checkout tidak dibenarkan.
-          */
-
-          shopIsOpen = false;
-
-          shopStatus.className =
-            "shop-status closed";
-
-          shopStatus.textContent =
-            "Unable to check shop status. Please try again.";
-
-          updateCheckoutButton();
-
-          return;
-
-        }
-
-
-        dailySales =
-          Number(
-            data?.daily_sales || 0
-          );
-
-
-        const currentTime =
-          new Date();
-
-
-        const hour =
-          currentTime.getHours();
-
-
-        /*
-          KINO OPEN:
-          8:00 AM - sebelum 10:00 PM
-        */
-
-        const withinOpeningHours =
-          hour >= 8 &&
-          hour < 22;
-
-
-        const belowDailyLimit =
-          dailySales <
-          DAILY_LIMIT;
-
-
-        shopIsOpen =
-          withinOpeningHours &&
-          belowDailyLimit;
-
-
-        if (!withinOpeningHours) {
-
-          shopStatus.className =
-            "shop-status closed";
-
-          shopStatus.textContent =
-            hour < 8
-              ? "KINO is closed ♡ Opens at 8:00 AM."
-              : "KINO is closed ♡ See you tomorrow at 8:00 AM.";
-
-        }
-
-        else if (!belowDailyLimit) {
-
-          shopStatus.className =
-            "shop-status closed";
-
-          shopStatus.textContent =
-            "KINO is closed for today ♡ Daily RM2,000 limit reached.";
-
-        }
-
-        else {
-
-          shopStatus.className =
-            "shop-status open";
-
-          shopStatus.textContent =
-            "KINO is open ♡";
-
-        }
-
-
-        limitInfo.textContent =
-          `Today's sales: RM${dailySales.toFixed(2)} / RM${DAILY_LIMIT.toFixed(2)}`;
-
-        limitInfo.classList.add(
-          "show"
-        );
-
-
-        updateCheckoutButton();
-
-      }
-
-      catch (error) {
-
-        console.error(
-          "SHOP STATUS CHECK ERROR:",
-          error
-        );
-
-        shopIsOpen = false;
-
-        shopStatus.className =
-          "shop-status closed";
-
-        shopStatus.textContent =
-          "Unable to check shop status. Please try again.";
-
-        updateCheckoutButton();
-
-      }
-
-    }
-
-
-    /* =========================================
-       CHECKOUT BUTTON
-    ========================================== */
-
-    function updateCheckoutButton() {
-
-      const hasItems =
-        cart.length > 0;
-
-
-      if (
-        !shopIsOpen
-      ) {
-
-        checkoutButton.classList.add(
-          "disabled"
-        );
-
-        checkoutButton.setAttribute(
-          "aria-disabled",
-          "true"
-        );
-
-        checkoutButton.href =
-          "javascript:void(0)";
-
-        return;
-
-      }
-
-
-      if (
-        !hasItems
-      ) {
-
-        checkoutButton.classList.add(
-          "disabled"
-        );
-
-        checkoutButton.setAttribute(
-          "aria-disabled",
-          "true"
-        );
-
-        checkoutButton.href =
-          "javascript:void(0)";
-
-        return;
-
-      }
+      storeStatus.className =
+        "store-status open";
 
 
       checkoutButton.classList.remove(
         "disabled"
       );
 
-      checkoutButton.removeAttribute(
-        "aria-disabled"
+
+      document
+        .querySelectorAll(
+          ".quantity-controls button"
+        )
+        .forEach(button => {
+
+          button.disabled = false;
+
+        });
+
+
+    } else {
+
+      storeStatus.textContent =
+        "KINO is closed for today ♡";
+
+
+      storeStatus.className =
+        "store-status closed";
+
+
+      checkoutButton.classList.add(
+        "disabled"
       );
 
-      checkoutButton.href =
-        "checkout.html";
+
+      document
+        .querySelectorAll(
+          ".quantity-controls button"
+        )
+        .forEach(button => {
+
+          button.disabled = true;
+
+        });
+
+    }
+
+  }
+
+
+  /* ==========================================
+     DISPLAY CART
+  ========================================== */
+
+  function loadCart() {
+
+    cartItems.innerHTML = "";
+
+    total = 0;
+
+
+    if (
+      !Array.isArray(cart) ||
+      cart.length === 0
+    ) {
+
+      cartItems.innerHTML = `
+        <div class="empty">
+          Your cart is empty.
+        </div>
+      `;
+
+      totalElement.textContent =
+        "Total: RM0.00";
+
+      checkoutButton.classList.add(
+        "disabled"
+      );
+
+      return;
 
     }
 
 
-    /* =========================================
-       REMOVE ITEM
-    ========================================== */
+    cart.forEach(
+      (item, index) => {
 
-    function removeItem(
-      index
-    ) {
+        const quantity =
+          item.quantity || 1;
 
-      if (
-        !cart[index]
-      ) {
-        return;
+        const price =
+          Number(item.price || 0);
+
+
+        total +=
+          price * quantity;
+
+
+        cartItems.innerHTML += `
+
+          <div class="cart-item">
+
+            <div>
+
+              <div class="item-name">
+                ${item.name}
+              </div>
+
+              <div class="item-price">
+                RM${price.toFixed(2)}
+                ×
+                ${quantity}
+              </div>
+
+
+              <div class="quantity-controls">
+
+                <button
+                  onclick="decreaseQuantity(${index})"
+                >
+                  −
+                </button>
+
+
+                <span>
+                  ${quantity}
+                </span>
+
+
+                <button
+                  onclick="increaseQuantity(${index})"
+                >
+                  +
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <button
+              onclick="removeItem(${index})"
+              class="remove-button"
+            >
+              REMOVE
+            </button>
+
+          </div>
+
+        `;
+
       }
+    );
 
+
+    totalElement.textContent =
+      `Total: RM${total.toFixed(2)}`;
+
+
+    updateStoreUI();
+
+  }
+
+
+  /* ==========================================
+     REMOVE
+  ========================================== */
+
+  function removeItem(index) {
+
+    cart.splice(
+      index,
+      1
+    );
+
+
+    localStorage.setItem(
+      "kinoCart",
+      JSON.stringify(cart)
+    );
+
+
+    loadCart();
+
+  }
+
+
+  /* ==========================================
+     INCREASE
+  ========================================== */
+
+  function increaseQuantity(index) {
+
+    if (!storeIsOpen) {
+      return;
+    }
+
+
+    cart[index].quantity =
+      (cart[index].quantity || 1) + 1;
+
+
+    localStorage.setItem(
+      "kinoCart",
+      JSON.stringify(cart)
+    );
+
+
+    loadCart();
+
+  }
+
+
+  /* ==========================================
+     DECREASE
+  ========================================== */
+
+  function decreaseQuantity(index) {
+
+    if (!storeIsOpen) {
+      return;
+    }
+
+
+    const quantity =
+      cart[index].quantity || 1;
+
+
+    if (quantity > 1) {
+
+      cart[index].quantity =
+        quantity - 1;
+
+    } else {
 
       cart.splice(
         index,
         1
       );
 
-
-      localStorage.setItem(
-        "kinoCart",
-        JSON.stringify(cart)
-      );
-
-
-      renderCart();
-
     }
 
 
-    /* =========================================
-       INCREASE QUANTITY
-    ========================================== */
-
-    function increaseQuantity(
-      index
-    ) {
-
-      if (
-        !cart[index]
-      ) {
-        return;
-      }
-
-
-      cart[index].quantity =
-        (
-          Number(
-            cart[index].quantity || 1
-          )
-          + 1
-        );
-
-
-      localStorage.setItem(
-        "kinoCart",
-        JSON.stringify(cart)
-      );
-
-
-      renderCart();
-
-    }
-
-
-    /* =========================================
-       DECREASE QUANTITY
-    ========================================== */
-
-    function decreaseQuantity(
-      index
-    ) {
-
-      if (
-        !cart[index]
-      ) {
-        return;
-      }
-
-
-      const quantity =
-        Number(
-          cart[index].quantity || 1
-        );
-
-
-      if (
-        quantity > 1
-      ) {
-
-        cart[index].quantity =
-          quantity - 1;
-
-      } else {
-
-        cart.splice(
-          index,
-          1
-        );
-
-      }
-
-
-      localStorage.setItem(
-        "kinoCart",
-        JSON.stringify(cart)
-      );
-
-
-      renderCart();
-
-    }
-
-
-    /* =========================================
-       PREVENT DISABLED CHECKOUT
-    ========================================== */
-
-    checkoutButton.addEventListener(
-      "click",
-      function(event) {
-
-        if (
-          !shopIsOpen ||
-          cart.length === 0
-        ) {
-
-          event.preventDefault();
-
-          return;
-
-        }
-
-      }
+    localStorage.setItem(
+      "kinoCart",
+      JSON.stringify(cart)
     );
 
 
-    /* =========================================
-       INITIAL LOAD
-    ========================================== */
+    loadCart();
 
-    renderCart();
-
-    checkShopStatus();
+  }
 
 
-    /* =========================================
-       REFRESH STATUS
-       EVERY 60 SECONDS
-    ========================================== */
+  /* ==========================================
+     CHECKOUT PROTECTION
+  ========================================== */
 
-    setInterval(
-      checkShopStatus,
-      60000
-    );
+  checkoutButton.addEventListener(
+    "click",
+    function(event) {
 
-  </script>
+      if (!storeIsOpen) {
+
+        event.preventDefault();
+
+        alert(
+          "KINO is closed for today ♡\n\nPlease come back tomorrow."
+        );
+
+      }
+
+    }
+  );
+
+
+  /* ==========================================
+     INITIAL LOAD
+  ========================================== */
+
+  loadCart();
+
+  checkStoreStatus();
+
+</script>
 
 </body>
 </html>
