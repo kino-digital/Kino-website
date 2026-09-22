@@ -254,6 +254,17 @@
       margin-bottom: 12px;
     }
 
+    .limit-box {
+      display: none;
+      background: #fff0f3;
+      color: #a96b82;
+      padding: 15px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
     footer {
       margin-top: 70px;
       background: #fde6ee;
@@ -297,6 +308,7 @@
 <body>
 
 <header>
+
   <div class="logo">KINO</div>
 
   <nav>
@@ -304,6 +316,7 @@
     <a href="stickers.html">Shop</a>
     <a href="cart.html">Cart</a>
   </nav>
+
 </header>
 
 
@@ -315,10 +328,10 @@
 
     <div id="message" class="message"></div>
 
+    <div id="limit-box" class="limit-box"></div>
 
-    <!-- ==========================================
-         YOUR ORDER
-    =========================================== -->
+
+    <!-- YOUR ORDER -->
 
     <div class="section-title">
       Your Order
@@ -327,9 +340,7 @@
     <div id="order-items"></div>
 
 
-    <!-- ==========================================
-         CUSTOMER DETAILS
-    =========================================== -->
+    <!-- CUSTOMER DETAILS -->
 
     <div class="form-section">
 
@@ -348,7 +359,6 @@
         autocomplete="name"
       >
 
-
       <label for="customer-email">
         Email
       </label>
@@ -363,9 +373,7 @@
     </div>
 
 
-    <!-- ==========================================
-         PAYMENT
-    =========================================== -->
+    <!-- PAYMENT -->
 
     <div class="form-section">
 
@@ -382,14 +390,6 @@
         <div class="payment-note">
           Please make payment using the TNG QR below.
         </div>
-
-        <!--
-          REPLACE THIS WITH YOUR ACTUAL QR IMAGE
-
-          Example:
-          <img src="images/tng-qr.png"
-               style="width:180px;height:180px;border-radius:15px;">
-        -->
 
         <div class="qr-placeholder">
           TNG QR
@@ -411,9 +411,7 @@
     </div>
 
 
-    <!-- ==========================================
-         PAYMENT PROOF
-    =========================================== -->
+    <!-- PAYMENT PROOF -->
 
     <div class="form-section">
 
@@ -438,9 +436,7 @@
     </div>
 
 
-    <!-- ==========================================
-         TOTAL
-    =========================================== -->
+    <!-- TOTAL -->
 
     <div class="total">
 
@@ -458,9 +454,7 @@
     </div>
 
 
-    <!-- ==========================================
-         CONFIRMATION
-    =========================================== -->
+    <!-- CONFIRMATION -->
 
     <label class="confirmation">
 
@@ -476,9 +470,7 @@
     </label>
 
 
-    <!-- ==========================================
-         SUBMIT
-    =========================================== -->
+    <!-- SUBMIT -->
 
     <button
       type="button"
@@ -506,9 +498,7 @@
 </footer>
 
 
-<!-- ==========================================
-     SUPABASE
-=========================================== -->
+<!-- SUPABASE -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -516,8 +506,8 @@
 <script>
 
   /* ==========================================
-     SUPABASE CONNECTION
-  =========================================== */
+     SUPABASE
+  ========================================== */
 
   const SUPABASE_URL =
     "https://vbdgzsapdbpgfcdksdoi.supabase.co";
@@ -535,7 +525,7 @@
 
   /* ==========================================
      ELEMENTS
-  =========================================== */
+  ========================================== */
 
   const orderItems =
     document.getElementById("order-items");
@@ -546,13 +536,16 @@
   const messageBox =
     document.getElementById("message");
 
+  const limitBox =
+    document.getElementById("limit-box");
+
   const submitButton =
     document.getElementById("submit-button");
 
 
   /* ==========================================
      CART
-  =========================================== */
+  ========================================== */
 
   let cart = [];
 
@@ -580,7 +573,7 @@
 
   /* ==========================================
      ESCAPE HTML
-  =========================================== */
+  ========================================== */
 
   function escapeHtml(value) {
 
@@ -595,8 +588,8 @@
 
 
   /* ==========================================
-     DISPLAY MESSAGE
-  =========================================== */
+     MESSAGE
+  ========================================== */
 
   function showMessage(
     text,
@@ -629,7 +622,7 @@
 
   /* ==========================================
      DISPLAY CART
-  =========================================== */
+  ========================================== */
 
   function loadCart() {
 
@@ -638,8 +631,10 @@
     total = 0;
 
 
-    if (!Array.isArray(cart) ||
-        cart.length === 0) {
+    if (
+      !Array.isArray(cart) ||
+      cart.length === 0
+    ) {
 
       orderItems.innerHTML = `
         <div class="order-item">
@@ -711,8 +706,120 @@
 
 
   /* ==========================================
-     VALIDATE FILE
-  =========================================== */
+     CHECK DAILY LIMIT
+  ========================================== */
+
+  async function checkDailyLimit() {
+
+    try {
+
+      const {
+        data,
+        error
+      } = await db.rpc(
+        "check_daily_limit",
+        {
+          order_amount: total
+        }
+      );
+
+
+      if (error) {
+
+        console.error(
+          "DAILY LIMIT ERROR:",
+          error
+        );
+
+        return {
+          allowed: true,
+          failed: true
+        };
+
+      }
+
+
+      console.log(
+        "DAILY LIMIT:",
+        data
+      );
+
+
+      if (
+        data &&
+        data.allowed === false
+      ) {
+
+        limitBox.style.display =
+          "block";
+
+        limitBox.textContent =
+          "KINO has reached today's payment limit ♡ Please come back tomorrow.";
+
+        submitButton.disabled =
+          true;
+
+        return {
+          allowed: false
+        };
+
+      }
+
+
+      return {
+        allowed: true,
+        data: data
+      };
+
+    } catch (error) {
+
+      console.error(
+        "LIMIT CHECK ERROR:",
+        error
+      );
+
+      return {
+        allowed: true,
+        failed: true
+      };
+
+    }
+
+  }
+
+
+  /* ==========================================
+     CHECK LIMIT WHEN PAGE OPENS
+  ========================================== */
+
+  async function initialLimitCheck() {
+
+    if (total <= 0) {
+      return;
+    }
+
+    const result =
+      await checkDailyLimit();
+
+    if (
+      result.allowed === false
+    ) {
+
+      showMessage(
+        "KINO has reached today's payment limit. Please come back tomorrow."
+      );
+
+    }
+
+  }
+
+
+  initialLimitCheck();
+
+
+  /* ==========================================
+     FILE VALIDATION
+  ========================================== */
 
   function validatePaymentProof(file) {
 
@@ -761,8 +868,8 @@
 
 
   /* ==========================================
-     CREATE ORDER CODE
-  =========================================== */
+     ORDER CODE
+  ========================================== */
 
   function createOrderCode() {
 
@@ -789,7 +896,7 @@
 
   /* ==========================================
      AFFILIATE REF
-  =========================================== */
+  ========================================== */
 
   function getAffiliateCode() {
 
@@ -812,7 +919,7 @@
 
   /* ==========================================
      SUBMIT ORDER
-  =========================================== */
+  ========================================== */
 
   async function submitOrder() {
 
@@ -820,7 +927,7 @@
 
 
     /* ----------------------------------------
-       BASIC CHECKS
+       CART CHECK
     ----------------------------------------- */
 
     if (
@@ -836,6 +943,45 @@
 
     }
 
+
+    /* ----------------------------------------
+       CHECK DAILY LIMIT AGAIN
+       RIGHT BEFORE ORDER CREATION
+    ----------------------------------------- */
+
+    submitButton.disabled =
+      true;
+
+    submitButton.textContent =
+      "CHECKING...";
+
+
+    const limitResult =
+      await checkDailyLimit();
+
+
+    if (
+      limitResult.allowed === false
+    ) {
+
+      showMessage(
+        "KINO has reached today's payment limit. Please come back tomorrow."
+      );
+
+      submitButton.disabled =
+        true;
+
+      submitButton.textContent =
+        "SHOP CLOSED";
+
+      return;
+
+    }
+
+
+    /* ----------------------------------------
+       CUSTOMER DETAILS
+    ----------------------------------------- */
 
     const name =
       document
@@ -873,6 +1019,12 @@
         "Please enter your name."
       );
 
+      submitButton.disabled =
+        false;
+
+      submitButton.textContent =
+        "SUBMIT ORDER";
+
       return;
 
     }
@@ -884,6 +1036,12 @@
         "Please enter your email."
       );
 
+      submitButton.disabled =
+        false;
+
+      submitButton.textContent =
+        "SUBMIT ORDER";
+
       return;
 
     }
@@ -894,6 +1052,12 @@
       showMessage(
         "Please upload your payment proof."
       );
+
+      submitButton.disabled =
+        false;
+
+      submitButton.textContent =
+        "SUBMIT ORDER";
 
       return;
 
@@ -912,6 +1076,12 @@
         fileError
       );
 
+      submitButton.disabled =
+        false;
+
+      submitButton.textContent =
+        "SUBMIT ORDER";
+
       return;
 
     }
@@ -923,17 +1093,16 @@
         "Please confirm that you have made the payment."
       );
 
+      submitButton.disabled =
+        false;
+
+      submitButton.textContent =
+        "SUBMIT ORDER";
+
       return;
 
     }
 
-
-    /* ----------------------------------------
-       DISABLE BUTTON
-    ----------------------------------------- */
-
-    submitButton.disabled =
-      true;
 
     submitButton.textContent =
       "SUBMITTING...";
@@ -942,7 +1111,7 @@
     try {
 
       /* --------------------------------------
-         CREATE ORDER ID
+         ORDER ID
       --------------------------------------- */
 
       const orderId =
@@ -958,7 +1127,7 @@
 
 
       /* --------------------------------------
-         1. CREATE ORDER
+         CREATE ORDER
       --------------------------------------- */
 
       const {
@@ -969,15 +1138,20 @@
 
           id: orderId,
 
-          order_code: orderCode,
+          order_code:
+            orderCode,
 
-          customer_name: name,
+          customer_name:
+            name,
 
-          customer_email: email,
+          customer_email:
+            email,
 
-          total: total,
+          total:
+            total,
 
-          status: "pending",
+          status:
+            "pending",
 
           affiliate_code:
             affiliateCode
@@ -1001,7 +1175,7 @@
 
 
       /* --------------------------------------
-         2. SAVE ORDER ITEMS
+         ORDER ITEMS
       --------------------------------------- */
 
       const orderItemsData =
@@ -1065,7 +1239,7 @@
 
 
       /* --------------------------------------
-         3. CREATE ONE FIXED PAYMENT PATH
+         PAYMENT PROOF PATH
       --------------------------------------- */
 
       const extension =
@@ -1079,14 +1253,8 @@
         `${orderId}/payment-proof.${extension}`;
 
 
-      console.log(
-        "PAYMENT PROOF PATH:",
-        proofPath
-      );
-
-
       /* --------------------------------------
-         4. UPLOAD PAYMENT PROOF
+         UPLOAD PAYMENT PROOF
       --------------------------------------- */
 
       const {
@@ -1122,7 +1290,7 @@
 
 
       /* --------------------------------------
-         5. SAVE EXACT SAME PATH TO ORDERS
+         SAVE PROOF PATH
       --------------------------------------- */
 
       const {
@@ -1155,7 +1323,7 @@
 
 
       /* --------------------------------------
-         6. SUCCESS
+         SUCCESS
       --------------------------------------- */
 
       localStorage.removeItem(
@@ -1199,7 +1367,7 @@
 
   /* ==========================================
      BUTTON
-  =========================================== */
+  ========================================== */
 
   submitButton.addEventListener(
     "click",
