@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
   <title>Cart | KINO</title>
 
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -43,6 +51,10 @@
       font-size: 14px;
     }
 
+    nav a:hover {
+      color: #c47794;
+    }
+
     .cart {
       max-width: 800px;
       margin: 50px auto;
@@ -56,6 +68,37 @@
       margin-bottom: 30px;
     }
 
+    /* =========================
+       SHOP STATUS
+    ========================= */
+
+    .shop-status {
+      display: none;
+      padding: 15px 18px;
+      border-radius: 18px;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .shop-status.open {
+      display: block;
+      background: #edf9f1;
+      color: #4e8a66;
+    }
+
+    .shop-status.closed {
+      display: block;
+      background: #fff0f3;
+      color: #a96b82;
+    }
+
+    .shop-status.loading {
+      display: block;
+      background: #fde6ee;
+      color: #8a747b;
+    }
+
     .cart-item {
       background: #ffffff;
       padding: 20px;
@@ -64,6 +107,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 15px;
       box-shadow: 0 5px 18px rgba(190, 130, 150, 0.10);
     }
 
@@ -94,54 +138,72 @@
 
     .checkout-button {
       display: inline-block;
+      border: none;
       background: #d9829e;
       color: white;
       text-decoration: none;
       padding: 12px 30px;
       border-radius: 30px;
+      font-family: 'Baloo 2', sans-serif;
       font-size: 16px;
+      cursor: pointer;
+    }
+
+    .checkout-button:hover {
+      background: #c97491;
+    }
+
+    .checkout-button.disabled {
+      background: #d8c5cb;
+      color: #ffffff;
+      cursor: not-allowed;
+      pointer-events: none;
     }
 
     .quantity-controls {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 8px;
-}
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
 
-.quantity-controls button {
-  width: 28px;
-  height: 28px;
-  border: none;
-  border-radius: 50%;
-  background: #f7dce5;
-  color: #a96b82;
-  font-family: 'Baloo 2', sans-serif;
-  font-size: 18px;
-  cursor: pointer;
-}
+    .quantity-controls button {
+      width: 28px;
+      height: 28px;
+      border: none;
+      border-radius: 50%;
+      background: #f7dce5;
+      color: #a96b82;
+      font-family: 'Baloo 2', sans-serif;
+      font-size: 18px;
+      cursor: pointer;
+    }
 
-.quantity-controls span {
-  min-width: 20px;
-  text-align: center;
-  color: #8a747b;
-  font-weight: 600;
-}
+    .quantity-controls button:hover {
+      background: #efc5d4;
+    }
+
+    .quantity-controls span {
+      min-width: 20px;
+      text-align: center;
+      color: #8a747b;
+      font-weight: 600;
+    }
 
     .remove-button {
-  background: #f7dce5;
-  color: #a96b82;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-family: 'Baloo 2', sans-serif;
-  font-size: 13px;
-  cursor: pointer;
-}
+      background: #f7dce5;
+      color: #a96b82;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-family: 'Baloo 2', sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+    }
 
-.remove-button:hover {
-  background: #efc5d4;
-}
+    .remove-button:hover {
+      background: #efc5d4;
+    }
 
     .empty {
       text-align: center;
@@ -149,6 +211,17 @@
       padding: 40px;
       background: #ffffff;
       border-radius: 20px;
+    }
+
+    .limit-info {
+      display: none;
+      margin-top: 15px;
+      font-size: 13px;
+      color: #8a747b;
+    }
+
+    .limit-info.show {
+      display: block;
     }
 
     footer {
@@ -159,118 +232,808 @@
       color: #8a747b;
       font-size: 14px;
     }
+
+    @media (max-width: 600px) {
+
+      header {
+        padding: 20px;
+      }
+
+      nav a {
+        margin-left: 10px;
+      }
+
+      .cart {
+        margin: 30px auto;
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      .cart-item {
+        align-items: flex-start;
+      }
+
+      .remove-button {
+        flex-shrink: 0;
+      }
+
+    }
+
   </style>
+
 </head>
 
 <body>
 
+
+  <!-- =========================================
+       HEADER
+  ========================================== -->
+
   <header>
-    <div class="logo">KINO</div>
+
+    <div class="logo">
+      KINO
+    </div>
 
     <nav>
-      <a href="index.html">Home</a>
-      <a href="stickers.html">Shop</a>
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="stickers.html">
+        Shop
+      </a>
+
     </nav>
+
   </header>
+
+
+  <!-- =========================================
+       CART
+  ========================================== -->
 
   <main class="cart">
 
-    <h1>Your Cart ♡</h1>
+    <h1>
+      Your Cart ♡
+    </h1>
+
+
+    <!-- SHOP STATUS -->
+
+    <div
+      id="shop-status"
+      class="shop-status loading"
+    >
+      Checking KINO shop status...
+    </div>
+
+
+    <!-- CART ITEMS -->
 
     <div id="cart-items"></div>
-    
+
+
+    <!-- TOTAL -->
+
     <div class="total-box">
 
-      <div class="total">
-        Total: RM0
+      <div
+        class="total"
+        id="total"
+      >
+        Total: RM0.00
       </div>
 
-      <a href="checkout.html" class="checkout-button">
+
+      <a
+        href="checkout.html"
+        id="checkout-button"
+        class="checkout-button"
+      >
         CHECKOUT
       </a>
+
+
+      <div
+        id="limit-info"
+        class="limit-info"
+      >
+        Daily KINO limit: RM2,000
+      </div>
 
     </div>
 
   </main>
 
+
+  <!-- =========================================
+       FOOTER
+  ========================================== -->
+
   <footer>
+
     Made for cozy moments ♡
+
   </footer>
 
-<script>
-  const cartItems = document.getElementById("cart-items");
-  const totalElement = document.querySelector(".total");
 
-  let cart = JSON.parse(localStorage.getItem("kinoCart")) || [];
+  <!-- =========================================
+       SUPABASE
+  ========================================== -->
 
-  let total = 0;
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  if (cart.length === 0) {
-    cartItems.innerHTML = `
-      <div class="empty">
-        Your cart is empty.
-      </div>
-    `;
-  } else {
-    // Around line 189
-cart.forEach((item, index) => {
-  const quantity = item.quantity || 1;
 
-  total += item.price * quantity;
+  <script>
 
-  cartItems.innerHTML += `
-    <div class="cart-item">
-  <div>
-    <div class="item-name">${item.name}</div>
-    <div class="item-price">RM${item.price} × ${quantity}</div>
+    /* =========================================
+       SUPABASE CONNECTION
+    ========================================= */
 
-    <div class="quantity-controls">
-      <button onclick="decreaseQuantity(${index})">−</button>
-      <span>${quantity}</span>
-      <button onclick="increaseQuantity(${index})">+</button>
-    </div>
-  </div>
+    const SUPABASE_URL =
+      "https://vbdgzsapdbpgfcdksdoi.supabase.co";
 
-  <button onclick="removeItem(${index})" class="remove-button">
-    REMOVE
-  </button>
-</div>
-  `;
-});
-}
-  
-  totalElement.textContent = `Total: RM${total}`;
-  function removeItem(index) {
-  cart.splice(index, 1);
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
 
-  localStorage.setItem("kinoCart", JSON.stringify(cart));
+    const {
+      createClient
+    } = supabase;
 
-  location.reload();
-}
+    const db =
+      createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
 
-function increaseQuantity(index) {
-  cart[index].quantity = (cart[index].quantity || 1) + 1;
 
-  localStorage.setItem("kinoCart", JSON.stringify(cart));
+    /* =========================================
+       ELEMENTS
+    ========================================= */
 
-  location.reload();
-}
+    const cartItems =
+      document.getElementById(
+        "cart-items"
+      );
 
-function decreaseQuantity(index) {
-  const quantity = cart[index].quantity || 1;
+    const totalElement =
+      document.getElementById(
+        "total"
+      );
 
-  if (quantity > 1) {
-    cart[index].quantity = quantity - 1;
-  } else {
-    cart.splice(index, 1);
-  }
+    const checkoutButton =
+      document.getElementById(
+        "checkout-button"
+      );
 
-  localStorage.setItem("kinoCart", JSON.stringify(cart));
+    const shopStatus =
+      document.getElementById(
+        "shop-status"
+      );
 
-  location.reload();
-}
-    
-</script>
+    const limitInfo =
+      document.getElementById(
+        "limit-info"
+      );
+
+
+    /* =========================================
+       CART
+    ========================================= */
+
+    let cart = [];
+
+    try {
+
+      cart =
+        JSON.parse(
+          localStorage.getItem(
+            "kinoCart"
+          )
+        ) || [];
+
+    } catch (error) {
+
+      console.error(
+        "CART ERROR:",
+        error
+      );
+
+      cart = [];
+
+    }
+
+
+    /* =========================================
+       SHOP VARIABLES
+    ========================================= */
+
+    let shopIsOpen = false;
+
+    let dailySales = 0;
+
+    const DAILY_LIMIT = 2000;
+
+
+    /* =========================================
+       ESCAPE HTML
+    ========================================= */
+
+    function escapeHtml(
+      value
+    ) {
+
+      return String(
+        value ?? ""
+      )
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /'/g,
+        "&#039;"
+      );
+
+    }
+
+
+    /* =========================================
+       CALCULATE CART TOTAL
+    ========================================= */
+
+    function getCartTotal() {
+
+      if (
+        !Array.isArray(cart)
+      ) {
+        return 0;
+      }
+
+
+      return cart.reduce(
+        (
+          sum,
+          item
+        ) => {
+
+          const price =
+            Number(
+              item.price || 0
+            );
+
+          const quantity =
+            Number(
+              item.quantity || 1
+            );
+
+          return (
+            sum +
+            (
+              price *
+              quantity
+            )
+          );
+
+        },
+        0
+      );
+
+    }
+
+
+    /* =========================================
+       DISPLAY CART
+    ========================================= */
+
+    function renderCart() {
+
+      cartItems.innerHTML =
+        "";
+
+      const total =
+        getCartTotal();
+
+
+      if (
+        cart.length === 0
+      ) {
+
+        cartItems.innerHTML = `
+          <div class="empty">
+            Your cart is empty.
+          </div>
+        `;
+
+      } else {
+
+        cart.forEach(
+          (
+            item,
+            index
+          ) => {
+
+            const quantity =
+              Number(
+                item.quantity || 1
+              );
+
+            const price =
+              Number(
+                item.price || 0
+              );
+
+            const subtotal =
+              price *
+              quantity;
+
+
+            cartItems.innerHTML += `
+
+              <div class="cart-item">
+
+                <div>
+
+                  <div class="item-name">
+                    ${escapeHtml(
+                      item.name
+                    )}
+                  </div>
+
+                  <div class="item-price">
+                    RM${price.toFixed(2)}
+                    ×
+                    ${quantity}
+                  </div>
+
+
+                  <div class="quantity-controls">
+
+                    <button
+                      onclick="decreaseQuantity(${index})"
+                      aria-label="Decrease quantity"
+                    >
+                      −
+                    </button>
+
+                    <span>
+                      ${quantity}
+                    </span>
+
+                    <button
+                      onclick="increaseQuantity(${index})"
+                      aria-label="Increase quantity"
+                    >
+                      +
+                    </button>
+
+                  </div>
+
+                </div>
+
+
+                <button
+                  onclick="removeItem(${index})"
+                  class="remove-button"
+                >
+                  REMOVE
+                </button>
+
+              </div>
+
+            `;
+
+          }
+        );
+
+      }
+
+
+      totalElement.textContent =
+        `Total: RM${total.toFixed(2)}`;
+
+
+      updateCheckoutButton();
+
+    }
+
+
+    /* =========================================
+       CHECK SHOP STATUS
+    ========================================== */
+
+    async function checkShopStatus() {
+
+      shopStatus.className =
+        "shop-status loading";
+
+      shopStatus.textContent =
+        "Checking KINO shop status...";
+
+
+      try {
+
+        const {
+          data,
+          error
+        } = await db.rpc(
+          "get_daily_shop_status"
+        );
+
+
+        if (error) {
+
+          console.error(
+            "SHOP STATUS ERROR:",
+            error
+          );
+
+          /*
+            Untuk keselamatan:
+            kalau status tak dapat disahkan,
+            checkout tidak dibenarkan.
+          */
+
+          shopIsOpen = false;
+
+          shopStatus.className =
+            "shop-status closed";
+
+          shopStatus.textContent =
+            "Unable to check shop status. Please try again.";
+
+          updateCheckoutButton();
+
+          return;
+
+        }
+
+
+        dailySales =
+          Number(
+            data?.daily_sales || 0
+          );
+
+
+        const currentTime =
+          new Date();
+
+
+        const hour =
+          currentTime.getHours();
+
+
+        /*
+          KINO OPEN:
+          8:00 AM - sebelum 10:00 PM
+        */
+
+        const withinOpeningHours =
+          hour >= 8 &&
+          hour < 22;
+
+
+        const belowDailyLimit =
+          dailySales <
+          DAILY_LIMIT;
+
+
+        shopIsOpen =
+          withinOpeningHours &&
+          belowDailyLimit;
+
+
+        if (!withinOpeningHours) {
+
+          shopStatus.className =
+            "shop-status closed";
+
+          shopStatus.textContent =
+            hour < 8
+              ? "KINO is closed ♡ Opens at 8:00 AM."
+              : "KINO is closed ♡ See you tomorrow at 8:00 AM.";
+
+        }
+
+        else if (!belowDailyLimit) {
+
+          shopStatus.className =
+            "shop-status closed";
+
+          shopStatus.textContent =
+            "KINO is closed for today ♡ Daily RM2,000 limit reached.";
+
+        }
+
+        else {
+
+          shopStatus.className =
+            "shop-status open";
+
+          shopStatus.textContent =
+            "KINO is open ♡";
+
+        }
+
+
+        limitInfo.textContent =
+          `Today's sales: RM${dailySales.toFixed(2)} / RM${DAILY_LIMIT.toFixed(2)}`;
+
+        limitInfo.classList.add(
+          "show"
+        );
+
+
+        updateCheckoutButton();
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "SHOP STATUS CHECK ERROR:",
+          error
+        );
+
+        shopIsOpen = false;
+
+        shopStatus.className =
+          "shop-status closed";
+
+        shopStatus.textContent =
+          "Unable to check shop status. Please try again.";
+
+        updateCheckoutButton();
+
+      }
+
+    }
+
+
+    /* =========================================
+       CHECKOUT BUTTON
+    ========================================== */
+
+    function updateCheckoutButton() {
+
+      const hasItems =
+        cart.length > 0;
+
+
+      if (
+        !shopIsOpen
+      ) {
+
+        checkoutButton.classList.add(
+          "disabled"
+        );
+
+        checkoutButton.setAttribute(
+          "aria-disabled",
+          "true"
+        );
+
+        checkoutButton.href =
+          "javascript:void(0)";
+
+        return;
+
+      }
+
+
+      if (
+        !hasItems
+      ) {
+
+        checkoutButton.classList.add(
+          "disabled"
+        );
+
+        checkoutButton.setAttribute(
+          "aria-disabled",
+          "true"
+        );
+
+        checkoutButton.href =
+          "javascript:void(0)";
+
+        return;
+
+      }
+
+
+      checkoutButton.classList.remove(
+        "disabled"
+      );
+
+      checkoutButton.removeAttribute(
+        "aria-disabled"
+      );
+
+      checkoutButton.href =
+        "checkout.html";
+
+    }
+
+
+    /* =========================================
+       REMOVE ITEM
+    ========================================== */
+
+    function removeItem(
+      index
+    ) {
+
+      if (
+        !cart[index]
+      ) {
+        return;
+      }
+
+
+      cart.splice(
+        index,
+        1
+      );
+
+
+      localStorage.setItem(
+        "kinoCart",
+        JSON.stringify(cart)
+      );
+
+
+      renderCart();
+
+    }
+
+
+    /* =========================================
+       INCREASE QUANTITY
+    ========================================== */
+
+    function increaseQuantity(
+      index
+    ) {
+
+      if (
+        !cart[index]
+      ) {
+        return;
+      }
+
+
+      cart[index].quantity =
+        (
+          Number(
+            cart[index].quantity || 1
+          )
+          + 1
+        );
+
+
+      localStorage.setItem(
+        "kinoCart",
+        JSON.stringify(cart)
+      );
+
+
+      renderCart();
+
+    }
+
+
+    /* =========================================
+       DECREASE QUANTITY
+    ========================================== */
+
+    function decreaseQuantity(
+      index
+    ) {
+
+      if (
+        !cart[index]
+      ) {
+        return;
+      }
+
+
+      const quantity =
+        Number(
+          cart[index].quantity || 1
+        );
+
+
+      if (
+        quantity > 1
+      ) {
+
+        cart[index].quantity =
+          quantity - 1;
+
+      } else {
+
+        cart.splice(
+          index,
+          1
+        );
+
+      }
+
+
+      localStorage.setItem(
+        "kinoCart",
+        JSON.stringify(cart)
+      );
+
+
+      renderCart();
+
+    }
+
+
+    /* =========================================
+       PREVENT DISABLED CHECKOUT
+    ========================================== */
+
+    checkoutButton.addEventListener(
+      "click",
+      function(event) {
+
+        if (
+          !shopIsOpen ||
+          cart.length === 0
+        ) {
+
+          event.preventDefault();
+
+          return;
+
+        }
+
+      }
+    );
+
+
+    /* =========================================
+       INITIAL LOAD
+    ========================================== */
+
+    renderCart();
+
+    checkShopStatus();
+
+
+    /* =========================================
+       REFRESH STATUS
+       EVERY 60 SECONDS
+    ========================================== */
+
+    setInterval(
+      checkShopStatus,
+      60000
+    );
+
+  </script>
 
 </body>
 </html>
