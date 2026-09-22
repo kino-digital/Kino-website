@@ -19,7 +19,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
 <style>
 
 /* =========================================
@@ -343,6 +342,8 @@ footer {
 
   nav {
     gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .hero {
@@ -406,6 +407,11 @@ footer {
 
     <a href="cart.html">
       Cart
+    </a>
+
+    <!-- Affiliate kekal -->
+    <a href="affiliate.html">
+      Affiliate
     </a>
 
   </nav>
@@ -671,154 +677,7 @@ const shopButton =
 
 
 /* =========================================
-   AUTO SCHEDULE
-   8 AM - 10 PM
-========================================= */
-
-function isWithinOpeningHours() {
-
-  const now =
-    new Date();
-
-  const hour =
-    now.getHours();
-
-  return (
-    hour >= 8 &&
-    hour < 22
-  );
-
-}
-
-
-/* =========================================
-   LOAD STORE STATUS
-========================================= */
-
-async function loadStoreStatus() {
-
-  try {
-
-    /*
-      We only get the current store setting.
-
-      The customer NEVER sees:
-      - today's sales
-      - monthly sales
-      - total sales
-      - admin information
-    */
-
-    const {
-      data,
-      error
-    } = await db
-      .from("store_settings")
-      .select("*")
-      .limit(1)
-      .maybeSingle();
-
-
-    if (error) {
-
-      console.error(
-        "STORE STATUS ERROR:",
-        error
-      );
-
-      /*
-        If database cannot be reached,
-        safely fall back to automatic hours.
-      */
-
-      applyAutomaticStatus();
-
-      return;
-
-    }
-
-
-    /*
-      Expected database fields:
-
-      is_open
-      emergency_override
-
-      If emergency_override is TRUE,
-      use the admin's manual setting.
-
-      Otherwise:
-      use automatic 8 AM - 10 PM.
-    */
-
-    if (
-      data &&
-      data.emergency_override === true
-    ) {
-
-      if (
-        data.is_open === true
-      ) {
-
-        setStoreOpen();
-
-      } else {
-
-        setStoreClosed();
-
-      }
-
-      return;
-
-    }
-
-
-    /*
-      No emergency override.
-      Use automatic schedule.
-    */
-
-    applyAutomaticStatus();
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "STORE STATUS ERROR:",
-      error
-    );
-
-    applyAutomaticStatus();
-
-  }
-
-}
-
-
-/* =========================================
-   AUTOMATIC STATUS
-========================================= */
-
-function applyAutomaticStatus() {
-
-  if (
-    isWithinOpeningHours()
-  ) {
-
-    setStoreOpen();
-
-  } else {
-
-    setStoreClosed();
-
-  }
-
-}
-
-
-/* =========================================
-   OPEN
+   SET OPEN
 ========================================= */
 
 function setStoreOpen() {
@@ -831,14 +690,11 @@ function setStoreOpen() {
     "open"
   );
 
-
   statusText.textContent =
     "KINO is OPEN";
 
-
   closedNote.style.display =
     "none";
-
 
   shopButton.style.display =
     "inline-block";
@@ -860,7 +716,7 @@ function setStoreOpen() {
 
 
 /* =========================================
-   CLOSED
+   SET CLOSED
 ========================================= */
 
 function setStoreClosed() {
@@ -873,20 +729,11 @@ function setStoreClosed() {
     "closed"
   );
 
-
   statusText.textContent =
     "KINO is CLOSED";
 
-
   closedNote.style.display =
     "block";
-
-
-  /*
-    Keep SHOP NOW visible but
-    prevent customers entering
-    the shop while closed.
-  */
 
   shopButton.style.display =
     "none";
@@ -908,6 +755,140 @@ function setStoreClosed() {
 
 
 /* =========================================
+   LOAD STORE STATUS
+========================================= */
+
+async function loadStoreStatus() {
+
+  try {
+
+    /*
+      IMPORTANT:
+      Home calls the SQL function.
+
+      This means the status is calculated
+      by Supabase using Malaysia time.
+
+      It also reads the emergency setting
+      controlled from Admin.
+    */
+
+    const {
+      data,
+      error
+    } = await db.rpc(
+      "get_store_status"
+    );
+
+
+    if (error) {
+
+      console.error(
+        "STORE STATUS ERROR:",
+        error
+      );
+
+      /*
+        If Supabase temporarily fails,
+        use the normal automatic schedule.
+      */
+
+      applyAutomaticStatus();
+
+      return;
+
+    }
+
+
+    if (
+      !data ||
+      typeof data.is_open === "undefined"
+    ) {
+
+      applyAutomaticStatus();
+
+      return;
+
+    }
+
+
+    if (
+      data.is_open === true
+    ) {
+
+      setStoreOpen();
+
+    } else {
+
+      setStoreClosed();
+
+    }
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "STORE STATUS ERROR:",
+      error
+    );
+
+    applyAutomaticStatus();
+
+  }
+
+}
+
+
+/* =========================================
+   FALLBACK AUTO STATUS
+========================================= */
+
+function applyAutomaticStatus() {
+
+  /*
+    Malaysia time.
+    This is only a fallback if
+    Supabase cannot be reached.
+  */
+
+  const now =
+    new Date();
+
+  const malaysiaTime =
+    new Intl.DateTimeFormat(
+      "en-US",
+      {
+        timeZone:
+          "Asia/Kuala_Lumpur",
+        hour:
+          "numeric",
+        hour12:
+          false
+      }
+    ).format(now);
+
+  const hour =
+    Number(malaysiaTime);
+
+
+  if (
+    hour >= 8 &&
+    hour < 22
+  ) {
+
+    setStoreOpen();
+
+  } else {
+
+    setStoreClosed();
+
+  }
+
+}
+
+
+/* =========================================
    START
 ========================================= */
 
@@ -915,7 +896,7 @@ loadStoreStatus();
 
 
 /* =========================================
-   CHECK EVERY MINUTE
+   REFRESH EVERY MINUTE
 ========================================= */
 
 setInterval(
