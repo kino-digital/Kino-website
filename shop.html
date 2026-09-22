@@ -15,7 +15,7 @@
   rel="stylesheet"
 >
 
-<title>Shop All | KINO</title>
+<title>KINO | Shop All Products</title>
 
 
 <style>
@@ -37,6 +37,11 @@ body {
   line-height: 1.6;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 
 /* =========================================
    HEADER
@@ -48,15 +53,15 @@ header {
   padding: 25px 7%;
 
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
+
+  box-shadow:
+    0 2px 12px rgba(190,130,150,0.06);
 }
 
 .logo {
   font-size: 28px;
-
   font-weight: bold;
 
   color: #c77f91;
@@ -64,9 +69,12 @@ header {
   letter-spacing: 3px;
 }
 
-nav a {
-  text-decoration: none;
+nav {
+  display: flex;
+  align-items: center;
+}
 
+nav a {
   color: #6f5b61;
 
   margin-left: 25px;
@@ -178,7 +186,7 @@ nav a:hover {
   transform: translateY(-3px);
 
   box-shadow:
-    0 10px 28px
+    0 12px 30px
     rgba(190,130,145,0.12);
 }
 
@@ -188,7 +196,6 @@ nav a:hover {
 ========================================= */
 
 .product-card img {
-
   width: 100%;
 
   max-width: 180px;
@@ -204,11 +211,10 @@ nav a:hover {
 
 
 /* =========================================
-   CATEGORY LABEL
+   PRODUCT TEXT
 ========================================= */
 
-.category-label {
-
+.product-category {
   display: inline-block;
 
   background: #fce9ee;
@@ -221,16 +227,10 @@ nav a:hover {
 
   font-size: 12px;
 
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
-
-/* =========================================
-   PRODUCT NAME
-========================================= */
-
 .product-card h3 {
-
   color: #674f57;
 
   font-size: 21px;
@@ -238,26 +238,13 @@ nav a:hover {
   margin-bottom: 10px;
 }
 
-
-/* =========================================
-   DESCRIPTION
-========================================= */
-
 .product-card p {
-
   color: #8a747b;
 
   margin-bottom: 18px;
-
 }
 
-
-/* =========================================
-   PRICE
-========================================= */
-
 .price {
-
   font-size: 22px;
 
   font-weight: bold;
@@ -273,14 +260,11 @@ nav a:hover {
 ========================================= */
 
 .buy-button {
-
   display: inline-block;
 
   background: #cf8799;
 
   color: white;
-
-  text-decoration: none;
 
   padding: 11px 28px;
 
@@ -292,8 +276,7 @@ nav a:hover {
 }
 
 .buy-button:hover {
-
-  background: #bd7185;
+  background: #bd7488;
 
   transform: translateY(-1px);
 }
@@ -304,7 +287,6 @@ nav a:hover {
 ========================================= */
 
 footer {
-
   background: #fce9ee;
 
   text-align: center;
@@ -324,29 +306,19 @@ footer {
 @media (max-width: 700px) {
 
   header {
-
     padding: 20px;
-
   }
 
   nav a {
-
     margin-left: 12px;
-
-    font-size: 14px;
-
   }
 
   .hero h1 {
-
     font-size: 32px;
-
   }
 
   .product-grid {
-
     grid-template-columns: 1fr;
-
   }
 
 }
@@ -380,12 +352,8 @@ footer {
       Shop
     </a>
 
-    <a href="cart.html">
-      Cart
-    </a>
-
-    <a href="affiliate.html">
-      Affiliate
+    <a href="index.html#about">
+      About
     </a>
 
   </nav>
@@ -401,12 +369,11 @@ footer {
 <section class="hero">
 
   <h1>
-    Shop All KINO ♡
+    KINO Shop ♡
   </h1>
 
   <p>
-    Explore all of our cozy digital products
-    in one little place.
+    Discover all of our cozy digital products.
   </p>
 
 </section>
@@ -414,33 +381,30 @@ footer {
 
 
 <!-- =========================================
-     PRODUCTS
+     ALL PRODUCTS
 ========================================= -->
 
 <section class="products">
 
-
   <div class="products-title">
 
     <h2>
-      All Products
+      All KINO Products
     </h2>
 
     <p>
-      Find something cute for your cozy little moments ♡
+      Find something cute for your everyday moments ♡
     </p>
 
   </div>
-
 
 
   <div class="product-grid">
 
 
     <!-- =====================================
-         STICKERS
+         STICKER 01
     ====================================== -->
-
 
     <div class="product-card">
 
@@ -449,8 +413,8 @@ footer {
         alt="Sticker Set 01"
       >
 
-      <div class="category-label">
-        Stickers
+      <div class="product-category">
+        Sticker
       </div>
 
       <h3>
@@ -476,6 +440,10 @@ footer {
 
 
 
+    <!-- =====================================
+         STICKER 02
+    ====================================== -->
+
     <div class="product-card">
 
       <img
@@ -483,8 +451,8 @@ footer {
         alt="Sticker Set 02"
       >
 
-      <div class="category-label">
-        Stickers
+      <div class="product-category">
+        Sticker
       </div>
 
       <h3>
@@ -510,6 +478,10 @@ footer {
 
 
 
+    <!-- =====================================
+         STICKER 03
+    ====================================== -->
+
     <div class="product-card">
 
       <img
@@ -517,8 +489,8 @@ footer {
         alt="Sticker Set 03"
       >
 
-      <div class="category-label">
-        Stickers
+      <div class="product-category">
+        Sticker
       </div>
 
       <h3>
@@ -544,6 +516,10 @@ footer {
 
 
 
+    <!-- =====================================
+         STICKER 04
+    ====================================== -->
+
     <div class="product-card">
 
       <img
@@ -551,8 +527,8 @@ footer {
         alt="Sticker Set 04"
       >
 
-      <div class="category-label">
-        Stickers
+      <div class="product-category">
+        Sticker
       </div>
 
       <h3>
@@ -579,18 +555,17 @@ footer {
 
 
     <!-- =====================================
-         PLANNER
+         PLANNER 01
     ====================================== -->
-
 
     <div class="product-card">
 
       <img
-        src="https://placehold.co/600x600/fde5ed/765b63?text=Planner+01"
+        src="https://placehold.co/600x600/f9e0e8/765b63?text=Planner+01"
         alt="Planner 01"
       >
 
-      <div class="category-label">
+      <div class="product-category">
         Planner
       </div>
 
@@ -599,7 +574,7 @@ footer {
       </h3>
 
       <p>
-        15 cozy planner pages
+        15 pages · Cozy planning
       </p>
 
       <div class="price">
@@ -617,14 +592,18 @@ footer {
 
 
 
+    <!-- =====================================
+         PLANNER 02
+    ====================================== -->
+
     <div class="product-card">
 
       <img
-        src="https://placehold.co/600x600/fde5ed/765b63?text=Planner+02"
+        src="https://placehold.co/600x600/f9e0e8/765b63?text=Planner+02"
         alt="Planner 02"
       >
 
-      <div class="category-label">
+      <div class="product-category">
         Planner
       </div>
 
@@ -633,7 +612,7 @@ footer {
       </h3>
 
       <p>
-        15 cozy planner pages
+        15 pages · Cozy planning
       </p>
 
       <div class="price">
@@ -651,14 +630,18 @@ footer {
 
 
 
+    <!-- =====================================
+         PLANNER 03
+    ====================================== -->
+
     <div class="product-card">
 
       <img
-        src="https://placehold.co/600x600/fde5ed/765b63?text=Planner+03"
+        src="https://placehold.co/600x600/f9e0e8/765b63?text=Planner+03"
         alt="Planner 03"
       >
 
-      <div class="category-label">
+      <div class="product-category">
         Planner
       </div>
 
@@ -667,7 +650,7 @@ footer {
       </h3>
 
       <p>
-        15 cozy planner pages
+        15 pages · Cozy planning
       </p>
 
       <div class="price">
@@ -686,18 +669,17 @@ footer {
 
 
     <!-- =====================================
-         COLORING
+         COLORING 01
     ====================================== -->
-
 
     <div class="product-card">
 
       <img
-        src="https://placehold.co/600x600/fde9df/765b63?text=Coloring+01"
+        src="https://placehold.co/600x600/f7e3ed/765b63?text=Coloring+01"
         alt="Coloring Book 01"
       >
 
-      <div class="category-label">
+      <div class="product-category">
         Coloring
       </div>
 
@@ -706,7 +688,7 @@ footer {
       </h3>
 
       <p>
-        20 relaxing coloring pages
+        20 pages · Relax & color
       </p>
 
       <div class="price">
@@ -724,14 +706,18 @@ footer {
 
 
 
+    <!-- =====================================
+         COLORING 02
+    ====================================== -->
+
     <div class="product-card">
 
       <img
-        src="https://placehold.co/600x600/fde9df/765b63?text=Coloring+02"
+        src="https://placehold.co/600x600/f7e3ed/765b63?text=Coloring+02"
         alt="Coloring Book 02"
       >
 
-      <div class="category-label">
+      <div class="product-category">
         Coloring
       </div>
 
@@ -740,7 +726,7 @@ footer {
       </h3>
 
       <p>
-        20 relaxing coloring pages
+        20 pages · Relax & color
       </p>
 
       <div class="price">
@@ -758,14 +744,18 @@ footer {
 
 
 
+    <!-- =====================================
+         COLORING 03
+    ====================================== -->
+
     <div class="product-card">
 
       <img
-        src="https://placehold.co/600x600/fde9df/765b63?text=Coloring+03"
+        src="https://placehold.co/600x600/f7e3ed/765b63?text=Coloring+03"
         alt="Coloring Book 03"
       >
 
-      <div class="category-label">
+      <div class="product-category">
         Coloring
       </div>
 
@@ -774,7 +764,7 @@ footer {
       </h3>
 
       <p>
-        20 relaxing coloring pages
+        20 pages · Relax & color
       </p>
 
       <div class="price">
@@ -793,18 +783,17 @@ footer {
 
 
     <!-- =====================================
-         EDUKIDS
+         EDUKIDS 01
     ====================================== -->
-
 
     <div class="product-card">
 
       <img
-        src="https://placehold.co/600x600/e9f5e9/765b63?text=EduKids+01"
+        src="https://placehold.co/600x600/fce5ed/765b63?text=EduKids+01"
         alt="EduKids Book 01"
       >
 
-      <div class="category-label">
+      <div class="product-category">
         EduKids
       </div>
 
@@ -813,7 +802,7 @@ footer {
       </h3>
 
       <p>
-        20 fun learning pages
+        20 pages · Fun learning
       </p>
 
       <div class="price">
@@ -831,14 +820,18 @@ footer {
 
 
 
+    <!-- =====================================
+         EDUKIDS 02
+    ====================================== -->
+
     <div class="product-card">
 
       <img
-        src="https://placehold.co/600x600/e9f5e9/765b63?text=EduKids+02"
+        src="https://placehold.co/600x600/fce5ed/765b63?text=EduKids+02"
         alt="EduKids Book 02"
       >
 
-      <div class="category-label">
+      <div class="product-category">
         EduKids
       </div>
 
@@ -847,7 +840,7 @@ footer {
       </h3>
 
       <p>
-        20 fun learning pages
+        20 pages · Fun learning
       </p>
 
       <div class="price">
@@ -865,14 +858,18 @@ footer {
 
 
 
+    <!-- =====================================
+         EDUKIDS 03
+    ====================================== -->
+
     <div class="product-card">
 
       <img
-        src="https://placehold.co/600x600/e9f5e9/765b63?text=EduKids+03"
+        src="https://placehold.co/600x600/fce5ed/765b63?text=EduKids+03"
         alt="EduKids Book 03"
       >
 
-      <div class="category-label">
+      <div class="product-category">
         EduKids
       </div>
 
@@ -881,7 +878,7 @@ footer {
       </h3>
 
       <p>
-        20 fun learning pages
+        20 pages · Fun learning
       </p>
 
       <div class="price">
@@ -900,18 +897,17 @@ footer {
 
 
     <!-- =====================================
-         JOURNAL
+         JOURNAL 01
     ====================================== -->
-
 
     <div class="product-card">
 
       <img
-        src="https://placehold.co/600x600/ece5f5/765b63?text=Journal+01"
+        src="https://placehold.co/600x600/f8e2eb/765b63?text=Journal+01"
         alt="Digital Journal 01"
       >
 
-      <div class="category-label">
+      <div class="product-category">
         Journal
       </div>
 
@@ -920,7 +916,7 @@ footer {
       </h3>
 
       <p>
-        20 cozy journal pages
+        20 pages · Little thoughts & moments
       </p>
 
       <div class="price">
@@ -938,14 +934,18 @@ footer {
 
 
 
+    <!-- =====================================
+         JOURNAL 02
+    ====================================== -->
+
     <div class="product-card">
 
       <img
-        src="https://placehold.co/600x600/ece5f5/765b63?text=Journal+02"
+        src="https://placehold.co/600x600/f8e2eb/765b63?text=Journal+02"
         alt="Digital Journal 02"
       >
 
-      <div class="category-label">
+      <div class="product-category">
         Journal
       </div>
 
@@ -954,7 +954,7 @@ footer {
       </h3>
 
       <p>
-        20 cozy journal pages
+        20 pages · Little thoughts & moments
       </p>
 
       <div class="price">
