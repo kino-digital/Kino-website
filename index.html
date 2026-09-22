@@ -30,9 +30,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-
       padding: 20px 7%;
-
       background: #fff8fa;
     }
 
@@ -46,9 +44,7 @@
     nav a {
       text-decoration: none;
       color: #765b63;
-
       margin-left: 20px;
-
       font-size: 14px;
     }
 
@@ -56,54 +52,41 @@
       color: #c78391;
     }
 
-
     /* =========================
        HERO
     ========================= */
 
     .hero {
       text-align: center;
-
       padding: 80px 20px 70px;
-
       background: #fbe8ed;
-
       border-radius: 0 0 40px 40px;
     }
 
     .hero h1 {
       font-size: 42px;
-
       color: #b96f80;
-
       margin-bottom: 12px;
     }
 
     .hero p {
       font-size: 16px;
-
       max-width: 500px;
-
       margin: 0 auto 28px;
-
       color: #765b63;
     }
 
-
     /* =========================
-       KINO STATUS
+       STORE STATUS
     ========================= */
 
     .store-status {
       display: inline-flex;
-
       align-items: center;
       justify-content: center;
-
       gap: 8px;
 
       margin-bottom: 25px;
-
       padding: 8px 18px;
 
       border-radius: 30px;
@@ -111,7 +94,6 @@
       font-size: 14px;
 
       background: #ffffff;
-
       color: #765b63;
 
       box-shadow:
@@ -121,30 +103,26 @@
     .status-dot {
       width: 8px;
       height: 8px;
-
       border-radius: 50%;
-
       background: #8fc99f;
-    }
-
-    .store-status.closed .status-dot {
-      background: #d98b9e;
     }
 
     .store-status.closed {
       color: #a96b82;
     }
 
+    .store-status.closed .status-dot {
+      background: #d98b9e;
+    }
 
     /* =========================
-       HERO BUTTON
+       BUTTON
     ========================= */
 
     .button {
       display: inline-block;
 
       background: #c78391;
-
       color: white;
 
       text-decoration: none;
@@ -154,6 +132,8 @@
       border-radius: 30px;
 
       font-size: 14px;
+
+      transition: 0.2s ease;
     }
 
     .button:hover {
@@ -162,108 +142,9 @@
 
     .button.disabled {
       background: #d7c5ca;
-
       pointer-events: none;
-
       cursor: not-allowed;
     }
-
-
-    /* =========================
-       CATEGORIES
-    ========================= */
-
-    .section {
-      padding: 60px 7%;
-
-      text-align: center;
-    }
-
-    .section h2 {
-      color: #b96f80;
-
-      margin-bottom: 10px;
-
-      font-size: 26px;
-    }
-
-    .section-intro {
-      margin-bottom: 30px;
-
-      color: #8a7077;
-
-      font-size: 14px;
-    }
-
-
-    /* =========================
-       PRODUCT GRID
-    ========================= */
-
-    .products {
-      display: grid;
-
-      grid-template-columns:
-        repeat(3, 1fr);
-
-      gap: 20px;
-
-      max-width: 900px;
-
-      margin: auto;
-    }
-
-
-    /* =========================
-       PRODUCT CARD
-    ========================= */
-
-    .card {
-      background: white;
-
-      padding: 30px 20px;
-
-      border-radius: 25px;
-
-      box-shadow:
-        0 5px 20px rgba(160, 110, 120, 0.08);
-
-      text-decoration: none;
-
-      color: inherit;
-
-      display: block;
-
-      transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-3px);
-
-      box-shadow:
-        0 8px 25px rgba(160, 110, 120, 0.12);
-    }
-
-    .card-icon {
-      font-size: 40px;
-
-      margin-bottom: 15px;
-    }
-
-    .card h3 {
-      color: #765b63;
-
-      margin-bottom: 8px;
-    }
-
-    .card p {
-      font-size: 13px;
-
-      color: #927b82;
-    }
-
 
     /* =========================
        CLOSED NOTICE
@@ -291,6 +172,72 @@
       display: block;
     }
 
+    /* =========================
+       SHOP
+    ========================= */
+
+    .section {
+      padding: 60px 7%;
+      text-align: center;
+    }
+
+    .section h2 {
+      color: #b96f80;
+      margin-bottom: 10px;
+      font-size: 26px;
+    }
+
+    .section-intro {
+      margin-bottom: 30px;
+      color: #8a7077;
+      font-size: 14px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+
+      padding: 30px 20px;
+
+      border-radius: 25px;
+
+      box-shadow:
+        0 5px 20px rgba(160, 110, 120, 0.08);
+
+      text-decoration: none;
+      color: inherit;
+
+      display: block;
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+
+      box-shadow:
+        0 8px 25px rgba(160, 110, 120, 0.12);
+    }
+
+    .card h3 {
+      color: #765b63;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: #927b82;
+    }
 
     /* =========================
        ABOUT
@@ -306,7 +253,6 @@
 
     .about h2 {
       color: #b96f80;
-
       margin-bottom: 12px;
     }
 
@@ -319,7 +265,6 @@
 
       color: #765b63;
     }
-
 
     /* =========================
        FOOTER
@@ -334,7 +279,6 @@
 
       color: #9a7f87;
     }
-
 
     /* =========================
        MOBILE
@@ -353,9 +297,7 @@
       nav {
         padding: 18px 5%;
       }
-
     }
-
 
     @media (max-width: 600px) {
 
@@ -380,7 +322,6 @@
       nav a {
         margin-left: 0;
       }
-
     }
 
   </style>
@@ -399,7 +340,6 @@
     <div class="logo">
       KINO
     </div>
-
 
     <div>
 
@@ -428,7 +368,6 @@
   </nav>
 
 
-
   <!-- =========================
        HERO
   ========================= -->
@@ -443,10 +382,7 @@
       class="store-status"
     >
 
-      <span
-        id="status-dot"
-        class="status-dot"
-      ></span>
+      <span class="status-dot"></span>
 
       <span id="status-text">
         Checking KINO...
@@ -478,13 +414,12 @@
       id="closed-note"
       class="closed-note"
     >
-      KINO has reached today's limit. ♡
+      KINO is closed for today. ♡
       <br>
-      The shop will open again tomorrow.
+      Come back tomorrow at 8:00 AM.
     </div>
 
   </section>
-
 
 
   <!-- =========================
@@ -499,7 +434,6 @@
     <h2>
       ♡ KINO SHOP ♡
     </h2>
-
 
     <p class="section-intro">
       Find something cute for your cozy little moments.
@@ -525,7 +459,6 @@
       </a>
 
 
-
       <a
         href="journal.html"
         class="card"
@@ -540,7 +473,6 @@
         </p>
 
       </a>
-
 
 
       <a
@@ -559,7 +491,6 @@
       </a>
 
 
-
       <a
         href="planner.html"
         class="card"
@@ -574,7 +505,6 @@
         </p>
 
       </a>
-
 
 
       <a
@@ -598,7 +528,6 @@
   </section>
 
 
-
   <!-- =========================
        ABOUT
   ========================= -->
@@ -612,14 +541,12 @@
       Made for cozy moments ♡
     </h2>
 
-
     <p>
       KINO creates simple, cute and cozy digital products
       to bring a little joy into your everyday life.
     </p>
 
   </section>
-
 
 
   <!-- =========================
@@ -631,7 +558,6 @@
     © 2026 KINO · Made with ♡
 
   </footer>
-
 
 
   <!-- =========================
@@ -650,7 +576,6 @@
     const SUPABASE_URL =
       "https://vbdgzsapdbpgfcdksdoi.supabase.co";
 
-
     const SUPABASE_PUBLISHABLE_KEY =
       "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
 
@@ -667,13 +592,15 @@
       );
 
 
-
     /* =========================================
-       DAILY LIMIT
+       KINO SETTINGS
     ========================================= */
 
     const DAILY_LIMIT = 2000;
 
+    const OPEN_HOUR = 8;
+
+    const CLOSE_HOUR = 22;
 
 
     /* =========================================
@@ -685,24 +612,94 @@
         "store-status"
       );
 
-
     const statusText =
       document.getElementById(
         "status-text"
       );
-
 
     const shopButton =
       document.getElementById(
         "shop-button"
       );
 
-
     const closedNote =
       document.getElementById(
         "closed-note"
       );
 
+
+    /* =========================================
+       MALAYSIA CURRENT TIME
+    ========================================= */
+
+    function getMalaysiaTimeParts() {
+
+      const parts =
+        new Intl.DateTimeFormat(
+          "en-GB",
+          {
+            timeZone:
+              "Asia/Kuala_Lumpur",
+
+            year: "numeric",
+
+            month: "2-digit",
+
+            day: "2-digit",
+
+            hour: "2-digit",
+
+            minute: "2-digit",
+
+            second: "2-digit",
+
+            hourCycle: "h23"
+          }
+        ).formatToParts(
+          new Date()
+        );
+
+
+      const result = {};
+
+
+      parts.forEach(
+        part => {
+
+          if (
+            part.type !== "literal"
+          ) {
+
+            result[part.type] =
+              part.value;
+
+          }
+
+        }
+      );
+
+
+      return {
+        year:
+          Number(result.year),
+
+        month:
+          Number(result.month),
+
+        day:
+          Number(result.day),
+
+        hour:
+          Number(result.hour),
+
+        minute:
+          Number(result.minute),
+
+        second:
+          Number(result.second)
+      };
+
+    }
 
 
     /* =========================================
@@ -711,45 +708,119 @@
 
     function getMalaysiaDate() {
 
-      return new Intl.DateTimeFormat(
-        "en-CA",
-        {
-          timeZone:
-            "Asia/Kuala_Lumpur",
+      const time =
+        getMalaysiaTimeParts();
 
-          year: "numeric",
 
-          month: "2-digit",
+      const year =
+        String(time.year);
 
-          day: "2-digit"
-        }
-      ).format(
-        new Date()
-      );
+
+      const month =
+        String(time.month)
+          .padStart(2, "0");
+
+
+      const day =
+        String(time.day)
+          .padStart(2, "0");
+
+
+      return `${year}-${month}-${day}`;
 
     }
 
 
-
     /* =========================================
-       CHECK DAILY SALES
+       CHECK STORE STATUS
     ========================================= */
 
     async function checkStoreStatus() {
 
       try {
 
+        const malaysiaTime =
+          getMalaysiaTimeParts();
+
+
+        /*
+          ---------------------------------------
+          FIRST:
+          Check opening hours.
+
+          8:00 AM <= time < 10:00 PM
+          ---------------------------------------
+        */
+
+        const currentHour =
+          malaysiaTime.hour;
+
+
+        const withinOpeningHours =
+          currentHour >= OPEN_HOUR &&
+          currentHour < CLOSE_HOUR;
+
+
+        if (!withinOpeningHours) {
+
+          setStoreClosed(
+            "time"
+          );
+
+          return;
+
+        }
+
+
+        /*
+          ---------------------------------------
+          SECOND:
+          Check today's paid sales.
+          ---------------------------------------
+        */
+
         const malaysiaDate =
           getMalaysiaDate();
 
 
-        /*
-          Get paid orders for today.
+        const startOfDay =
+          `${malaysiaDate}T00:00:00+08:00`;
 
-          IMPORTANT:
-          Only orders with status = "paid"
-          count toward the RM2,000 limit.
-        */
+
+        const startOfNextDay =
+          new Date(
+            Date.UTC(
+              malaysiaTime.year,
+              malaysiaTime.month - 1,
+              malaysiaTime.day + 1,
+              0,
+              0,
+              0
+            )
+          );
+
+
+        const nextDayParts =
+          new Intl.DateTimeFormat(
+            "en-CA",
+            {
+              timeZone:
+                "Asia/Kuala_Lumpur",
+
+              year: "numeric",
+
+              month: "2-digit",
+
+              day: "2-digit"
+            }
+          ).format(
+            startOfNextDay
+          );
+
+
+        const endOfDay =
+          `${nextDayParts}T00:00:00+08:00`;
+
 
         const {
           data,
@@ -763,25 +834,26 @@
           )
           .gte(
             "created_at",
-            `${malaysiaDate}T00:00:00+08:00`
+            startOfDay
           )
           .lt(
             "created_at",
-            `${malaysiaDate}T23:59:59+08:00`
+            endOfDay
           );
 
 
         if (error) {
 
           console.error(
-            "STORE STATUS ERROR:",
+            "SALES CHECK ERROR:",
             error
           );
 
 
           /*
-            If the database cannot be checked,
-            don't falsely say the shop is closed.
+            If Supabase cannot be reached,
+            keep the shop visually open
+            rather than falsely closing it.
           */
 
           setStoreOpen();
@@ -813,16 +885,24 @@
 
 
         console.log(
-          "Today's paid sales:",
+          "KINO today's paid sales:",
           todaySales
         );
 
+
+        /*
+          ---------------------------------------
+          DAILY LIMIT
+          ---------------------------------------
+        */
 
         if (
           todaySales >= DAILY_LIMIT
         ) {
 
-          setStoreClosed();
+          setStoreClosed(
+            "limit"
+          );
 
         } else {
 
@@ -833,7 +913,7 @@
       } catch (error) {
 
         console.error(
-          "STATUS CHECK ERROR:",
+          "STORE STATUS ERROR:",
           error
         );
 
@@ -845,9 +925,8 @@
     }
 
 
-
     /* =========================================
-       OPEN
+       STORE OPEN
     ========================================= */
 
     function setStoreOpen() {
@@ -877,20 +956,17 @@
     }
 
 
-
     /* =========================================
-       CLOSED
+       STORE CLOSED
     ========================================= */
 
-    function setStoreClosed() {
+    function setStoreClosed(
+      reason
+    ) {
 
       statusBox.classList.add(
         "closed"
       );
-
-
-      statusText.textContent =
-        "KINO is closed for today ♡";
 
 
       shopButton.classList.add(
@@ -906,21 +982,54 @@
         "show"
       );
 
+
+      if (
+        reason === "limit"
+      ) {
+
+        statusText.textContent =
+          "KINO is closed for today ♡";
+
+
+        closedNote.innerHTML =
+          `
+            KINO has reached today's limit. ♡
+            <br>
+            Come back tomorrow at 8:00 AM.
+          `;
+
+      } else {
+
+        statusText.textContent =
+          "KINO is closed for today ♡";
+
+
+        closedNote.innerHTML =
+          `
+            KINO is open from 8:00 AM to 10:00 PM. ♡
+            <br>
+            Come back tomorrow at 8:00 AM.
+          `;
+
+      }
+
     }
 
 
-
     /* =========================================
-       START
+       INITIAL CHECK
     ========================================= */
 
     checkStoreStatus();
 
 
     /*
-      Check again every 60 seconds
-      so the Home page updates
-      without refreshing.
+      Check every 60 seconds.
+
+      This means:
+      - 9:59 PM → still open
+      - 10:00 PM → closed
+      - next morning 8:00 AM → open again
     */
 
     setInterval(
