@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +8,7 @@
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap');
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -22,12 +22,17 @@
       line-height: 1.6;
     }
 
-    /* Navigation */
+    /* =========================
+       NAVIGATION
+    ========================= */
+
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
+
       padding: 20px 7%;
+
       background: #fff8fa;
     }
 
@@ -41,121 +46,302 @@
     nav a {
       text-decoration: none;
       color: #765b63;
+
       margin-left: 20px;
+
       font-size: 14px;
     }
 
-    /* Hero */
+    nav a:hover {
+      color: #c78391;
+    }
+
+
+    /* =========================
+       HERO
+    ========================= */
+
     .hero {
       text-align: center;
+
       padding: 80px 20px 70px;
+
       background: #fbe8ed;
+
       border-radius: 0 0 40px 40px;
     }
 
     .hero h1 {
       font-size: 42px;
+
       color: #b96f80;
+
       margin-bottom: 12px;
     }
 
     .hero p {
       font-size: 16px;
+
       max-width: 500px;
+
       margin: 0 auto 28px;
+
       color: #765b63;
     }
 
+
+    /* =========================
+       KINO STATUS
+    ========================= */
+
+    .store-status {
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      gap: 8px;
+
+      margin-bottom: 25px;
+
+      padding: 8px 18px;
+
+      border-radius: 30px;
+
+      font-size: 14px;
+
+      background: #ffffff;
+
+      color: #765b63;
+
+      box-shadow:
+        0 4px 15px rgba(160, 110, 120, 0.08);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+
+      border-radius: 50%;
+
+      background: #8fc99f;
+    }
+
+    .store-status.closed .status-dot {
+      background: #d98b9e;
+    }
+
+    .store-status.closed {
+      color: #a96b82;
+    }
+
+
+    /* =========================
+       HERO BUTTON
+    ========================= */
+
     .button {
       display: inline-block;
+
       background: #c78391;
+
       color: white;
+
       text-decoration: none;
+
       padding: 12px 28px;
+
       border-radius: 30px;
+
       font-size: 14px;
     }
 
-    /* Categories */
+    .button:hover {
+      background: #b97483;
+    }
+
+    .button.disabled {
+      background: #d7c5ca;
+
+      pointer-events: none;
+
+      cursor: not-allowed;
+    }
+
+
+    /* =========================
+       CATEGORIES
+    ========================= */
+
     .section {
       padding: 60px 7%;
+
       text-align: center;
     }
 
     .section h2 {
       color: #b96f80;
+
       margin-bottom: 10px;
+
       font-size: 26px;
     }
 
     .section-intro {
       margin-bottom: 30px;
+
       color: #8a7077;
+
       font-size: 14px;
     }
 
+
+    /* =========================
+       PRODUCT GRID
+    ========================= */
+
     .products {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
       gap: 20px;
+
       max-width: 900px;
+
       margin: auto;
     }
 
+
+    /* =========================
+       PRODUCT CARD
+    ========================= */
+
     .card {
       background: white;
+
       padding: 30px 20px;
+
       border-radius: 25px;
-      box-shadow: 0 5px 20px rgba(160, 110, 120, 0.08);
+
+      box-shadow:
+        0 5px 20px rgba(160, 110, 120, 0.08);
+
       text-decoration: none;
-    color: inherit;
-    display: block;
+
+      color: inherit;
+
+      display: block;
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+
+      box-shadow:
+        0 8px 25px rgba(160, 110, 120, 0.12);
     }
 
     .card-icon {
       font-size: 40px;
+
       margin-bottom: 15px;
     }
 
     .card h3 {
       color: #765b63;
+
       margin-bottom: 8px;
     }
 
     .card p {
       font-size: 13px;
+
       color: #927b82;
     }
 
-    /* About */
+
+    /* =========================
+       CLOSED NOTICE
+    ========================= */
+
+    .closed-note {
+      display: none;
+
+      margin: 25px auto 0;
+
+      max-width: 500px;
+
+      padding: 12px 18px;
+
+      border-radius: 18px;
+
+      background: #fff4f6;
+
+      color: #a96b82;
+
+      font-size: 13px;
+    }
+
+    .closed-note.show {
+      display: block;
+    }
+
+
+    /* =========================
+       ABOUT
+    ========================= */
+
     .about {
       background: #fff0f3;
+
       padding: 60px 20px;
+
       text-align: center;
     }
 
     .about h2 {
       color: #b96f80;
+
       margin-bottom: 12px;
     }
 
     .about p {
       max-width: 550px;
+
       margin: auto;
+
       font-size: 14px;
+
       color: #765b63;
     }
 
-    /* Footer */
+
+    /* =========================
+       FOOTER
+    ========================= */
+
     footer {
       text-align: center;
+
       padding: 30px 20px;
+
       font-size: 12px;
+
       color: #9a7f87;
     }
 
-    /* Mobile */
+
+    /* =========================
+       MOBILE
+    ========================= */
+
     @media (max-width: 700px) {
+
       .products {
         grid-template-columns: 1fr;
       }
@@ -168,106 +354,264 @@
         padding: 18px 5%;
       }
 
-     @media (max-width: 600px) {
-  nav {
-    flex-direction: column;
-    gap: 12px;
-    text-align: center;
-  }
-
-  nav > div {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-  }
-
-  nav a {
-    margin-left: 0;
-  }
-      
     }
+
+
+    @media (max-width: 600px) {
+
+      nav {
+        flex-direction: column;
+
+        gap: 12px;
+
+        text-align: center;
+      }
+
+      nav > div {
+        display: flex;
+
+        flex-wrap: wrap;
+
+        justify-content: center;
+
+        gap: 12px;
+      }
+
+      nav a {
+        margin-left: 0;
+      }
+
+    }
+
   </style>
 </head>
 
+
 <body>
 
-  <!-- Navigation -->
+
+  <!-- =========================
+       NAVIGATION
+  ========================= -->
+
   <nav>
-    <div class="logo">KINO</div>
+
+    <div class="logo">
+      KINO
+    </div>
+
 
     <div>
-      <a href="#">Home</a>
-      <a href="#shop">Shop</a>
-      <a href="cart.html">Cart</a>
-      <a href="affiliate.html">Affiliate</a>
-      <a href="#about">About</a>
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="#shop">
+        Shop
+      </a>
+
+      <a href="cart.html">
+        Cart
+      </a>
+
+      <a href="affiliate.html">
+        Affiliate
+      </a>
+
+      <a href="#about">
+        About
+      </a>
+
     </div>
+
   </nav>
 
 
-  <!-- Hero Section -->
+
+  <!-- =========================
+       HERO
+  ========================= -->
+
   <section class="hero">
 
-    <h1>little things, made with love ♡</h1>
+
+    <!-- STORE STATUS -->
+
+    <div
+      id="store-status"
+      class="store-status"
+    >
+
+      <span
+        id="status-dot"
+        class="status-dot"
+      ></span>
+
+      <span id="status-text">
+        Checking KINO...
+      </span>
+
+    </div>
+
+
+    <h1>
+      little things, made with love ♡
+    </h1>
+
 
     <p>
       Cozy digital goodies made for your little everyday moments.
     </p>
 
-    <a href="#shop" class="button">SHOP NOW</a>
+
+    <a
+      href="#shop"
+      class="button"
+      id="shop-button"
+    >
+      SHOP NOW
+    </a>
+
+
+    <div
+      id="closed-note"
+      class="closed-note"
+    >
+      KINO has reached today's limit. ♡
+      <br>
+      The shop will open again tomorrow.
+    </div>
 
   </section>
 
 
-  <!-- Shop Categories -->
-  <section class="section" id="shop">
 
-    <h2>♡ KINO SHOP ♡</h2>
+  <!-- =========================
+       SHOP
+  ========================= -->
+
+  <section
+    class="section"
+    id="shop"
+  >
+
+    <h2>
+      ♡ KINO SHOP ♡
+    </h2>
+
 
     <p class="section-intro">
       Find something cute for your cozy little moments.
     </p>
 
+
     <div class="products">
 
-      <a href="stickers.html" class="card">
-       
-        <h3>Digital Stickers</h3>
-        <p>Cute digital stickers for your journal and everyday planning.</p>
+
+      <a
+        href="stickers.html"
+        class="card"
+      >
+
+        <h3>
+          Digital Stickers
+        </h3>
+
+        <p>
+          Cute digital stickers for your journal and everyday planning.
+        </p>
+
       </a>
 
-      <a href="journal.html" class="card">
-        
-        <h3>Journals</h3>
-        <p>Simple and cozy digital journals made for you.</p>
+
+
+      <a
+        href="journal.html"
+        class="card"
+      >
+
+        <h3>
+          Journals
+        </h3>
+
+        <p>
+          Simple and cozy digital journals made for you.
+        </p>
+
       </a>
 
-      <a href="coloring.html" class="card">
-      
-        <h3>Coloring Pages</h3>
-        <p>Relaxing little coloring pages to enjoy at home.</p>
+
+
+      <a
+        href="coloring.html"
+        class="card"
+      >
+
+        <h3>
+          Coloring Pages
+        </h3>
+
+        <p>
+          Relaxing little coloring pages to enjoy at home.
+        </p>
+
       </a>
 
-      <a href="planner.html" class="card">
-      
-        <h3>Cozy Planner</h3>
-        <p>Simple and cozy digital planners for your everyday life.</p>
+
+
+      <a
+        href="planner.html"
+        class="card"
+      >
+
+        <h3>
+          Cozy Planner
+        </h3>
+
+        <p>
+          Simple and cozy digital planners for your everyday life.
+        </p>
+
       </a>
 
-      <a href="edukids.html" class="card">
-      
-        <h3>EduKids</h3>
-        <p>Cute and simple learning activities for little ones.</p>
+
+
+      <a
+        href="edukids.html"
+        class="card"
+      >
+
+        <h3>
+          EduKids
+        </h3>
+
+        <p>
+          Cute and simple learning activities for little ones.
+        </p>
+
       </a>
+
+
+    </div>
 
   </section>
 
 
-  <!-- About -->
-  <section class="about" id="about">
 
-    <h2>Made for cozy moments ♡</h2>
+  <!-- =========================
+       ABOUT
+  ========================= -->
+
+  <section
+    class="about"
+    id="about"
+  >
+
+    <h2>
+      Made for cozy moments ♡
+    </h2>
+
 
     <p>
       KINO creates simple, cute and cozy digital products
@@ -277,12 +621,315 @@
   </section>
 
 
-  <!-- Footer -->
+
+  <!-- =========================
+       FOOTER
+  ========================= -->
+
   <footer>
 
     © 2026 KINO · Made with ♡
 
   </footer>
+
+
+
+  <!-- =========================
+       SUPABASE
+  ========================= -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+  <script>
+
+    /* =========================================
+       SUPABASE CONNECTION
+    ========================================= */
+
+    const SUPABASE_URL =
+      "https://vbdgzsapdbpgfcdksdoi.supabase.co";
+
+
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
+
+
+    const {
+      createClient
+    } = supabase;
+
+
+    const db =
+      createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
+
+
+
+    /* =========================================
+       DAILY LIMIT
+    ========================================= */
+
+    const DAILY_LIMIT = 2000;
+
+
+
+    /* =========================================
+       ELEMENTS
+    ========================================= */
+
+    const statusBox =
+      document.getElementById(
+        "store-status"
+      );
+
+
+    const statusText =
+      document.getElementById(
+        "status-text"
+      );
+
+
+    const shopButton =
+      document.getElementById(
+        "shop-button"
+      );
+
+
+    const closedNote =
+      document.getElementById(
+        "closed-note"
+      );
+
+
+
+    /* =========================================
+       MALAYSIA DATE
+    ========================================= */
+
+    function getMalaysiaDate() {
+
+      return new Intl.DateTimeFormat(
+        "en-CA",
+        {
+          timeZone:
+            "Asia/Kuala_Lumpur",
+
+          year: "numeric",
+
+          month: "2-digit",
+
+          day: "2-digit"
+        }
+      ).format(
+        new Date()
+      );
+
+    }
+
+
+
+    /* =========================================
+       CHECK DAILY SALES
+    ========================================= */
+
+    async function checkStoreStatus() {
+
+      try {
+
+        const malaysiaDate =
+          getMalaysiaDate();
+
+
+        /*
+          Get paid orders for today.
+
+          IMPORTANT:
+          Only orders with status = "paid"
+          count toward the RM2,000 limit.
+        */
+
+        const {
+          data,
+          error
+        } = await db
+          .from("orders")
+          .select("total")
+          .eq(
+            "status",
+            "paid"
+          )
+          .gte(
+            "created_at",
+            `${malaysiaDate}T00:00:00+08:00`
+          )
+          .lt(
+            "created_at",
+            `${malaysiaDate}T23:59:59+08:00`
+          );
+
+
+        if (error) {
+
+          console.error(
+            "STORE STATUS ERROR:",
+            error
+          );
+
+
+          /*
+            If the database cannot be checked,
+            don't falsely say the shop is closed.
+          */
+
+          setStoreOpen();
+
+          return;
+
+        }
+
+
+        let todaySales = 0;
+
+
+        if (
+          Array.isArray(data)
+        ) {
+
+          data.forEach(
+            order => {
+
+              todaySales +=
+                Number(
+                  order.total || 0
+                );
+
+            }
+          );
+
+        }
+
+
+        console.log(
+          "Today's paid sales:",
+          todaySales
+        );
+
+
+        if (
+          todaySales >= DAILY_LIMIT
+        ) {
+
+          setStoreClosed();
+
+        } else {
+
+          setStoreOpen();
+
+        }
+
+      } catch (error) {
+
+        console.error(
+          "STATUS CHECK ERROR:",
+          error
+        );
+
+
+        setStoreOpen();
+
+      }
+
+    }
+
+
+
+    /* =========================================
+       OPEN
+    ========================================= */
+
+    function setStoreOpen() {
+
+      statusBox.classList.remove(
+        "closed"
+      );
+
+
+      statusText.textContent =
+        "KINO is open today ♡";
+
+
+      shopButton.classList.remove(
+        "disabled"
+      );
+
+
+      shopButton.textContent =
+        "SHOP NOW";
+
+
+      closedNote.classList.remove(
+        "show"
+      );
+
+    }
+
+
+
+    /* =========================================
+       CLOSED
+    ========================================= */
+
+    function setStoreClosed() {
+
+      statusBox.classList.add(
+        "closed"
+      );
+
+
+      statusText.textContent =
+        "KINO is closed for today ♡";
+
+
+      shopButton.classList.add(
+        "disabled"
+      );
+
+
+      shopButton.textContent =
+        "SHOP CLOSED";
+
+
+      closedNote.classList.add(
+        "show"
+      );
+
+    }
+
+
+
+    /* =========================================
+       START
+    ========================================= */
+
+    checkStoreStatus();
+
+
+    /*
+      Check again every 60 seconds
+      so the Home page updates
+      without refreshing.
+    */
+
+    setInterval(
+      checkStoreStatus,
+      60000
+    );
+
+  </script>
+
 
 </body>
 </html>
