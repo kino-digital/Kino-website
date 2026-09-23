@@ -22,10 +22,6 @@
 
 <style>
 
-/* =========================================
-   GLOBAL
-========================================= */
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -122,7 +118,7 @@ nav a:hover {
 
 
 /* =========================================
-   PRODUCT IMAGE
+   IMAGE
 ========================================= */
 
 .product-image {
@@ -149,7 +145,7 @@ nav a:hover {
 
 
 /* =========================================
-   PRODUCT NAME
+   NAME
 ========================================= */
 
 .product-name {
@@ -188,7 +184,7 @@ nav a:hover {
 
   color: #b96f84;
 
-  font-size: 27px;
+  font-size: 28px;
 
   font-weight: 700;
 
@@ -244,9 +240,9 @@ nav a:hover {
 
   max-width: 700px;
 
-  margin: 38px auto 0;
+  margin: 40px auto 0;
 
-  padding: 25px 25px;
+  padding: 25px;
 
   background: #ffffff;
 
@@ -257,11 +253,6 @@ nav a:hover {
     rgba(190,130,145,0.07);
 
 }
-
-
-/* =========================================
-   DESCRIPTION TITLE
-========================================= */
 
 .product-description-title {
 
@@ -275,11 +266,6 @@ nav a:hover {
 
 }
 
-
-/* =========================================
-   LONG DESCRIPTION
-========================================= */
-
 .product-description {
 
   color: #806b72;
@@ -292,26 +278,10 @@ nav a:hover {
 
 
 /* =========================================
-   LOADING
+   LOADING / MESSAGE
 ========================================= */
 
-.loading {
-
-  text-align: center;
-
-  padding: 100px 20px;
-
-  color: #9a858b;
-
-  font-size: 17px;
-
-}
-
-
-/* =========================================
-   MESSAGE
-========================================= */
-
+.loading,
 .message {
 
   text-align: center;
@@ -386,8 +356,6 @@ footer {
 
     border-radius: 27px;
 
-    margin-bottom: 28px;
-
   }
 
   .product-name {
@@ -418,29 +386,6 @@ footer {
 
 }
 
-
-/* =========================================
-   VERY SMALL SCREEN
-========================================= */
-
-@media (max-width: 400px) {
-
-  .product-image {
-
-    width: 270px;
-
-    height: 270px;
-
-  }
-
-  .product-name {
-
-    font-size: 29px;
-
-  }
-
-}
-
 </style>
 
 </head>
@@ -448,10 +393,6 @@ footer {
 
 <body>
 
-
-<!-- =========================================
-     HEADER
-========================================= -->
 
 <header>
 
@@ -487,10 +428,6 @@ footer {
 
 
 
-<!-- =========================================
-     PRODUCT
-========================================= -->
-
 <main
   class="product-detail"
   id="product-detail"
@@ -506,10 +443,6 @@ footer {
 
 
 
-<!-- =========================================
-     FOOTER
-========================================= -->
-
 <footer>
 
   Made for cozy moments ♡
@@ -518,11 +451,11 @@ footer {
 
 
 
-<!-- =========================================
-     SUPABASE
-========================================= -->
-
 <script>
+
+/* =========================================
+   SUPABASE
+========================================= */
 
 const SUPABASE_URL =
   "https://vbdgzsapdbpgfcdksdoi.supabase.co";
@@ -544,20 +477,30 @@ const db =
   );
 
 
-
-/* =========================================
-   PRODUCT CONTAINER
-========================================= */
-
 const productDetail =
   document.getElementById(
     "product-detail"
   );
 
 
+/* =========================================
+   NORMALIZE TEXT
+========================================= */
+
+function normalize(value) {
+
+  return String(value || "")
+    .toLowerCase()
+    .replace(
+      /[^a-z0-9]/g,
+      ""
+    );
+
+}
+
 
 /* =========================================
-   LOAD PRODUCT
+   LOAD STICKER 01
 ========================================= */
 
 async function loadProduct() {
@@ -565,17 +508,14 @@ async function loadProduct() {
   try {
 
     /*
-      We allow BOTH:
+      IMPORTANT:
 
-      sticker01.html
+      We no longer search for:
 
-      AND
+      product_page = sticker01.html
 
-      sticker-01.html
-
-      This prevents the page from
-      breaking if the database uses
-      either filename.
+      Instead, we load all active stickers
+      and find Sticker 01 ourselves.
     */
 
     const {
@@ -587,14 +527,6 @@ async function loadProduct() {
 
       .select(
         "id, category, name, description, price, image_url, product_page"
-      )
-
-      .in(
-        "product_page",
-        [
-          "sticker01.html",
-          "sticker-01.html"
-        ]
       )
 
       .eq(
@@ -612,9 +544,7 @@ async function loadProduct() {
         {
           ascending: true
         }
-      )
-
-      .limit(1);
+      );
 
 
     /* =====================================
@@ -624,7 +554,7 @@ async function loadProduct() {
     if (error) {
 
       console.error(
-        "PRODUCT ERROR:",
+        "SUPABASE ERROR:",
         error
       );
 
@@ -632,7 +562,11 @@ async function loadProduct() {
 
         <div class="message">
 
-          Unable to load this product right now ♡
+          Unable to connect to products ♡
+
+          <br><br>
+
+          ${escapeHtml(error.message)}
 
         </div>
 
@@ -644,7 +578,7 @@ async function loadProduct() {
 
 
     /* =====================================
-       PRODUCT NOT FOUND
+       NO STICKERS
     ===================================== */
 
     if (
@@ -656,12 +590,7 @@ async function loadProduct() {
 
         <div class="message">
 
-          Product not found ♡
-
-          <br><br>
-
-          Please check the product page
-          in Supabase.
+          No active sticker products found ♡
 
         </div>
 
@@ -673,11 +602,74 @@ async function loadProduct() {
 
 
     /* =====================================
-       PRODUCT DATA
+       FIND STICKER 01
     ===================================== */
 
-    const product =
-      data[0];
+    let product = null;
+
+
+    /*
+      METHOD 1
+      Look at product_page
+    */
+
+    product =
+      data.find(
+        item => {
+
+          const page =
+            normalize(
+              item.product_page
+            );
+
+          return (
+            page === "sticker01html" ||
+            page === "sticker01"
+          );
+
+        }
+      );
+
+
+    /*
+      METHOD 2
+      Look at product name
+    */
+
+    if (!product) {
+
+      product =
+        data.find(
+          item => {
+
+            const name =
+              normalize(
+                item.name
+              );
+
+            return (
+              name === "sticker01" ||
+              name === "sticker1"
+            );
+
+          }
+        );
+
+    }
+
+
+    /*
+      METHOD 3
+      If this is the first sticker
+      in your database, use first item.
+    */
+
+    if (!product) {
+
+      product =
+        data[0];
+
+    }
 
 
     /* =====================================
@@ -694,7 +686,7 @@ async function loadProduct() {
        DESCRIPTION
     ===================================== */
 
-    const shortDescription =
+    const description =
       product.description
       ||
       "Cute digital stickers for your cozy little moments.";
@@ -710,15 +702,19 @@ async function loadProduct() {
 
 
     /* =====================================
-       DISPLAY PRODUCT
+       DISPLAY
     ===================================== */
 
     productDetail.innerHTML = `
 
       <img
+
         src="${escapeHtml(imageUrl)}"
+
         alt="${escapeHtml(product.name)}"
+
         class="product-image"
+
       >
 
 
@@ -731,7 +727,7 @@ async function loadProduct() {
 
       <p class="product-short-description">
 
-        ${escapeHtml(shortDescription)}
+        ${escapeHtml(description)}
 
       </p>
 
@@ -765,7 +761,7 @@ async function loadProduct() {
 
         <p class="product-description">
 
-          ${escapeHtml(shortDescription)}
+          ${escapeHtml(description)}
 
         </p>
 
@@ -778,27 +774,24 @@ async function loadProduct() {
        BUY BUTTON
     ===================================== */
 
-    const buyButton =
-      document.getElementById(
-        "buy-button"
+    document
+      .getElementById("buy-button")
+      .addEventListener(
+        "click",
+        function () {
+
+          addToCart(product);
+
+        }
       );
 
-
-    buyButton.addEventListener(
-      "click",
-      function () {
-
-        addToCart(product);
-
-      }
-    );
 
   }
 
   catch (error) {
 
     console.error(
-      "PRODUCT LOAD ERROR:",
+      "LOAD ERROR:",
       error
     );
 
@@ -806,8 +799,11 @@ async function loadProduct() {
 
       <div class="message">
 
-        Something went wrong while
-        loading this product ♡
+        Something went wrong ♡
+
+        <br><br>
+
+        ${escapeHtml(error.message)}
 
       </div>
 
@@ -816,7 +812,6 @@ async function loadProduct() {
   }
 
 }
-
 
 
 /* =========================================
@@ -831,10 +826,6 @@ function addToCart(product) {
     ) || [];
 
 
-  /* =====================================
-     CHECK EXISTING PRODUCT
-  ===================================== */
-
   const existingIndex =
     cart.findIndex(
       item =>
@@ -842,10 +833,6 @@ function addToCart(product) {
         String(product.id)
     );
 
-
-  /* =====================================
-     PRODUCT ALREADY EXISTS
-  ===================================== */
 
   if (
     existingIndex !== -1
@@ -857,11 +844,6 @@ function addToCart(product) {
       ) + 1;
 
   }
-
-
-  /* =====================================
-     NEW PRODUCT
-  ===================================== */
 
   else {
 
@@ -884,25 +866,16 @@ function addToCart(product) {
   }
 
 
-  /* =====================================
-     SAVE CART
-  ===================================== */
-
   localStorage.setItem(
     "kinoCart",
     JSON.stringify(cart)
   );
 
 
-  /* =====================================
-     GO TO CART
-  ===================================== */
-
   window.location.href =
     "cart.html";
 
 }
-
 
 
 /* =========================================
@@ -941,7 +914,6 @@ function escapeHtml(value) {
 }
 
 
-
 /* =========================================
    START
 ========================================= */
@@ -949,7 +921,6 @@ function escapeHtml(value) {
 loadProduct();
 
 </script>
-
 
 </body>
 
