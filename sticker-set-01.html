@@ -3,372 +3,362 @@
 
 <head>
 
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  >
+<link
+  href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <title>Sticker Set 01 | KINO</title>
+<title>Sticker 01 | KINO</title>
 
 
-  <style>
+<style>
 
-    /* =========================================
-       GLOBAL
-    ========================================= */
+/* =========================================
+   GLOBAL
+========================================= */
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    body {
-      font-family: 'Baloo 2', sans-serif;
-      background: #fff8fa;
-      color: #5f4a50;
-      line-height: 1.6;
-    }
+body {
 
+  font-family: 'Baloo 2', sans-serif;
 
-    /* =========================================
-       HEADER
-    ========================================= */
+  background: #fff8fa;
 
-    header {
-      background: #ffffff;
+  color: #5f4a50;
 
-      padding: 25px 7%;
+  line-height: 1.6;
+}
 
-      display: flex;
 
-      justify-content: space-between;
+/* =========================================
+   HEADER
+========================================= */
 
-      align-items: center;
-    }
+header {
 
-    .logo {
-      text-decoration: none;
+  background: #ffffff;
 
-      font-size: 28px;
+  padding: 25px 7%;
 
-      font-weight: 700;
+  display: flex;
 
-      color: #c77f91;
+  justify-content: space-between;
 
-      letter-spacing: 3px;
-    }
+  align-items: center;
+}
 
-    nav {
-      display: flex;
+.logo {
 
-      align-items: center;
+  text-decoration: none;
 
-      gap: 25px;
-    }
+  font-size: 28px;
 
-    nav a {
-      text-decoration: none;
+  font-weight: 700;
 
-      color: #6f5b61;
+  color: #c77f91;
 
-      font-size: 15px;
-    }
+  letter-spacing: 3px;
+}
 
-    nav a:hover {
-      color: #c47794;
-    }
+nav {
 
+  display: flex;
 
-    /* =========================================
-       PRODUCT DETAIL
-    ========================================= */
+  align-items: center;
 
-    .product-detail {
+  gap: 25px;
+}
 
-      max-width: 1100px;
+nav a {
 
-      margin: 60px auto;
+  text-decoration: none;
 
-      padding: 20px;
-    }
+  color: #6f5b61;
 
+  font-size: 15px;
+}
 
-    .product-container {
+nav a:hover {
 
-      background: #ffffff;
+  color: #c47794;
+}
 
-      border-radius: 30px;
 
-      padding: 40px;
+/* =========================================
+   PRODUCT DETAIL
+========================================= */
 
-      display: grid;
+.product-detail {
 
-      grid-template-columns: 1fr 1fr;
+  max-width: 850px;
 
-      gap: 50px;
+  margin: 65px auto 80px;
 
-      align-items: center;
+  padding: 20px;
 
-      box-shadow:
-        0 8px 30px
-        rgba(190, 130, 145, 0.10);
-    }
+  text-align: center;
+}
 
 
-    /* =========================================
-       IMAGE
-    ========================================= */
+/* =========================================
+   PRODUCT IMAGE
+========================================= */
 
-    .product-image-wrapper {
+.product-image {
 
-      text-align: center;
-    }
+  width: 360px;
 
-    .product-image {
+  height: 360px;
 
-      width: 100%;
+  max-width: 100%;
 
-      max-width: 450px;
+  object-fit: cover;
 
-      height: 450px;
+  border-radius: 28px;
 
-      object-fit: cover;
+  display: block;
 
-      border-radius: 25px;
+  margin: 0 auto 35px;
 
-      background: #fde6ee;
-    }
+  box-shadow:
+    0 8px 25px
+    rgba(190,130,145,0.08);
+}
 
 
-    /* =========================================
-       PRODUCT INFO
-    ========================================= */
+/* =========================================
+   PRODUCT NAME
+========================================= */
 
-    .product-info {
+.product-name {
 
-      padding: 10px;
-    }
+  color: #b96f84;
 
+  font-size: 38px;
 
-    .category-label {
+  font-weight: 700;
 
-      display: inline-block;
+  margin-bottom: 10px;
+}
 
-      background: #fde6ee;
 
-      color: #b96f84;
+/* =========================================
+   PRODUCT SHORT DESCRIPTION
+========================================= */
 
-      padding: 5px 14px;
+.product-short-description {
 
-      border-radius: 20px;
+  color: #8a747b;
 
-      font-size: 13px;
+  font-size: 17px;
 
-      margin-bottom: 15px;
-    }
+  margin-bottom: 22px;
+}
 
 
-    .product-info h1 {
+/* =========================================
+   PRICE
+========================================= */
 
-      color: #b96f84;
+.product-price {
 
-      font-size: 38px;
+  color: #b96f84;
 
-      line-height: 1.2;
+  font-size: 28px;
 
-      margin-bottom: 15px;
-    }
+  font-weight: 700;
 
+  margin-bottom: 22px;
+}
 
-    .description {
 
-      color: #806b72;
+/* =========================================
+   BUY BUTTON
+========================================= */
 
-      font-size: 17px;
+.buy-button {
 
-      margin-bottom: 20px;
-    }
+  display: inline-block;
 
+  background: #d9829e;
 
-    .price {
+  color: white;
 
-      color: #b96f84;
+  text-decoration: none;
 
-      font-size: 30px;
+  padding: 13px 34px;
 
-      font-weight: 700;
+  border-radius: 30px;
 
-      margin-bottom: 25px;
-    }
+  font-size: 15px;
 
+  transition: 0.2s;
 
-    /* =========================================
-       BUY BUTTON
-    ========================================= */
+  border: none;
 
-    .buy-button {
+  cursor: pointer;
 
-      display: inline-block;
+  font-family: 'Baloo 2', sans-serif;
+}
 
-      width: 100%;
+.buy-button:hover {
 
-      background: #cf8799;
+  background: #c97491;
 
-      color: #ffffff;
+  transform:
+    translateY(-1px);
+}
 
-      border: none;
 
-      text-decoration: none;
+/* =========================================
+   LONG DESCRIPTION
+========================================= */
 
-      text-align: center;
+.product-description {
 
-      padding: 14px 30px;
+  max-width: 680px;
 
-      border-radius: 30px;
+  margin: 35px auto 0;
 
-      font-family: 'Baloo 2', sans-serif;
+  color: #806b72;
 
-      font-size: 17px;
+  font-size: 16px;
 
-      font-weight: 600;
+  line-height: 1.8;
+}
 
-      cursor: pointer;
 
-      transition: 0.2s;
-    }
+/* =========================================
+   LOADING
+========================================= */
 
-    .buy-button:hover {
+.loading {
 
-      background: #bd7188;
+  text-align: center;
 
-      transform: translateY(-2px);
-    }
+  padding: 80px 20px;
 
-    .buy-button:disabled {
+  color: #9a858b;
 
-      background: #d9c7cd;
+  font-size: 17px;
+}
 
-      cursor: not-allowed;
 
-      transform: none;
-    }
+/* =========================================
+   ERROR
+========================================= */
 
+.message {
 
-    /* =========================================
-       LOADING
-    ========================================= */
+  text-align: center;
 
-    .loading {
+  padding: 80px 20px;
 
-      text-align: center;
+  color: #9a858b;
 
-      padding: 100px 20px;
+  font-size: 17px;
+}
 
-      color: #9a858b;
 
-      font-size: 18px;
-    }
+/* =========================================
+   FOOTER
+========================================= */
 
+footer {
 
-    /* =========================================
-       ERROR
-    ========================================= */
+  background: #fce9ee;
 
-    .error {
+  text-align: center;
 
-      text-align: center;
+  padding: 35px 20px;
 
-      padding: 80px 20px;
+  color: #8a747b;
 
-      color: #9a858b;
+  font-size: 14px;
+}
 
-      font-size: 17px;
-    }
 
+/* =========================================
+   MOBILE
+========================================= */
 
-    /* =========================================
-       FOOTER
-    ========================================= */
+@media (max-width: 700px) {
 
-    footer {
+  header {
 
-      background: #fce9ee;
+    padding: 20px;
 
-      text-align: center;
+    flex-direction: column;
 
-      padding: 35px 20px;
+    gap: 12px;
+  }
 
-      color: #8a747b;
+  nav {
 
-      font-size: 14px;
+    gap: 16px;
 
-      margin-top: 70px;
-    }
+    flex-wrap: wrap;
 
+    justify-content: center;
+  }
 
-    /* =========================================
-       MOBILE
-    ========================================= */
+  .product-detail {
 
-    @media (max-width: 700px) {
+    margin: 45px auto 60px;
 
-      header {
+    padding: 20px;
+  }
 
-        padding: 20px;
+  .product-image {
 
-        flex-direction: column;
+    width: 300px;
 
-        gap: 12px;
-      }
+    height: 300px;
 
-      nav {
+    border-radius: 25px;
 
-        gap: 16px;
+    margin-bottom: 28px;
+  }
 
-        flex-wrap: wrap;
+  .product-name {
 
-        justify-content: center;
-      }
+    font-size: 32px;
+  }
 
-      .product-detail {
+  .product-short-description {
 
-        margin: 30px auto;
+    font-size: 16px;
+  }
 
-        padding: 15px;
-      }
+  .product-price {
 
-      .product-container {
+    font-size: 26px;
+  }
 
-        grid-template-columns: 1fr;
+  .product-description {
 
-        padding: 25px;
+    font-size: 15px;
 
-        gap: 30px;
-      }
+    padding: 0 10px;
+  }
 
-      .product-image {
+}
 
-        height: 320px;
-      }
-
-      .product-info h1 {
-
-        font-size: 32px;
-      }
-
-    }
-
-  </style>
+</style>
 
 </head>
 
@@ -376,236 +366,276 @@
 <body>
 
 
-  <!-- =========================================
-       HEADER
-  ========================================= -->
+<!-- =========================================
+     HEADER
+========================================= -->
 
-  <header>
+<header>
 
-    <a
-      href="index.html"
-      class="logo"
-    >
-      KINO
+  <a
+    href="index.html"
+    class="logo"
+  >
+    KINO
+  </a>
+
+
+  <nav>
+
+    <a href="index.html">
+      Home
     </a>
 
+    <a href="shop.html">
+      Shop
+    </a>
 
-    <nav>
+    <a href="cart.html">
+      Cart
+    </a>
 
-      <a href="index.html">
-        Home
-      </a>
+    <a href="affiliate.html">
+      Affiliate
+    </a>
 
-      <a href="shop.html">
-        Shop
-      </a>
+  </nav>
 
-      <a href="cart.html">
-        Cart
-      </a>
-
-      <a href="affiliate.html">
-        Affiliate
-      </a>
-
-    </nav>
-
-  </header>
+</header>
 
 
 
-  <!-- =========================================
-       PRODUCT DETAIL
-  ========================================= -->
+<!-- =========================================
+     PRODUCT DETAIL
+========================================= -->
 
-  <main class="product-detail">
+<main
+  class="product-detail"
+  id="product-detail"
+>
 
-    <div
-      id="product-container"
-      class="product-container"
-      style="display: none;"
-    >
+  <div class="loading">
 
+    Loading product... ♡
 
-      <!-- IMAGE -->
+  </div>
 
-      <div class="product-image-wrapper">
-
-        <img
-          id="product-image"
-          class="product-image"
-          src=""
-          alt="KINO Product"
-        >
-
-      </div>
+</main>
 
 
 
-      <!-- INFO -->
+<!-- =========================================
+     FOOTER
+========================================= -->
 
-      <div class="product-info">
+<footer>
 
-        <div
-          id="product-category"
-          class="category-label"
-        >
-          Stickers
-        </div>
+  Made for cozy moments ♡
 
-
-        <h1 id="product-name">
-          Sticker Set 01
-        </h1>
-
-
-        <p
-          id="product-description"
-          class="description"
-        >
-          Loading product...
-        </p>
-
-
-        <div
-          id="product-price"
-          class="price"
-        >
-          RM0.00
-        </div>
-
-
-        <button
-          id="buy-button"
-          class="buy-button"
-          disabled
-        >
-          BUY NOW
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <!-- LOADING -->
-
-    <div
-      id="loading"
-      class="loading"
-    >
-      Loading product... ♡
-    </div>
-
-
-    <!-- ERROR -->
-
-    <div
-      id="error"
-      class="error"
-      style="display: none;"
-    >
-      Unable to load this product right now ♡
-    </div>
-
-  </main>
+</footer>
 
 
 
-  <!-- =========================================
-       FOOTER
-  ========================================= -->
+<!-- =========================================
+     SUPABASE
+========================================= -->
 
-  <footer>
+<script>
 
-    Made for cozy moments ♡
+const SUPABASE_URL =
+  "https://vbdgzsapdbpgfcdksdoi.supabase.co";
 
-  </footer>
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
 
 
+const {
+  createClient
+} = supabase;
 
-  <!-- =========================================
-       SUPABASE
-  ========================================= -->
 
-  <script>
+const db =
+  createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
 
-    /* =========================================
-       SUPABASE CONFIG
-    ========================================= */
 
-    const SUPABASE_URL =
-      "https://vbdgzsapdbpgfcdksdoi.supabase.co";
+/* =========================================
+   PRODUCT CONTAINER
+========================================= */
 
-    const SUPABASE_PUBLISHABLE_KEY =
-      "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
+const productDetail =
+  document.getElementById(
+    "product-detail"
+  );
 
+
+/* =========================================
+   LOAD PRODUCT
+========================================= */
+
+async function loadProduct() {
+
+  try {
 
     const {
-      createClient
-    } = supabase;
+      data,
+      error
+    } = await db
+
+      .from("products")
+
+      .select(
+        "id, category, name, description, price, image_url, product_page"
+      )
+
+      .eq(
+        "product_page",
+        "sticker-01.html"
+      )
+
+      .eq(
+        "is_active",
+        true
+      )
+
+      .maybeSingle();
 
 
-    const db =
-      createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
+    /* =====================================
+       ERROR
+    ===================================== */
+
+    if (error) {
+
+      console.error(
+        "PRODUCT ERROR:",
+        error
       );
 
+      productDetail.innerHTML = `
+
+        <div class="message">
+
+          Unable to load this product right now ♡
+
+        </div>
+
+      `;
+
+      return;
+
+    }
 
 
-    /* =========================================
-       PRODUCT ID
-    ========================================= */
+    /* =====================================
+       PRODUCT NOT FOUND
+    ===================================== */
 
-    const PRODUCT_ID =
-      "sticker-01";
+    if (!data) {
+
+      productDetail.innerHTML = `
+
+        <div class="message">
+
+          Product not found ♡
+
+        </div>
+
+      `;
+
+      return;
+
+    }
 
 
+    /* =====================================
+       IMAGE
+    ===================================== */
 
-    /* =========================================
-       ELEMENTS
-    ========================================= */
+    const imageUrl =
+      data.image_url
+      ||
+      "https://placehold.co/600x600/ffdfe8/765b63?text=KINO";
 
-    const loading =
-      document.getElementById(
-        "loading"
-      );
 
-    const errorBox =
-      document.getElementById(
-        "error"
-      );
+    /* =====================================
+       SHORT DESCRIPTION
+    ===================================== */
 
-    const productContainer =
-      document.getElementById(
-        "product-container"
-      );
+    const shortDescription =
+      data.description
+      ||
+      "Cute digital stickers for your cozy little moments.";
 
-    const productImage =
-      document.getElementById(
-        "product-image"
-      );
 
-    const productCategory =
-      document.getElementById(
-        "product-category"
-      );
+    /* =====================================
+       PRODUCT NAME
+    ===================================== */
 
-    const productName =
-      document.getElementById(
-        "product-name"
-      );
+    document.title =
+      data.name +
+      " | KINO";
 
-    const productDescription =
-      document.getElementById(
-        "product-description"
-      );
 
-    const productPrice =
-      document.getElementById(
-        "product-price"
-      );
+    /* =====================================
+       DISPLAY
+    ===================================== */
+
+    productDetail.innerHTML = `
+
+      <img
+        src="${escapeHtml(imageUrl)}"
+        alt="${escapeHtml(data.name)}"
+        class="product-image"
+      >
+
+
+      <h1 class="product-name">
+
+        ${escapeHtml(data.name)} ♡
+
+      </h1>
+
+
+      <p class="product-short-description">
+
+        ${escapeHtml(shortDescription)}
+
+      </p>
+
+
+      <div class="product-price">
+
+        RM${Number(data.price).toFixed(2)}
+
+      </div>
+
+
+      <button
+        class="buy-button"
+        id="buy-button"
+      >
+
+        BUY NOW
+
+      </button>
+
+
+      <p class="product-description">
+
+        A cozy digital sticker set filled with
+        cute and charming designs for your
+        everyday little moments. ♡
+
+      </p>
+
+    `;
+
+
+    /* =====================================
+       BUY BUTTON
+    ===================================== */
 
     const buyButton =
       document.getElementById(
@@ -613,331 +643,161 @@
       );
 
 
+    buyButton.addEventListener(
+      "click",
+      function () {
 
-    /* =========================================
-       LOAD PRODUCT
-    ========================================= */
-
-    async function loadProduct() {
-
-      try {
-
-        const {
-          data,
-          error
-        } = await db
-
-          .from("products")
-
-          .select(
-            "id, category, name, description, price, image_url, product_page, is_active"
-          )
-
-          .eq(
-            "id",
-            PRODUCT_ID
-          )
-
-          .eq(
-            "is_active",
-            true
-          )
-
-          .single();
-
-
-        /* =====================================
-           ERROR
-        ===================================== */
-
-        if (error) {
-
-          console.error(
-            "PRODUCT ERROR:",
-            error
-          );
-
-          showError();
-
-          return;
-        }
-
-
-        /* =====================================
-           NO PRODUCT
-        ===================================== */
-
-        if (!data) {
-
-          showError();
-
-          return;
-        }
-
-
-        /* =====================================
-           DISPLAY PRODUCT
-        ===================================== */
-
-        productImage.src =
-          data.image_url
-          ||
-          "https://placehold.co/600x600/ffdfe8/765b63?text=KINO";
-
-
-        productImage.alt =
-          data.name;
-
-
-        productCategory.textContent =
-          formatCategory(
-            data.category
-          );
-
-
-        productName.textContent =
-          data.name;
-
-
-        productDescription.textContent =
-          data.description
-          ||
-          "";
-
-
-        productPrice.textContent =
-          "RM" +
-          Number(
-            data.price
-          ).toFixed(2);
-
-
-        /* =====================================
-           ENABLE BUY BUTTON
-        ===================================== */
-
-        buyButton.disabled = false;
-
-
-        /*
-          Store the complete product
-          inside the button.
-        */
-
-        buyButton.onclick =
-          function() {
-
-            addToCart(data);
-
-          };
-
-
-        /* =====================================
-           SHOW PRODUCT
-        ===================================== */
-
-        loading.style.display =
-          "none";
-
-        errorBox.style.display =
-          "none";
-
-        productContainer.style.display =
-          "grid";
+        addToCart(data);
 
       }
+    );
 
-      catch (error) {
+  }
 
-        console.error(
-          "PRODUCT LOAD ERROR:",
-          error
-        );
+  catch (error) {
 
-        showError();
+    console.error(
+      "PRODUCT LOAD ERROR:",
+      error
+    );
 
-      }
+    productDetail.innerHTML = `
 
-    }
+      <div class="message">
 
+        Something went wrong while
+        loading this product ♡
 
+      </div>
 
-    /* =========================================
-       CATEGORY NAME
-    ========================================= */
+    `;
 
-    function formatCategory(
-      category
-    ) {
+  }
 
-      if (!category) {
+}
 
-        return "KINO";
-      }
 
+/* =========================================
+   ADD TO CART
+========================================= */
 
-      const names = {
+function addToCart(product) {
 
-        sticker: "Stickers",
+  let cart =
+    JSON.parse(
+      localStorage.getItem("kinoCart")
+    ) || [];
 
-        planner: "Planner",
 
-        coloring: "Coloring",
+  const existingIndex =
+    cart.findIndex(
+      item =>
+        String(item.id) ===
+        String(product.id)
+    );
 
-        edukids: "EduKids",
 
-        journal: "Digital Journal"
+  /* =====================================
+     ALREADY IN CART
+  ===================================== */
 
-      };
+  if (
+    existingIndex !== -1
+  ) {
 
+    cart[existingIndex].quantity =
+      (cart[existingIndex].quantity || 1) + 1;
 
-      return (
-        names[category]
-        ||
-        category
-      );
+  }
 
-    }
+  /* =====================================
+     NEW PRODUCT
+  ===================================== */
 
+  else {
 
+    cart.push({
 
-    /* =========================================
-       ADD TO CART
-    ========================================= */
+      id:
+        product.id,
 
-    function addToCart(
-      product
-    ) {
+      name:
+        product.name,
 
-      /*
-        Get existing cart
-      */
+      price:
+        Number(product.price),
 
-      let cart =
-        JSON.parse(
-          localStorage.getItem(
-            "kinoCart"
-          )
-        ) || [];
+      quantity:
+        1
 
+    });
 
-      /*
-        Check if product already
-        exists in cart.
-      */
+  }
 
-      const existingIndex =
-        cart.findIndex(
-          item =>
-            item.id === product.id
-        );
 
+  /* =====================================
+     SAVE
+  ===================================== */
 
-      if (
-        existingIndex !== -1
-      ) {
+  localStorage.setItem(
+    "kinoCart",
+    JSON.stringify(cart)
+  );
 
-        /*
-          Product already exists.
-          Increase quantity.
-        */
 
-        cart[
-          existingIndex
-        ].quantity =
-          Number(
-            cart[
-              existingIndex
-            ].quantity || 1
-          ) + 1;
+  /* =====================================
+     GO TO CART
+  ===================================== */
 
-      }
+  window.location.href =
+    "cart.html";
 
-      else {
+}
 
-        /*
-          Add new product.
-        */
 
-        cart.push({
+/* =========================================
+   ESCAPE HTML
+========================================= */
 
-          id:
-            product.id,
+function escapeHtml(value) {
 
-          name:
-            product.name,
+  return String(value ?? "")
 
-          description:
-            product.description
-            || "",
+    .replace(
+      /&/g,
+      "&amp;"
+    )
 
-          price:
-            Number(
-              product.price
-            ),
+    .replace(
+      /</g,
+      "&lt;"
+    )
 
-          image_url:
-            product.image_url
-            || "",
+    .replace(
+      />/g,
+      "&gt;"
+    )
 
-          category:
-            product.category,
+    .replace(
+      /"/g,
+      "&quot;"
+    )
 
-          quantity:
-            1
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
-        });
+}
 
-      }
 
+/* =========================================
+   START
+========================================= */
 
-      /*
-        Save cart.
-      */
+loadProduct();
 
-      localStorage.setItem(
-        "kinoCart",
-        JSON.stringify(cart)
-      );
-
-
-      /*
-        Go to cart.
-      */
-
-      window.location.href =
-        "cart.html";
-
-    }
-
-
-
-    /* =========================================
-       ERROR DISPLAY
-    ========================================= */
-
-    function showError() {
-
-      loading.style.display =
-        "none";
-
-      productContainer.style.display =
-        "none";
-
-      errorBox.style.display =
-        "block";
-
-    }
-
-
-
-    /* =========================================
-       START
-    ========================================= */
-
-    loadProduct();
-
-  </script>
+</script>
 
 
 </body>
