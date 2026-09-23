@@ -775,31 +775,21 @@ async function loadProducts() {
         ).toFixed(2);
 
 
-      /*
-        Buy button
-      */
+      /* VIEW DETAILS BUTTON */
 
-      const button =
-        document.createElement(
-          "a"
-        );
+const button =
+  document.createElement("a");
 
-      button.className =
-        "buy-button";
+button.className =
+  "details-button";
 
-      button.textContent =
-        "BUY NOW";
+button.textContent =
+  "VIEW DETAILS";
 
-
-      /*
-        Use the SAME product page
-        stored in database.
-      */
-
-      button.href =
-        product.product_page
-        ||
-        "#";
+button.href =
+  product.product_page
+  ||
+  "#";
 
 
       /*
