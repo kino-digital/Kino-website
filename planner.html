@@ -3,256 +3,425 @@
 
 <head>
 
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  >
+<link
+  href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <title>Cozy Planner | KINO</title>
+<title>Cozy Planner | KINO</title>
 
 
-  <style>
+<style>
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+/* =========================================
+   GLOBAL
+========================================= */
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    body {
-      font-family: 'Baloo 2', sans-serif;
-      background: #fff8fa;
-      color: #5f4a50;
-      line-height: 1.6;
-    }
+body {
+  font-family: 'Baloo 2', sans-serif;
+  background: #fff8fa;
+  color: #5f4a50;
+  line-height: 1.6;
+}
 
 
-    header {
-      background: #ffffff;
-      padding: 25px 7%;
+/* =========================================
+   HEADER
+========================================= */
 
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+header {
 
-      box-shadow:
-        0 2px 12px rgba(190,130,150,0.06);
-    }
+  background: #ffffff;
 
+  padding: 25px 7%;
 
-    .logo {
-      font-size: 26px;
-      font-weight: 700;
-      color: #c47794;
-      letter-spacing: 2px;
-    }
+  display: flex;
 
+  justify-content: space-between;
 
-    nav a {
-      text-decoration: none;
-      color: #5f4a50;
-      margin-left: 20px;
-      font-size: 14px;
-    }
+  align-items: center;
+}
 
+.logo {
 
-    nav a:hover {
-      color: #c47794;
-    }
+  font-size: 28px;
 
+  font-weight: bold;
 
-    .products {
-      max-width: 1100px;
-      margin: 50px auto;
-      padding: 20px;
-      text-align: center;
-    }
+  color: #c77f91;
 
+  letter-spacing: 3px;
 
-    h1 {
-      color: #b96f8a;
-      font-size: 34px;
-      margin-bottom: 10px;
-    }
+  text-decoration: none;
+}
 
+nav {
 
-    .intro {
-      color: #8a747b;
-      margin-bottom: 35px;
-      font-size: 16px;
-    }
+  display: flex;
 
+  align-items: center;
 
-    .product-grid {
-      display: grid;
+  gap: 25px;
+}
 
-      grid-template-columns:
-        repeat(auto-fit, minmax(220px, 1fr));
+nav a {
 
-      gap: 25px;
-    }
+  text-decoration: none;
 
+  color: #6f5b61;
 
-    .product-card {
-      background: #ffffff;
+  font-size: 15px;
+}
 
-      padding: 25px;
+nav a:hover {
 
-      border-radius: 25px;
+  color: #c47794;
+}
 
-      box-shadow:
-        0 5px 18px
-        rgba(190,130,150,0.12);
 
-      transition: 0.2s;
-    }
+/* =========================================
+   HERO
+========================================= */
 
+.hero {
 
-    .product-card:hover {
-      transform: translateY(-3px);
+  background: #fce9ee;
 
-      box-shadow:
-        0 8px 22px
-        rgba(190,130,150,0.16);
-    }
+  text-align: center;
 
+  padding: 70px 20px;
 
-    .product-card img {
-      width: 100%;
-      height: 180px;
+  border-radius:
+    0 0 45px 45px;
+}
 
-      object-fit: cover;
+.hero h1 {
 
-      border-radius: 18px;
+  color: #b96f84;
 
-      margin-bottom: 18px;
-    }
+  font-size: 42px;
 
+  margin-bottom: 12px;
+}
 
-    .product-card h2 {
-      color: #b96f8a;
+.hero p {
 
-      font-size: 22px;
+  font-size: 17px;
 
-      margin-bottom: 5px;
-    }
+  color: #806b72;
+}
 
 
-    .product-card p {
-      color: #8a747b;
+/* =========================================
+   PRODUCTS
+========================================= */
 
-      margin-bottom: 15px;
-    }
+.products {
 
+  padding: 65px 7%;
 
-    .price {
-      color: #b96f8a;
+  max-width: 1200px;
 
-      font-size: 22px;
+  margin: auto;
+}
 
-      font-weight: 700;
+.products-title {
 
-      margin-bottom: 15px;
-    }
+  text-align: center;
 
+  margin-bottom: 40px;
+}
 
-    .buy-button {
-      display: inline-block;
+.products-title h2 {
 
-      background: #d9829e;
+  color: #b96f84;
 
-      color: white;
+  font-size: 30px;
 
-      text-decoration: none;
+  margin-bottom: 8px;
+}
 
-      padding: 10px 25px;
+.products-title p {
 
-      border-radius: 30px;
+  color: #8a747b;
+}
 
-      font-size: 15px;
 
-      transition: 0.2s;
-    }
+/* =========================================
+   PRODUCT GRID
+========================================= */
 
+.product-grid {
 
-    .buy-button:hover {
-      background: #c97491;
+  display: grid;
 
-      transform: translateY(-1px);
-    }
+  grid-template-columns:
+    repeat(2, 1fr);
 
+  gap: 25px;
+}
 
-    .loading {
-      color: #9a858b;
 
-      font-size: 16px;
+/* =========================================
+   PRODUCT CARD
+========================================= */
 
-      padding: 40px;
-    }
+.product-card {
 
+  background: #ffffff;
 
-    .empty {
-      color: #9a858b;
+  padding: 30px;
 
-      font-size: 16px;
+  border-radius: 25px;
 
-      padding: 40px;
-    }
+  text-align: center;
 
+  box-shadow:
+    0 8px 25px
+    rgba(190,130,145,0.08);
 
-    footer {
-      margin-top: 70px;
+  transition: 0.2s;
+}
 
-      background: #fde6ee;
+.product-card:hover {
 
-      padding: 25px;
+  transform:
+    translateY(-3px);
 
-      text-align: center;
+  box-shadow:
+    0 10px 30px
+    rgba(190,130,145,0.12);
+}
 
-      color: #8a747b;
 
-      font-size: 14px;
-    }
+/* =========================================
+   PRODUCT IMAGE
+========================================= */
 
+.product-card img {
 
-    @media (max-width: 700px) {
+  width: 100%;
 
-      header {
-        padding: 20px;
+  max-width: 180px;
 
-        flex-direction: column;
+  height: 180px;
 
-        gap: 10px;
-      }
+  object-fit: cover;
 
+  border-radius: 18px;
 
-      nav a {
-        margin-left: 12px;
-      }
+  margin-bottom: 18px;
+}
 
 
-      h1 {
-        font-size: 32px;
-      }
+/* =========================================
+   CATEGORY LABEL
+========================================= */
 
+.category-label {
 
-      .products {
-        margin-top: 35px;
-      }
+  display: inline-block;
 
-    }
+  background: #fde6ee;
 
-  </style>
+  color: #b96f84;
+
+  padding: 4px 12px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+
+  margin-bottom: 12px;
+}
+
+
+/* =========================================
+   PRODUCT NAME
+========================================= */
+
+.product-card h3 {
+
+  color: #674f57;
+
+  font-size: 21px;
+
+  margin-bottom: 10px;
+}
+
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.product-card p {
+
+  color: #8a747b;
+
+  margin-bottom: 18px;
+}
+
+
+/* =========================================
+   PRICE
+========================================= */
+
+.price {
+
+  font-size: 22px;
+
+  font-weight: bold;
+
+  color: #b96f84;
+
+  margin-bottom: 18px;
+}
+
+
+/* =========================================
+   BUY BUTTON
+========================================= */
+
+.buy-button {
+
+  display: inline-block;
+
+  background: #cf8799;
+
+  color: white;
+
+  text-decoration: none;
+
+  padding: 11px 28px;
+
+  border-radius: 30px;
+
+  border: none;
+
+  font-family: 'Baloo 2', sans-serif;
+
+  font-size: 14px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.buy-button:hover {
+
+  background: #bd7188;
+
+  transform:
+    translateY(-1px);
+}
+
+
+/* =========================================
+   LOADING
+========================================= */
+
+.loading {
+
+  grid-column: 1 / -1;
+
+  text-align: center;
+
+  padding: 50px 20px;
+
+  color: #9a858b;
+
+  font-size: 16px;
+}
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+.message {
+
+  grid-column: 1 / -1;
+
+  text-align: center;
+
+  padding: 50px 20px;
+
+  color: #9a858b;
+
+  font-size: 16px;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+
+  background: #fce9ee;
+
+  text-align: center;
+
+  padding: 35px 20px;
+
+  color: #8a747b;
+
+  font-size: 14px;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+  header {
+
+    padding: 20px;
+
+    flex-direction: column;
+
+    gap: 10px;
+  }
+
+  nav {
+
+    gap: 16px;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+  }
+
+  .hero h1 {
+
+    font-size: 32px;
+  }
+
+  .product-grid {
+
+    grid-template-columns: 1fr;
+  }
+
+}
+
+</style>
 
 </head>
 
@@ -284,8 +453,12 @@
       Shop
     </a>
 
-    <a href="index.html#about">
-      About
+    <a href="cart.html">
+      Cart
+    </a>
+
+    <a href="affiliate.html">
+      Affiliate
     </a>
 
   </nav>
@@ -295,19 +468,40 @@
 
 
 <!-- =========================================
-     PRODUCTS
+     HERO
 ========================================= -->
 
-<main class="products">
+<section class="hero">
 
   <h1>
     Cozy Planner ♡
   </h1>
 
-
-  <p class="intro">
+  <p>
     Simple and cozy planners for your everyday little moments.
   </p>
+
+</section>
+
+
+
+<!-- =========================================
+     PRODUCTS
+========================================= -->
+
+<section class="products">
+
+  <div class="products-title">
+
+    <h2>
+      Planner Collection
+    </h2>
+
+    <p>
+      Choose your favourite KINO planner ♡
+    </p>
+
+  </div>
 
 
   <div
@@ -316,12 +510,12 @@
   >
 
     <div class="loading">
-      Loading KINO planners ♡
+      Loading planners... ♡
     </div>
 
   </div>
 
-</main>
+</section>
 
 
 
@@ -346,7 +540,6 @@
 const SUPABASE_URL =
   "https://vbdgzsapdbpgfcdksdoi.supabase.co";
 
-
 const SUPABASE_PUBLISHABLE_KEY =
   "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
 
@@ -363,16 +556,14 @@ const db =
   );
 
 
-
 /* =========================================
-   ELEMENT
+   PRODUCT GRID
 ========================================= */
 
 const productGrid =
   document.getElementById(
     "product-grid"
   );
-
 
 
 /* =========================================
@@ -387,24 +578,23 @@ async function loadPlannerProducts() {
       data,
       error
     } = await db
+
       .from("products")
-      .select(`
-        id,
-        category,
-        name,
-        description,
-        price,
-        image_url,
-        product_page
-      `)
+
+      .select(
+        "id, category, name, description, price, image_url, product_page"
+      )
+
       .eq(
         "category",
         "planner"
       )
+
       .eq(
         "is_active",
         true
       )
+
       .order(
         "id",
         {
@@ -413,16 +603,20 @@ async function loadPlannerProducts() {
       );
 
 
+    /* =====================================
+       ERROR
+    ===================================== */
+
     if (error) {
 
       console.error(
-        "PLANNER PRODUCTS ERROR:",
+        "PLANNER PRODUCT ERROR:",
         error
       );
 
       productGrid.innerHTML = `
-        <div class="empty">
-          Unable to load products right now ♡
+        <div class="message">
+          Unable to load planner products right now ♡
         </div>
       `;
 
@@ -431,13 +625,17 @@ async function loadPlannerProducts() {
     }
 
 
+    /* =====================================
+       NO PRODUCTS
+    ===================================== */
+
     if (
       !data ||
       data.length === 0
     ) {
 
       productGrid.innerHTML = `
-        <div class="empty">
+        <div class="message">
           No planner products available right now ♡
         </div>
       `;
@@ -447,66 +645,172 @@ async function loadPlannerProducts() {
     }
 
 
-    productGrid.innerHTML =
-      data
-        .map(product => {
+    /* =====================================
+       CLEAR LOADING
+    ===================================== */
 
-          const price =
-            Number(product.price)
-              .toFixed(2)
-              .replace(
-                ".00",
-                ""
-              );
+    productGrid.innerHTML = "";
 
 
-          return `
+    /* =====================================
+       CREATE CARDS
+    ===================================== */
 
-            <div class="product-card">
+    data.forEach(product => {
 
-              <img
-                src="${product.image_url || 'https://placehold.co/600x600/f9e0e8/765b63?text=KINO+Planner'}"
-                alt="${escapeHtml(product.name)}"
-              >
+      const card =
+        document.createElement(
+          "div"
+        );
 
-              <h2>
-                ${escapeHtml(product.name)}
-              </h2>
+      card.className =
+        "product-card";
 
-              <p>
-                ${escapeHtml(product.description || '')}
-              </p>
 
-              <div class="price">
-                RM${price}
-              </div>
+      /* IMAGE */
 
-              <a
-                href="${product.product_page}"
-                class="buy-button"
-              >
-                BUY NOW
-              </a>
+      const image =
+        document.createElement(
+          "img"
+        );
 
-            </div>
+      image.src =
+        product.image_url
+        ||
+        "https://placehold.co/600x600/ffdfe8/765b63?text=KINO";
 
-          `;
+      image.alt =
+        product.name;
 
-        })
-        .join("");
+
+      /* CATEGORY */
+
+      const category =
+        document.createElement(
+          "div"
+        );
+
+      category.className =
+        "category-label";
+
+      category.textContent =
+        "Planner";
+
+
+      /* NAME */
+
+      const name =
+        document.createElement(
+          "h3"
+        );
+
+      name.textContent =
+        product.name;
+
+
+      /* DESCRIPTION */
+
+      const description =
+        document.createElement(
+          "p"
+        );
+
+      description.textContent =
+        product.description
+        ||
+        "";
+
+
+      /* PRICE */
+
+      const price =
+        document.createElement(
+          "div"
+        );
+
+      price.className =
+        "price";
+
+      price.textContent =
+        "RM" +
+        Number(
+          product.price
+        ).toFixed(2);
+
+
+      /* BUY BUTTON */
+
+      const button =
+        document.createElement(
+          "button"
+        );
+
+      button.className =
+        "buy-button";
+
+      button.textContent =
+        "BUY NOW";
+
+
+      /* =================================
+         BUY NOW → CART
+      ================================= */
+
+      button.addEventListener(
+        "click",
+        function() {
+
+          addToCart(product);
+
+        }
+      );
+
+
+      /* APPEND */
+
+      card.appendChild(
+        image
+      );
+
+      card.appendChild(
+        category
+      );
+
+      card.appendChild(
+        name
+      );
+
+      card.appendChild(
+        description
+      );
+
+      card.appendChild(
+        price
+      );
+
+      card.appendChild(
+        button
+      );
+
+
+      productGrid.appendChild(
+        card
+      );
+
+    });
 
   }
 
   catch (error) {
 
     console.error(
-      "PLANNER ERROR:",
+      "PLANNER LOAD ERROR:",
       error
     );
 
     productGrid.innerHTML = `
-      <div class="empty">
-        Unable to load products right now ♡
+      <div class="message">
+        Something went wrong while loading planners ♡
       </div>
     `;
 
@@ -515,42 +819,79 @@ async function loadPlannerProducts() {
 }
 
 
-
 /* =========================================
-   HTML ESCAPE
+   ADD TO CART
 ========================================= */
 
-function escapeHtml(value) {
+function addToCart(product) {
 
-  return String(value)
+  let cart =
+    JSON.parse(
+      localStorage.getItem("kinoCart")
+    ) || [];
 
-    .replace(
-      /&/g,
-      "&amp;"
-    )
 
-    .replace(
-      /</g,
-      "&lt;"
-    )
+  /* =======================================
+     CHECK IF PRODUCT ALREADY EXISTS
+  ======================================= */
 
-    .replace(
-      />/g,
-      "&gt;"
-    )
-
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-
-    .replace(
-      /'/g,
-      "&#039;"
+  const existingItem =
+    cart.find(
+      item =>
+        item.id === product.id
     );
 
-}
 
+  if (existingItem) {
+
+    existingItem.quantity =
+      Number(
+        existingItem.quantity || 1
+      ) + 1;
+
+  }
+
+  else {
+
+    cart.push({
+
+      id:
+        product.id,
+
+      name:
+        product.name,
+
+      price:
+        Number(
+          product.price
+        ),
+
+      quantity:
+        1
+
+    });
+
+  }
+
+
+  /* =======================================
+     SAVE CART
+  ======================================= */
+
+  localStorage.setItem(
+    "kinoCart",
+    JSON.stringify(cart)
+  );
+
+
+  /* =======================================
+     GO TO CART
+  ======================================= */
+
+  window.location.href =
+    "cart.html";
+
+}
 
 
 /* =========================================
