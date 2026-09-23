@@ -34,11 +34,8 @@
 
 body {
   font-family: 'Baloo 2', sans-serif;
-
   background: #fff8fa;
-
   color: #5f4a50;
-
   line-height: 1.6;
 }
 
@@ -48,49 +45,35 @@ body {
 ========================================= */
 
 header {
-
   background: #ffffff;
-
   padding: 25px 7%;
 
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
 }
 
 .logo {
-
   font-size: 28px;
-
   font-weight: bold;
-
   color: #c77f91;
-
   letter-spacing: 3px;
+  text-decoration: none;
 }
 
 nav {
-
   display: flex;
-
   align-items: center;
-
   gap: 25px;
 }
 
 nav a {
-
   text-decoration: none;
-
   color: #6f5b61;
-
   font-size: 15px;
 }
 
 nav a:hover {
-
   color: #c47794;
 }
 
@@ -100,30 +83,23 @@ nav a:hover {
 ========================================= */
 
 .hero {
-
   background: #fce9ee;
 
   text-align: center;
 
   padding: 70px 20px;
 
-  border-radius:
-    0 0 45px 45px;
+  border-radius: 0 0 45px 45px;
 }
 
 .hero h1 {
-
   color: #b96f84;
-
   font-size: 42px;
-
   margin-bottom: 12px;
 }
 
 .hero p {
-
   font-size: 17px;
-
   color: #806b72;
 }
 
@@ -133,32 +109,23 @@ nav a:hover {
 ========================================= */
 
 .products {
-
   padding: 65px 7%;
-
   max-width: 1200px;
-
   margin: auto;
 }
 
 .products-title {
-
   text-align: center;
-
   margin-bottom: 40px;
 }
 
 .products-title h2 {
-
   color: #b96f84;
-
   font-size: 30px;
-
   margin-bottom: 8px;
 }
 
 .products-title p {
-
   color: #8a747b;
 }
 
@@ -168,12 +135,8 @@ nav a:hover {
 ========================================= */
 
 .product-grid {
-
   display: grid;
-
-  grid-template-columns:
-    repeat(2, 1fr);
-
+  grid-template-columns: repeat(2, 1fr);
   gap: 25px;
 }
 
@@ -183,7 +146,6 @@ nav a:hover {
 ========================================= */
 
 .product-card {
-
   background: #ffffff;
 
   padding: 30px;
@@ -200,9 +162,7 @@ nav a:hover {
 }
 
 .product-card:hover {
-
-  transform:
-    translateY(-3px);
+  transform: translateY(-3px);
 
   box-shadow:
     0 10px 30px
@@ -215,11 +175,8 @@ nav a:hover {
 ========================================= */
 
 .product-card img {
-
   width: 100%;
-
   max-width: 180px;
-
   height: 180px;
 
   object-fit: cover;
@@ -231,91 +188,10 @@ nav a:hover {
 
 
 /* =========================================
-   PRODUCT NAME
-========================================= */
-
-.product-card h3 {
-
-  color: #674f57;
-
-  font-size: 21px;
-
-  margin-bottom: 10px;
-}
-
-
-/* =========================================
-   DESCRIPTION
-========================================= */
-
-.product-card p {
-
-  color: #8a747b;
-
-  margin-bottom: 18px;
-}
-
-
-/* =========================================
-   PRICE
-========================================= */
-
-.price {
-
-  font-size: 22px;
-
-  font-weight: bold;
-
-  color: #b96f84;
-
-  margin-bottom: 18px;
-}
-
-
-/* =========================================
-   BUY BUTTON
-========================================= */
-
-.buy-button {
-
-  display: inline-block;
-
-  background: #cf8799;
-
-  color: white;
-
-  border: none;
-
-  text-decoration: none;
-
-  padding: 11px 28px;
-
-  border-radius: 30px;
-
-  font-size: 14px;
-
-  font-family: 'Baloo 2', sans-serif;
-
-  cursor: pointer;
-
-  transition: 0.2s;
-}
-
-.buy-button:hover {
-
-  background: #bd7188;
-
-  transform:
-    translateY(-1px);
-}
-
-
-/* =========================================
    CATEGORY LABEL
 ========================================= */
 
 .category-label {
-
   display: inline-block;
 
   background: #fde6ee;
@@ -333,11 +209,77 @@ nav a:hover {
 
 
 /* =========================================
+   PRODUCT NAME
+========================================= */
+
+.product-card h3 {
+  color: #674f57;
+
+  font-size: 21px;
+
+  margin-bottom: 10px;
+}
+
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.product-card p {
+  color: #8a747b;
+  margin-bottom: 18px;
+}
+
+
+/* =========================================
+   PRICE
+========================================= */
+
+.price {
+  font-size: 22px;
+
+  font-weight: bold;
+
+  color: #b96f84;
+
+  margin-bottom: 18px;
+}
+
+
+/* =========================================
+   VIEW DETAILS BUTTON
+========================================= */
+
+.view-button {
+  display: inline-block;
+
+  background: #cf8799;
+
+  color: white;
+
+  text-decoration: none;
+
+  padding: 11px 28px;
+
+  border-radius: 30px;
+
+  font-size: 14px;
+
+  transition: 0.2s;
+}
+
+.view-button:hover {
+  background: #bd7188;
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================
    LOADING
 ========================================= */
 
 .loading {
-
   grid-column: 1 / -1;
 
   text-align: center;
@@ -351,11 +293,10 @@ nav a:hover {
 
 
 /* =========================================
-   EMPTY / ERROR
+   MESSAGE
 ========================================= */
 
 .message {
-
   grid-column: 1 / -1;
 
   text-align: center;
@@ -373,7 +314,6 @@ nav a:hover {
 ========================================= */
 
 footer {
-
   background: #fce9ee;
 
   text-align: center;
@@ -393,7 +333,6 @@ footer {
 @media (max-width: 700px) {
 
   header {
-
     padding: 20px;
 
     flex-direction: column;
@@ -402,7 +341,6 @@ footer {
   }
 
   nav {
-
     gap: 16px;
 
     flex-wrap: wrap;
@@ -411,12 +349,10 @@ footer {
   }
 
   .hero h1 {
-
     font-size: 32px;
   }
 
   .product-grid {
-
     grid-template-columns: 1fr;
   }
 
@@ -740,38 +676,34 @@ async function loadStickerProducts() {
 
 
       /* =================================
-         BUY BUTTON
+         VIEW DETAILS BUTTON
       ================================= */
 
       const button =
         document.createElement(
-          "button"
+          "a"
         );
 
       button.className =
-        "buy-button";
+        "view-button";
 
       button.textContent =
-        "BUY NOW";
-
-      button.type =
-        "button";
+        "VIEW DETAILS";
 
 
-      button.addEventListener(
-        "click",
-        function () {
+      /*
+        Product detail page
+        comes from Supabase.
+      */
 
-          addToCart(
-            product
-          );
-
-        }
-      );
+      button.href =
+        product.product_page
+        ||
+        "#";
 
 
       /* =================================
-         APPEND CARD
+         APPEND
       ================================= */
 
       card.appendChild(
@@ -821,95 +753,6 @@ async function loadStickerProducts() {
     `;
 
   }
-
-}
-
-
-/* =========================================
-   ADD TO CART
-========================================= */
-
-function addToCart(product) {
-
-  let cart =
-    JSON.parse(
-      localStorage.getItem(
-        "kinoCart"
-      )
-    ) || [];
-
-
-  /* =====================================
-     CHECK EXISTING PRODUCT
-  ===================================== */
-
-  const existingItem =
-    cart.find(
-      item =>
-        item.id === product.id
-    );
-
-
-  /* =====================================
-     INCREASE QUANTITY
-  ===================================== */
-
-  if (existingItem) {
-
-    existingItem.quantity =
-      Number(
-        existingItem.quantity || 1
-      ) + 1;
-
-  }
-
-
-  /* =====================================
-     ADD NEW PRODUCT
-  ===================================== */
-
-  else {
-
-    cart.push({
-
-      id:
-        product.id,
-
-      name:
-        product.name,
-
-      price:
-        Number(
-          product.price
-        ),
-
-      image_url:
-        product.image_url,
-
-      quantity:
-        1
-
-    });
-
-  }
-
-
-  /* =====================================
-     SAVE CART
-  ===================================== */
-
-  localStorage.setItem(
-    "kinoCart",
-    JSON.stringify(cart)
-  );
-
-
-  /* =====================================
-     GO TO CART
-  ===================================== */
-
-  window.location.href =
-    "cart.html";
 
 }
 
