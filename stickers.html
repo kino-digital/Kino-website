@@ -284,6 +284,8 @@ nav a:hover {
 
   color: white;
 
+  border: none;
+
   text-decoration: none;
 
   padding: 11px 28px;
@@ -291,6 +293,10 @@ nav a:hover {
   border-radius: 30px;
 
   font-size: 14px;
+
+  font-family: 'Baloo 2', sans-serif;
+
+  cursor: pointer;
 
   transition: 0.2s;
 }
@@ -733,11 +739,13 @@ async function loadStickerProducts() {
         ).toFixed(2);
 
 
-      /* BUY BUTTON */
+      /* =================================
+         BUY BUTTON
+      ================================= */
 
       const button =
         document.createElement(
-          "a"
+          "button"
         );
 
       button.className =
@@ -746,19 +754,25 @@ async function loadStickerProducts() {
       button.textContent =
         "BUY NOW";
 
-
-      /*
-        Product page is stored
-        inside database.
-      */
-
-      button.href =
-        product.product_page
-        ||
-        "#";
+      button.type =
+        "button";
 
 
-      /* ADD TO CARD */
+      button.addEventListener(
+        "click",
+        function () {
+
+          addToCart(
+            product
+          );
+
+        }
+      );
+
+
+      /* =================================
+         APPEND CARD
+      ================================= */
 
       card.appendChild(
         image
@@ -807,6 +821,95 @@ async function loadStickerProducts() {
     `;
 
   }
+
+}
+
+
+/* =========================================
+   ADD TO CART
+========================================= */
+
+function addToCart(product) {
+
+  let cart =
+    JSON.parse(
+      localStorage.getItem(
+        "kinoCart"
+      )
+    ) || [];
+
+
+  /* =====================================
+     CHECK EXISTING PRODUCT
+  ===================================== */
+
+  const existingItem =
+    cart.find(
+      item =>
+        item.id === product.id
+    );
+
+
+  /* =====================================
+     INCREASE QUANTITY
+  ===================================== */
+
+  if (existingItem) {
+
+    existingItem.quantity =
+      Number(
+        existingItem.quantity || 1
+      ) + 1;
+
+  }
+
+
+  /* =====================================
+     ADD NEW PRODUCT
+  ===================================== */
+
+  else {
+
+    cart.push({
+
+      id:
+        product.id,
+
+      name:
+        product.name,
+
+      price:
+        Number(
+          product.price
+        ),
+
+      image_url:
+        product.image_url,
+
+      quantity:
+        1
+
+    });
+
+  }
+
+
+  /* =====================================
+     SAVE CART
+  ===================================== */
+
+  localStorage.setItem(
+    "kinoCart",
+    JSON.stringify(cart)
+  );
+
+
+  /* =====================================
+     GO TO CART
+  ===================================== */
+
+  window.location.href =
+    "cart.html";
 
 }
 
