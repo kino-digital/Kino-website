@@ -41,6 +41,7 @@ body {
   color: #5f4a50;
 
   line-height: 1.6;
+
 }
 
 
@@ -59,6 +60,7 @@ header {
   justify-content: space-between;
 
   align-items: center;
+
 }
 
 .logo {
@@ -72,6 +74,7 @@ header {
   color: #c77f91;
 
   letter-spacing: 3px;
+
 }
 
 nav {
@@ -81,6 +84,7 @@ nav {
   align-items: center;
 
   gap: 25px;
+
 }
 
 nav a {
@@ -90,11 +94,13 @@ nav a {
   color: #6f5b61;
 
   font-size: 15px;
+
 }
 
 nav a:hover {
 
   color: #c47794;
+
 }
 
 
@@ -104,13 +110,14 @@ nav a:hover {
 
 .product-detail {
 
-  max-width: 850px;
+  max-width: 900px;
 
-  margin: 65px auto 80px;
+  margin: 60px auto 80px;
 
-  padding: 20px;
+  padding: 30px 20px;
 
   text-align: center;
+
 }
 
 
@@ -128,15 +135,16 @@ nav a:hover {
 
   object-fit: cover;
 
-  border-radius: 28px;
-
   display: block;
 
-  margin: 0 auto 35px;
+  margin: 0 auto 32px;
+
+  border-radius: 30px;
 
   box-shadow:
-    0 8px 25px
-    rgba(190,130,145,0.08);
+    0 10px 30px
+    rgba(190,130,145,0.10);
+
 }
 
 
@@ -152,12 +160,13 @@ nav a:hover {
 
   font-weight: 700;
 
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+
 }
 
 
 /* =========================================
-   PRODUCT SHORT DESCRIPTION
+   SHORT DESCRIPTION
 ========================================= */
 
 .product-short-description {
@@ -166,7 +175,8 @@ nav a:hover {
 
   font-size: 17px;
 
-  margin-bottom: 22px;
+  margin-bottom: 18px;
+
 }
 
 
@@ -178,11 +188,12 @@ nav a:hover {
 
   color: #b96f84;
 
-  font-size: 28px;
+  font-size: 27px;
 
   font-weight: 700;
 
-  margin-bottom: 22px;
+  margin-bottom: 20px;
+
 }
 
 
@@ -196,31 +207,72 @@ nav a:hover {
 
   background: #d9829e;
 
-  color: white;
-
-  text-decoration: none;
-
-  padding: 13px 34px;
-
-  border-radius: 30px;
-
-  font-size: 15px;
-
-  transition: 0.2s;
+  color: #ffffff;
 
   border: none;
 
-  cursor: pointer;
+  text-decoration: none;
+
+  padding: 13px 36px;
+
+  border-radius: 30px;
 
   font-family: 'Baloo 2', sans-serif;
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+
 }
 
 .buy-button:hover {
 
   background: #c97491;
 
-  transform:
-    translateY(-1px);
+  transform: translateY(-2px);
+
+}
+
+
+/* =========================================
+   DESCRIPTION BOX
+========================================= */
+
+.product-description-box {
+
+  max-width: 700px;
+
+  margin: 38px auto 0;
+
+  padding: 25px 25px;
+
+  background: #ffffff;
+
+  border-radius: 25px;
+
+  box-shadow:
+    0 8px 25px
+    rgba(190,130,145,0.07);
+
+}
+
+
+/* =========================================
+   DESCRIPTION TITLE
+========================================= */
+
+.product-description-title {
+
+  color: #b96f84;
+
+  font-size: 20px;
+
+  font-weight: 700;
+
+  margin-bottom: 10px;
+
 }
 
 
@@ -230,15 +282,12 @@ nav a:hover {
 
 .product-description {
 
-  max-width: 680px;
-
-  margin: 35px auto 0;
-
   color: #806b72;
 
-  font-size: 16px;
+  font-size: 15px;
 
   line-height: 1.8;
+
 }
 
 
@@ -250,27 +299,29 @@ nav a:hover {
 
   text-align: center;
 
-  padding: 80px 20px;
+  padding: 100px 20px;
 
   color: #9a858b;
 
   font-size: 17px;
+
 }
 
 
 /* =========================================
-   ERROR
+   MESSAGE
 ========================================= */
 
 .message {
 
   text-align: center;
 
-  padding: 80px 20px;
+  padding: 100px 20px;
 
   color: #9a858b;
 
   font-size: 17px;
+
 }
 
 
@@ -289,6 +340,7 @@ footer {
   color: #8a747b;
 
   font-size: 14px;
+
 }
 
 
@@ -305,6 +357,7 @@ footer {
     flex-direction: column;
 
     gap: 12px;
+
   }
 
   nav {
@@ -314,13 +367,15 @@ footer {
     flex-wrap: wrap;
 
     justify-content: center;
+
   }
 
   .product-detail {
 
-    margin: 45px auto 60px;
+    margin: 40px auto 60px;
 
     padding: 20px;
+
   }
 
   .product-image {
@@ -329,31 +384,59 @@ footer {
 
     height: 300px;
 
-    border-radius: 25px;
+    border-radius: 27px;
 
     margin-bottom: 28px;
+
   }
 
   .product-name {
 
     font-size: 32px;
+
   }
 
   .product-short-description {
 
     font-size: 16px;
+
   }
 
   .product-price {
 
     font-size: 26px;
+
   }
 
-  .product-description {
+  .product-description-box {
 
-    font-size: 15px;
+    margin-top: 32px;
 
-    padding: 0 10px;
+    padding: 22px 18px;
+
+  }
+
+}
+
+
+/* =========================================
+   VERY SMALL SCREEN
+========================================= */
+
+@media (max-width: 400px) {
+
+  .product-image {
+
+    width: 270px;
+
+    height: 270px;
+
+  }
+
+  .product-name {
+
+    font-size: 29px;
+
   }
 
 }
@@ -405,7 +488,7 @@ footer {
 
 
 <!-- =========================================
-     PRODUCT DETAIL
+     PRODUCT
 ========================================= -->
 
 <main
@@ -444,6 +527,7 @@ footer {
 const SUPABASE_URL =
   "https://vbdgzsapdbpgfcdksdoi.supabase.co";
 
+
 const SUPABASE_PUBLISHABLE_KEY =
   "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
 
@@ -460,6 +544,7 @@ const db =
   );
 
 
+
 /* =========================================
    PRODUCT CONTAINER
 ========================================= */
@@ -470,6 +555,7 @@ const productDetail =
   );
 
 
+
 /* =========================================
    LOAD PRODUCT
 ========================================= */
@@ -477,6 +563,20 @@ const productDetail =
 async function loadProduct() {
 
   try {
+
+    /*
+      We allow BOTH:
+
+      sticker01.html
+
+      AND
+
+      sticker-01.html
+
+      This prevents the page from
+      breaking if the database uses
+      either filename.
+    */
 
     const {
       data,
@@ -489,9 +589,17 @@ async function loadProduct() {
         "id, category, name, description, price, image_url, product_page"
       )
 
-      .eq(
+      .in(
         "product_page",
-        "sticker-01.html"
+        [
+          "sticker01.html",
+          "sticker-01.html"
+        ]
+      )
+
+      .eq(
+        "category",
+        "sticker"
       )
 
       .eq(
@@ -499,11 +607,18 @@ async function loadProduct() {
         true
       )
 
-      .maybeSingle();
+      .order(
+        "id",
+        {
+          ascending: true
+        }
+      )
+
+      .limit(1);
 
 
     /* =====================================
-       ERROR
+       DATABASE ERROR
     ===================================== */
 
     if (error) {
@@ -532,13 +647,21 @@ async function loadProduct() {
        PRODUCT NOT FOUND
     ===================================== */
 
-    if (!data) {
+    if (
+      !data ||
+      data.length === 0
+    ) {
 
       productDetail.innerHTML = `
 
         <div class="message">
 
           Product not found ♡
+
+          <br><br>
+
+          Please check the product page
+          in Supabase.
 
         </div>
 
@@ -550,50 +673,58 @@ async function loadProduct() {
 
 
     /* =====================================
+       PRODUCT DATA
+    ===================================== */
+
+    const product =
+      data[0];
+
+
+    /* =====================================
        IMAGE
     ===================================== */
 
     const imageUrl =
-      data.image_url
+      product.image_url
       ||
       "https://placehold.co/600x600/ffdfe8/765b63?text=KINO";
 
 
     /* =====================================
-       SHORT DESCRIPTION
+       DESCRIPTION
     ===================================== */
 
     const shortDescription =
-      data.description
+      product.description
       ||
       "Cute digital stickers for your cozy little moments.";
 
 
     /* =====================================
-       PRODUCT NAME
+       PAGE TITLE
     ===================================== */
 
     document.title =
-      data.name +
+      product.name +
       " | KINO";
 
 
     /* =====================================
-       DISPLAY
+       DISPLAY PRODUCT
     ===================================== */
 
     productDetail.innerHTML = `
 
       <img
         src="${escapeHtml(imageUrl)}"
-        alt="${escapeHtml(data.name)}"
+        alt="${escapeHtml(product.name)}"
         class="product-image"
       >
 
 
       <h1 class="product-name">
 
-        ${escapeHtml(data.name)} ♡
+        ${escapeHtml(product.name)} ♡
 
       </h1>
 
@@ -607,12 +738,13 @@ async function loadProduct() {
 
       <div class="product-price">
 
-        RM${Number(data.price).toFixed(2)}
+        RM${Number(product.price).toFixed(2)}
 
       </div>
 
 
       <button
+        type="button"
         class="buy-button"
         id="buy-button"
       >
@@ -622,13 +754,22 @@ async function loadProduct() {
       </button>
 
 
-      <p class="product-description">
+      <div class="product-description-box">
 
-        A cozy digital sticker set filled with
-        cute and charming designs for your
-        everyday little moments. ♡
+        <div class="product-description-title">
 
-      </p>
+          About this product ♡
+
+        </div>
+
+
+        <p class="product-description">
+
+          ${escapeHtml(shortDescription)}
+
+        </p>
+
+      </div>
 
     `;
 
@@ -647,7 +788,7 @@ async function loadProduct() {
       "click",
       function () {
 
-        addToCart(data);
+        addToCart(product);
 
       }
     );
@@ -677,6 +818,7 @@ async function loadProduct() {
 }
 
 
+
 /* =========================================
    ADD TO CART
 ========================================= */
@@ -689,6 +831,10 @@ function addToCart(product) {
     ) || [];
 
 
+  /* =====================================
+     CHECK EXISTING PRODUCT
+  ===================================== */
+
   const existingIndex =
     cart.findIndex(
       item =>
@@ -698,7 +844,7 @@ function addToCart(product) {
 
 
   /* =====================================
-     ALREADY IN CART
+     PRODUCT ALREADY EXISTS
   ===================================== */
 
   if (
@@ -706,9 +852,12 @@ function addToCart(product) {
   ) {
 
     cart[existingIndex].quantity =
-      (cart[existingIndex].quantity || 1) + 1;
+      Number(
+        cart[existingIndex].quantity || 1
+      ) + 1;
 
   }
+
 
   /* =====================================
      NEW PRODUCT
@@ -736,7 +885,7 @@ function addToCart(product) {
 
 
   /* =====================================
-     SAVE
+     SAVE CART
   ===================================== */
 
   localStorage.setItem(
@@ -753,6 +902,7 @@ function addToCart(product) {
     "cart.html";
 
 }
+
 
 
 /* =========================================
@@ -789,6 +939,7 @@ function escapeHtml(value) {
     );
 
 }
+
 
 
 /* =========================================
