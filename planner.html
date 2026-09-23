@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <title>Cozy Planner | KINO</title>
 
+
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
+
 
     body {
       font-family: 'Baloo 2', sans-serif;
@@ -22,19 +36,27 @@
       line-height: 1.6;
     }
 
+
     header {
       background: #ffffff;
       padding: 25px 7%;
+
       display: flex;
       justify-content: space-between;
       align-items: center;
+
+      box-shadow:
+        0 2px 12px rgba(190,130,150,0.06);
     }
+
 
     .logo {
       font-size: 26px;
       font-weight: 700;
       color: #c47794;
+      letter-spacing: 2px;
     }
+
 
     nav a {
       text-decoration: none;
@@ -43,6 +65,12 @@
       font-size: 14px;
     }
 
+
+    nav a:hover {
+      color: #c47794;
+    }
+
+
     .products {
       max-width: 1100px;
       margin: 50px auto;
@@ -50,11 +78,13 @@
       text-align: center;
     }
 
+
     h1 {
       color: #b96f8a;
       font-size: 34px;
       margin-bottom: 10px;
     }
+
 
     .intro {
       color: #8a747b;
@@ -62,131 +92,476 @@
       font-size: 16px;
     }
 
+
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
       gap: 25px;
     }
 
+
     .product-card {
       background: #ffffff;
+
       padding: 25px;
+
       border-radius: 25px;
-      box-shadow: 0 5px 18px rgba(190, 130, 150, 0.12);
+
+      box-shadow:
+        0 5px 18px
+        rgba(190,130,150,0.12);
+
+      transition: 0.2s;
     }
+
+
+    .product-card:hover {
+      transform: translateY(-3px);
+
+      box-shadow:
+        0 8px 22px
+        rgba(190,130,150,0.16);
+    }
+
 
     .product-card img {
       width: 100%;
       height: 180px;
+
       object-fit: cover;
+
       border-radius: 18px;
+
       margin-bottom: 18px;
     }
 
+
     .product-card h2 {
       color: #b96f8a;
+
       font-size: 22px;
+
       margin-bottom: 5px;
     }
 
+
     .product-card p {
       color: #8a747b;
+
       margin-bottom: 15px;
     }
+
 
     .price {
       color: #b96f8a;
+
       font-size: 22px;
+
       font-weight: 700;
+
       margin-bottom: 15px;
     }
 
+
     .buy-button {
       display: inline-block;
+
       background: #d9829e;
+
       color: white;
+
       text-decoration: none;
+
       padding: 10px 25px;
+
       border-radius: 30px;
+
       font-size: 15px;
+
+      transition: 0.2s;
     }
+
+
+    .buy-button:hover {
+      background: #c97491;
+
+      transform: translateY(-1px);
+    }
+
+
+    .loading {
+      color: #9a858b;
+
+      font-size: 16px;
+
+      padding: 40px;
+    }
+
+
+    .empty {
+      color: #9a858b;
+
+      font-size: 16px;
+
+      padding: 40px;
+    }
+
 
     footer {
       margin-top: 70px;
+
       background: #fde6ee;
+
       padding: 25px;
+
       text-align: center;
+
       color: #8a747b;
+
       font-size: 14px;
     }
+
+
+    @media (max-width: 700px) {
+
+      header {
+        padding: 20px;
+
+        flex-direction: column;
+
+        gap: 10px;
+      }
+
+
+      nav a {
+        margin-left: 12px;
+      }
+
+
+      h1 {
+        font-size: 32px;
+      }
+
+
+      .products {
+        margin-top: 35px;
+      }
+
+    }
+
   </style>
+
 </head>
+
 
 <body>
 
-  <header>
-    <div class="logo">KINO</div>
 
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="stickers.html">Shop</a>
-      <a href="#">About</a>
-    </nav>
-  </header>
+<!-- =========================================
+     HEADER
+========================================= -->
 
-  <main class="products">
+<header>
 
-    <h1>Cozy Planner ♡</h1>
+  <a
+    href="index.html"
+    class="logo"
+  >
+    KINO
+  </a>
 
-    <p class="intro">
-      Simple and cozy planners for your everyday little moments.
-    </p>
 
-    <div class="product-grid">
+  <nav>
 
-      <div class="product-card">
-        <img src="https://placehold.co/600x600/ffdfe8/765b63?text=Planner+01" alt="Planner 01">
+    <a href="index.html">
+      Home
+    </a>
 
-        <h2>Planner 01</h2>
+    <a href="shop.html">
+      Shop
+    </a>
 
-        <p>15 pages · Cozy everyday planner</p>
+    <a href="index.html#about">
+      About
+    </a>
 
-        <div class="price">RM10</div>
+  </nav>
 
-        <a href="planner-01.html" class="buy-button">BUY NOW</a>
-      </div>
+</header>
 
-      <div class="product-card">
-        <img src="https://placehold.co/600x600/ffdfe8/765b63?text=Planner+02" alt="Planner 02">
 
-        <h2>Planner 02</h2>
 
-        <p>15 pages · Cozy everyday planner</p>
+<!-- =========================================
+     PRODUCTS
+========================================= -->
 
-        <div class="price">RM10</div>
-        
-        <a href="planner-02.html" class="buy-button">BUY NOW</a>
-      </div>
+<main class="products">
 
-      <div class="product-card">
-        <img src="https://placehold.co/600x600/ffdfe8/765b63?text=Planner+03" alt="Planner 03">
+  <h1>
+    Cozy Planner ♡
+  </h1>
 
-        <h2>Planner 03</h2>
 
-        <p>15 pages · Cozy everyday planner</p>
+  <p class="intro">
+    Simple and cozy planners for your everyday little moments.
+  </p>
 
-        <div class="price">RM10</div>
 
-        <a href="planner-03.html" class="buy-button">BUY NOW</a>
-      </div>
+  <div
+    id="product-grid"
+    class="product-grid"
+  >
 
+    <div class="loading">
+      Loading KINO planners ♡
     </div>
 
-  </main>
+  </div>
 
-  <footer>
-    Made for cozy moments ♡
-  </footer>
+</main>
+
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
+<footer>
+
+  Made for cozy moments ♡
+
+</footer>
+
+
+
+<!-- =========================================
+     SUPABASE
+========================================= -->
+
+<script>
+
+const SUPABASE_URL =
+  "https://vbdgzsapdbpgfcdksdoi.supabase.co";
+
+
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
+
+
+const {
+  createClient
+} = supabase;
+
+
+const db =
+  createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+
+
+/* =========================================
+   ELEMENT
+========================================= */
+
+const productGrid =
+  document.getElementById(
+    "product-grid"
+  );
+
+
+
+/* =========================================
+   LOAD PLANNER PRODUCTS
+========================================= */
+
+async function loadPlannerProducts() {
+
+  try {
+
+    const {
+      data,
+      error
+    } = await db
+      .from("products")
+      .select(`
+        id,
+        category,
+        name,
+        description,
+        price,
+        image_url,
+        product_page
+      `)
+      .eq(
+        "category",
+        "planner"
+      )
+      .eq(
+        "is_active",
+        true
+      )
+      .order(
+        "id",
+        {
+          ascending: true
+        }
+      );
+
+
+    if (error) {
+
+      console.error(
+        "PLANNER PRODUCTS ERROR:",
+        error
+      );
+
+      productGrid.innerHTML = `
+        <div class="empty">
+          Unable to load products right now ♡
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    if (
+      !data ||
+      data.length === 0
+    ) {
+
+      productGrid.innerHTML = `
+        <div class="empty">
+          No planner products available right now ♡
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    productGrid.innerHTML =
+      data
+        .map(product => {
+
+          const price =
+            Number(product.price)
+              .toFixed(2)
+              .replace(
+                ".00",
+                ""
+              );
+
+
+          return `
+
+            <div class="product-card">
+
+              <img
+                src="${product.image_url || 'https://placehold.co/600x600/f9e0e8/765b63?text=KINO+Planner'}"
+                alt="${escapeHtml(product.name)}"
+              >
+
+              <h2>
+                ${escapeHtml(product.name)}
+              </h2>
+
+              <p>
+                ${escapeHtml(product.description || '')}
+              </p>
+
+              <div class="price">
+                RM${price}
+              </div>
+
+              <a
+                href="${product.product_page}"
+                class="buy-button"
+              >
+                BUY NOW
+              </a>
+
+            </div>
+
+          `;
+
+        })
+        .join("");
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "PLANNER ERROR:",
+      error
+    );
+
+    productGrid.innerHTML = `
+      <div class="empty">
+        Unable to load products right now ♡
+      </div>
+    `;
+
+  }
+
+}
+
+
+
+/* =========================================
+   HTML ESCAPE
+========================================= */
+
+function escapeHtml(value) {
+
+  return String(value)
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+
+/* =========================================
+   START
+========================================= */
+
+loadPlannerProducts();
+
+</script>
+
 
 </body>
+
 </html>
