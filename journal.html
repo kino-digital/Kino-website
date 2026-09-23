@@ -15,11 +15,14 @@
     rel="stylesheet"
   >
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
   <title>Digital Journal | KINO</title>
 
+
   <style>
+
+    /* =========================================
+       GLOBAL
+    ========================================= */
 
     * {
       box-sizing: border-box;
@@ -34,71 +37,170 @@
       line-height: 1.6;
     }
 
+
+    /* =========================================
+       HEADER
+    ========================================= */
+
     header {
       background: #ffffff;
+
       padding: 25px 7%;
 
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
     }
 
     .logo {
-      font-size: 26px;
-      font-weight: 700;
-      color: #c47794;
+      font-size: 28px;
+
+      font-weight: bold;
+
+      color: #c77f91;
+
+      letter-spacing: 3px;
+
+      text-decoration: none;
+    }
+
+    nav {
+      display: flex;
+
+      align-items: center;
+
+      gap: 25px;
     }
 
     nav a {
       text-decoration: none;
-      color: #5f4a50;
-      margin-left: 20px;
-      font-size: 14px;
+
+      color: #6f5b61;
+
+      font-size: 15px;
     }
 
-    .products {
-      max-width: 1100px;
-      margin: 50px auto;
-      padding: 20px;
+    nav a:hover {
+      color: #c47794;
+    }
+
+
+    /* =========================================
+       HERO
+    ========================================= */
+
+    .hero {
+      background: #fce9ee;
 
       text-align: center;
+
+      padding: 70px 20px;
+
+      border-radius:
+        0 0 45px 45px;
     }
 
-    h1 {
-      color: #b96f8a;
-      font-size: 34px;
-      margin-bottom: 10px;
+    .hero h1 {
+      color: #b96f84;
+
+      font-size: 42px;
+
+      margin-bottom: 12px;
     }
 
-    .intro {
+    .hero p {
+      font-size: 17px;
+
+      color: #806b72;
+    }
+
+
+    /* =========================================
+       PRODUCTS
+    ========================================= */
+
+    .products {
+      padding: 65px 7%;
+
+      max-width: 1200px;
+
+      margin: auto;
+    }
+
+    .products-title {
+      text-align: center;
+
+      margin-bottom: 40px;
+    }
+
+    .products-title h2 {
+      color: #b96f84;
+
+      font-size: 30px;
+
+      margin-bottom: 8px;
+    }
+
+    .products-title p {
       color: #8a747b;
-      margin-bottom: 35px;
-      font-size: 16px;
     }
+
+
+    /* =========================================
+       PRODUCT GRID
+    ========================================= */
 
     .product-grid {
       display: grid;
 
       grid-template-columns:
-        repeat(auto-fit, minmax(220px, 1fr));
+        repeat(2, 1fr);
 
       gap: 25px;
     }
 
+
+    /* =========================================
+       PRODUCT CARD
+    ========================================= */
+
     .product-card {
       background: #ffffff;
 
-      padding: 25px;
+      padding: 30px;
 
       border-radius: 25px;
 
+      text-align: center;
+
       box-shadow:
-        0 5px 18px
-        rgba(190, 130, 150, 0.12);
+        0 8px 25px
+        rgba(190,130,145,0.08);
+
+      transition: 0.2s;
     }
+
+    .product-card:hover {
+      transform:
+        translateY(-3px);
+
+      box-shadow:
+        0 10px 30px
+        rgba(190,130,145,0.12);
+    }
+
+
+    /* =========================================
+       PRODUCT IMAGE
+    ========================================= */
 
     .product-card img {
       width: 100%;
+
+      max-width: 180px;
+
       height: 180px;
 
       object-fit: cover;
@@ -108,84 +210,161 @@
       margin-bottom: 18px;
     }
 
-    .product-card h2 {
-      color: #b96f8a;
 
-      font-size: 22px;
+    /* =========================================
+       CATEGORY LABEL
+    ========================================= */
 
-      margin-bottom: 5px;
+    .category-label {
+      display: inline-block;
+
+      background: #fde6ee;
+
+      color: #b96f84;
+
+      padding: 4px 12px;
+
+      border-radius: 20px;
+
+      font-size: 12px;
+
+      margin-bottom: 12px;
     }
+
+
+    /* =========================================
+       PRODUCT NAME
+    ========================================= */
+
+    .product-card h3 {
+      color: #674f57;
+
+      font-size: 21px;
+
+      margin-bottom: 10px;
+    }
+
+
+    /* =========================================
+       DESCRIPTION
+    ========================================= */
 
     .product-card p {
       color: #8a747b;
 
-      margin-bottom: 15px;
+      margin-bottom: 18px;
     }
+
+
+    /* =========================================
+       PRICE
+    ========================================= */
 
     .price {
-      color: #b96f8a;
-
       font-size: 22px;
 
-      font-weight: 700;
+      font-weight: bold;
 
-      margin-bottom: 15px;
+      color: #b96f84;
+
+      margin-bottom: 18px;
     }
 
-    .buy-button {
+
+    /* =========================================
+       VIEW DETAILS BUTTON
+    ========================================= */
+
+    .details-button {
       display: inline-block;
 
-      background: #d9829e;
+      background: #cf8799;
 
       color: white;
 
       text-decoration: none;
 
-      padding: 10px 25px;
+      padding: 11px 28px;
 
       border-radius: 30px;
 
-      font-size: 15px;
+      font-size: 14px;
+
+      transition: 0.2s;
     }
 
-    .loading {
-      color: #8a747b;
+    .details-button:hover {
+      background: #bd7188;
 
-      font-size: 16px;
-
-      padding: 30px;
+      transform:
+        translateY(-1px);
     }
 
-    .empty {
-      color: #8a747b;
 
-      padding: 30px;
+    /* =========================================
+       MESSAGE
+    ========================================= */
 
-      font-size: 16px;
-    }
-
-    footer {
-      margin-top: 70px;
-
-      background: #fde6ee;
-
-      padding: 25px;
+    .message {
+      grid-column: 1 / -1;
 
       text-align: center;
+
+      padding: 50px 20px;
+
+      color: #9a858b;
+
+      font-size: 16px;
+    }
+
+
+    /* =========================================
+       FOOTER
+    ========================================= */
+
+    footer {
+      background: #fce9ee;
+
+      text-align: center;
+
+      padding: 35px 20px;
 
       color: #8a747b;
 
       font-size: 14px;
+
+      margin-top: 50px;
     }
 
-    @media (max-width: 600px) {
+
+    /* =========================================
+       MOBILE
+    ========================================= */
+
+    @media (max-width: 700px) {
 
       header {
         padding: 20px;
+
+        flex-direction: column;
+
+        gap: 10px;
       }
 
-      nav a {
-        margin-left: 12px;
+      nav {
+        gap: 16px;
+
+        flex-wrap: wrap;
+
+        justify-content: center;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .product-grid {
+        grid-template-columns: 1fr;
       }
 
     }
@@ -204,9 +383,12 @@
 
   <header>
 
-    <div class="logo">
+    <a
+      href="index.html"
+      class="logo"
+    >
       KINO
-    </div>
+    </a>
 
 
     <nav>
@@ -219,8 +401,12 @@
         Shop
       </a>
 
-      <a href="#">
-        About
+      <a href="cart.html">
+        Cart
+      </a>
+
+      <a href="affiliate.html">
+        Affiliate
       </a>
 
     </nav>
@@ -230,34 +416,123 @@
 
 
   <!-- =========================================
-       PRODUCTS
+       HERO
   ========================================= -->
 
-  <main class="products">
+  <section class="hero">
 
     <h1>
       Digital Journal ♡
     </h1>
 
-
-    <p class="intro">
-      Cozy digital journals for thoughts,
-      memories and little everyday moments.
+    <p>
+      Cozy digital journals for thoughts, memories and little everyday moments.
     </p>
 
+  </section>
 
-    <div
-      id="product-grid"
-      class="product-grid"
-    >
 
-      <div class="loading">
-        Loading KINO journals ♡
-      </div>
+
+  <!-- =========================================
+       PRODUCTS
+  ========================================= -->
+
+  <section class="products">
+
+    <div class="products-title">
+
+      <h2>
+        Journal Collection
+      </h2>
+
+      <p>
+        Choose your favourite KINO digital journal ♡
+      </p>
 
     </div>
 
-  </main>
+
+    <div class="product-grid">
+
+
+      <!-- =====================================
+           JOURNAL 01
+      ====================================== -->
+
+      <div class="product-card">
+
+        <img
+          src="https://placehold.co/600x600/ffdfe8/765b63?text=Journal+01"
+          alt="Journal 01"
+        >
+
+        <div class="category-label">
+          Digital Journal
+        </div>
+
+        <h3>
+          Journal 01
+        </h3>
+
+        <p>
+          20 pages · Cozy digital journal
+        </p>
+
+        <div class="price">
+          RM10
+        </div>
+
+        <a
+          href="journal-01.html"
+          class="details-button"
+        >
+          VIEW DETAILS
+        </a>
+
+      </div>
+
+
+
+      <!-- =====================================
+           JOURNAL 02
+      ====================================== -->
+
+      <div class="product-card">
+
+        <img
+          src="https://placehold.co/600x600/ffdfe8/765b63?text=Journal+02"
+          alt="Journal 02"
+        >
+
+        <div class="category-label">
+          Digital Journal
+        </div>
+
+        <h3>
+          Journal 02
+        </h3>
+
+        <p>
+          20 pages · Cozy digital journal
+        </p>
+
+        <div class="price">
+          RM10
+        </div>
+
+        <a
+          href="journal-02.html"
+          class="details-button"
+        >
+          VIEW DETAILS
+        </a>
+
+      </div>
+
+
+    </div>
+
+  </section>
 
 
 
@@ -270,261 +545,6 @@
     Made for cozy moments ♡
 
   </footer>
-
-
-
-  <!-- =========================================
-       SUPABASE
-  ========================================= -->
-
-  <script>
-
-    const SUPABASE_URL =
-      "https://vbdgzsapdbpgfcdksdoi.supabase.co";
-
-
-    const SUPABASE_PUBLISHABLE_KEY =
-      "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
-
-
-    const {
-      createClient
-    } = supabase;
-
-
-    const db =
-      createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
-      );
-
-
-
-    /* =========================================
-       PRODUCT GRID
-    ========================================= */
-
-    const productGrid =
-      document.getElementById(
-        "product-grid"
-      );
-
-
-
-    /* =========================================
-       LOAD JOURNAL PRODUCTS
-    ========================================= */
-
-    async function loadProducts() {
-
-      try {
-
-        const {
-          data,
-          error
-        } = await db
-
-          .from("products")
-
-          .select(
-            "id, category, name, description, price, image_url, product_page"
-          )
-
-          .eq(
-            "category",
-            "journal"
-          )
-
-          .eq(
-            "is_active",
-            true
-          )
-
-          .order(
-            "id",
-            {
-              ascending: true
-            }
-          );
-
-
-        if (error) {
-
-          console.error(
-            "PRODUCT LOAD ERROR:",
-            error
-          );
-
-          productGrid.innerHTML = `
-
-            <div class="empty">
-
-              Unable to load products right now ♡
-
-            </div>
-
-          `;
-
-          return;
-
-        }
-
-
-        if (
-          !data ||
-          data.length === 0
-        ) {
-
-          productGrid.innerHTML = `
-
-            <div class="empty">
-
-              No journal products available yet ♡
-
-            </div>
-
-          `;
-
-          return;
-
-        }
-
-
-        renderProducts(data);
-
-      }
-
-      catch (error) {
-
-        console.error(
-          "PRODUCT ERROR:",
-          error
-        );
-
-        productGrid.innerHTML = `
-
-          <div class="empty">
-
-            Something went wrong ♡
-
-          </div>
-
-        `;
-
-      }
-
-    }
-
-
-
-    /* =========================================
-       RENDER PRODUCTS
-    ========================================= */
-
-    function renderProducts(products) {
-
-      productGrid.innerHTML = "";
-
-
-      products.forEach(product => {
-
-        const card =
-          document.createElement(
-            "div"
-          );
-
-
-        card.className =
-          "product-card";
-
-
-        card.innerHTML = `
-
-          <img
-            src="${escapeHTML(product.image_url || '')}"
-            alt="${escapeHTML(product.name)}"
-          >
-
-
-          <h2>
-            ${escapeHTML(product.name)}
-          </h2>
-
-
-          <p>
-            ${escapeHTML(product.description || '')}
-          </p>
-
-
-          <div class="price">
-            RM${Number(product.price).toFixed(2).replace('.00', '')}
-          </div>
-
-
-          <a
-            href="${escapeHTML(product.product_page || '#')}"
-            class="buy-button"
-          >
-            BUY NOW
-          </a>
-
-        `;
-
-
-        productGrid.appendChild(
-          card
-        );
-
-      });
-
-    }
-
-
-
-    /* =========================================
-       BASIC HTML ESCAPE
-    ========================================= */
-
-    function escapeHTML(value) {
-
-      return String(value)
-
-        .replace(
-          /&/g,
-          "&amp;"
-        )
-
-        .replace(
-          /</g,
-          "&lt;"
-        )
-
-        .replace(
-          />/g,
-          "&gt;"
-        )
-
-        .replace(
-          /"/g,
-          "&quot;"
-        )
-
-        .replace(
-          /'/g,
-          "&#039;"
-        );
-
-    }
-
-
-
-    /* =========================================
-       START
-    ========================================= */
-
-    loadProducts();
-
-  </script>
 
 
 </body>
