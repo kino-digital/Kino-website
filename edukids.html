@@ -15,10 +15,9 @@
     rel="stylesheet"
   >
 
-  <title>EduKids | KINO</title>
-
-  <!-- SUPABASE -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <title>EduKids | KINO</title>
 
 
   <style>
@@ -29,7 +28,6 @@
       padding: 0;
     }
 
-
     body {
       font-family: 'Baloo 2', sans-serif;
       background: #fff8fa;
@@ -38,12 +36,13 @@
     }
 
 
-    /* =========================================
+    /* =========================
        HEADER
-    ========================================= */
+    ========================= */
 
     header {
       background: #ffffff;
+
       padding: 25px 7%;
 
       display: flex;
@@ -51,93 +50,147 @@
       align-items: center;
     }
 
-
     .logo {
-      font-size: 26px;
+      text-decoration: none;
+
+      font-size: 28px;
       font-weight: 700;
+
+      color: #c47794;
+
+      letter-spacing: 3px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #6f5b61;
+      font-size: 15px;
+    }
+
+    nav a:hover {
       color: #c47794;
     }
 
 
-    nav a {
-      text-decoration: none;
-      color: #5f4a50;
+    /* =========================
+       HERO
+    ========================= */
 
-      margin-left: 20px;
-
-      font-size: 14px;
-    }
-
-
-    /* =========================================
-       PRODUCTS
-    ========================================= */
-
-    .products {
-      max-width: 1100px;
-
-      margin: 50px auto;
-
-      padding: 20px;
+    .hero {
+      background: #fce9ee;
 
       text-align: center;
+
+      padding: 70px 20px;
+
+      border-radius:
+        0 0 45px 45px;
+    }
+
+    .hero h1 {
+      color: #b96f84;
+
+      font-size: 42px;
+
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      font-size: 17px;
+
+      color: #806b72;
     }
 
 
-    h1 {
-      color: #b96f8a;
+    /* =========================
+       PRODUCTS
+    ========================= */
 
-      font-size: 34px;
+    .products {
+      padding: 65px 7%;
 
-      margin-bottom: 10px;
+      max-width: 1200px;
+
+      margin: auto;
     }
 
+    .products-title {
+      text-align: center;
 
-    .intro {
+      margin-bottom: 40px;
+    }
+
+    .products-title h2 {
+      color: #b96f84;
+
+      font-size: 30px;
+
+      margin-bottom: 8px;
+    }
+
+    .products-title p {
       color: #8a747b;
-
-      margin-bottom: 35px;
-
-      font-size: 16px;
     }
 
 
-    /* =========================================
+    /* =========================
        PRODUCT GRID
-    ========================================= */
+    ========================= */
 
     .product-grid {
-
       display: grid;
 
       grid-template-columns:
-        repeat(auto-fit, minmax(220px, 1fr));
+        repeat(2, 1fr);
 
       gap: 25px;
     }
 
 
-    /* =========================================
+    /* =========================
        PRODUCT CARD
-    ========================================= */
+    ========================= */
 
     .product-card {
-
       background: #ffffff;
 
-      padding: 25px;
+      padding: 30px;
 
       border-radius: 25px;
 
+      text-align: center;
+
       box-shadow:
-        0 5px 18px
-        rgba(190, 130, 150, 0.12);
+        0 8px 25px
+        rgba(190,130,145,0.08);
+
+      transition: 0.2s;
+    }
+
+    .product-card:hover {
+      transform:
+        translateY(-3px);
+
+      box-shadow:
+        0 10px 30px
+        rgba(190,130,145,0.12);
     }
 
 
-    .product-card img {
+    /* =========================
+       IMAGE
+    ========================= */
 
+    .product-card img {
       width: 100%;
+
+      max-width: 180px;
 
       height: 180px;
 
@@ -149,99 +202,128 @@
     }
 
 
-    .product-card h2 {
+    /* =========================
+       CATEGORY
+    ========================= */
 
-      color: #b96f8a;
+    .category-label {
+      display: inline-block;
 
-      font-size: 22px;
+      background: #fde6ee;
 
-      margin-bottom: 5px;
+      color: #b96f84;
+
+      padding: 4px 12px;
+
+      border-radius: 20px;
+
+      font-size: 12px;
+
+      margin-bottom: 12px;
     }
 
+
+    /* =========================
+       PRODUCT NAME
+    ========================= */
+
+    .product-card h3 {
+      color: #674f57;
+
+      font-size: 21px;
+
+      margin-bottom: 10px;
+    }
+
+
+    /* =========================
+       DESCRIPTION
+    ========================= */
 
     .product-card p {
-
       color: #8a747b;
 
-      margin-bottom: 15px;
+      margin-bottom: 18px;
     }
 
+
+    /* =========================
+       PRICE
+    ========================= */
 
     .price {
-
-      color: #b96f8a;
-
       font-size: 22px;
 
-      font-weight: 700;
+      font-weight: bold;
 
-      margin-bottom: 15px;
+      color: #b96f84;
+
+      margin-bottom: 18px;
     }
 
 
-    .buy-button {
+    /* =========================
+       VIEW DETAILS BUTTON
+    ========================= */
+
+    .details-button {
 
       display: inline-block;
 
-      background: #d9829e;
+      background: #cf8799;
 
       color: white;
 
       text-decoration: none;
 
-      padding: 10px 25px;
+      padding: 11px 28px;
 
       border-radius: 30px;
 
-      font-size: 15px;
+      font-size: 14px;
+
+      transition: 0.2s;
+    }
+
+    .details-button:hover {
+
+      background: #bd7188;
+
+      transform:
+        translateY(-1px);
     }
 
 
-    /* =========================================
-       LOADING
-    ========================================= */
+    /* =========================
+       LOADING / MESSAGE
+    ========================= */
 
-    .loading {
+    .loading,
+    .message {
 
-      color: #8a747b;
+      grid-column: 1 / -1;
+
+      text-align: center;
+
+      padding: 50px 20px;
+
+      color: #9a858b;
 
       font-size: 16px;
-
-      padding: 40px 0;
     }
 
 
-    /* =========================================
-       ERROR
-    ========================================= */
-
-    .error {
-
-      color: #a96b82;
-
-      background: #fff0f3;
-
-      padding: 20px;
-
-      border-radius: 18px;
-
-      margin-top: 20px;
-    }
-
-
-    /* =========================================
+    /* =========================
        FOOTER
-    ========================================= */
+    ========================= */
 
     footer {
 
-      margin-top: 70px;
-
-      background: #fde6ee;
-
-      padding: 25px;
+      background: #fce9ee;
 
       text-align: center;
+
+      padding: 35px 20px;
 
       color: #8a747b;
 
@@ -249,18 +331,38 @@
     }
 
 
-    /* =========================================
+    /* =========================
        MOBILE
-    ========================================= */
+    ========================= */
 
     @media (max-width: 700px) {
 
       header {
+
         padding: 20px;
+
+        flex-direction: column;
+
+        gap: 10px;
       }
 
-      nav a {
-        margin-left: 12px;
+      nav {
+
+        gap: 16px;
+
+        flex-wrap: wrap;
+
+        justify-content: center;
+      }
+
+      .hero h1 {
+
+        font-size: 32px;
+      }
+
+      .product-grid {
+
+        grid-template-columns: 1fr;
       }
 
     }
@@ -273,15 +375,18 @@
 <body>
 
 
-  <!-- =========================================
+  <!-- =========================
        HEADER
-  ========================================= -->
+  ========================= -->
 
   <header>
 
-    <div class="logo">
+    <a
+      href="index.html"
+      class="logo"
+    >
       KINO
-    </div>
+    </a>
 
 
     <nav>
@@ -294,8 +399,12 @@
         Shop
       </a>
 
-      <a href="#">
-        About
+      <a href="cart.html">
+        Cart
+      </a>
+
+      <a href="affiliate.html">
+        Affiliate
       </a>
 
     </nav>
@@ -304,21 +413,41 @@
 
 
 
-  <!-- =========================================
-       PRODUCTS
-  ========================================= -->
+  <!-- =========================
+       HERO
+  ========================= -->
 
-  <main class="products">
-
+  <section class="hero">
 
     <h1>
       EduKids ♡
     </h1>
 
-
-    <p class="intro">
+    <p>
       Fun and simple learning activities for little learners.
     </p>
+
+  </section>
+
+
+
+  <!-- =========================
+       PRODUCTS
+  ========================= -->
+
+  <section class="products">
+
+    <div class="products-title">
+
+      <h2>
+        EduKids Collection
+      </h2>
+
+      <p>
+        Choose your favourite KINO EduKids book ♡
+      </p>
+
+    </div>
 
 
     <div
@@ -327,19 +456,18 @@
     >
 
       <div class="loading">
-        Loading KINO products ♡
+        Loading EduKids products... ♡
       </div>
 
     </div>
 
-
-  </main>
-
+  </section>
 
 
-  <!-- =========================================
+
+  <!-- =========================
        FOOTER
-  ========================================= -->
+  ========================= -->
 
   <footer>
 
@@ -349,9 +477,9 @@
 
 
 
-  <!-- =========================================
+  <!-- =========================
        SUPABASE
-  ========================================= -->
+  ========================= -->
 
   <script>
 
@@ -375,17 +503,17 @@
       );
 
 
-    /* =========================================
+    const productGrid =
+      document.getElementById(
+        "product-grid"
+      );
+
+
+    /* =========================
        LOAD EDUKIDS PRODUCTS
-    ========================================= */
+    ========================= */
 
     async function loadEduKidsProducts() {
-
-      const grid =
-        document.getElementById(
-          "product-grid"
-        );
-
 
       try {
 
@@ -396,15 +524,9 @@
 
           .from("products")
 
-          .select(`
-            id,
-            category,
-            name,
-            description,
-            price,
-            image_url,
-            product_page
-          `)
+          .select(
+            "id, category, name, description, price, image_url, product_page"
+          )
 
           .eq(
             "category",
@@ -417,96 +539,220 @@
           )
 
           .order(
-            "id"
+            "id",
+            {
+              ascending: true
+            }
           );
 
+
+        /* =========================
+           ERROR
+        ========================= */
 
         if (error) {
 
           console.error(
-            "EDUKIDS ERROR:",
+            "EDUKIDS PRODUCT ERROR:",
             error
           );
 
-
-          grid.innerHTML = `
-            <div class="error">
-              Unable to load products.
-              Please try again later ♡
+          productGrid.innerHTML = `
+            <div class="message">
+              Unable to load EduKids products right now ♡
             </div>
           `;
 
           return;
+
         }
 
+
+        /* =========================
+           NO PRODUCTS
+        ========================= */
 
         if (
           !data ||
           data.length === 0
         ) {
 
-          grid.innerHTML = `
-            <div class="error">
-              No EduKids products available ♡
+          productGrid.innerHTML = `
+            <div class="message">
+              No EduKids products available right now ♡
             </div>
           `;
 
           return;
+
         }
 
 
-        /* =====================================
+        /* =========================
+           CLEAR LOADING
+        ========================= */
+
+        productGrid.innerHTML = "";
+
+
+        /* =========================
            CREATE PRODUCT CARDS
-        ===================================== */
+        ========================= */
 
-        grid.innerHTML =
-          data.map(product => `
+        data.forEach(
+          product => {
 
-            <div class="product-card">
+            const card =
+              document.createElement(
+                "div"
+              );
 
-              <img
-                src="${product.image_url || ''}"
-                alt="${product.name}"
-              >
+            card.className =
+              "product-card";
 
-              <h2>
-                ${product.name}
-              </h2>
 
-              <p>
-                ${product.description || ''}
-              </p>
+            /* IMAGE */
 
-              <div class="price">
-                RM${Number(product.price).toFixed(2)}
-              </div>
+            const image =
+              document.createElement(
+                "img"
+              );
 
-              <a
-                href="${product.product_page}"
-                class="buy-button"
-              >
-                BUY NOW
-              </a>
+            image.src =
+              product.image_url
+              ||
+              "https://placehold.co/600x600/ffdfe8/765b63?text=KINO";
 
-            </div>
+            image.alt =
+              product.name;
 
-          `).join("");
 
+            /* CATEGORY */
+
+            const category =
+              document.createElement(
+                "div"
+              );
+
+            category.className =
+              "category-label";
+
+            category.textContent =
+              "EduKids";
+
+
+            /* NAME */
+
+            const name =
+              document.createElement(
+                "h3"
+              );
+
+            name.textContent =
+              product.name;
+
+
+            /* DESCRIPTION */
+
+            const description =
+              document.createElement(
+                "p"
+              );
+
+            description.textContent =
+              product.description
+              ||
+              "";
+
+
+            /* PRICE */
+
+            const price =
+              document.createElement(
+                "div"
+              );
+
+            price.className =
+              "price";
+
+            price.textContent =
+              "RM" +
+              Number(
+                product.price
+              ).toFixed(2);
+
+
+            /* VIEW DETAILS */
+
+            const button =
+              document.createElement(
+                "a"
+              );
+
+            button.className =
+              "details-button";
+
+            button.textContent =
+              "VIEW DETAILS";
+
+
+            /*
+              Product detail page
+              comes from Supabase.
+            */
+
+            button.href =
+              product.product_page
+              ||
+              "#";
+
+
+            /* ADD TO CARD */
+
+            card.appendChild(
+              image
+            );
+
+            card.appendChild(
+              category
+            );
+
+            card.appendChild(
+              name
+            );
+
+            card.appendChild(
+              description
+            );
+
+            card.appendChild(
+              price
+            );
+
+            card.appendChild(
+              button
+            );
+
+
+            productGrid.appendChild(
+              card
+            );
+
+          }
+        );
 
       }
 
       catch (error) {
 
         console.error(
-          "EDUKIDS ERROR:",
+          "EDUKIDS LOAD ERROR:",
           error
         );
 
-
-        grid.innerHTML = `
-          <div class="error">
-            Something went wrong.
-            Please try again later ♡
+        productGrid.innerHTML = `
+          <div class="message">
+            Something went wrong while loading EduKids ♡
           </div>
         `;
 
@@ -515,9 +761,9 @@
     }
 
 
-    /* =========================================
+    /* =========================
        START
-    ========================================= */
+    ========================= */
 
     loadEduKidsProducts();
 
