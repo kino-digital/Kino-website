@@ -10,12 +10,14 @@
   content="width=device-width, initial-scale=1.0"
 >
 
+<title>Shop All | KINO</title>
+
 <link
   href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap"
   rel="stylesheet"
 >
 
-<title>KINO | Shop All Products</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
 <style>
@@ -31,7 +33,7 @@
 }
 
 body {
-  font-family: 'Baloo 2', sans-serif;
+  font-family: "Baloo 2", sans-serif;
   background: #fff8fa;
   color: #5f4a50;
   line-height: 1.6;
@@ -62,7 +64,7 @@ header {
 
 .logo {
   font-size: 28px;
-  font-weight: bold;
+  font-weight: 700;
 
   color: #c77f91;
 
@@ -72,18 +74,18 @@ header {
 nav {
   display: flex;
   align-items: center;
+  gap: 25px;
 }
 
 nav a {
   color: #6f5b61;
-
-  margin-left: 25px;
-
   font-size: 15px;
+
+  transition: 0.2s;
 }
 
 nav a:hover {
-  color: #c77f91;
+  color: #c47794;
 }
 
 
@@ -186,7 +188,7 @@ nav a:hover {
   transform: translateY(-3px);
 
   box-shadow:
-    0 12px 30px
+    0 10px 30px
     rgba(190,130,145,0.12);
 }
 
@@ -196,6 +198,7 @@ nav a:hover {
 ========================================= */
 
 .product-card img {
+
   width: 100%;
 
   max-width: 180px;
@@ -211,26 +214,11 @@ nav a:hover {
 
 
 /* =========================================
-   PRODUCT TEXT
+   PRODUCT NAME
 ========================================= */
 
-.product-category {
-  display: inline-block;
-
-  background: #fce9ee;
-
-  color: #b96f84;
-
-  padding: 4px 12px;
-
-  border-radius: 20px;
-
-  font-size: 12px;
-
-  margin-bottom: 8px;
-}
-
 .product-card h3 {
+
   color: #674f57;
 
   font-size: 21px;
@@ -238,16 +226,30 @@ nav a:hover {
   margin-bottom: 10px;
 }
 
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
 .product-card p {
+
   color: #8a747b;
 
   margin-bottom: 18px;
+
+  min-height: 28px;
 }
 
+
+/* =========================================
+   PRICE
+========================================= */
+
 .price {
+
   font-size: 22px;
 
-  font-weight: bold;
+  font-weight: 700;
 
   color: #b96f84;
 
@@ -260,6 +262,7 @@ nav a:hover {
 ========================================= */
 
 .buy-button {
+
   display: inline-block;
 
   background: #cf8799;
@@ -276,9 +279,82 @@ nav a:hover {
 }
 
 .buy-button:hover {
-  background: #bd7488;
+
+  background: #bd7188;
 
   transform: translateY(-1px);
+}
+
+
+/* =========================================
+   CATEGORY LABEL
+========================================= */
+
+.category-label {
+
+  display: inline-block;
+
+  background: #fde6ee;
+
+  color: #b96f84;
+
+  padding: 4px 12px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+
+  margin-bottom: 12px;
+
+  text-transform: capitalize;
+}
+
+
+/* =========================================
+   LOADING
+========================================= */
+
+.loading {
+
+  text-align: center;
+
+  padding: 50px 20px;
+
+  color: #9a858b;
+
+  font-size: 16px;
+}
+
+
+/* =========================================
+   EMPTY
+========================================= */
+
+.empty {
+
+  text-align: center;
+
+  padding: 50px 20px;
+
+  color: #9a858b;
+
+  font-size: 16px;
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+.error-message {
+
+  text-align: center;
+
+  padding: 50px 20px;
+
+  color: #a96b82;
+
+  font-size: 16px;
 }
 
 
@@ -287,6 +363,7 @@ nav a:hover {
 ========================================= */
 
 footer {
+
   background: #fce9ee;
 
   text-align: center;
@@ -296,6 +373,8 @@ footer {
   color: #8a747b;
 
   font-size: 14px;
+
+  margin-top: 40px;
 }
 
 
@@ -306,19 +385,42 @@ footer {
 @media (max-width: 700px) {
 
   header {
+
     padding: 20px;
+
+    flex-direction: column;
+
+    gap: 10px;
   }
 
-  nav a {
-    margin-left: 12px;
+  nav {
+
+    gap: 16px;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+  }
+
+  .hero {
+
+    padding: 55px 20px;
   }
 
   .hero h1 {
+
     font-size: 32px;
   }
 
   .product-grid {
+
     grid-template-columns: 1fr;
+  }
+
+  .products {
+
+    padding:
+      50px 20px;
   }
 
 }
@@ -337,9 +439,12 @@ footer {
 
 <header>
 
-  <div class="logo">
+  <a
+    href="index.html"
+    class="logo"
+  >
     KINO
-  </div>
+  </a>
 
 
   <nav>
@@ -352,8 +457,12 @@ footer {
       Shop
     </a>
 
-    <a href="index.html#about">
-      About
+    <a href="cart.html">
+      Cart
+    </a>
+
+    <a href="affiliate.html">
+      Affiliate
     </a>
 
   </nav>
@@ -373,7 +482,7 @@ footer {
   </h1>
 
   <p>
-    Discover all of our cozy digital products.
+    Explore all of our cozy digital products.
   </p>
 
 </section>
@@ -381,7 +490,7 @@ footer {
 
 
 <!-- =========================================
-     ALL PRODUCTS
+     PRODUCTS
 ========================================= -->
 
 <section class="products">
@@ -393,583 +502,22 @@ footer {
     </h2>
 
     <p>
-      Find something cute for your everyday moments ♡
+      Find something cozy for you ♡
     </p>
 
   </div>
 
 
-  <div class="product-grid">
+  <!-- PRODUCTS WILL LOAD HERE -->
 
+  <div
+    id="product-grid"
+    class="product-grid"
+  >
 
-    <!-- =====================================
-         STICKER 01
-    ====================================== -->
-
-    <div class="product-card">
-
-      <img
-        src="https://placehold.co/600x600/ffdfe8/765b63?text=Sticker+Set+01"
-        alt="Sticker Set 01"
-      >
-
-      <div class="product-category">
-        Sticker
-      </div>
-
-      <h3>
-        Sticker Set 01
-      </h3>
-
-      <p>
-        5 sheets · 50 cute stickers
-      </p>
-
-      <div class="price">
-        RM5
-      </div>
-
-      <a
-        href="sticker-set-01.html"
-        class="buy-button"
-      >
-        BUY NOW
-      </a>
-
+    <div class="loading">
+      Loading KINO products... ♡
     </div>
-
-
-
-    <!-- =====================================
-         STICKER 02
-    ====================================== -->
-
-    <div class="product-card">
-
-      <img
-        src="https://placehold.co/600x600/ffdfe8/765b63?text=Sticker+Set+02"
-        alt="Sticker Set 02"
-      >
-
-      <div class="product-category">
-        Sticker
-      </div>
-
-      <h3>
-        Sticker Set 02
-      </h3>
-
-      <p>
-        5 sheets · 50 cute stickers
-      </p>
-
-      <div class="price">
-        RM5
-      </div>
-
-      <a
-        href="sticker-set-02.html"
-        class="buy-button"
-      >
-        BUY NOW
-      </a>
-
-    </div>
-
-
-
-    <!-- =====================================
-         STICKER 03
-    ====================================== -->
-
-    <div class="product-card">
-
-      <img
-        src="https://placehold.co/600x600/ffdfe8/765b63?text=Sticker+Set+03"
-        alt="Sticker Set 03"
-      >
-
-      <div class="product-category">
-        Sticker
-      </div>
-
-      <h3>
-        Sticker Set 03
-      </h3>
-
-      <p>
-        5 sheets · 50 cute stickers
-      </p>
-
-      <div class="price">
-        RM5
-      </div>
-
-      <a
-        href="sticker-set-03.html"
-        class="buy-button"
-      >
-        BUY NOW
-      </a>
-
-    </div>
-
-
-
-    <!-- =====================================
-         STICKER 04
-    ====================================== -->
-
-    <div class="product-card">
-
-      <img
-        src="https://placehold.co/600x600/ffdfe8/765b63?text=Sticker+Set+04"
-        alt="Sticker Set 04"
-      >
-
-      <div class="product-category">
-        Sticker
-      </div>
-
-      <h3>
-        Sticker Set 04
-      </h3>
-
-      <p>
-        5 sheets · 50 cute stickers
-      </p>
-
-      <div class="price">
-        RM5
-      </div>
-
-      <a
-        href="sticker-set-04.html"
-        class="buy-button"
-      >
-        BUY NOW
-      </a>
-
-    </div>
-
-
-
-    <!-- =====================================
-         PLANNER 01
-    ====================================== -->
-
-    <div class="product-card">
-
-      <img
-        src="https://placehold.co/600x600/f9e0e8/765b63?text=Planner+01"
-        alt="Planner 01"
-      >
-
-      <div class="product-category">
-        Planner
-      </div>
-
-      <h3>
-        Planner 01
-      </h3>
-
-      <p>
-        15 pages · Cozy planning
-      </p>
-
-      <div class="price">
-        RM10
-      </div>
-
-      <a
-        href="planner-01.html"
-        class="buy-button"
-      >
-        BUY NOW
-      </a>
-
-    </div>
-
-
-
-    <!-- =====================================
-         PLANNER 02
-    ====================================== -->
-
-    <div class="product-card">
-
-      <img
-        src="https://placehold.co/600x600/f9e0e8/765b63?text=Planner+02"
-        alt="Planner 02"
-      >
-
-      <div class="product-category">
-        Planner
-      </div>
-
-      <h3>
-        Planner 02
-      </h3>
-
-      <p>
-        15 pages · Cozy planning
-      </p>
-
-      <div class="price">
-        RM10
-      </div>
-
-      <a
-        href="planner-02.html"
-        class="buy-button"
-      >
-        BUY NOW
-      </a>
-
-    </div>
-
-
-
-    <!-- =====================================
-         PLANNER 03
-    ====================================== -->
-
-    <div class="product-card">
-
-      <img
-        src="https://placehold.co/600x600/f9e0e8/765b63?text=Planner+03"
-        alt="Planner 03"
-      >
-
-      <div class="product-category">
-        Planner
-      </div>
-
-      <h3>
-        Planner 03
-      </h3>
-
-      <p>
-        15 pages · Cozy planning
-      </p>
-
-      <div class="price">
-        RM10
-      </div>
-
-      <a
-        href="planner-03.html"
-        class="buy-button"
-      >
-        BUY NOW
-      </a>
-
-    </div>
-
-
-
-    <!-- =====================================
-         COLORING 01
-    ====================================== -->
-
-    <div class="product-card">
-
-      <img
-        src="https://placehold.co/600x600/f7e3ed/765b63?text=Coloring+01"
-        alt="Coloring Book 01"
-      >
-
-      <div class="product-category">
-        Coloring
-      </div>
-
-      <h3>
-        Coloring Book 01
-      </h3>
-
-      <p>
-        20 pages · Relax & color
-      </p>
-
-      <div class="price">
-        RM6
-      </div>
-
-      <a
-        href="coloring-01.html"
-        class="buy-button"
-      >
-        BUY NOW
-      </a>
-
-    </div>
-
-
-
-    <!-- =====================================
-         COLORING 02
-    ====================================== -->
-
-    <div class="product-card">
-
-      <img
-        src="https://placehold.co/600x600/f7e3ed/765b63?text=Coloring+02"
-        alt="Coloring Book 02"
-      >
-
-      <div class="product-category">
-        Coloring
-      </div>
-
-      <h3>
-        Coloring Book 02
-      </h3>
-
-      <p>
-        20 pages · Relax & color
-      </p>
-
-      <div class="price">
-        RM6
-      </div>
-
-      <a
-        href="coloring-02.html"
-        class="buy-button"
-      >
-        BUY NOW
-      </a>
-
-    </div>
-
-
-
-    <!-- =====================================
-         COLORING 03
-    ====================================== -->
-
-    <div class="product-card">
-
-      <img
-        src="https://placehold.co/600x600/f7e3ed/765b63?text=Coloring+03"
-        alt="Coloring Book 03"
-      >
-
-      <div class="product-category">
-        Coloring
-      </div>
-
-      <h3>
-        Coloring Book 03
-      </h3>
-
-      <p>
-        20 pages · Relax & color
-      </p>
-
-      <div class="price">
-        RM6
-      </div>
-
-      <a
-        href="coloring-03.html"
-        class="buy-button"
-      >
-        BUY NOW
-      </a>
-
-    </div>
-
-
-
-    <!-- =====================================
-         EDUKIDS 01
-    ====================================== -->
-
-    <div class="product-card">
-
-      <img
-        src="https://placehold.co/600x600/fce5ed/765b63?text=EduKids+01"
-        alt="EduKids Book 01"
-      >
-
-      <div class="product-category">
-        EduKids
-      </div>
-
-      <h3>
-        EduKids Book 01
-      </h3>
-
-      <p>
-        20 pages · Fun learning
-      </p>
-
-      <div class="price">
-        RM8
-      </div>
-
-      <a
-        href="edukids-01.html"
-        class="buy-button"
-      >
-        BUY NOW
-      </a>
-
-    </div>
-
-
-
-    <!-- =====================================
-         EDUKIDS 02
-    ====================================== -->
-
-    <div class="product-card">
-
-      <img
-        src="https://placehold.co/600x600/fce5ed/765b63?text=EduKids+02"
-        alt="EduKids Book 02"
-      >
-
-      <div class="product-category">
-        EduKids
-      </div>
-
-      <h3>
-        EduKids Book 02
-      </h3>
-
-      <p>
-        20 pages · Fun learning
-      </p>
-
-      <div class="price">
-        RM8
-      </div>
-
-      <a
-        href="edukids-02.html"
-        class="buy-button"
-      >
-        BUY NOW
-      </a>
-
-    </div>
-
-
-
-    <!-- =====================================
-         EDUKIDS 03
-    ====================================== -->
-
-    <div class="product-card">
-
-      <img
-        src="https://placehold.co/600x600/fce5ed/765b63?text=EduKids+03"
-        alt="EduKids Book 03"
-      >
-
-      <div class="product-category">
-        EduKids
-      </div>
-
-      <h3>
-        EduKids Book 03
-      </h3>
-
-      <p>
-        20 pages · Fun learning
-      </p>
-
-      <div class="price">
-        RM8
-      </div>
-
-      <a
-        href="edukids-03.html"
-        class="buy-button"
-      >
-        BUY NOW
-      </a>
-
-    </div>
-
-
-
-    <!-- =====================================
-         JOURNAL 01
-    ====================================== -->
-
-    <div class="product-card">
-
-      <img
-        src="https://placehold.co/600x600/f8e2eb/765b63?text=Journal+01"
-        alt="Digital Journal 01"
-      >
-
-      <div class="product-category">
-        Journal
-      </div>
-
-      <h3>
-        Digital Journal 01
-      </h3>
-
-      <p>
-        20 pages · Little thoughts & moments
-      </p>
-
-      <div class="price">
-        RM10
-      </div>
-
-      <a
-        href="journal-01.html"
-        class="buy-button"
-      >
-        BUY NOW
-      </a>
-
-    </div>
-
-
-
-    <!-- =====================================
-         JOURNAL 02
-    ====================================== -->
-
-    <div class="product-card">
-
-      <img
-        src="https://placehold.co/600x600/f8e2eb/765b63?text=Journal+02"
-        alt="Digital Journal 02"
-      >
-
-      <div class="product-category">
-        Journal
-      </div>
-
-      <h3>
-        Digital Journal 02
-      </h3>
-
-      <p>
-        20 pages · Little thoughts & moments
-      </p>
-
-      <div class="price">
-        RM10
-      </div>
-
-      <a
-        href="journal-02.html"
-        class="buy-button"
-      >
-        BUY NOW
-      </a>
-
-    </div>
-
 
   </div>
 
@@ -986,6 +534,336 @@ footer {
   Made for cozy moments ♡
 
 </footer>
+
+
+
+<!-- =========================================
+     SUPABASE
+========================================= -->
+
+<script>
+
+const SUPABASE_URL =
+  "https://vbdgzsapdbpgfcdksdoi.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
+
+
+const {
+  createClient
+} = supabase;
+
+
+const db =
+  createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+
+/* =========================================
+   ELEMENT
+========================================= */
+
+const productGrid =
+  document.getElementById(
+    "product-grid"
+  );
+
+
+/* =========================================
+   CATEGORY NAME
+========================================= */
+
+function formatCategory(category) {
+
+  const names = {
+
+    sticker: "Stickers",
+
+    planner: "Planner",
+
+    coloring: "Coloring",
+
+    edukids: "EduKids",
+
+    journal: "Journal"
+
+  };
+
+
+  return (
+    names[category]
+    ||
+    category
+  );
+
+}
+
+
+/* =========================================
+   LOAD PRODUCTS
+========================================= */
+
+async function loadProducts() {
+
+  try {
+
+    const {
+      data,
+      error
+    } = await db
+      .from("products")
+      .select(
+        "id, category, name, description, price, image_url, product_page"
+      )
+      .eq(
+        "is_active",
+        true
+      )
+      .order(
+        "category",
+        {
+          ascending: true
+        }
+      )
+      .order(
+        "id",
+        {
+          ascending: true
+        }
+      );
+
+
+    if (error) {
+
+      console.error(
+        "PRODUCT ERROR:",
+        error
+      );
+
+      productGrid.innerHTML = `
+        <div class="error-message">
+          Unable to load KINO products right now ♡
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    if (
+      !data ||
+      data.length === 0
+    ) {
+
+      productGrid.innerHTML = `
+        <div class="empty">
+          No products available right now ♡
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    /*
+      Clear loading message
+    */
+
+    productGrid.innerHTML = "";
+
+
+    /*
+      Create product cards
+    */
+
+    data.forEach(product => {
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+      card.className =
+        "product-card";
+
+
+      /*
+        Product image
+      */
+
+      const image =
+        document.createElement(
+          "img"
+        );
+
+      image.src =
+        product.image_url
+        ||
+        "https://placehold.co/600x600/ffdfe8/765b63?text=KINO";
+
+      image.alt =
+        product.name;
+
+
+      /*
+        Category
+      */
+
+      const category =
+        document.createElement(
+          "div"
+        );
+
+      category.className =
+        "category-label";
+
+      category.textContent =
+        formatCategory(
+          product.category
+        );
+
+
+      /*
+        Product name
+      */
+
+      const name =
+        document.createElement(
+          "h3"
+        );
+
+      name.textContent =
+        product.name;
+
+
+      /*
+        Description
+      */
+
+      const description =
+        document.createElement(
+          "p"
+        );
+
+      description.textContent =
+        product.description
+        ||
+        "";
+
+
+      /*
+        Price
+      */
+
+      const price =
+        document.createElement(
+          "div"
+        );
+
+      price.className =
+        "price";
+
+      price.textContent =
+        "RM" +
+        Number(
+          product.price
+        ).toFixed(2);
+
+
+      /*
+        Buy button
+      */
+
+      const button =
+        document.createElement(
+          "a"
+        );
+
+      button.className =
+        "buy-button";
+
+      button.textContent =
+        "BUY NOW";
+
+
+      /*
+        Use the SAME product page
+        stored in database.
+      */
+
+      button.href =
+        product.product_page
+        ||
+        "#";
+
+
+      /*
+        Add everything
+      */
+
+      card.appendChild(
+        image
+      );
+
+      card.appendChild(
+        category
+      );
+
+      card.appendChild(
+        name
+      );
+
+      card.appendChild(
+        description
+      );
+
+      card.appendChild(
+        price
+      );
+
+      card.appendChild(
+        button
+      );
+
+
+      productGrid.appendChild(
+        card
+      );
+
+    });
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "PRODUCT LOAD ERROR:",
+      error
+    );
+
+    productGrid.innerHTML = `
+      <div class="error-message">
+        Something went wrong while loading products ♡
+      </div>
+    `;
+
+  }
+
+}
+
+
+/* =========================================
+   START
+========================================= */
+
+loadProducts();
+
+</script>
 
 
 </body>
