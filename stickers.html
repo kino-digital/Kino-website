@@ -1,232 +1,825 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <title>Digital Stickers | KINO</title>
+<meta charset="UTF-8">
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-        body {
-            font-family: 'Baloo 2', sans-serif;
-            background: #fff8fa;
-            color: #5f4a50;
-            line-height: 1.6;
-        }
+<link
+  href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+>
 
-        header {
-            background: #ffffff;
-            padding: 25px 7%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: #c77f91;
-            letter-spacing: 3px;
-        }
+<title>Digital Stickers | KINO</title>
 
-        nav a {
-            text-decoration: none;
-            color: #6f5b61;
-            margin-left: 25px;
-            font-size: 15px;
-        }
 
-        .hero {
-            background: #fce9ee;
-            text-align: center;
-            padding: 70px 20px;
-            border-radius: 0 0 45px 45px;
-        }
+<style>
 
-        .hero h1 {
-            color: #b96f84;
-            font-size: 42px;
-            margin-bottom: 12px;
-        }
+/* =========================================
+   GLOBAL
+========================================= */
 
-        .hero p {
-            font-size: 17px;
-            color: #806b72;
-        }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-        .products {
-            padding: 65px 7%;
-            max-width: 1200px;
-            margin: auto;
-        }
+body {
+  font-family: 'Baloo 2', sans-serif;
 
-        .products-title {
-            text-align: center;
-            margin-bottom: 40px;
-        }
+  background: #fff8fa;
 
-        .products-title h2 {
-            color: #b96f84;
-            font-size: 30px;
-            margin-bottom: 8px;
-        }
+  color: #5f4a50;
 
-        .products-title p {
-            color: #8a747b;
-        }
+  line-height: 1.6;
+}
 
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-        }
 
-        .product-card {
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 25px;
-            text-align: center;
-            box-shadow: 0 8px 25px rgba(190, 130, 145, 0.08);
-        }
+/* =========================================
+   HEADER
+========================================= */
 
-        .product-card img {
+header {
+
+  background: #ffffff;
+
+  padding: 25px 7%;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+.logo {
+
+  font-size: 28px;
+
+  font-weight: bold;
+
+  color: #c77f91;
+
+  letter-spacing: 3px;
+}
+
+nav {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 25px;
+}
+
+nav a {
+
+  text-decoration: none;
+
+  color: #6f5b61;
+
+  font-size: 15px;
+}
+
+nav a:hover {
+
+  color: #c47794;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero {
+
+  background: #fce9ee;
+
+  text-align: center;
+
+  padding: 70px 20px;
+
+  border-radius:
+    0 0 45px 45px;
+}
+
+.hero h1 {
+
+  color: #b96f84;
+
+  font-size: 42px;
+
+  margin-bottom: 12px;
+}
+
+.hero p {
+
+  font-size: 17px;
+
+  color: #806b72;
+}
+
+
+/* =========================================
+   PRODUCTS
+========================================= */
+
+.products {
+
+  padding: 65px 7%;
+
+  max-width: 1200px;
+
+  margin: auto;
+}
+
+.products-title {
+
+  text-align: center;
+
+  margin-bottom: 40px;
+}
+
+.products-title h2 {
+
+  color: #b96f84;
+
+  font-size: 30px;
+
+  margin-bottom: 8px;
+}
+
+.products-title p {
+
+  color: #8a747b;
+}
+
+
+/* =========================================
+   PRODUCT GRID
+========================================= */
+
+.product-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 25px;
+}
+
+
+/* =========================================
+   PRODUCT CARD
+========================================= */
+
+.product-card {
+
+  background: #ffffff;
+
+  padding: 30px;
+
+  border-radius: 25px;
+
+  text-align: center;
+
+  box-shadow:
+    0 8px 25px
+    rgba(190,130,145,0.08);
+
+  transition: 0.2s;
+}
+
+.product-card:hover {
+
+  transform:
+    translateY(-3px);
+
+  box-shadow:
+    0 10px 30px
+    rgba(190,130,145,0.12);
+}
+
+
+/* =========================================
+   PRODUCT IMAGE
+========================================= */
+
+.product-card img {
+
   width: 100%;
+
   max-width: 180px;
+
   height: 180px;
+
   object-fit: cover;
+
   border-radius: 18px;
+
   margin-bottom: 18px;
 }
-        
-        .product-card h3 {
-            color: #674f57;
-            font-size: 21px;
-            margin-bottom: 10px;
-        }
 
-        .product-card p {
-            color: #8a747b;
-            margin-bottom: 18px;
-        }
 
-        .price {
-            font-size: 22px;
-            font-weight: bold;
-            color: #b96f84;
-            margin-bottom: 18px;
-        }
+/* =========================================
+   PRODUCT NAME
+========================================= */
 
-        .buy-button {
-            display: inline-block;
-            background: #cf8799;
-            color: white;
-            text-decoration: none;
-            padding: 11px 28px;
-            border-radius: 30px;
-            font-size: 14px;
-        }
+.product-card h3 {
 
-        footer {
-            background: #fce9ee;
-            text-align: center;
-            padding: 35px 20px;
-            color: #8a747b;
-            font-size: 14px;
-        }
+  color: #674f57;
 
-        @media (max-width: 700px) {
-            header {
-                padding: 20px;
-            }
+  font-size: 21px;
 
-            nav a {
-                margin-left: 12px;
-            }
+  margin-bottom: 10px;
+}
 
-            .hero h1 {
-                font-size: 32px;
-            }
 
-            .product-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.product-card p {
+
+  color: #8a747b;
+
+  margin-bottom: 18px;
+}
+
+
+/* =========================================
+   PRICE
+========================================= */
+
+.price {
+
+  font-size: 22px;
+
+  font-weight: bold;
+
+  color: #b96f84;
+
+  margin-bottom: 18px;
+}
+
+
+/* =========================================
+   BUY BUTTON
+========================================= */
+
+.buy-button {
+
+  display: inline-block;
+
+  background: #cf8799;
+
+  color: white;
+
+  text-decoration: none;
+
+  padding: 11px 28px;
+
+  border-radius: 30px;
+
+  font-size: 14px;
+
+  transition: 0.2s;
+}
+
+.buy-button:hover {
+
+  background: #bd7188;
+
+  transform:
+    translateY(-1px);
+}
+
+
+/* =========================================
+   CATEGORY LABEL
+========================================= */
+
+.category-label {
+
+  display: inline-block;
+
+  background: #fde6ee;
+
+  color: #b96f84;
+
+  padding: 4px 12px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+
+  margin-bottom: 12px;
+}
+
+
+/* =========================================
+   LOADING
+========================================= */
+
+.loading {
+
+  grid-column: 1 / -1;
+
+  text-align: center;
+
+  padding: 50px 20px;
+
+  color: #9a858b;
+
+  font-size: 16px;
+}
+
+
+/* =========================================
+   EMPTY / ERROR
+========================================= */
+
+.message {
+
+  grid-column: 1 / -1;
+
+  text-align: center;
+
+  padding: 50px 20px;
+
+  color: #9a858b;
+
+  font-size: 16px;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+
+  background: #fce9ee;
+
+  text-align: center;
+
+  padding: 35px 20px;
+
+  color: #8a747b;
+
+  font-size: 14px;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+  header {
+
+    padding: 20px;
+
+    flex-direction: column;
+
+    gap: 10px;
+  }
+
+  nav {
+
+    gap: 16px;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+  }
+
+  .hero h1 {
+
+    font-size: 32px;
+  }
+
+  .product-grid {
+
+    grid-template-columns: 1fr;
+  }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-    <header>
-        <div class="logo">KINO</div>
 
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="index.html#shop">Shop</a>
-            <a href="index.html#about">About</a>
-        </nav>
-    </header>
+<!-- =========================================
+     HEADER
+========================================= -->
 
-    <section class="hero">
-        <h1>Digital Stickers ♡</h1>
-        <p>Cute digital stickers for your cozy little moments.</p>
-    </section>
+<header>
 
-    <section class="products">
+  <a
+    href="index.html"
+    class="logo"
+  >
+    KINO
+  </a>
 
-        <div class="products-title">
-            <h2>Sticker Collection</h2>
-            <p>Choose your favourite KINO sticker set ♡</p>
+
+  <nav>
+
+    <a href="index.html">
+      Home
+    </a>
+
+    <a href="shop.html">
+      Shop
+    </a>
+
+    <a href="cart.html">
+      Cart
+    </a>
+
+    <a href="affiliate.html">
+      Affiliate
+    </a>
+
+  </nav>
+
+</header>
+
+
+
+<!-- =========================================
+     HERO
+========================================= -->
+
+<section class="hero">
+
+  <h1>
+    Digital Stickers ♡
+  </h1>
+
+  <p>
+    Cute digital stickers for your cozy little moments.
+  </p>
+
+</section>
+
+
+
+<!-- =========================================
+     PRODUCTS
+========================================= -->
+
+<section class="products">
+
+  <div class="products-title">
+
+    <h2>
+      Sticker Collection
+    </h2>
+
+    <p>
+      Choose your favourite KINO sticker set ♡
+    </p>
+
+  </div>
+
+
+  <div
+    id="product-grid"
+    class="product-grid"
+  >
+
+    <div class="loading">
+      Loading stickers... ♡
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
+<footer>
+
+  Made for cozy moments ♡
+
+</footer>
+
+
+
+<!-- =========================================
+     SUPABASE
+========================================= -->
+
+<script>
+
+const SUPABASE_URL =
+  "https://vbdgzsapdbpgfcdksdoi.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
+
+
+const {
+  createClient
+} = supabase;
+
+
+const db =
+  createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+
+/* =========================================
+   PRODUCT GRID
+========================================= */
+
+const productGrid =
+  document.getElementById(
+    "product-grid"
+  );
+
+
+/* =========================================
+   LOAD STICKER PRODUCTS
+========================================= */
+
+async function loadStickerProducts() {
+
+  try {
+
+    const {
+      data,
+      error
+    } = await db
+
+      .from("products")
+
+      .select(
+        "id, category, name, description, price, image_url, product_page"
+      )
+
+      .eq(
+        "category",
+        "sticker"
+      )
+
+      .eq(
+        "is_active",
+        true
+      )
+
+      .order(
+        "id",
+        {
+          ascending: true
+        }
+      );
+
+
+    /* =====================================
+       ERROR
+    ===================================== */
+
+    if (error) {
+
+      console.error(
+        "STICKER PRODUCT ERROR:",
+        error
+      );
+
+      productGrid.innerHTML = `
+        <div class="message">
+          Unable to load sticker products right now ♡
         </div>
+      `;
 
-        <div class="product-grid">
+      return;
 
-            <div class="product-card">
-                <img src="https://placehold.co/600x600/ffdfe8/765b63?text=Sticker+Set+01" alt="Sticker Set 01">
-                <h3>Sticker Set 01</h3>
-                <p>5 sheets · 50 cute stickers</p>
-                <div class="price">RM5</div>
-                <a href="sticker-set-01.html" class="buy-button">BUY NOW</a>
-            </div>
+    }
 
-            <div class="product-card">
-                <img src="https://placehold.co/600x600/ffdfe8/765b63?text=Sticker+Set+02" alt="Sticker Set 02">
-                <h3>Sticker Set 02</h3>
-                <p>5 sheets · 50 cute stickers</p>
-                <div class="price">RM5</div>
-                <a href="sticker-set-02.html" class="buy-button">BUY NOW</a>
-            </div>
 
-            <div class="product-card">
-                <img src="https://placehold.co/600x600/ffdfe8/765b63?text=Sticker+Set+03" alt="Sticker Set 03">
-                <h3>Sticker Set 03</h3>
-                <p>5 sheets · 50 cute stickers</p>
-                <div class="price">RM5</div>
-                <a href="sticker-set-03.html" class="buy-button">BUY NOW</a>
-            </div>
+    /* =====================================
+       NO PRODUCTS
+    ===================================== */
 
-            <div class="product-card">
-                <img src="https://placehold.co/600x600/ffdfe8/765b63?text=Sticker+Set+04" alt="Sticker Set 04">
-                <h3>Sticker Set 04</h3>
-                <p>5 sheets · 50 cute stickers</p>
-                <div class="price">RM5</div>
-                <a href="sticker-set-04.html" class="buy-button">BUY NOW</a>
-            </div>
+    if (
+      !data ||
+      data.length === 0
+    ) {
 
+      productGrid.innerHTML = `
+        <div class="message">
+          No sticker products available right now ♡
         </div>
+      `;
 
-    </section>
+      return;
 
-    <footer>
-        Made for cozy moments ♡
-    </footer>
+    }
+
+
+    /* =====================================
+       CLEAR LOADING
+    ===================================== */
+
+    productGrid.innerHTML = "";
+
+
+    /* =====================================
+       CREATE CARDS
+    ===================================== */
+
+    data.forEach(product => {
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+      card.className =
+        "product-card";
+
+
+      /* IMAGE */
+
+      const image =
+        document.createElement(
+          "img"
+        );
+
+      image.src =
+        product.image_url
+        ||
+        "https://placehold.co/600x600/ffdfe8/765b63?text=KINO";
+
+      image.alt =
+        product.name;
+
+
+      /* CATEGORY */
+
+      const category =
+        document.createElement(
+          "div"
+        );
+
+      category.className =
+        "category-label";
+
+      category.textContent =
+        "Stickers";
+
+
+      /* NAME */
+
+      const name =
+        document.createElement(
+          "h3"
+        );
+
+      name.textContent =
+        product.name;
+
+
+      /* DESCRIPTION */
+
+      const description =
+        document.createElement(
+          "p"
+        );
+
+      description.textContent =
+        product.description
+        ||
+        "";
+
+
+      /* PRICE */
+
+      const price =
+        document.createElement(
+          "div"
+        );
+
+      price.className =
+        "price";
+
+      price.textContent =
+        "RM" +
+        Number(
+          product.price
+        ).toFixed(2);
+
+
+      /* BUY BUTTON */
+
+      const button =
+        document.createElement(
+          "a"
+        );
+
+      button.className =
+        "buy-button";
+
+      button.textContent =
+        "BUY NOW";
+
+
+      /*
+        Product page is stored
+        inside database.
+      */
+
+      button.href =
+        product.product_page
+        ||
+        "#";
+
+
+      /* ADD TO CARD */
+
+      card.appendChild(
+        image
+      );
+
+      card.appendChild(
+        category
+      );
+
+      card.appendChild(
+        name
+      );
+
+      card.appendChild(
+        description
+      );
+
+      card.appendChild(
+        price
+      );
+
+      card.appendChild(
+        button
+      );
+
+
+      productGrid.appendChild(
+        card
+      );
+
+    });
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "STICKER LOAD ERROR:",
+      error
+    );
+
+    productGrid.innerHTML = `
+      <div class="message">
+        Something went wrong while loading stickers ♡
+      </div>
+    `;
+
+  }
+
+}
+
+
+/* =========================================
+   START
+========================================= */
+
+loadStickerProducts();
+
+</script>
+
 
 </body>
+
 </html>
