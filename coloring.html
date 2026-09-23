@@ -28,7 +28,6 @@
       padding: 0;
     }
 
-
     body {
       font-family: 'Baloo 2', sans-serif;
       background: #fff8fa;
@@ -37,98 +36,162 @@
     }
 
 
+    /* =========================
+       HEADER
+    ========================= */
+
     header {
       background: #ffffff;
+
       padding: 25px 7%;
 
       display: flex;
       justify-content: space-between;
       align-items: center;
-
-      box-shadow:
-        0 2px 12px rgba(190,130,150,0.06);
     }
-
 
     .logo {
-      font-size: 26px;
+      text-decoration: none;
+
+      font-size: 28px;
       font-weight: 700;
+
       color: #c47794;
-      letter-spacing: 2px;
+
+      letter-spacing: 3px;
     }
 
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
 
     nav a {
       text-decoration: none;
-      color: #5f4a50;
-      margin-left: 20px;
-      font-size: 14px;
+      color: #6f5b61;
+      font-size: 15px;
     }
-
 
     nav a:hover {
       color: #c47794;
     }
 
 
-    .products {
-      max-width: 1100px;
-      margin: 50px auto;
-      padding: 20px;
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      background: #fce9ee;
+
       text-align: center;
+
+      padding: 70px 20px;
+
+      border-radius:
+        0 0 45px 45px;
+    }
+
+    .hero h1 {
+      color: #b96f84;
+
+      font-size: 42px;
+
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      font-size: 17px;
+
+      color: #806b72;
     }
 
 
-    h1 {
-      color: #b96f8a;
-      font-size: 34px;
-      margin-bottom: 10px;
+    /* =========================
+       PRODUCTS
+    ========================= */
+
+    .products {
+      padding: 65px 7%;
+
+      max-width: 1200px;
+
+      margin: auto;
     }
 
+    .products-title {
+      text-align: center;
 
-    .intro {
+      margin-bottom: 40px;
+    }
+
+    .products-title h2 {
+      color: #b96f84;
+
+      font-size: 30px;
+
+      margin-bottom: 8px;
+    }
+
+    .products-title p {
       color: #8a747b;
-      margin-bottom: 35px;
-      font-size: 16px;
     }
 
+
+    /* =========================
+       PRODUCT GRID
+    ========================= */
 
     .product-grid {
       display: grid;
 
       grid-template-columns:
-        repeat(auto-fit, minmax(220px, 1fr));
+        repeat(2, 1fr);
 
       gap: 25px;
     }
 
 
+    /* =========================
+       PRODUCT CARD
+    ========================= */
+
     .product-card {
       background: #ffffff;
 
-      padding: 25px;
+      padding: 30px;
 
       border-radius: 25px;
 
+      text-align: center;
+
       box-shadow:
-        0 5px 18px
-        rgba(190,130,150,0.12);
+        0 8px 25px
+        rgba(190,130,145,0.08);
 
       transition: 0.2s;
     }
 
-
     .product-card:hover {
-      transform: translateY(-3px);
+      transform:
+        translateY(-3px);
 
       box-shadow:
-        0 8px 22px
-        rgba(190,130,150,0.16);
+        0 10px 30px
+        rgba(190,130,145,0.12);
     }
 
 
+    /* =========================
+       IMAGE
+    ========================= */
+
     .product-card img {
       width: 100%;
+
+      max-width: 180px;
+
       height: 180px;
 
       object-fit: cover;
@@ -139,83 +202,134 @@
     }
 
 
-    .product-card h2 {
-      color: #b96f8a;
+    /* =========================
+       CATEGORY
+    ========================= */
 
-      font-size: 22px;
+    .category-label {
+      display: inline-block;
 
-      margin-bottom: 5px;
+      background: #fde6ee;
+
+      color: #b96f84;
+
+      padding: 4px 12px;
+
+      border-radius: 20px;
+
+      font-size: 12px;
+
+      margin-bottom: 12px;
     }
 
+
+    /* =========================
+       NAME
+    ========================= */
+
+    .product-card h3 {
+      color: #674f57;
+
+      font-size: 21px;
+
+      margin-bottom: 10px;
+    }
+
+
+    /* =========================
+       DESCRIPTION
+    ========================= */
 
     .product-card p {
       color: #8a747b;
 
-      margin-bottom: 15px;
+      margin-bottom: 18px;
     }
 
+
+    /* =========================
+       PRICE
+    ========================= */
 
     .price {
-      color: #b96f8a;
-
       font-size: 22px;
 
-      font-weight: 700;
+      font-weight: bold;
 
-      margin-bottom: 15px;
+      color: #b96f84;
+
+      margin-bottom: 18px;
     }
 
 
-    .buy-button {
+    /* =========================
+       VIEW DETAILS BUTTON
+    ========================= */
+
+    .details-button {
       display: inline-block;
 
-      background: #d9829e;
+      background: #f4d4df;
 
-      color: white;
+      color: #a96b82;
 
       text-decoration: none;
 
-      padding: 10px 25px;
+      padding: 10px 24px;
 
       border-radius: 30px;
 
-      font-size: 15px;
+      font-size: 14px;
 
       transition: 0.2s;
     }
 
+    .details-button:hover {
+      background: #ecc3d2;
 
-    .buy-button:hover {
-      background: #c97491;
-
-      transform: translateY(-1px);
+      transform:
+        translateY(-1px);
     }
 
 
+    /* =========================
+       LOADING / MESSAGE
+    ========================= */
+
     .loading,
-    .empty {
+    .message {
+      grid-column: 1 / -1;
+
+      text-align: center;
+
+      padding: 50px 20px;
+
       color: #9a858b;
 
       font-size: 16px;
-
-      padding: 40px;
     }
 
 
+    /* =========================
+       FOOTER
+    ========================= */
+
     footer {
-      margin-top: 70px;
-
-      background: #fde6ee;
-
-      padding: 25px;
+      background: #fce9ee;
 
       text-align: center;
+
+      padding: 35px 20px;
 
       color: #8a747b;
 
       font-size: 14px;
     }
 
+
+    /* =========================
+       MOBILE
+    ========================= */
 
     @media (max-width: 700px) {
 
@@ -227,19 +341,20 @@
         gap: 10px;
       }
 
+      nav {
+        gap: 16px;
 
-      nav a {
-        margin-left: 12px;
+        flex-wrap: wrap;
+
+        justify-content: center;
       }
 
-
-      h1 {
+      .hero h1 {
         font-size: 32px;
       }
 
-
-      .products {
-        margin-top: 35px;
+      .product-grid {
+        grid-template-columns: 1fr;
       }
 
     }
@@ -252,306 +367,399 @@
 <body>
 
 
-<!-- =========================================
-     HEADER
-========================================= -->
+  <!-- =========================
+       HEADER
+  ========================= -->
 
-<header>
+  <header>
 
-  <a
-    href="index.html"
-    class="logo"
-  >
-    KINO
-  </a>
-
-
-  <nav>
-
-    <a href="index.html">
-      Home
+    <a
+      href="index.html"
+      class="logo"
+    >
+      KINO
     </a>
 
-    <a href="shop.html">
-      Shop
-    </a>
 
-    <a href="index.html#about">
-      About
-    </a>
+    <nav>
 
-  </nav>
+      <a href="index.html">
+        Home
+      </a>
 
-</header>
+      <a href="shop.html">
+        Shop
+      </a>
 
+      <a href="cart.html">
+        Cart
+      </a>
 
+      <a href="affiliate.html">
+        Affiliate
+      </a>
 
-<!-- =========================================
-     PRODUCTS
-========================================= -->
+    </nav>
 
-<main class="products">
-
-  <h1>
-    Coloring Pages ♡
-  </h1>
-
-
-  <p class="intro">
-    Simple and cozy coloring pages for relaxing little moments.
-  </p>
+  </header>
 
 
-  <div
-    id="product-grid"
-    class="product-grid"
-  >
 
-    <div class="loading">
-      Loading KINO coloring books ♡
+  <!-- =========================
+       HERO
+  ========================= -->
+
+  <section class="hero">
+
+    <h1>
+      Coloring Pages ♡
+    </h1>
+
+    <p>
+      Simple and cozy coloring pages for relaxing little moments.
+    </p>
+
+  </section>
+
+
+
+  <!-- =========================
+       PRODUCTS
+  ========================= -->
+
+  <section class="products">
+
+    <div class="products-title">
+
+      <h2>
+        Coloring Collection
+      </h2>
+
+      <p>
+        Choose your favourite KINO coloring book ♡
+      </p>
+
     </div>
 
-  </div>
 
-</main>
+    <div
+      id="product-grid"
+      class="product-grid"
+    >
 
+      <div class="loading">
+        Loading coloring products... ♡
+      </div>
 
+    </div>
 
-<!-- =========================================
-     FOOTER
-========================================= -->
-
-<footer>
-
-  Made for cozy moments ♡
-
-</footer>
+  </section>
 
 
 
-<!-- =========================================
-     SUPABASE
-========================================= -->
+  <!-- =========================
+       FOOTER
+  ========================= -->
 
-<script>
+  <footer>
 
-const SUPABASE_URL =
-  "https://vbdgzsapdbpgfcdksdoi.supabase.co";
+    Made for cozy moments ♡
 
-
-const SUPABASE_PUBLISHABLE_KEY =
-  "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
-
-
-const {
-  createClient
-} = supabase;
-
-
-const db =
-  createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-  );
+  </footer>
 
 
 
-/* =========================================
-   ELEMENT
-========================================= */
+  <!-- =========================
+       SUPABASE
+  ========================= -->
 
-const productGrid =
-  document.getElementById(
-    "product-grid"
-  );
+  <script>
+
+    const SUPABASE_URL =
+      "https://vbdgzsapdbpgfcdksdoi.supabase.co";
 
 
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
 
-/* =========================================
-   LOAD COLORING PRODUCTS
-========================================= */
-
-async function loadColoringProducts() {
-
-  try {
 
     const {
-      data,
-      error
-    } = await db
-      .from("products")
-      .select(`
-        id,
-        category,
-        name,
-        description,
-        price,
-        image_url,
-        product_page
-      `)
-      .eq(
-        "category",
-        "coloring"
-      )
-      .eq(
-        "is_active",
-        true
-      )
-      .order(
-        "id",
-        {
-          ascending: true
-        }
+      createClient
+    } = supabase;
+
+
+    const db =
+      createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
       );
 
 
-    if (error) {
-
-      console.error(
-        "COLORING PRODUCTS ERROR:",
-        error
+    const productGrid =
+      document.getElementById(
+        "product-grid"
       );
 
-      productGrid.innerHTML = `
-        <div class="empty">
-          Unable to load products right now ♡
-        </div>
-      `;
 
-      return;
+    /* =========================
+       LOAD COLORING PRODUCTS
+    ========================= */
 
-    }
+    async function loadColoringProducts() {
 
+      try {
 
-    if (
-      !data ||
-      data.length === 0
-    ) {
+        const {
+          data,
+          error
+        } = await db
 
-      productGrid.innerHTML = `
-        <div class="empty">
-          No coloring products available right now ♡
-        </div>
-      `;
+          .from("products")
 
-      return;
+          .select(
+            "id, category, name, description, price, image_url, product_page"
+          )
 
-    }
+          .eq(
+            "category",
+            "coloring"
+          )
 
+          .eq(
+            "is_active",
+            true
+          )
 
-    productGrid.innerHTML =
-      data
-        .map(product => {
-
-          const price =
-            Number(product.price)
-              .toFixed(2)
-              .replace(
-                ".00",
-                ""
-              );
+          .order(
+            "id",
+            {
+              ascending: true
+            }
+          );
 
 
-          return `
+        /* =========================
+           ERROR
+        ========================= */
 
-            <div class="product-card">
+        if (error) {
 
-              <img
-                src="${product.image_url || 'https://placehold.co/600x600/f7e3ed/765b63?text=KINO+Coloring'}"
-                alt="${escapeHtml(product.name)}"
-              >
+          console.error(
+            "COLORING PRODUCT ERROR:",
+            error
+          );
 
-              <h2>
-                ${escapeHtml(product.name)}
-              </h2>
-
-              <p>
-                ${escapeHtml(product.description || '')}
-              </p>
-
-              <div class="price">
-                RM${price}
-              </div>
-
-              <a
-                href="${product.product_page}"
-                class="buy-button"
-              >
-                BUY NOW
-              </a>
-
+          productGrid.innerHTML = `
+            <div class="message">
+              Unable to load coloring products right now ♡
             </div>
-
           `;
 
-        })
-        .join("");
+          return;
 
-  }
-
-  catch (error) {
-
-    console.error(
-      "COLORING ERROR:",
-      error
-    );
-
-    productGrid.innerHTML = `
-      <div class="empty">
-        Unable to load products right now ♡
-      </div>
-    `;
-
-  }
-
-}
+        }
 
 
+        /* =========================
+           NO PRODUCTS
+        ========================= */
 
-/* =========================================
-   HTML ESCAPE
-========================================= */
+        if (
+          !data ||
+          data.length === 0
+        ) {
 
-function escapeHtml(value) {
+          productGrid.innerHTML = `
+            <div class="message">
+              No coloring products available right now ♡
+            </div>
+          `;
 
-  return String(value)
+          return;
 
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-
-    .replace(
-      /</g,
-      "&lt;"
-    )
-
-    .replace(
-      />/g,
-      "&gt;"
-    )
-
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
+        }
 
 
+        /* =========================
+           CLEAR LOADING
+        ========================= */
 
-/* =========================================
-   START
-========================================= */
+        productGrid.innerHTML = "";
 
-loadColoringProducts();
 
-</script>
+        /* =========================
+           CREATE CARDS
+        ========================= */
+
+        data.forEach(
+          product => {
+
+            const card =
+              document.createElement(
+                "div"
+              );
+
+            card.className =
+              "product-card";
+
+
+            /* IMAGE */
+
+            const image =
+              document.createElement(
+                "img"
+              );
+
+            image.src =
+              product.image_url
+              ||
+              "https://placehold.co/600x600/ffdfe8/765b63?text=KINO";
+
+            image.alt =
+              product.name;
+
+
+            /* CATEGORY */
+
+            const category =
+              document.createElement(
+                "div"
+              );
+
+            category.className =
+              "category-label";
+
+            category.textContent =
+              "Coloring";
+
+
+            /* NAME */
+
+            const name =
+              document.createElement(
+                "h3"
+              );
+
+            name.textContent =
+              product.name;
+
+
+            /* DESCRIPTION */
+
+            const description =
+              document.createElement(
+                "p"
+              );
+
+            description.textContent =
+              product.description
+              ||
+              "";
+
+
+            /* PRICE */
+
+            const price =
+              document.createElement(
+                "div"
+              );
+
+            price.className =
+              "price";
+
+            price.textContent =
+              "RM" +
+              Number(
+                product.price
+              ).toFixed(2);
+
+
+            /* VIEW DETAILS */
+
+            const button =
+              document.createElement(
+                "a"
+              );
+
+            button.className =
+              "details-button";
+
+            button.textContent =
+              "VIEW DETAILS";
+
+
+            /*
+              Product detail page
+              is stored in Supabase.
+            */
+
+            button.href =
+              product.product_page
+              ||
+              "#";
+
+
+            /* ADD TO CARD */
+
+            card.appendChild(
+              image
+            );
+
+            card.appendChild(
+              category
+            );
+
+            card.appendChild(
+              name
+            );
+
+            card.appendChild(
+              description
+            );
+
+            card.appendChild(
+              price
+            );
+
+            card.appendChild(
+              button
+            );
+
+
+            productGrid.appendChild(
+              card
+            );
+
+          }
+        );
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "COLORING LOAD ERROR:",
+          error
+        );
+
+        productGrid.innerHTML = `
+          <div class="message">
+            Something went wrong while loading coloring products ♡
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    /* =========================
+       START
+    ========================= */
+
+    loadColoringProducts();
+
+  </script>
 
 
 </body>
