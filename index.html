@@ -299,6 +299,192 @@ nav a:hover {
 
 
 /* =========================================
+   KINO CLOSED MODAL
+========================================= */
+
+.closed-modal-overlay {
+
+  position: fixed;
+
+  inset: 0;
+
+  background:
+    rgba(117, 82, 94, 0.35);
+
+  backdrop-filter: blur(4px);
+
+  -webkit-backdrop-filter: blur(4px);
+
+  display: none;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 20px;
+
+  z-index: 9999;
+
+}
+
+.closed-modal-overlay.show {
+
+  display: flex;
+
+}
+
+
+.closed-modal {
+
+  width: 100%;
+
+  max-width: 390px;
+
+  background: #ffffff;
+
+  border-radius: 28px;
+
+  padding: 30px 25px 25px;
+
+  text-align: center;
+
+  box-shadow:
+    0 15px 45px
+    rgba(120, 80, 95, 0.20);
+
+  animation:
+    kinoModalIn
+    0.22s ease-out;
+
+}
+
+
+@keyframes kinoModalIn {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      scale(0.94)
+      translateY(10px);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      scale(1)
+      translateY(0);
+
+  }
+
+}
+
+
+.closed-modal-heart {
+
+  width: 62px;
+
+  height: 62px;
+
+  margin: 0 auto 18px;
+
+  border-radius: 50%;
+
+  background: #fde6ee;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: #c47794;
+
+  font-size: 30px;
+
+}
+
+
+.closed-modal h2 {
+
+  color: #b96f8a;
+
+  font-size: 22px;
+
+  line-height: 1.3;
+
+  margin-bottom: 12px;
+
+}
+
+
+.closed-modal p {
+
+  color: #8a747b;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+
+  margin-bottom: 8px;
+
+}
+
+
+.closed-modal-hours {
+
+  color: #b96f8a;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  margin: 14px 0 22px;
+
+}
+
+
+.closed-modal-button {
+
+  width: 100%;
+
+  border: none;
+
+  background: #d9829e;
+
+  color: white;
+
+  padding: 13px 20px;
+
+  border-radius: 25px;
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+
+}
+
+
+.closed-modal-button:hover {
+
+  background: #c97491;
+
+  transform: translateY(-1px);
+
+}
+
+
+/* =========================================
    FOOTER
 ========================================= */
 
@@ -401,15 +587,29 @@ footer {
       Home
     </a>
 
-    <a href="shop.html">
+
+    <!-- SHOP -->
+    <a
+      href="shop.html"
+      class="store-purchase-link"
+    >
       Shop
     </a>
 
-    <a href="cart.html">
+
+    <!-- CART -->
+    <a
+      href="cart.html"
+      class="store-purchase-link"
+    >
       Cart
     </a>
 
-    <!-- Affiliate kekal -->
+
+    <!--
+      AFFILIATE KEKAL BOLEH BUKA
+      WALAU KINO CLOSED
+    -->
     <a href="affiliate.html">
       Affiliate
     </a>
@@ -463,24 +663,31 @@ footer {
 
 
   <a
-  href="shop.html"
-  class="hero-button"
-  id="shop-button"
->
-  SHOP NOW
-</a>
+    href="shop.html"
+    class="hero-button store-purchase-link"
+    id="shop-button"
+  >
+    SHOP NOW
+  </a>
+
 
   <div
     id="closed-note"
     class="closed-note"
   >
+
     KINO is currently closed for today ♡
+
     <br>
+
     Please come back during our opening hours.
+
     <br>
-     <strong>
-            OPEN 8AM - 10PM
-          </strong>
+
+    <strong>
+      OPEN 8AM - 10PM
+    </strong>
+
   </div>
 
 </section>
@@ -620,6 +827,56 @@ footer {
 
 
 <!-- =========================================
+     KINO CLOSED POPUP
+========================================= -->
+
+<div
+  id="closed-modal-overlay"
+  class="closed-modal-overlay"
+>
+
+  <div
+    class="closed-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="closed-modal-title"
+  >
+
+    <div class="closed-modal-heart">
+      ♡
+    </div>
+
+
+    <h2 id="closed-modal-title">
+      KINO IS CURRENTLY CLOSED ♡
+    </h2>
+
+
+    <p>
+      Please come back during our opening hours.
+    </p>
+
+
+    <div class="closed-modal-hours">
+      OPEN 8AM - 10PM
+    </div>
+
+
+    <button
+      type="button"
+      class="closed-modal-button"
+      id="closed-modal-button"
+    >
+      OKAY ♡
+    </button>
+
+  </div>
+
+</div>
+
+
+
+<!-- =========================================
      FOOTER
 ========================================= -->
 
@@ -673,10 +930,92 @@ const closedNote =
     "closed-note"
   );
 
-const shopButton =
+const closedModalOverlay =
   document.getElementById(
-    "shop-button"
+    "closed-modal-overlay"
   );
+
+const closedModalButton =
+  document.getElementById(
+    "closed-modal-button"
+  );
+
+
+/* =========================================
+   KINO CLOSED POPUP
+========================================= */
+
+function showClosedPopup() {
+
+  closedModalOverlay.classList.add(
+    "show"
+  );
+
+}
+
+
+function hideClosedPopup() {
+
+  closedModalOverlay.classList.remove(
+    "show"
+  );
+
+}
+
+
+/* =========================================
+   CLOSE POPUP BUTTON
+========================================= */
+
+closedModalButton.addEventListener(
+  "click",
+  function() {
+
+    hideClosedPopup();
+
+  }
+);
+
+
+/* =========================================
+   CLICK OUTSIDE POPUP
+========================================= */
+
+closedModalOverlay.addEventListener(
+  "click",
+  function(event) {
+
+    if (
+      event.target ===
+      closedModalOverlay
+    ) {
+
+      hideClosedPopup();
+
+    }
+
+  }
+);
+
+
+/* =========================================
+   ESC KEY
+========================================= */
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (
+      event.key === "Escape"
+    ) {
+
+      hideClosedPopup();
+
+    }
+
+  }
+);
 
 
 /* =========================================
@@ -696,15 +1035,19 @@ function setStoreOpen() {
   statusText.textContent =
     "KINO is OPEN";
 
+
   closedNote.style.display =
     "none";
 
-  shopButton.style.display =
-    "inline-block";
 
+  /*
+    Enable all purchase/shop links.
+  */
 
   document
-    .querySelectorAll(".shop-link")
+    .querySelectorAll(
+      ".store-purchase-link"
+    )
     .forEach(link => {
 
       link.style.pointerEvents =
@@ -712,6 +1055,33 @@ function setStoreOpen() {
 
       link.style.opacity =
         "1";
+
+      link.removeAttribute(
+        "aria-disabled"
+      );
+
+    });
+
+
+  /*
+    Enable category links.
+  */
+
+  document
+    .querySelectorAll(
+      ".shop-link"
+    )
+    .forEach(link => {
+
+      link.style.pointerEvents =
+        "auto";
+
+      link.style.opacity =
+        "1";
+
+      link.removeAttribute(
+        "aria-disabled"
+      );
 
     });
 
@@ -735,22 +1105,58 @@ function setStoreClosed() {
   statusText.textContent =
     "KINO is CLOSED";
 
+
   closedNote.style.display =
     "block";
 
-  shopButton.style.display =
-    "none";
 
+  /*
+    Disable Shop / Cart / Shop Now.
+    
+    Affiliate is NOT included here.
+    Affiliate dashboard remains accessible.
+  */
 
   document
-    .querySelectorAll(".shop-link")
+    .querySelectorAll(
+      ".store-purchase-link"
+    )
     .forEach(link => {
 
       link.style.pointerEvents =
-        "none";
+        "auto";
 
       link.style.opacity =
         "0.55";
+
+      link.setAttribute(
+        "aria-disabled",
+        "true"
+      );
+
+    });
+
+
+  /*
+    Disable product categories.
+  */
+
+  document
+    .querySelectorAll(
+      ".shop-link"
+    )
+    .forEach(link => {
+
+      link.style.pointerEvents =
+        "auto";
+
+      link.style.opacity =
+        "0.55";
+
+      link.setAttribute(
+        "aria-disabled",
+        "true"
+      );
 
     });
 
@@ -758,23 +1164,85 @@ function setStoreClosed() {
 
 
 /* =========================================
-   LOAD STORE STATUS
+   BLOCK PURCHASE LINKS WHEN CLOSED
 ========================================= */
 
-async function loadStoreStatus() {
+document
+  .querySelectorAll(
+    ".store-purchase-link"
+  )
+  .forEach(link => {
+
+    link.addEventListener(
+      "click",
+      async function(event) {
+
+        /*
+          Always check current store status
+          before allowing navigation.
+        */
+
+        const isOpen =
+          await getCurrentStoreStatus();
+
+
+        if (!isOpen) {
+
+          event.preventDefault();
+
+          showClosedPopup();
+
+          return;
+
+        }
+
+      }
+    );
+
+  });
+
+
+/* =========================================
+   BLOCK CATEGORY LINKS WHEN CLOSED
+========================================= */
+
+document
+  .querySelectorAll(
+    ".shop-link"
+  )
+  .forEach(link => {
+
+    link.addEventListener(
+      "click",
+      async function(event) {
+
+        const isOpen =
+          await getCurrentStoreStatus();
+
+
+        if (!isOpen) {
+
+          event.preventDefault();
+
+          showClosedPopup();
+
+          return;
+
+        }
+
+      }
+    );
+
+  });
+
+
+/* =========================================
+   GET CURRENT STORE STATUS
+========================================= */
+
+async function getCurrentStoreStatus() {
 
   try {
-
-    /*
-      IMPORTANT:
-      Home calls the SQL function.
-
-      This means the status is calculated
-      by Supabase using Malaysia time.
-
-      It also reads the emergency setting
-      controlled from Admin.
-    */
 
     const {
       data,
@@ -792,9 +1260,65 @@ async function loadStoreStatus() {
       );
 
       /*
-        If Supabase temporarily fails,
-        use the normal automatic schedule.
+        If Supabase cannot be reached,
+        use Malaysia automatic schedule.
       */
+
+      return getAutomaticStoreStatus();
+
+    }
+
+
+    if (
+      !data ||
+      typeof data.is_open === "undefined"
+    ) {
+
+      return getAutomaticStoreStatus();
+
+    }
+
+
+    return data.is_open === true;
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "STORE STATUS ERROR:",
+      error
+    );
+
+    return getAutomaticStoreStatus();
+
+  }
+
+}
+
+
+/* =========================================
+   SET CLOSED / OPEN FROM SUPABASE
+========================================= */
+
+async function loadStoreStatus() {
+
+  try {
+
+    const {
+      data,
+      error
+    } = await db.rpc(
+      "get_store_status"
+    );
+
+
+    if (error) {
+
+      console.error(
+        "STORE STATUS ERROR:",
+        error
+      );
 
       applyAutomaticStatus();
 
@@ -821,7 +1345,9 @@ async function loadStoreStatus() {
 
       setStoreOpen();
 
-    } else {
+    }
+
+    else {
 
       setStoreClosed();
 
@@ -847,16 +1373,11 @@ async function loadStoreStatus() {
    FALLBACK AUTO STATUS
 ========================================= */
 
-function applyAutomaticStatus() {
-
-  /*
-    Malaysia time.
-    This is only a fallback if
-    Supabase cannot be reached.
-  */
+function getAutomaticStoreStatus() {
 
   const now =
     new Date();
+
 
   const malaysiaTime =
     new Intl.DateTimeFormat(
@@ -864,25 +1385,41 @@ function applyAutomaticStatus() {
       {
         timeZone:
           "Asia/Kuala_Lumpur",
+
         hour:
           "numeric",
+
         hour12:
           false
       }
     ).format(now);
 
+
   const hour =
-    Number(malaysiaTime);
+    Number(
+      malaysiaTime
+    );
 
 
-  if (
+  return (
     hour >= 8 &&
     hour < 22
+  );
+
+}
+
+
+function applyAutomaticStatus() {
+
+  if (
+    getAutomaticStoreStatus()
   ) {
 
     setStoreOpen();
 
-  } else {
+  }
+
+  else {
 
     setStoreClosed();
 
