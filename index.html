@@ -589,6 +589,7 @@ footer {
 
 
     <!-- SHOP -->
+
     <a
       href="shop.html"
       class="store-purchase-link"
@@ -598,6 +599,7 @@ footer {
 
 
     <!-- CART -->
+
     <a
       href="cart.html"
       class="store-purchase-link"
@@ -610,6 +612,7 @@ footer {
       AFFILIATE KEKAL BOLEH BUKA
       WALAU KINO CLOSED
     -->
+
     <a href="affiliate.html">
       Affiliate
     </a>
@@ -1111,10 +1114,10 @@ function setStoreClosed() {
 
 
   /*
-    Disable Shop / Cart / Shop Now.
+    Disable visual appearance
+    for Shop / Cart / Shop Now.
     
-    Affiliate is NOT included here.
-    Affiliate dashboard remains accessible.
+    Affiliate is intentionally NOT included.
   */
 
   document
@@ -1138,7 +1141,8 @@ function setStoreClosed() {
 
 
   /*
-    Disable product categories.
+    Disable visual appearance
+    for product categories.
   */
 
   document
@@ -1164,7 +1168,7 @@ function setStoreClosed() {
 
 
 /* =========================================
-   BLOCK PURCHASE LINKS WHEN CLOSED
+   PROTECT PURCHASE LINKS
 ========================================= */
 
 document
@@ -1178,23 +1182,44 @@ document
       async function(event) {
 
         /*
-          Always check current store status
-          before allowing navigation.
+          IMPORTANT:
+          Block navigation FIRST.
+
+          This must happen BEFORE await.
+          Otherwise the browser may navigate
+          before Supabase returns the status.
         */
+
+        event.preventDefault();
+
+
+        const targetUrl =
+          this.href;
+
 
         const isOpen =
           await getCurrentStoreStatus();
 
 
-        if (!isOpen) {
+        /*
+          KINO CLOSED
+        */
 
-          event.preventDefault();
+        if (!isOpen) {
 
           showClosedPopup();
 
           return;
 
         }
+
+
+        /*
+          KINO OPEN
+        */
+
+        window.location.href =
+          targetUrl;
 
       }
     );
@@ -1203,7 +1228,7 @@ document
 
 
 /* =========================================
-   BLOCK CATEGORY LINKS WHEN CLOSED
+   PROTECT CATEGORY LINKS
 ========================================= */
 
 document
@@ -1216,19 +1241,40 @@ document
       "click",
       async function(event) {
 
+        /*
+          Block navigation immediately.
+        */
+
+        event.preventDefault();
+
+
+        const targetUrl =
+          this.href;
+
+
         const isOpen =
           await getCurrentStoreStatus();
 
 
-        if (!isOpen) {
+        /*
+          KINO CLOSED
+        */
 
-          event.preventDefault();
+        if (!isOpen) {
 
           showClosedPopup();
 
           return;
 
         }
+
+
+        /*
+          KINO OPEN
+        */
+
+        window.location.href =
+          targetUrl;
 
       }
     );
@@ -1247,9 +1293,10 @@ async function getCurrentStoreStatus() {
     const {
       data,
       error
-    } = await db.rpc(
-      "get_store_status"
-    );
+    } =
+      await db.rpc(
+        "get_store_status"
+      );
 
 
     if (error) {
@@ -1259,8 +1306,9 @@ async function getCurrentStoreStatus() {
         error
       );
 
+
       /*
-        If Supabase cannot be reached,
+        If Supabase temporarily fails,
         use Malaysia automatic schedule.
       */
 
@@ -1271,7 +1319,8 @@ async function getCurrentStoreStatus() {
 
     if (
       !data ||
-      typeof data.is_open === "undefined"
+      typeof data.is_open ===
+        "undefined"
     ) {
 
       return getAutomaticStoreStatus();
@@ -1279,7 +1328,9 @@ async function getCurrentStoreStatus() {
     }
 
 
-    return data.is_open === true;
+    return (
+      data.is_open === true
+    );
 
   }
 
@@ -1290,6 +1341,7 @@ async function getCurrentStoreStatus() {
       error
     );
 
+
     return getAutomaticStoreStatus();
 
   }
@@ -1298,7 +1350,7 @@ async function getCurrentStoreStatus() {
 
 
 /* =========================================
-   SET CLOSED / OPEN FROM SUPABASE
+   LOAD STORE STATUS
 ========================================= */
 
 async function loadStoreStatus() {
@@ -1308,9 +1360,10 @@ async function loadStoreStatus() {
     const {
       data,
       error
-    } = await db.rpc(
-      "get_store_status"
-    );
+    } =
+      await db.rpc(
+        "get_store_status"
+      );
 
 
     if (error) {
@@ -1329,7 +1382,8 @@ async function loadStoreStatus() {
 
     if (
       !data ||
-      typeof data.is_open === "undefined"
+      typeof data.is_open ===
+        "undefined"
     ) {
 
       applyAutomaticStatus();
@@ -1370,7 +1424,7 @@ async function loadStoreStatus() {
 
 
 /* =========================================
-   FALLBACK AUTO STATUS
+   MALAYSIA AUTOMATIC STATUS
 ========================================= */
 
 function getAutomaticStoreStatus() {
@@ -1408,6 +1462,10 @@ function getAutomaticStoreStatus() {
 
 }
 
+
+/* =========================================
+   APPLY FALLBACK STATUS
+========================================= */
 
 function applyAutomaticStatus() {
 
