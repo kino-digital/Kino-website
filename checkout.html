@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <link
     href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap"
@@ -11,12 +17,19 @@
 
   <title>Checkout | KINO</title>
 
+
   <style>
+
+    /* ==========================================
+       GLOBAL
+    ========================================== */
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
+
 
     body {
       font-family: "Baloo 2", sans-serif;
@@ -25,20 +38,26 @@
       line-height: 1.6;
     }
 
+
     header {
       background: #ffffff;
       padding: 22px 7%;
+
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 10px rgba(190,130,150,.05);
+
+      box-shadow:
+        0 2px 10px rgba(190,130,150,.05);
     }
+
 
     .logo {
       font-size: 27px;
       font-weight: 700;
       color: #c47794;
     }
+
 
     nav a {
       text-decoration: none;
@@ -47,15 +66,22 @@
       font-size: 14px;
     }
 
+
     nav a:hover {
       color: #c47794;
     }
+
+
+    /* ==========================================
+       CHECKOUT
+    ========================================== */
 
     .checkout {
       max-width: 720px;
       margin: 45px auto;
       padding: 20px;
     }
+
 
     h1 {
       text-align: center;
@@ -64,12 +90,16 @@
       margin-bottom: 30px;
     }
 
+
     .checkout-box {
       background: #ffffff;
       padding: 30px;
       border-radius: 25px;
-      box-shadow: 0 5px 18px rgba(190,130,150,.10);
+
+      box-shadow:
+        0 5px 18px rgba(190,130,150,.10);
     }
+
 
     .section-title {
       color: #b96f8a;
@@ -78,9 +108,11 @@
       margin-bottom: 15px;
     }
 
+
     .form-section {
       margin-top: 30px;
     }
+
 
     .order-item {
       background: #fff8fa;
@@ -89,16 +121,19 @@
       margin-bottom: 10px;
     }
 
+
     .order-name {
       color: #b96f8a;
       font-weight: 600;
       font-size: 17px;
     }
 
+
     .order-price {
       color: #8a747b;
       font-size: 14px;
     }
+
 
     label {
       display: block;
@@ -107,32 +142,56 @@
       margin-bottom: 6px;
     }
 
+
     input[type="text"],
     input[type="email"],
     input[type="file"] {
+
       width: 100%;
+
       padding: 12px 15px;
-      border: 1px solid #f0d5df;
+
+      border:
+        1px solid #f0d5df;
+
       border-radius: 15px;
+
       background: #fff8fa;
-      font-family: "Baloo 2", sans-serif;
+
+      font-family:
+        "Baloo 2",
+        sans-serif;
+
       font-size: 14px;
+
       color: #5f4a50;
+
       margin-bottom: 15px;
     }
+
 
     input:focus {
       outline: none;
       border-color: #d9829e;
     }
 
+
+    /* ==========================================
+       PAYMENT
+    ========================================== */
+
     .payment-box {
       background: #fde6ee;
+
       padding: 22px;
+
       border-radius: 20px;
+
       text-align: center;
+
       margin-top: 15px;
     }
+
 
     .payment-title {
       color: #b96f8a;
@@ -141,24 +200,35 @@
       margin-bottom: 8px;
     }
 
+
     .payment-note {
       color: #8a747b;
       font-size: 14px;
       margin-bottom: 15px;
     }
 
+
     .qr-placeholder {
       width: 180px;
       height: 180px;
+
       margin: 15px auto;
+
       background: #ffffff;
+
       border-radius: 15px;
+
       display: flex;
+
       align-items: center;
+
       justify-content: center;
+
       color: #b96f8a;
+
       font-size: 14px;
     }
+
 
     .payment-instruction {
       color: #8a747b;
@@ -166,18 +236,29 @@
       margin-top: 10px;
     }
 
+
+    /* ==========================================
+       TOTAL
+    ========================================== */
+
     .total {
       background: #fde6ee;
+
       padding: 20px;
+
       border-radius: 18px;
+
       text-align: center;
+
       margin-top: 30px;
     }
+
 
     .total-label {
       color: #8a747b;
       font-size: 16px;
     }
+
 
     .total-amount {
       font-size: 30px;
@@ -185,150 +266,472 @@
       color: #b96f8a;
     }
 
+
+    /* ==========================================
+       CONFIRMATION
+    ========================================== */
+
     .confirmation {
       margin-top: 20px;
+
       font-size: 14px;
+
       color: #8a747b;
+
       display: flex;
+
       align-items: center;
+
       gap: 8px;
     }
+
 
     .confirmation input {
       width: auto;
       margin: 0;
     }
 
+
+    /* ==========================================
+       SUBMIT BUTTON
+    ========================================== */
+
     .submit-button {
       width: 100%;
+
       margin-top: 25px;
+
       padding: 14px;
+
       border: none;
+
       border-radius: 30px;
+
       background: #d9829e;
+
       color: white;
-      font-family: "Baloo 2", sans-serif;
+
+      font-family:
+        "Baloo 2",
+        sans-serif;
+
       font-size: 16px;
+
       cursor: pointer;
     }
+
 
     .submit-button:hover {
       background: #c97491;
     }
+
 
     .submit-button:disabled {
       opacity: .6;
       cursor: not-allowed;
     }
 
+
     .back-button {
       display: inline-block;
+
       margin-top: 20px;
+
       text-decoration: none;
+
       color: #a96b82;
+
       font-size: 14px;
     }
 
+
+    /* ==========================================
+       MESSAGE
+    ========================================== */
+
     .message {
       display: none;
+
       margin-bottom: 20px;
+
       padding: 14px;
+
       border-radius: 15px;
+
       font-size: 14px;
     }
+
 
     .message.error {
       background: #fff0f3;
       color: #a96b82;
     }
 
+
     .message.success {
       background: #edf9f1;
       color: #4e8a66;
     }
 
+
     .file-note {
       font-size: 12px;
+
       color: #a9959b;
+
       margin-top: -8px;
+
       margin-bottom: 12px;
     }
 
+
+    /* ==========================================
+       DAILY LIMIT
+    ========================================== */
+
     .limit-box {
       display: none;
+
       background: #fff0f3;
+
       color: #a96b82;
+
       padding: 15px;
+
       border-radius: 15px;
+
       margin-bottom: 20px;
+
       text-align: center;
+
       font-size: 14px;
     }
+
+
+    /* ==========================================
+       KINO SUCCESS POPUP
+    ========================================== */
+
+    .kino-modal-overlay {
+
+      display: none;
+
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 9999;
+
+      background:
+        rgba(95, 74, 80, 0.38);
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding: 20px;
+    }
+
+
+    .kino-modal-overlay.show {
+      display: flex;
+    }
+
+
+    .kino-modal {
+
+      width: 100%;
+
+      max-width: 430px;
+
+      background: #ffffff;
+
+      border-radius: 28px;
+
+      padding:
+        32px
+        28px
+        28px;
+
+      text-align: center;
+
+      box-shadow:
+        0 15px 45px
+        rgba(190,130,150,0.22);
+
+      animation:
+        kinoPopup
+        .25s
+        ease-out;
+    }
+
+
+    @keyframes kinoPopup {
+
+      from {
+
+        opacity: 0;
+
+        transform:
+          translateY(15px)
+          scale(.96);
+
+      }
+
+      to {
+
+        opacity: 1;
+
+        transform:
+          translateY(0)
+          scale(1);
+
+      }
+
+    }
+
+
+    .kino-modal-icon {
+
+      width: 70px;
+
+      height: 70px;
+
+      margin:
+        0
+        auto
+        18px;
+
+      border-radius: 50%;
+
+      background: #fde6ee;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      font-size: 34px;
+
+      color: #b96f8a;
+    }
+
+
+    .kino-modal-title {
+
+      color: #b96f8a;
+
+      font-size: 25px;
+
+      font-weight: 700;
+
+      margin-bottom: 8px;
+    }
+
+
+    .kino-modal-text {
+
+      color: #8a747b;
+
+      font-size: 15px;
+
+      line-height: 1.7;
+
+      margin-bottom: 10px;
+    }
+
+
+    .kino-order-code {
+
+      color: #b96f8a;
+
+      font-size: 14px;
+
+      font-weight: 600;
+
+      margin-bottom: 22px;
+    }
+
+
+    .kino-modal-button {
+
+      width: 100%;
+
+      border: none;
+
+      padding: 13px 20px;
+
+      border-radius: 25px;
+
+      background: #d9829e;
+
+      color: white;
+
+      font-family:
+        "Baloo 2",
+        sans-serif;
+
+      font-size: 16px;
+
+      font-weight: 600;
+
+      cursor: pointer;
+
+      transition:
+        .2s ease;
+    }
+
+
+    .kino-modal-button:hover {
+
+      background: #c97491;
+
+      transform:
+        translateY(-1px);
+    }
+
+
+    /* ==========================================
+       FOOTER
+    ========================================== */
 
     footer {
+
       margin-top: 70px;
+
       background: #fde6ee;
+
       padding: 25px;
+
       text-align: center;
+
       color: #8a747b;
+
       font-size: 14px;
     }
 
+
+    /* ==========================================
+       MOBILE
+    ========================================== */
+
     @media (max-width: 600px) {
+
       header {
+
         flex-direction: column;
+
         gap: 12px;
       }
+
 
       nav {
         text-align: center;
       }
 
+
       nav a {
+
         margin-left: 10px;
+
         margin-right: 10px;
       }
 
+
       .checkout {
-        margin: 30px auto;
+
+        margin:
+          30px auto;
+
         padding: 15px;
       }
+
 
       h1 {
         font-size: 32px;
       }
 
+
       .checkout-box {
         padding: 22px;
       }
+
+
+      .kino-modal {
+
+        padding:
+          28px
+          22px
+          24px;
+
+      }
+
     }
+
   </style>
+
 </head>
+
 
 <body>
 
+
+<!-- ==========================================
+     HEADER
+========================================== -->
+
 <header>
 
-  <div class="logo">KINO</div>
+  <div class="logo">
+    KINO
+  </div>
+
 
   <nav>
-    <a href="index.html">Home</a>
-    <a href="stickers.html">Shop</a>
-    <a href="cart.html">Cart</a>
+
+    <a href="index.html">
+      Home
+    </a>
+
+    <a href="stickers.html">
+      Shop
+    </a>
+
+    <a href="cart.html">
+      Cart
+    </a>
+
   </nav>
 
 </header>
 
 
+
+<!-- ==========================================
+     CHECKOUT
+========================================== -->
+
 <main class="checkout">
 
-  <h1>Checkout ♡</h1>
+  <h1>
+    Checkout ♡
+  </h1>
+
 
   <div class="checkout-box">
 
-    <div id="message" class="message"></div>
 
-    <div id="limit-box" class="limit-box"></div>
+    <div
+      id="message"
+      class="message"
+    ></div>
+
+
+    <div
+      id="limit-box"
+      class="limit-box"
+    ></div>
 
 
     <!-- YOUR ORDER -->
@@ -337,7 +740,9 @@
       Your Order
     </div>
 
+
     <div id="order-items"></div>
+
 
 
     <!-- CUSTOMER DETAILS -->
@@ -348,9 +753,11 @@
         Customer Details
       </div>
 
+
       <label for="customer-name">
         Name
       </label>
+
 
       <input
         type="text"
@@ -359,9 +766,11 @@
         autocomplete="name"
       >
 
+
       <label for="customer-email">
         Email
       </label>
+
 
       <input
         type="email"
@@ -373,6 +782,7 @@
     </div>
 
 
+
     <!-- PAYMENT -->
 
     <div class="form-section">
@@ -381,19 +791,24 @@
         Payment
       </div>
 
+
       <div class="payment-box">
+
 
         <div class="payment-title">
           TNG eWallet
         </div>
 
+
         <div class="payment-note">
           Please make payment using the TNG QR below.
         </div>
 
+
         <div class="qr-placeholder">
           TNG QR
         </div>
+
 
         <div class="payment-instruction">
 
@@ -402,13 +817,16 @@
           <br><br>
 
           Payment reference:
-          <strong>KINO ORDER</strong>
+          <strong>
+            KINO ORDER
+          </strong>
 
         </div>
 
       </div>
 
     </div>
+
 
 
     <!-- PAYMENT PROOF -->
@@ -419,9 +837,11 @@
         Payment Proof
       </div>
 
+
       <label for="payment-proof">
         Upload your payment screenshot
       </label>
+
 
       <input
         type="file"
@@ -429,11 +849,13 @@
         accept="image/jpeg,image/png,image/webp"
       >
 
+
       <div class="file-note">
         JPG, PNG or WEBP only. Maximum 3MB.
       </div>
 
     </div>
+
 
 
     <!-- TOTAL -->
@@ -443,6 +865,7 @@
       <div class="total-label">
         Total
       </div>
+
 
       <div
         class="total-amount"
@@ -454,6 +877,7 @@
     </div>
 
 
+
     <!-- CONFIRMATION -->
 
     <label class="confirmation">
@@ -463,11 +887,13 @@
         id="confirmation"
       >
 
+
       <span>
         I confirm that I have made the payment.
       </span>
 
     </label>
+
 
 
     <!-- SUBMIT -->
@@ -493,698 +919,1095 @@
 </main>
 
 
+
+<!-- ==========================================
+     KINO SUCCESS POPUP
+========================================== -->
+
+<div
+  id="kino-success-modal"
+  class="kino-modal-overlay"
+>
+
+  <div
+    class="kino-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="kino-success-title"
+  >
+
+
+    <div class="kino-modal-icon">
+      ♡
+    </div>
+
+
+    <div
+      id="kino-success-title"
+      class="kino-modal-title"
+    >
+      THANK YOU FOR YOUR ORDER ♡
+    </div>
+
+
+    <div class="kino-modal-text">
+
+      Your order has been submitted successfully!
+
+      <br><br>
+
+      Your digital product will be sent to your email
+      <strong>
+        within 1 hour
+      </strong>.
+
+      <br><br>
+
+      If you haven't received your email after 1 hour,
+      please contact us through the
+      <strong>
+        About
+      </strong>
+      section.
+
+      <br><br>
+
+      Thank you for supporting KINO ♡
+
+    </div>
+
+
+    <div
+      id="kino-order-code"
+      class="kino-order-code"
+    >
+      Order: KINO-000000
+    </div>
+
+
+    <button
+      type="button"
+      class="kino-modal-button"
+      id="kino-success-button"
+    >
+      OKAY ♡
+    </button>
+
+  </div>
+
+</div>
+
+
+
+<!-- ==========================================
+     FOOTER
+========================================== -->
+
 <footer>
+
   Made for cozy moments ♡
+
 </footer>
 
 
-<!-- SUPABASE -->
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- ==========================================
+     SUPABASE
+========================================== -->
+
+<script
+  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
 
 
 <script>
 
-  /* ==========================================
-     SUPABASE
-  ========================================== */
 
-  const SUPABASE_URL =
-    "https://vbdgzsapdbpgfcdksdoi.supabase.co";
+/* ==========================================
+   SUPABASE
+========================================== */
 
-  const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
+const SUPABASE_URL =
+  "https://vbdgzsapdbpgfcdksdoi.supabase.co";
 
-  const { createClient } = supabase;
 
-  const db = createClient(
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
+
+
+const { createClient } =
+  supabase;
+
+
+const db =
+  createClient(
     SUPABASE_URL,
     SUPABASE_PUBLISHABLE_KEY
   );
 
 
-  /* ==========================================
-     ELEMENTS
-  ========================================== */
 
-  const orderItems =
-    document.getElementById("order-items");
+/* ==========================================
+   ELEMENTS
+========================================== */
 
-  const totalAmount =
-    document.getElementById("total-amount");
-
-  const messageBox =
-    document.getElementById("message");
-
-  const limitBox =
-    document.getElementById("limit-box");
-
-  const submitButton =
-    document.getElementById("submit-button");
+const orderItems =
+  document.getElementById(
+    "order-items"
+  );
 
 
-  /* ==========================================
-     CART
-  ========================================== */
+const totalAmount =
+  document.getElementById(
+    "total-amount"
+  );
 
-  let cart = [];
 
-  try {
+const messageBox =
+  document.getElementById(
+    "message"
+  );
 
-    cart =
-      JSON.parse(
-        localStorage.getItem("kinoCart")
-      ) || [];
 
-  } catch (error) {
+const limitBox =
+  document.getElementById(
+    "limit-box"
+  );
 
-    console.error(
-      "CART ERROR:",
-      error
+
+const submitButton =
+  document.getElementById(
+    "submit-button"
+  );
+
+
+/* ==========================================
+   KINO SUCCESS POPUP ELEMENTS
+========================================== */
+
+const successModal =
+  document.getElementById(
+    "kino-success-modal"
+  );
+
+
+const successOrderCode =
+  document.getElementById(
+    "kino-order-code"
+  );
+
+
+const successButton =
+  document.getElementById(
+    "kino-success-button"
+  );
+
+
+
+/* ==========================================
+   CART
+========================================== */
+
+let cart = [];
+
+
+try {
+
+  cart =
+    JSON.parse(
+      localStorage.getItem(
+        "kinoCart"
+      )
+    ) || [];
+
+}
+
+catch (error) {
+
+  console.error(
+    "CART ERROR:",
+    error
+  );
+
+  cart = [];
+
+}
+
+
+let total = 0;
+
+
+
+/* ==========================================
+   ESCAPE HTML
+========================================== */
+
+function escapeHtml(value) {
+
+  return String(
+    value ?? ""
+  )
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
     );
 
-    cart = [];
+}
+
+
+
+/* ==========================================
+   MESSAGE
+========================================== */
+
+function showMessage(
+  text,
+  type = "error"
+) {
+
+  messageBox.textContent =
+    text;
+
+
+  messageBox.className =
+    `message ${type}`;
+
+
+  messageBox.style.display =
+    "block";
+
+
+  window.scrollTo({
+
+    top: 0,
+
+    behavior: "smooth"
+
+  });
+
+}
+
+
+function hideMessage() {
+
+  messageBox.style.display =
+    "none";
+
+}
+
+
+
+/* ==========================================
+   KINO SUCCESS POPUP
+========================================== */
+
+function showSuccessPopup(
+  orderCode
+) {
+
+  successOrderCode.textContent =
+    `Order: ${orderCode}`;
+
+
+  successModal.classList.add(
+    "show"
+  );
+
+
+  document.body.style.overflow =
+    "hidden";
+
+}
+
+
+function closeSuccessPopup() {
+
+  successModal.classList.remove(
+    "show"
+  );
+
+
+  document.body.style.overflow =
+    "";
+
+}
+
+
+
+/* ==========================================
+   SUCCESS BUTTON
+========================================== */
+
+successButton.addEventListener(
+  "click",
+  function() {
+
+    closeSuccessPopup();
+
+
+    window.location.href =
+      "index.html";
 
   }
+);
 
 
-  let total = 0;
+
+/* ==========================================
+   DISPLAY CART
+========================================== */
+
+function loadCart() {
+
+  orderItems.innerHTML =
+    "";
+
+  total = 0;
 
 
-  /* ==========================================
-     ESCAPE HTML
-  ========================================== */
-
-  function escapeHtml(value) {
-
-    return String(value ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-
-  }
-
-
-  /* ==========================================
-     MESSAGE
-  ========================================== */
-
-  function showMessage(
-    text,
-    type = "error"
+  if (
+    !Array.isArray(cart) ||
+    cart.length === 0
   ) {
 
-    messageBox.textContent = text;
+    orderItems.innerHTML = `
 
-    messageBox.className =
-      `message ${type}`;
+      <div class="order-item">
 
-    messageBox.style.display =
-      "block";
+        Your cart is empty.
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+      </div>
+
+    `;
+
+
+    totalAmount.textContent =
+      "RM0.00";
+
+
+    submitButton.disabled =
+      true;
+
+
+    return;
 
   }
 
 
-  function hideMessage() {
-
-    messageBox.style.display =
-      "none";
-
-  }
-
-
-  /* ==========================================
-     DISPLAY CART
-  ========================================== */
-
-  function loadCart() {
-
-    orderItems.innerHTML = "";
-
-    total = 0;
-
-
-    if (
-      !Array.isArray(cart) ||
-      cart.length === 0
-    ) {
-
-      orderItems.innerHTML = `
-        <div class="order-item">
-          Your cart is empty.
-        </div>
-      `;
-
-      totalAmount.textContent =
-        "RM0.00";
-
-      submitButton.disabled =
-        true;
-
-      return;
-
-    }
-
-
-    cart.forEach(item => {
+  cart.forEach(
+    item => {
 
       const quantity =
-        Number(item.quantity || 1);
+        Number(
+          item.quantity || 1
+        );
+
 
       const price =
-        Number(item.price || 0);
+        Number(
+          item.price || 0
+        );
+
 
       const subtotal =
-        price * quantity;
+        price *
+        quantity;
 
-      total += subtotal;
+
+      total +=
+        subtotal;
 
 
       const itemElement =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
+
 
       itemElement.className =
         "order-item";
 
+
       itemElement.innerHTML = `
 
         <div class="order-name">
-          ${escapeHtml(item.name)}
+
+          ${escapeHtml(
+            item.name
+          )}
+
         </div>
 
+
         <div class="order-price">
+
           RM${price.toFixed(2)}
+
           ×
+
           ${quantity}
+
           =
+
           RM${subtotal.toFixed(2)}
+
         </div>
 
       `;
+
 
       orderItems.appendChild(
         itemElement
       );
 
-    });
+    }
+  );
 
 
-    totalAmount.textContent =
-      `RM${total.toFixed(2)}`;
+  totalAmount.textContent =
+    `RM${total.toFixed(2)}`;
 
-  }
-
-
-  loadCart();
+}
 
 
-  /* ==========================================
-     CHECK DAILY LIMIT
-  ========================================== */
-
-  async function checkDailyLimit() {
-
-    try {
-
-      const {
-        data,
-        error
-      } = await db.rpc(
-        "check_daily_limit",
-        {
-          order_amount: total
-        }
-      );
+loadCart();
 
 
-      if (error) {
 
-        console.error(
-          "DAILY LIMIT ERROR:",
-          error
-        );
+/* ==========================================
+   CHECK DAILY LIMIT
+========================================== */
 
-        return {
-          allowed: true,
-          failed: true
-        };
+async function checkDailyLimit() {
 
+  try {
+
+    const {
+      data,
+      error
+    } = await db.rpc(
+
+      "check_daily_limit",
+
+      {
+        order_amount:
+          total
       }
 
-
-      console.log(
-        "DAILY LIMIT:",
-        data
-      );
+    );
 
 
-      if (
-        data &&
-        data.allowed === false
-      ) {
-
-        limitBox.style.display =
-          "block";
-
-        limitBox.textContent =
-          "KINO has reached today's payment limit ♡ Please come back tomorrow.";
-
-        submitButton.disabled =
-          true;
-
-        return {
-          allowed: false
-        };
-
-      }
-
-
-      return {
-        allowed: true,
-        data: data
-      };
-
-    } catch (error) {
+    if (error) {
 
       console.error(
-        "LIMIT CHECK ERROR:",
+        "DAILY LIMIT ERROR:",
         error
       );
 
+
       return {
+
         allowed: true,
+
         failed: true
+
       };
 
     }
 
-  }
 
-
-  /* ==========================================
-     CHECK LIMIT WHEN PAGE OPENS
-  ========================================== */
-
-  async function initialLimitCheck() {
-
-    if (total <= 0) {
-      return;
-    }
-
-    const result =
-      await checkDailyLimit();
-
-    if (
-      result.allowed === false
-    ) {
-
-      showMessage(
-        "KINO has reached today's payment limit. Please come back tomorrow."
-      );
-
-    }
-
-  }
-
-
-  initialLimitCheck();
-
-
-  /* ==========================================
-     FILE VALIDATION
-  ========================================== */
-
-  function validatePaymentProof(file) {
-
-    if (!file) {
-
-      return "Please upload your payment proof.";
-
-    }
-
-
-    const allowedTypes = [
-      "image/jpeg",
-      "image/png",
-      "image/webp"
-    ];
-
-
-    if (
-      !allowedTypes.includes(
-        file.type
-      )
-    ) {
-
-      return (
-        "Payment proof must be JPG, PNG or WEBP."
-      );
-
-    }
-
-
-    if (
-      file.size >
-      3 * 1024 * 1024
-    ) {
-
-      return (
-        "Payment proof must be 3MB or smaller."
-      );
-
-    }
-
-
-    return null;
-
-  }
-
-
-  /* ==========================================
-     ORDER CODE
-  ========================================== */
-
-  function createOrderCode() {
-
-    const today =
-      new Date()
-        .toISOString()
-        .slice(0, 10)
-        .replaceAll("-", "");
-
-
-    const randomCode =
-      Math.random()
-        .toString(36)
-        .substring(2, 8)
-        .toUpperCase();
-
-
-    return (
-      `KINO-${today}-${randomCode}`
+    console.log(
+      "DAILY LIMIT:",
+      data
     );
 
-  }
-
-
-  /* ==========================================
-     AFFILIATE REF
-  ========================================== */
-
-  function getAffiliateCode() {
-
-    const urlParams =
-      new URLSearchParams(
-        window.location.search
-      );
-
-
-    return (
-      urlParams.get("ref") ||
-      localStorage.getItem(
-        "kinoAffiliateRef"
-      ) ||
-      null
-    );
-
-  }
-
-
-  /* ==========================================
-     SUBMIT ORDER
-  ========================================== */
-
-  async function submitOrder() {
-
-    hideMessage();
-
-
-    /* ----------------------------------------
-       CART CHECK
-    ----------------------------------------- */
 
     if (
-      !Array.isArray(cart) ||
-      cart.length === 0
+      data &&
+      data.allowed === false
     ) {
 
-      showMessage(
-        "Your cart is empty."
-      );
-
-      return;
-
-    }
+      limitBox.style.display =
+        "block";
 
 
-    /* ----------------------------------------
-       CHECK DAILY LIMIT AGAIN
-       RIGHT BEFORE ORDER CREATION
-    ----------------------------------------- */
+      limitBox.textContent =
+        "KINO has reached today's payment limit ♡ Please come back tomorrow.";
 
-    submitButton.disabled =
-      true;
-
-    submitButton.textContent =
-      "CHECKING...";
-
-
-    const limitResult =
-      await checkDailyLimit();
-
-
-    if (
-      limitResult.allowed === false
-    ) {
-
-      showMessage(
-        "KINO has reached today's payment limit. Please come back tomorrow."
-      );
 
       submitButton.disabled =
         true;
 
-      submitButton.textContent =
-        "SHOP CLOSED";
 
-      return;
+      return {
 
-    }
+        allowed: false
 
-
-    /* ----------------------------------------
-       CUSTOMER DETAILS
-    ----------------------------------------- */
-
-    const name =
-      document
-        .getElementById("customer-name")
-        .value
-        .trim();
-
-
-    const email =
-      document
-        .getElementById("customer-email")
-        .value
-        .trim();
-
-
-    const proofInput =
-      document.getElementById(
-        "payment-proof"
-      );
-
-
-    const proofFile =
-      proofInput.files[0];
-
-
-    const confirmation =
-      document.getElementById(
-        "confirmation"
-      ).checked;
-
-
-    if (!name) {
-
-      showMessage(
-        "Please enter your name."
-      );
-
-      submitButton.disabled =
-        false;
-
-      submitButton.textContent =
-        "SUBMIT ORDER";
-
-      return;
+      };
 
     }
 
 
-    if (!email) {
+    return {
 
-      showMessage(
-        "Please enter your email."
+      allowed: true,
+
+      data: data
+
+    };
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "LIMIT CHECK ERROR:",
+      error
+    );
+
+
+    return {
+
+      allowed: true,
+
+      failed: true
+
+    };
+
+  }
+
+}
+
+
+
+/* ==========================================
+   INITIAL LIMIT CHECK
+========================================== */
+
+async function initialLimitCheck() {
+
+  if (total <= 0) {
+
+    return;
+
+  }
+
+
+  const result =
+    await checkDailyLimit();
+
+
+  if (
+    result.allowed === false
+  ) {
+
+    showMessage(
+
+      "KINO has reached today's payment limit. Please come back tomorrow."
+
+    );
+
+  }
+
+}
+
+
+initialLimitCheck();
+
+
+
+/* ==========================================
+   FILE VALIDATION
+========================================== */
+
+function validatePaymentProof(
+  file
+) {
+
+  if (!file) {
+
+    return (
+      "Please upload your payment proof."
+    );
+
+  }
+
+
+  const allowedTypes = [
+
+    "image/jpeg",
+
+    "image/png",
+
+    "image/webp"
+
+  ];
+
+
+  if (
+    !allowedTypes.includes(
+      file.type
+    )
+  ) {
+
+    return (
+      "Payment proof must be JPG, PNG or WEBP."
+    );
+
+  }
+
+
+  if (
+    file.size >
+    3 * 1024 * 1024
+  ) {
+
+    return (
+      "Payment proof must be 3MB or smaller."
+    );
+
+  }
+
+
+  return null;
+
+}
+
+
+
+/* ==========================================
+   ORDER CODE
+========================================== */
+
+function createOrderCode() {
+
+  const today =
+
+    new Date()
+
+      .toISOString()
+
+      .slice(
+        0,
+        10
+      )
+
+      .replaceAll(
+        "-",
+        ""
       );
 
-      submitButton.disabled =
-        false;
 
-      submitButton.textContent =
-        "SUBMIT ORDER";
+  const randomCode =
 
-      return;
+    Math.random()
 
-    }
+      .toString(36)
 
+      .substring(
+        2,
+        8
+      )
 
-    if (!proofFile) {
-
-      showMessage(
-        "Please upload your payment proof."
-      );
-
-      submitButton.disabled =
-        false;
-
-      submitButton.textContent =
-        "SUBMIT ORDER";
-
-      return;
-
-    }
+      .toUpperCase();
 
 
-    const fileError =
-      validatePaymentProof(
-        proofFile
-      );
+  return (
+    `KINO-${today}-${randomCode}`
+  );
+
+}
 
 
-    if (fileError) {
 
-      showMessage(
-        fileError
-      );
+/* ==========================================
+   AFFILIATE REF
+========================================== */
 
-      submitButton.disabled =
-        false;
+function getAffiliateCode() {
 
-      submitButton.textContent =
-        "SUBMIT ORDER";
+  const urlParams =
 
-      return;
-
-    }
+    new URLSearchParams(
+      window.location.search
+    );
 
 
-    if (!confirmation) {
+  return (
 
-      showMessage(
-        "Please confirm that you have made the payment."
-      );
+    urlParams.get(
+      "ref"
+    )
 
-      submitButton.disabled =
-        false;
+    ||
 
-      submitButton.textContent =
-        "SUBMIT ORDER";
+    localStorage.getItem(
+      "kinoAffiliateRef"
+    )
 
-      return;
+    ||
 
-    }
+    null
+
+  );
+
+}
+
+
+
+/* ==========================================
+   SUBMIT ORDER
+========================================== */
+
+async function submitOrder() {
+
+  hideMessage();
+
+
+  /* ----------------------------------------
+     CART CHECK
+  ----------------------------------------- */
+
+  if (
+    !Array.isArray(cart) ||
+    cart.length === 0
+  ) {
+
+    showMessage(
+      "Your cart is empty."
+    );
+
+
+    return;
+
+  }
+
+
+
+  /* ----------------------------------------
+     CHECK DAILY LIMIT
+     RIGHT BEFORE ORDER CREATION
+  ----------------------------------------- */
+
+  submitButton.disabled =
+    true;
+
+
+  submitButton.textContent =
+    "CHECKING...";
+
+
+  const limitResult =
+    await checkDailyLimit();
+
+
+  if (
+    limitResult.allowed === false
+  ) {
+
+    showMessage(
+
+      "KINO has reached today's payment limit. Please come back tomorrow."
+
+    );
+
+
+    submitButton.disabled =
+      true;
 
 
     submitButton.textContent =
-      "SUBMITTING...";
+      "SHOP CLOSED";
 
 
-    try {
+    return;
 
-      /* --------------------------------------
-         ORDER ID
-      --------------------------------------- */
-
-      const orderId =
-        crypto.randomUUID();
+  }
 
 
-      const orderCode =
-        createOrderCode();
+
+  /* ----------------------------------------
+     CUSTOMER DETAILS
+  ----------------------------------------- */
+
+  const name =
+
+    document
+
+      .getElementById(
+        "customer-name"
+      )
+
+      .value
+
+      .trim();
 
 
-      const affiliateCode =
-        getAffiliateCode();
+  const email =
+
+    document
+
+      .getElementById(
+        "customer-email"
+      )
+
+      .value
+
+      .trim();
 
 
-      /* --------------------------------------
-         CREATE ORDER
-      --------------------------------------- */
+  const proofInput =
 
-      const {
-        error: orderError
-      } = await db
-        .from("orders")
-        .insert({
-
-          id: orderId,
-
-          order_code:
-            orderCode,
-
-          customer_name:
-            name,
-
-          customer_email:
-            email,
-
-          total:
-            total,
-
-          status:
-            "pending",
-
-          affiliate_code:
-            affiliateCode
-
-        });
+    document.getElementById(
+      "payment-proof"
+    );
 
 
-      if (orderError) {
-
-        console.error(
-          "ORDER ERROR:",
-          orderError
-        );
-
-        throw new Error(
-          "Unable to create order.\n\n" +
-          orderError.message
-        );
-
-      }
+  const proofFile =
+    proofInput.files[0];
 
 
-      /* --------------------------------------
-         ORDER ITEMS
-      --------------------------------------- */
+  const confirmation =
 
-      const orderItemsData =
-        cart.map(item => {
+    document
+
+      .getElementById(
+        "confirmation"
+      )
+
+      .checked;
+
+
+
+  /* ----------------------------------------
+     VALIDATION
+  ----------------------------------------- */
+
+  if (!name) {
+
+    showMessage(
+      "Please enter your name."
+    );
+
+
+    submitButton.disabled =
+      false;
+
+
+    submitButton.textContent =
+      "SUBMIT ORDER";
+
+
+    return;
+
+  }
+
+
+  if (!email) {
+
+    showMessage(
+      "Please enter your email."
+    );
+
+
+    submitButton.disabled =
+      false;
+
+
+    submitButton.textContent =
+      "SUBMIT ORDER";
+
+
+    return;
+
+  }
+
+
+  if (!proofFile) {
+
+    showMessage(
+      "Please upload your payment proof."
+    );
+
+
+    submitButton.disabled =
+      false;
+
+
+    submitButton.textContent =
+      "SUBMIT ORDER";
+
+
+    return;
+
+  }
+
+
+  const fileError =
+    validatePaymentProof(
+      proofFile
+    );
+
+
+  if (fileError) {
+
+    showMessage(
+      fileError
+    );
+
+
+    submitButton.disabled =
+      false;
+
+
+    submitButton.textContent =
+      "SUBMIT ORDER";
+
+
+    return;
+
+  }
+
+
+  if (!confirmation) {
+
+    showMessage(
+
+      "Please confirm that you have made the payment."
+
+    );
+
+
+    submitButton.disabled =
+      false;
+
+
+    submitButton.textContent =
+      "SUBMIT ORDER";
+
+
+    return;
+
+  }
+
+
+  submitButton.textContent =
+    "SUBMITTING...";
+
+
+
+  try {
+
+
+    /* --------------------------------------
+       ORDER ID
+    --------------------------------------- */
+
+    const orderId =
+      crypto.randomUUID();
+
+
+    const orderCode =
+      createOrderCode();
+
+
+    const affiliateCode =
+      getAffiliateCode();
+
+
+
+    /* --------------------------------------
+       CREATE ORDER
+    --------------------------------------- */
+
+    const {
+      error: orderError
+    } = await db
+
+      .from("orders")
+
+      .insert({
+
+        id:
+          orderId,
+
+        order_code:
+          orderCode,
+
+        customer_name:
+          name,
+
+        customer_email:
+          email,
+
+        total:
+          total,
+
+        status:
+          "pending",
+
+        affiliate_code:
+          affiliateCode
+
+      });
+
+
+    if (orderError) {
+
+      console.error(
+        "ORDER ERROR:",
+        orderError
+      );
+
+
+      throw new Error(
+
+        "Unable to create order.\n\n" +
+
+        orderError.message
+
+      );
+
+    }
+
+
+
+    /* --------------------------------------
+       ORDER ITEMS
+    --------------------------------------- */
+
+    const orderItemsData =
+
+      cart.map(
+        item => {
 
           const quantity =
             Number(
               item.quantity || 1
             );
+
 
           const price =
             Number(
@@ -1207,174 +2030,236 @@
               quantity,
 
             subtotal:
-              price * quantity
+              price *
+              quantity
 
           };
 
-        });
-
-
-      const {
-        error: itemsError
-      } = await db
-        .from("order_items")
-        .insert(
-          orderItemsData
-        );
-
-
-      if (itemsError) {
-
-        console.error(
-          "ORDER ITEMS ERROR:",
-          itemsError
-        );
-
-        throw new Error(
-          "The order was created, but order items could not be saved.\n\n" +
-          itemsError.message
-        );
-
-      }
-
-
-      /* --------------------------------------
-         PAYMENT PROOF PATH
-      --------------------------------------- */
-
-      const extension =
-        proofFile.name
-          .split(".")
-          .pop()
-          .toLowerCase();
-
-
-      const proofPath =
-        `${orderId}/payment-proof.${extension}`;
-
-
-      /* --------------------------------------
-         UPLOAD PAYMENT PROOF
-      --------------------------------------- */
-
-      const {
-        error: uploadError
-      } = await db
-        .storage
-        .from("payment-proofs")
-        .upload(
-          proofPath,
-          proofFile,
-          {
-            cacheControl: "3600",
-            upsert: false,
-            contentType:
-              proofFile.type
-          }
-        );
-
-
-      if (uploadError) {
-
-        console.error(
-          "UPLOAD ERROR:",
-          uploadError
-        );
-
-        throw new Error(
-          "Payment proof could not be uploaded.\n\n" +
-          uploadError.message
-        );
-
-      }
-
-
-      /* --------------------------------------
-         SAVE PROOF PATH
-      --------------------------------------- */
-
-      const {
-        error: proofPathError
-      } = await db.rpc(
-        "save_payment_proof_path",
-        {
-          p_order_id:
-            orderId,
-
-          p_proof_path:
-            proofPath
         }
       );
 
 
-      if (proofPathError) {
+    const {
+      error: itemsError
+    } = await db
 
-        console.error(
-          "SAVE PROOF PATH ERROR:",
-          proofPathError
-        );
+      .from(
+        "order_items"
+      )
 
-        throw new Error(
-          "Payment proof was uploaded, but the order record could not be updated.\n\n" +
-          proofPathError.message
-        );
-
-      }
-
-
-      /* --------------------------------------
-         SUCCESS
-      --------------------------------------- */
-
-      localStorage.removeItem(
-        "kinoCart"
+      .insert(
+        orderItemsData
       );
 
 
-      alert(
-        `Thank you! Your order ${orderCode} has been submitted successfully.`
-      );
-
-
-      window.location.href =
-        "index.html";
-
-
-    } catch (error) {
+    if (itemsError) {
 
       console.error(
-        "CHECKOUT ERROR:",
-        error
+        "ORDER ITEMS ERROR:",
+        itemsError
       );
 
 
-      showMessage(
-        error.message ||
-        "Something went wrong. Please try again."
+      throw new Error(
+
+        "The order was created, but order items could not be saved.\n\n" +
+
+        itemsError.message
+
       );
-
-
-      submitButton.disabled =
-        false;
-
-      submitButton.textContent =
-        "SUBMIT ORDER";
 
     }
 
+
+
+    /* --------------------------------------
+       PAYMENT PROOF PATH
+    --------------------------------------- */
+
+    const extension =
+
+      proofFile.name
+
+        .split(".")
+        .pop()
+        .toLowerCase();
+
+
+    const proofPath =
+
+      `${orderId}/payment-proof.${extension}`;
+
+
+
+    /* --------------------------------------
+       UPLOAD PAYMENT PROOF
+    --------------------------------------- */
+
+    const {
+      error: uploadError
+    } = await db
+
+      .storage
+
+      .from(
+        "payment-proofs"
+      )
+
+      .upload(
+
+        proofPath,
+
+        proofFile,
+
+        {
+
+          cacheControl:
+            "3600",
+
+          upsert:
+            false,
+
+          contentType:
+            proofFile.type
+
+        }
+
+      );
+
+
+    if (uploadError) {
+
+      console.error(
+        "UPLOAD ERROR:",
+        uploadError
+      );
+
+
+      throw new Error(
+
+        "Payment proof could not be uploaded.\n\n" +
+
+        uploadError.message
+
+      );
+
+    }
+
+
+
+    /* --------------------------------------
+       SAVE PROOF PATH
+    --------------------------------------- */
+
+    const {
+      error: proofPathError
+    } = await db.rpc(
+
+      "save_payment_proof_path",
+
+      {
+
+        p_order_id:
+          orderId,
+
+        p_proof_path:
+          proofPath
+
+      }
+
+    );
+
+
+    if (proofPathError) {
+
+      console.error(
+        "SAVE PROOF PATH ERROR:",
+        proofPathError
+      );
+
+
+      throw new Error(
+
+        "Payment proof was uploaded, but the order record could not be updated.\n\n" +
+
+        proofPathError.message
+
+      );
+
+    }
+
+
+
+    /* --------------------------------------
+       SUCCESS
+    --------------------------------------- */
+
+    localStorage.removeItem(
+      "kinoCart"
+    );
+
+
+    /*
+      Show custom KINO popup.
+
+      Customer will only return to
+      index.html after pressing
+      the OKAY ♡ button.
+    */
+
+    showSuccessPopup(
+      orderCode
+    );
+
+
   }
 
+  catch (error) {
 
-  /* ==========================================
-     BUTTON
-  ========================================== */
+    console.error(
+      "CHECKOUT ERROR:",
+      error
+    );
 
-  submitButton.addEventListener(
-    "click",
-    submitOrder
-  );
+
+    showMessage(
+
+      error.message ||
+
+      "Something went wrong. Please try again."
+
+    );
+
+
+    submitButton.disabled =
+      false;
+
+
+    submitButton.textContent =
+      "SUBMIT ORDER";
+
+  }
+
+}
+
+
+
+/* ==========================================
+   BUTTON
+========================================== */
+
+submitButton.addEventListener(
+
+  "click",
+
+  submitOrder
+
+);
+
 
 </script>
 
+
 </body>
+
 </html>
