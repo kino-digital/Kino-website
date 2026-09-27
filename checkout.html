@@ -2073,6 +2073,134 @@ async function submitOrder() {
 
 
     /* --------------------------------------
+       CREATE AFFILIATE COMMISSION
+    --------------------------------------- */
+
+    if (affiliateCode) {
+
+      const {
+        data: affiliate,
+        error: affiliateError
+      } = await db
+
+        .from("affiliates")
+
+        .select(
+          "id, display_name, affiliate_code, tier, status"
+        )
+
+        .eq(
+          "affiliate_code",
+          affiliateCode
+        )
+
+        .eq(
+          "status",
+          "active"
+        )
+
+        .maybeSingle();
+
+
+      if (affiliateError) {
+
+        console.error(
+          "AFFILIATE LOOKUP ERROR:",
+          affiliateError
+        );
+
+      }
+
+
+      if (affiliate) {
+
+        const tier =
+
+          String(
+            affiliate.tier ||
+            "basic"
+          ).toLowerCase();
+
+
+        let commissionRate =
+          0.40;
+
+
+        if (
+          tier === "pro"
+        ) {
+
+          commissionRate =
+            0.60;
+
+        }
+
+
+        const commissionAmount =
+
+          Number(
+            (
+              total *
+              commissionRate
+            ).toFixed(2)
+          );
+
+
+        if (
+          commissionAmount > 0
+        ) {
+
+          const {
+            error: commissionError
+          } = await db
+
+            .from(
+              "commissions"
+            )
+
+            .insert({
+
+              affiliate_id:
+                affiliate.id,
+
+              order_id:
+                orderId,
+
+              commission_type:
+                "product_sale",
+
+              amount:
+                commissionAmount,
+
+              status:
+                "pending",
+
+              description:
+                `${tier.toUpperCase()} affiliate commission - ${commissionRate * 100}%`
+
+            });
+
+
+          if (
+            commissionError
+          ) {
+
+            console.error(
+              "COMMISSION ERROR:",
+              commissionError
+            );
+
+          }
+
+        }
+
+      }
+
+    }
+
+
+
+    /* --------------------------------------
        PAYMENT PROOF PATH
     --------------------------------------- */
 
@@ -2198,14 +2326,6 @@ async function submitOrder() {
       "kinoCart"
     );
 
-
-    /*
-      Show custom KINO popup.
-
-      Customer will only return to
-      index.html after pressing
-      the OKAY ♡ button.
-    */
 
     showSuccessPopup(
       orderCode
