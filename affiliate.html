@@ -477,6 +477,175 @@
     }
 
 
+    /* ==========================================
+       PAYMENT
+    ========================================== */
+
+    .payment-section {
+      margin-top: 30px;
+    }
+
+
+    .payment-box {
+      background: #fde6ee;
+
+      border-radius: 20px;
+
+      padding: 25px;
+
+      text-align: center;
+    }
+
+
+    .payment-title {
+      color: #b96f8a;
+
+      font-size: 21px;
+
+      font-weight: 700;
+
+      margin-bottom: 5px;
+    }
+
+
+    .payment-note {
+      color: #8a747b;
+
+      font-size: 14px;
+
+      margin-bottom: 18px;
+    }
+
+
+    .selected-payment {
+      color: #b96f8a;
+
+      font-size: 15px;
+
+      font-weight: 600;
+
+      margin-bottom: 8px;
+    }
+
+
+    .payment-amount {
+      color: #b96f8a;
+
+      font-size: 30px;
+
+      font-weight: 700;
+
+      margin-bottom: 15px;
+    }
+
+
+    .qr-placeholder {
+      width: 190px;
+
+      height: 190px;
+
+      margin:
+        10px auto 18px;
+
+      background: #ffffff;
+
+      border-radius: 15px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      color: #b96f8a;
+
+      font-size: 14px;
+
+      border:
+        1px dashed #d9829e;
+    }
+
+
+    .qr-image {
+      width: 190px;
+
+      height: 190px;
+
+      object-fit: contain;
+
+      margin:
+        10px auto 18px;
+
+      background: #ffffff;
+
+      border-radius: 15px;
+
+      display: block;
+    }
+
+
+    .payment-reference {
+      color: #8a747b;
+
+      font-size: 13px;
+
+      line-height: 1.7;
+    }
+
+
+    .payment-reference strong {
+      color: #b96f8a;
+    }
+
+
+    /* ==========================================
+       PAYMENT PROOF
+    ========================================== */
+
+    .payment-proof-section {
+      margin-top: 25px;
+    }
+
+
+    .payment-proof-note {
+      color: #a9959b;
+
+      font-size: 12px;
+
+      margin-top: 6px;
+    }
+
+
+    /* ==========================================
+       CONFIRMATION
+    ========================================== */
+
+    .confirmation {
+      display: flex;
+
+      align-items: flex-start;
+
+      gap: 9px;
+
+      margin-top: 20px;
+
+      color: #8a747b;
+
+      font-size: 14px;
+    }
+
+
+    .confirmation input {
+      width: auto;
+
+      margin-top: 5px;
+    }
+
+
+    /* ==========================================
+       JOIN BUTTON
+    ========================================== */
+
     .join-button {
       width: 100%;
 
@@ -1063,13 +1232,163 @@
 
 
 
+      <!-- ======================================
+           PAYMENT
+      ======================================= -->
+
+      <div class="payment-section">
+
+        <div class="section-title">
+          Payment
+        </div>
+
+
+        <div class="payment-box">
+
+
+          <div class="payment-title">
+            TNG eWallet
+          </div>
+
+
+          <div class="payment-note">
+
+            Please make payment using
+            the TNG QR below.
+
+          </div>
+
+
+          <div
+            class="selected-payment"
+            id="payment-plan-text"
+          >
+            Please select a plan first.
+          </div>
+
+
+          <div
+            class="payment-amount"
+            id="payment-amount"
+          >
+            RM0.00
+          </div>
+
+
+          <!--
+            ====================================
+            REPLACE THIS WITH YOUR REAL TNG QR
+            ====================================
+
+            Example:
+
+            <img
+              src="images/tng-qr.png"
+              alt="KINO TNG QR"
+              class="qr-image"
+            >
+
+            Untuk sekarang placeholder digunakan.
+          -->
+
+          <div class="qr-placeholder">
+
+            TNG QR
+
+          </div>
+
+
+          <div class="payment-reference">
+
+            Please pay the exact amount shown above.
+
+            <br><br>
+
+            Payment reference:
+
+            <strong>
+              KINO AFFILIATE
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ======================================
+           PAYMENT PROOF
+      ======================================= -->
+
+      <div class="payment-proof-section">
+
+        <div class="form-group">
+
+          <label for="payment-proof">
+
+            Upload payment screenshot
+
+          </label>
+
+
+          <input
+            type="file"
+            id="payment-proof"
+            accept="image/jpeg,image/png,image/webp"
+          >
+
+
+          <div class="payment-proof-note">
+
+            JPG, PNG or WEBP only.
+            Maximum 3MB.
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ======================================
+           CONFIRMATION
+      ======================================= -->
+
+      <label class="confirmation">
+
+        <input
+          type="checkbox"
+          id="confirmation"
+        >
+
+
+        <span>
+
+          I confirm that I have made the payment
+          and the information provided is correct.
+
+        </span>
+
+      </label>
+
+
+
+      <!-- ======================================
+           BUTTON
+      ======================================= -->
+
       <button
         type="button"
         class="join-button"
         id="join-button"
         disabled
       >
+
         REGISTRATION CURRENTLY CLOSED
+
       </button>
 
 
@@ -1109,243 +1428,1012 @@
 
 
 
+<!-- ==========================================
+     SUPABASE
+========================================== -->
+
+<script
+  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+
+
 <script>
 
-  /* ==========================================
-     KINO AFFILIATE STORE STATUS
-     
-     false = CLOSED
-     true  = OPEN
-  ========================================== */
 
-  const AFFILIATE_REGISTRATION_OPEN = false;
+/* ==========================================
+   SUPABASE
+========================================== */
 
+const SUPABASE_URL =
+  "https://vbdgzsapdbpgfcdksdoi.supabase.co";
 
 
-  /* ==========================================
-     ELEMENTS
-  ========================================== */
-
-  const statusText =
-    document.getElementById(
-      "status-text"
-    );
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
 
 
-  const statusDot =
-    document.querySelector(
-      ".status-dot"
-    );
+const {
+  createClient
+} = supabase;
 
 
-  const statusBox =
-    document.getElementById(
-      "store-status"
-    );
-
-
-  const joinButton =
-    document.getElementById(
-      "join-button"
-    );
-
-
-  const closedNote =
-    document.getElementById(
-      "closed-note"
-    );
+const db =
+  createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
 
 
 
-  /* ==========================================
-     UPDATE STATUS
-  ========================================== */
+/* ==========================================
+   AFFILIATE REGISTRATION SWITCH
+========================================== */
 
-  function updateAffiliateStatus() {
+/*
 
-    if (
-      AFFILIATE_REGISTRATION_OPEN
-    ) {
+  false = CLOSED
+  true  = OPEN
 
-      statusText.textContent =
-        "KINO is OPEN";
+*/
 
-
-      joinButton.disabled =
-        false;
+const AFFILIATE_REGISTRATION_OPEN =
+  false;
 
 
-      joinButton.textContent =
-        "JOIN KINO AFFILIATE";
+
+/* ==========================================
+   PLAN DATA
+========================================== */
+
+const PLANS = {
+
+  basic: {
+
+    name:
+      "BASIC",
+
+    price:
+      5,
+
+    period:
+      "month",
+
+    commission:
+      40
+
+  },
 
 
-      closedNote.style.display =
-        "none";
+  pro: {
 
-    }
+    name:
+      "PRO",
 
-    else {
+    price:
+      50,
 
-      statusText.textContent =
-        "KINO is CLOSED";
+    period:
+      "year",
+
+    commission:
+      60
+
+  }
+
+};
 
 
-      joinButton.disabled =
-        true;
+
+/* ==========================================
+   SELECTED PLAN
+========================================== */
+
+let selectedPlan =
+  null;
 
 
-      joinButton.textContent =
-        "REGISTRATION CURRENTLY CLOSED";
+
+/* ==========================================
+   ELEMENTS
+========================================== */
+
+const statusText =
+  document.getElementById(
+    "status-text"
+  );
 
 
-      closedNote.style.display =
-        "block";
+const joinButton =
+  document.getElementById(
+    "join-button"
+  );
 
-    }
+
+const closedNote =
+  document.getElementById(
+    "closed-note"
+  );
+
+
+const nameInput =
+  document.getElementById(
+    "affiliate-name"
+  );
+
+
+const emailInput =
+  document.getElementById(
+    "affiliate-email"
+  );
+
+
+const passwordInput =
+  document.getElementById(
+    "affiliate-password"
+  );
+
+
+const planSelect =
+  document.getElementById(
+    "affiliate-plan"
+  );
+
+
+const proofInput =
+  document.getElementById(
+    "payment-proof"
+  );
+
+
+const confirmation =
+  document.getElementById(
+    "confirmation"
+  );
+
+
+const paymentPlanText =
+  document.getElementById(
+    "payment-plan-text"
+  );
+
+
+const paymentAmount =
+  document.getElementById(
+    "payment-amount"
+  );
+
+
+const message =
+  document.getElementById(
+    "message"
+  );
+
+
+
+/* ==========================================
+   MESSAGE
+========================================== */
+
+function showMessage(
+  text,
+  type = "error"
+) {
+
+  message.textContent =
+    text;
+
+
+  message.className =
+    `message ${type}`;
+
+
+  message.style.display =
+    "block";
+
+}
+
+
+function hideMessage() {
+
+  message.textContent =
+    "";
+
+
+  message.className =
+    "message";
+
+
+  message.style.display =
+    "none";
+
+}
+
+
+
+/* ==========================================
+   UPDATE PAYMENT
+========================================== */
+
+function updatePayment() {
+
+  const planKey =
+    planSelect.value;
+
+
+  if (
+    !planKey ||
+    !PLANS[planKey]
+  ) {
+
+    selectedPlan =
+      null;
+
+
+    paymentPlanText.textContent =
+      "Please select a plan first.";
+
+
+    paymentAmount.textContent =
+      "RM0.00";
+
+
+    return;
 
   }
 
 
-  updateAffiliateStatus();
+  selectedPlan =
+    planKey;
+
+
+  const plan =
+    PLANS[planKey];
+
+
+  paymentPlanText.textContent =
+    `${plan.name} Affiliate Plan`;
+
+
+  paymentAmount.textContent =
+    `RM${plan.price.toFixed(2)}`;
+
+}
+
+
+planSelect.addEventListener(
+  "change",
+  updatePayment
+);
 
 
 
-  /* ==========================================
-     REGISTRATION BUTTON
-     
-     Registration functionality will be
-     connected to Supabase later.
-  ========================================== */
+/* ==========================================
+   REGISTRATION STATE
+========================================== */
 
-  joinButton.addEventListener(
-    "click",
-    function() {
+function updateAffiliateStatus() {
 
-      if (
-        !AFFILIATE_REGISTRATION_OPEN
-      ) {
+  if (
+    AFFILIATE_REGISTRATION_OPEN
+  ) {
 
-        return;
-
-      }
+    statusText.textContent =
+      "KINO is OPEN";
 
 
-      const name =
-        document
-          .getElementById(
-            "affiliate-name"
-          )
-          .value
-          .trim();
+    nameInput.disabled =
+      false;
 
 
-      const email =
-        document
-          .getElementById(
-            "affiliate-email"
-          )
-          .value
-          .trim();
+    emailInput.disabled =
+      false;
 
 
-      const password =
-        document
-          .getElementById(
-            "affiliate-password"
-          )
-          .value;
+    passwordInput.disabled =
+      false;
 
 
-      const plan =
-        document
-          .getElementById(
-            "affiliate-plan"
-          )
-          .value;
+    planSelect.disabled =
+      false;
 
 
-      const message =
-        document.getElementById(
-          "message"
-        );
+    proofInput.disabled =
+      false;
 
 
-      if (!name) {
-
-        message.textContent =
-          "Please enter your name.";
-
-        message.className =
-          "message error";
-
-        message.style.display =
-          "block";
-
-        return;
-
-      }
+    confirmation.disabled =
+      false;
 
 
-      if (!email) {
-
-        message.textContent =
-          "Please enter your email.";
-
-        message.className =
-          "message error";
-
-        message.style.display =
-          "block";
-
-        return;
-
-      }
+    joinButton.disabled =
+      false;
 
 
-      if (!password) {
-
-        message.textContent =
-          "Please create a password.";
-
-        message.className =
-          "message error";
-
-        message.style.display =
-          "block";
-
-        return;
-
-      }
+    joinButton.textContent =
+      "JOIN KINO AFFILIATE";
 
 
-      if (!plan) {
+    closedNote.style.display =
+      "none";
 
-        message.textContent =
-          "Please select an affiliate plan.";
+  }
 
-        message.className =
-          "message error";
+  else {
 
-        message.style.display =
-          "block";
-
-        return;
-
-      }
+    statusText.textContent =
+      "KINO is CLOSED";
 
 
-      message.textContent =
-        "Registration form is ready. Supabase registration will be connected next.";
+    nameInput.disabled =
+      true;
 
-      message.className =
-        "message success";
 
-      message.style.display =
-        "block";
+    emailInput.disabled =
+      true;
+
+
+    passwordInput.disabled =
+      true;
+
+
+    planSelect.disabled =
+      true;
+
+
+    proofInput.disabled =
+      true;
+
+
+    confirmation.disabled =
+      true;
+
+
+    joinButton.disabled =
+      true;
+
+
+    joinButton.textContent =
+      "REGISTRATION CURRENTLY CLOSED";
+
+
+    closedNote.style.display =
+      "block";
+
+  }
+
+}
+
+
+updateAffiliateStatus();
+
+
+
+/* ==========================================
+   AFFILIATE CODE
+========================================== */
+
+function createAffiliateCode() {
+
+  const randomPart =
+
+    Math.random()
+
+      .toString(36)
+
+      .substring(
+        2,
+        8
+      )
+
+      .toUpperCase();
+
+
+  return (
+    `KINO${randomPart}`
+  );
+
+}
+
+
+
+/* ==========================================
+   GET REFERRER
+========================================== */
+
+function getReferrerCode() {
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+
+  return (
+
+    params.get("ref")
+
+    ||
+
+    localStorage.getItem(
+      "kinoAffiliateRef"
+    )
+
+    ||
+
+    null
+
+  );
+
+}
+
+
+
+/* ==========================================
+   SAVE REFERRER
+========================================== */
+
+function saveAffiliateRef() {
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+
+  const ref =
+    params.get("ref");
+
+
+  if (ref) {
+
+    localStorage.setItem(
+      "kinoAffiliateRef",
+      ref
+    );
+
+  }
+
+}
+
+
+saveAffiliateRef();
+
+
+
+/* ==========================================
+   PAYMENT PROOF VALIDATION
+========================================== */
+
+function validatePaymentProof(
+  file
+) {
+
+  if (!file) {
+
+    return (
+      "Please upload your payment proof."
+    );
+
+  }
+
+
+  const allowedTypes = [
+
+    "image/jpeg",
+
+    "image/png",
+
+    "image/webp"
+
+  ];
+
+
+  if (
+    !allowedTypes.includes(
+      file.type
+    )
+  ) {
+
+    return (
+      "Payment proof must be JPG, PNG or WEBP."
+    );
+
+  }
+
+
+  if (
+    file.size >
+    3 * 1024 * 1024
+  ) {
+
+    return (
+      "Payment proof must be 3MB or smaller."
+    );
+
+  }
+
+
+  return null;
+
+}
+
+
+
+/* ==========================================
+   REGISTER AFFILIATE
+========================================== */
+
+async function registerAffiliate() {
+
+  hideMessage();
+
+
+  if (
+    !AFFILIATE_REGISTRATION_OPEN
+  ) {
+
+    showMessage(
+      "Affiliate registration is currently closed."
+    );
+
+
+    return;
+
+  }
+
+
+
+  /* ----------------------------------------
+     PLAN
+  ----------------------------------------- */
+
+  const planKey =
+    planSelect.value;
+
+
+  if (
+    !planKey ||
+    !PLANS[planKey]
+  ) {
+
+    showMessage(
+      "Please select an affiliate plan."
+    );
+
+
+    return;
+
+  }
+
+
+  selectedPlan =
+    planKey;
+
+
+  const plan =
+    PLANS[planKey];
+
+
+
+  /* ----------------------------------------
+     DETAILS
+  ----------------------------------------- */
+
+  const name =
+    nameInput.value.trim();
+
+
+  const email =
+    emailInput.value
+      .trim()
+      .toLowerCase();
+
+
+  const password =
+    passwordInput.value;
+
+
+
+  /* ----------------------------------------
+     VALIDATION
+  ----------------------------------------- */
+
+  if (!name) {
+
+    showMessage(
+      "Please enter your name."
+    );
+
+
+    return;
+
+  }
+
+
+  if (!email) {
+
+    showMessage(
+      "Please enter your email."
+    );
+
+
+    return;
+
+  }
+
+
+  if (!password) {
+
+    showMessage(
+      "Please create a password."
+    );
+
+
+    return;
+
+  }
+
+
+  if (
+    password.length < 6
+  ) {
+
+    showMessage(
+      "Password must be at least 6 characters."
+    );
+
+
+    return;
+
+  }
+
+
+  const proofFile =
+    proofInput.files[0];
+
+
+  const proofError =
+    validatePaymentProof(
+      proofFile
+    );
+
+
+  if (proofError) {
+
+    showMessage(
+      proofError
+    );
+
+
+    return;
+
+  }
+
+
+  if (
+    !confirmation.checked
+  ) {
+
+    showMessage(
+      "Please confirm your payment."
+    );
+
+
+    return;
+
+  }
+
+
+
+  /* ----------------------------------------
+     BUTTON
+  ----------------------------------------- */
+
+  joinButton.disabled =
+    true;
+
+
+  joinButton.textContent =
+    "CREATING ACCOUNT...";
+
+
+
+  try {
+
+
+    /* --------------------------------------
+       CREATE AUTH ACCOUNT
+    --------------------------------------- */
+
+    const {
+      data: authData,
+      error: authError
+    } =
+      await db.auth.signUp({
+
+        email:
+          email,
+
+        password:
+          password
+
+      });
+
+
+    if (authError) {
+
+      throw authError;
 
     }
 
-  );
+
+    if (
+      !authData ||
+      !authData.user
+    ) {
+
+      throw new Error(
+        "Unable to create affiliate account."
+      );
+
+    }
+
+
+    const userId =
+      authData.user.id;
+
+
+
+    /* --------------------------------------
+       AFFILIATE CODE
+    --------------------------------------- */
+
+    const affiliateCode =
+      createAffiliateCode();
+
+
+    const referredBy =
+      getReferrerCode();
+
+
+
+    /* --------------------------------------
+       INSERT AFFILIATE
+    --------------------------------------- */
+
+    const {
+      error: affiliateError
+    } =
+      await db
+
+        .from("affiliates")
+
+        .insert({
+
+          id:
+            userId,
+
+          display_name:
+            name,
+
+          email:
+            email,
+
+          affiliate_code:
+            affiliateCode,
+
+          tier:
+            selectedPlan,
+
+          status:
+            "pending",
+
+          referred_by:
+            referredBy
+
+        });
+
+
+    if (affiliateError) {
+
+      console.error(
+        "AFFILIATE ERROR:",
+        affiliateError
+      );
+
+
+      throw new Error(
+
+        "Account was created, but affiliate registration could not be completed.\n\n" +
+
+        affiliateError.message
+
+      );
+
+    }
+
+
+
+    /* --------------------------------------
+       PAYMENT PROOF PATH
+    --------------------------------------- */
+
+    const extension =
+
+      proofFile.name
+
+        .split(".")
+        .pop()
+        .toLowerCase();
+
+
+    const proofPath =
+
+      `affiliate-payments/${userId}/payment-proof.${extension}`;
+
+
+
+    /* --------------------------------------
+       UPLOAD PAYMENT PROOF
+    --------------------------------------- */
+
+    const {
+      error: uploadError
+    } =
+      await db
+
+        .storage
+
+        .from(
+          "payment-proofs"
+        )
+
+        .upload(
+
+          proofPath,
+
+          proofFile,
+
+          {
+
+            cacheControl:
+              "3600",
+
+            upsert:
+              false,
+
+            contentType:
+              proofFile.type
+
+          }
+
+        );
+
+
+    if (uploadError) {
+
+      console.error(
+        "PAYMENT UPLOAD ERROR:",
+        uploadError
+      );
+
+
+      throw new Error(
+
+        "Affiliate account was created, but payment proof could not be uploaded.\n\n" +
+
+        uploadError.message
+
+      );
+
+    }
+
+
+
+    /* --------------------------------------
+       SUCCESS
+    --------------------------------------- */
+
+    showMessage(
+
+      "Registration submitted successfully ♡ Your affiliate account is now pending approval. Please wait for KINO to approve your registration.",
+
+      "success"
+
+    );
+
+
+    joinButton.textContent =
+      "PENDING APPROVAL";
+
+
+    joinButton.disabled =
+      true;
+
+
+
+    /* --------------------------------------
+       CLEAR FORM
+    --------------------------------------- */
+
+    nameInput.value =
+      "";
+
+
+    emailInput.value =
+      "";
+
+
+    passwordInput.value =
+      "";
+
+
+    planSelect.value =
+      "";
+
+
+    proofInput.value =
+      "";
+
+
+    confirmation.checked =
+      false;
+
+
+    selectedPlan =
+      null;
+
+
+    paymentPlanText.textContent =
+      "Please select a plan first.";
+
+
+    paymentAmount.textContent =
+      "RM0.00";
+
+  }
+
+
+  catch (error) {
+
+    console.error(
+      "AFFILIATE REGISTRATION ERROR:",
+      error
+    );
+
+
+    showMessage(
+
+      error.message ||
+
+      "Something went wrong. Please try again."
+
+    );
+
+
+    joinButton.disabled =
+      false;
+
+
+    joinButton.textContent =
+      "JOIN KINO AFFILIATE";
+
+  }
+
+}
+
+
+
+/* ==========================================
+   REGISTER BUTTON
+========================================== */
+
+joinButton.addEventListener(
+  "click",
+  registerAffiliate
+);
+
 
 </script>
 
