@@ -1705,7 +1705,60 @@ planSelect.addEventListener(
   updatePayment
 );
 
+/* ==========================================
+   GET AFFILIATE REGISTRATION STATUS
+========================================== */
 
+async function getAffiliateRegistrationStatus() {
+
+  try {
+
+    const {
+      data,
+      error
+    } = await db.rpc(
+      "get_store_status"
+    );
+
+    if (error) {
+
+      console.error(
+        "AFFILIATE STATUS ERROR:",
+        error
+      );
+
+      return false;
+
+    }
+
+    if (
+      !data ||
+      typeof data.affiliate_registration_open ===
+        "undefined"
+    ) {
+
+      return false;
+
+    }
+
+    return (
+      data.affiliate_registration_open === true
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "AFFILIATE STATUS ERROR:",
+      error
+    );
+
+    return false;
+
+  }
+
+}
 
 /* ==========================================
    REGISTRATION STATE
