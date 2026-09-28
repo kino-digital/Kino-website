@@ -189,7 +189,7 @@ h1 {
 
 
 /* =========================
-   SETTINGS
+   STORE SETTINGS
 ========================= */
 
 .store-settings {
@@ -727,7 +727,7 @@ h1 {
     </div>
 
     <div class="store-settings-subtitle">
-      Control KINO opening status for emergencies.
+      Control KINO opening status.
       Normal schedule is 8:00 AM – 10:00 PM.
     </div>
 
@@ -757,102 +757,30 @@ h1 {
       <button
         type="button"
         class="store-button store-open"
-        id="emergency-open-button"
-        onclick="emergencyOpen()"
+        id="store-open-button"
+        onclick="openStore()"
       >
-        🟢 EMERGENCY OPEN
+        🟢 OPEN STORE
       </button>
 
 
       <button
         type="button"
         class="store-button store-close"
-        id="emergency-close-button"
-        onclick="emergencyClose()"
+        id="store-close-button"
+        onclick="closeStore()"
       >
-        🔴 EMERGENCY CLOSE
+        🔴 CLOSE STORE
       </button>
 
 
       <button
         type="button"
         class="store-button store-auto"
-        id="auto-button"
+        id="store-auto-button"
         onclick="resetAuto()"
       >
         🔄 AUTO 8AM–10PM
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <!-- =======================================
-       AFFILIATE REGISTRATION SETTINGS
-  ======================================== -->
-
-  <div class="store-settings">
-
-    <div class="store-settings-title">
-      Affiliate Registration ♡
-    </div>
-
-    <div class="store-settings-subtitle">
-      New affiliate registration follows the KINO store status.
-      Admin can manually close or reopen registration when necessary.
-    </div>
-
-
-    <div class="store-status-admin">
-
-      <div>
-
-        <strong id="admin-affiliate-status">
-          Checking...
-        </strong>
-
-        <div
-          class="store-mode"
-          id="admin-affiliate-mode"
-        >
-          Loading affiliate registration status...
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="store-buttons">
-
-      <button
-        type="button"
-        class="store-button store-open"
-        id="affiliate-open-button"
-        onclick="openAffiliateRegistration()"
-      >
-        🟢 OPEN AFFILIATE
-      </button>
-
-
-      <button
-        type="button"
-        class="store-button store-close"
-        id="affiliate-close-button"
-        onclick="closeAffiliateRegistration()"
-      >
-        🔴 CLOSE AFFILIATE
-      </button>
-
-
-      <button
-        type="button"
-        class="store-button store-auto"
-        id="affiliate-auto-button"
-        onclick="affiliateAuto()"
-      >
-        🔄 FOLLOW STORE STATUS
       </button>
 
     </div>
@@ -1291,8 +1219,6 @@ async function showDashboard() {
 
   await loadAdminStoreStatus();
 
-  await loadAffiliateRegistrationStatus();
-
   await loadOrders();
 
 }
@@ -1308,7 +1234,8 @@ async function checkSession() {
     data: {
       session
     }
-  } = await db.auth.getSession();
+  } =
+    await db.auth.getSession();
 
 
   if (!session) {
@@ -1354,7 +1281,7 @@ async function checkSession() {
 
 
 /* =========================================
-   STORE STATUS - ADMIN
+   STORE STATUS
 ========================================= */
 
 async function loadAdminStoreStatus() {
@@ -1411,7 +1338,7 @@ async function loadAdminStoreStatus() {
     ) {
 
       modeElement.textContent =
-        "Emergency CLOSE is active for today.";
+        "Store manually CLOSED for today.";
 
     }
 
@@ -1420,7 +1347,7 @@ async function loadAdminStoreStatus() {
     ) {
 
       modeElement.textContent =
-        "Emergency OPEN is active for today.";
+        "Store manually OPENED for today.";
 
     }
 
@@ -1452,106 +1379,7 @@ async function loadAdminStoreStatus() {
 
 
 /* =========================================
-   AFFILIATE REGISTRATION STATUS
-========================================= */
-
-async function loadAffiliateRegistrationStatus() {
-
-  const statusElement =
-    document.getElementById(
-      "admin-affiliate-status"
-    );
-
-  const modeElement =
-    document.getElementById(
-      "admin-affiliate-mode"
-    );
-
-
-  try {
-
-    const {
-      data,
-      error
-    } =
-      await db.rpc(
-        "get_affiliate_registration_status"
-      );
-
-
-    if (error) {
-      throw error;
-    }
-
-
-    if (!data) {
-      throw new Error(
-        "Affiliate registration status unavailable."
-      );
-    }
-
-
-    const isOpen =
-      data.is_open === true;
-
-
-    const mode =
-      data.mode || "store";
-
-
-    statusElement.textContent =
-      isOpen
-        ? "🟢 Affiliate Registration OPEN"
-        : "🔴 Affiliate Registration CLOSED";
-
-
-    if (
-      mode === "manual_close"
-    ) {
-
-      modeElement.textContent =
-        "Admin manually CLOSED affiliate registration.";
-
-    }
-
-    else if (
-      mode === "manual_open"
-    ) {
-
-      modeElement.textContent =
-        "Admin manually OPENED affiliate registration.";
-
-    }
-
-    else {
-
-      modeElement.textContent =
-        "Affiliate registration follows KINO store status.";
-
-    }
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "AFFILIATE STATUS ERROR:",
-      error
-    );
-
-    statusElement.textContent =
-      "Unable to load affiliate status.";
-
-    modeElement.textContent =
-      error.message || "";
-
-  }
-
-}
-
-
-/* =========================================
-   DISABLE STORE BUTTONS
+   STORE BUTTONS
 ========================================= */
 
 function setStoreButtonsDisabled(
@@ -1560,21 +1388,21 @@ function setStoreButtonsDisabled(
 
   document
     .getElementById(
-      "emergency-open-button"
+      "store-open-button"
     )
     .disabled = disabled;
 
 
   document
     .getElementById(
-      "emergency-close-button"
+      "store-close-button"
     )
     .disabled = disabled;
 
 
   document
     .getElementById(
-      "auto-button"
+      "store-auto-button"
     )
     .disabled = disabled;
 
@@ -1582,41 +1410,10 @@ function setStoreButtonsDisabled(
 
 
 /* =========================================
-   DISABLE AFFILIATE BUTTONS
+   OPEN STORE
 ========================================= */
 
-function setAffiliateButtonsDisabled(
-  disabled
-) {
-
-  document
-    .getElementById(
-      "affiliate-open-button"
-    )
-    .disabled = disabled;
-
-
-  document
-    .getElementById(
-      "affiliate-close-button"
-    )
-    .disabled = disabled;
-
-
-  document
-    .getElementById(
-      "affiliate-auto-button"
-    )
-    .disabled = disabled;
-
-}
-
-
-/* =========================================
-   EMERGENCY OPEN
-========================================= */
-
-async function emergencyOpen() {
+async function openStore() {
 
   const confirmed =
     confirm(
@@ -1649,8 +1446,6 @@ async function emergencyOpen() {
 
     await loadAdminStoreStatus();
 
-    await loadAffiliateRegistrationStatus();
-
 
     alert(
       "KINO is now OPEN for today ♡"
@@ -1679,10 +1474,10 @@ async function emergencyOpen() {
 
 
 /* =========================================
-   EMERGENCY CLOSE
+   CLOSE STORE
 ========================================= */
 
-async function emergencyClose() {
+async function closeStore() {
 
   const confirmed =
     confirm(
@@ -1715,8 +1510,6 @@ async function emergencyClose() {
 
     await loadAdminStoreStatus();
 
-    await loadAffiliateRegistrationStatus();
-
 
     alert(
       "KINO is now CLOSED for today."
@@ -1745,7 +1538,7 @@ async function emergencyClose() {
 
 
 /* =========================================
-   RESET AUTO
+   AUTO 8AM–10PM
 ========================================= */
 
 async function resetAuto() {
@@ -1781,8 +1574,6 @@ async function resetAuto() {
 
     await loadAdminStoreStatus();
 
-    await loadAffiliateRegistrationStatus();
-
 
     alert(
       "KINO is back to automatic schedule ♡"
@@ -1804,207 +1595,6 @@ async function resetAuto() {
   finally {
 
     setStoreButtonsDisabled(false);
-
-  }
-
-}
-
-
-/* =========================================
-   OPEN AFFILIATE REGISTRATION
-========================================= */
-
-async function openAffiliateRegistration() {
-
-  const confirmed =
-    confirm(
-      "Open new affiliate registration?"
-    );
-
-
-  if (!confirmed) {
-    return;
-  }
-
-
-  setAffiliateButtonsDisabled(true);
-
-
-  try {
-
-    const {
-      error
-    } =
-      await db.rpc(
-        "open_affiliate_registration"
-      );
-
-
-    if (error) {
-      throw error;
-    }
-
-
-    await loadAffiliateRegistrationStatus();
-
-
-    alert(
-      "Affiliate registration is now OPEN ♡"
-    );
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "OPEN AFFILIATE ERROR:",
-      error
-    );
-
-    alert(
-      "Unable to open affiliate registration.\n\n" +
-      error.message
-    );
-
-  }
-
-  finally {
-
-    setAffiliateButtonsDisabled(false);
-
-  }
-
-}
-
-
-/* =========================================
-   CLOSE AFFILIATE REGISTRATION
-========================================= */
-
-async function closeAffiliateRegistration() {
-
-  const confirmed =
-    confirm(
-      "Close new affiliate registration?\n\nExisting affiliates will NOT be affected."
-    );
-
-
-  if (!confirmed) {
-    return;
-  }
-
-
-  setAffiliateButtonsDisabled(true);
-
-
-  try {
-
-    const {
-      error
-    } =
-      await db.rpc(
-        "close_affiliate_registration"
-      );
-
-
-    if (error) {
-      throw error;
-    }
-
-
-    await loadAffiliateRegistrationStatus();
-
-
-    alert(
-      "Affiliate registration is now CLOSED."
-    );
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "CLOSE AFFILIATE ERROR:",
-      error
-    );
-
-    alert(
-      "Unable to close affiliate registration.\n\n" +
-      error.message
-    );
-
-  }
-
-  finally {
-
-    setAffiliateButtonsDisabled(false);
-
-  }
-
-}
-
-
-/* =========================================
-   AFFILIATE FOLLOW STORE
-========================================= */
-
-async function affiliateAuto() {
-
-  const confirmed =
-    confirm(
-      "Make affiliate registration follow KINO store status automatically?"
-    );
-
-
-  if (!confirmed) {
-    return;
-  }
-
-
-  setAffiliateButtonsDisabled(true);
-
-
-  try {
-
-    const {
-      error
-    } =
-      await db.rpc(
-        "affiliate_follow_store"
-      );
-
-
-    if (error) {
-      throw error;
-    }
-
-
-    await loadAffiliateRegistrationStatus();
-
-
-    alert(
-      "Affiliate registration will now follow KINO store status ♡"
-    );
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "AFFILIATE AUTO ERROR:",
-      error
-    );
-
-    alert(
-      "Unable to change affiliate registration mode.\n\n" +
-      error.message
-    );
-
-  }
-
-  finally {
-
-    setAffiliateButtonsDisabled(false);
 
   }
 
