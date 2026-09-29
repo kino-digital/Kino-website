@@ -609,8 +609,8 @@ footer {
 
 
     <!--
-      AFFILIATE KEKAL BOLEH BUKA
-      WALAU KINO CLOSED
+      Affiliate akan kita protect
+      pada affiliate page nanti.
     -->
 
     <a href="affiliate.html">
@@ -892,7 +892,7 @@ footer {
 
 
 <!-- =========================================
-     SUPABASE
+     SUPABASE + STORE CONTROL
 ========================================= -->
 
 <script>
@@ -903,9 +903,11 @@ const SUPABASE_URL =
 const SUPABASE_PUBLISHABLE_KEY =
   "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
 
+
 const {
   createClient
 } = supabase;
+
 
 const db =
   createClient(
@@ -923,20 +925,24 @@ const statusBox =
     "store-status"
   );
 
+
 const statusText =
   document.getElementById(
     "store-status-text"
   );
+
 
 const closedNote =
   document.getElementById(
     "closed-note"
   );
 
+
 const closedModalOverlay =
   document.getElementById(
     "closed-modal-overlay"
   );
+
 
 const closedModalButton =
   document.getElementById(
@@ -945,7 +951,14 @@ const closedModalButton =
 
 
 /* =========================================
-   KINO CLOSED POPUP
+   STORE STATE
+========================================= */
+
+let kinoStoreIsOpen = false;
+
+
+/* =========================================
+   CLOSED POPUP
 ========================================= */
 
 function showClosedPopup() {
@@ -967,7 +980,7 @@ function hideClosedPopup() {
 
 
 /* =========================================
-   CLOSE POPUP BUTTON
+   POPUP BUTTON
 ========================================= */
 
 closedModalButton.addEventListener(
@@ -1022,18 +1035,23 @@ document.addEventListener(
 
 
 /* =========================================
-   SET OPEN
+   SET STORE OPEN
 ========================================= */
 
 function setStoreOpen() {
+
+  kinoStoreIsOpen = true;
+
 
   statusBox.classList.remove(
     "closed"
   );
 
+
   statusBox.classList.add(
     "open"
   );
+
 
   statusText.textContent =
     "KINO is OPEN";
@@ -1044,66 +1062,75 @@ function setStoreOpen() {
 
 
   /*
-    Enable all purchase/shop links.
+    Enable Shop / Cart / Shop Now.
   */
 
   document
     .querySelectorAll(
       ".store-purchase-link"
     )
-    .forEach(link => {
+    .forEach(
+      link => {
 
-      link.style.pointerEvents =
-        "auto";
+        link.style.pointerEvents =
+          "auto";
 
-      link.style.opacity =
-        "1";
+        link.style.opacity =
+          "1";
 
-      link.removeAttribute(
-        "aria-disabled"
-      );
+        link.removeAttribute(
+          "aria-disabled"
+        );
 
-    });
+      }
+    );
 
 
   /*
-    Enable category links.
+    Enable categories.
   */
 
   document
     .querySelectorAll(
       ".shop-link"
     )
-    .forEach(link => {
+    .forEach(
+      link => {
 
-      link.style.pointerEvents =
-        "auto";
+        link.style.pointerEvents =
+          "auto";
 
-      link.style.opacity =
-        "1";
+        link.style.opacity =
+          "1";
 
-      link.removeAttribute(
-        "aria-disabled"
-      );
+        link.removeAttribute(
+          "aria-disabled"
+        );
 
-    });
+      }
+    );
 
 }
 
 
 /* =========================================
-   SET CLOSED
+   SET STORE CLOSED
 ========================================= */
 
 function setStoreClosed() {
+
+  kinoStoreIsOpen = false;
+
 
   statusBox.classList.remove(
     "open"
   );
 
+
   statusBox.classList.add(
     "closed"
   );
+
 
   statusText.textContent =
     "KINO is CLOSED";
@@ -1114,172 +1141,108 @@ function setStoreClosed() {
 
 
   /*
-    Disable visual appearance
-    for Shop / Cart / Shop Now.
-    
-    Affiliate is intentionally NOT included.
+    Disable Shop / Cart / Shop Now.
   */
 
   document
     .querySelectorAll(
       ".store-purchase-link"
     )
-    .forEach(link => {
+    .forEach(
+      link => {
 
-      link.style.pointerEvents =
-        "auto";
+        link.style.pointerEvents =
+          "auto";
 
-      link.style.opacity =
-        "0.55";
+        link.style.opacity =
+          "0.55";
 
-      link.setAttribute(
-        "aria-disabled",
-        "true"
-      );
+        link.setAttribute(
+          "aria-disabled",
+          "true"
+        );
 
-    });
+      }
+    );
 
 
   /*
-    Disable visual appearance
-    for product categories.
+    Disable product categories.
   */
 
   document
     .querySelectorAll(
       ".shop-link"
     )
-    .forEach(link => {
+    .forEach(
+      link => {
 
-      link.style.pointerEvents =
-        "auto";
+        link.style.pointerEvents =
+          "auto";
 
-      link.style.opacity =
-        "0.55";
+        link.style.opacity =
+          "0.55";
 
-      link.setAttribute(
-        "aria-disabled",
-        "true"
-      );
+        link.setAttribute(
+          "aria-disabled",
+          "true"
+        );
 
-    });
+      }
+    );
 
 }
 
 
 /* =========================================
-   PROTECT PURCHASE LINKS
+   AUTOMATIC FALLBACK
+   8AM - 10PM MALAYSIA
 ========================================= */
 
-document
-  .querySelectorAll(
-    ".store-purchase-link"
-  )
-  .forEach(link => {
+function getAutomaticStoreStatus() {
 
-    link.addEventListener(
-      "click",
-      async function(event) {
-
-        /*
-          IMPORTANT:
-          Block navigation FIRST.
-
-          This must happen BEFORE await.
-          Otherwise the browser may navigate
-          before Supabase returns the status.
-        */
-
-        event.preventDefault();
+  const now =
+    new Date();
 
 
-        const targetUrl =
-          this.href;
+  const parts =
+    new Intl.DateTimeFormat(
+      "en-GB",
+      {
+        timeZone:
+          "Asia/Kuala_Lumpur",
 
+        hour:
+          "2-digit",
 
-        const isOpen =
-          await getCurrentStoreStatus();
-
-
-        /*
-          KINO CLOSED
-        */
-
-        if (!isOpen) {
-
-          showClosedPopup();
-
-          return;
-
-        }
-
-
-        /*
-          KINO OPEN
-        */
-
-        window.location.href =
-          targetUrl;
-
+        hour12:
+          false
       }
+    )
+    .formatToParts(now);
+
+
+  const hourPart =
+    parts.find(
+      part =>
+        part.type === "hour"
     );
 
-  });
 
-
-/* =========================================
-   PROTECT CATEGORY LINKS
-========================================= */
-
-document
-  .querySelectorAll(
-    ".shop-link"
-  )
-  .forEach(link => {
-
-    link.addEventListener(
-      "click",
-      async function(event) {
-
-        /*
-          Block navigation immediately.
-        */
-
-        event.preventDefault();
-
-
-        const targetUrl =
-          this.href;
-
-
-        const isOpen =
-          await getCurrentStoreStatus();
-
-
-        /*
-          KINO CLOSED
-        */
-
-        if (!isOpen) {
-
-          showClosedPopup();
-
-          return;
-
-        }
-
-
-        /*
-          KINO OPEN
-        */
-
-        window.location.href =
-          targetUrl;
-
-      }
+  const hour =
+    Number(
+      hourPart
+        ? hourPart.value
+        : 0
     );
 
-  });
+
+  return (
+    hour >= 8 &&
+    hour < 22
+  );
+
+}
 
 
 /* =========================================
@@ -1306,11 +1269,6 @@ async function getCurrentStoreStatus() {
         error
       );
 
-
-      /*
-        If Supabase temporarily fails,
-        use Malaysia automatic schedule.
-      */
 
       return getAutomaticStoreStatus();
 
@@ -1350,6 +1308,77 @@ async function getCurrentStoreStatus() {
 
 
 /* =========================================
+   PROTECT STORE LINKS
+========================================= */
+
+function setupStoreLinks() {
+
+  document
+    .querySelectorAll(
+      ".store-purchase-link, .shop-link"
+    )
+    .forEach(
+      link => {
+
+        link.addEventListener(
+          "click",
+          async function(event) {
+
+            /*
+              Stop navigation first.
+            */
+
+            event.preventDefault();
+
+
+            const targetUrl =
+              this.href;
+
+
+            /*
+              Check latest status
+              directly from Supabase.
+            */
+
+            const isOpen =
+              await getCurrentStoreStatus();
+
+
+            /*
+              KINO CLOSED
+            */
+
+            if (!isOpen) {
+
+              setStoreClosed();
+
+              showClosedPopup();
+
+              return;
+
+            }
+
+
+            /*
+              KINO OPEN
+            */
+
+            setStoreOpen();
+
+
+            window.location.href =
+              targetUrl;
+
+          }
+        );
+
+      }
+    );
+
+}
+
+
+/* =========================================
    LOAD STORE STATUS
 ========================================= */
 
@@ -1372,6 +1401,7 @@ async function loadStoreStatus() {
         "STORE STATUS ERROR:",
         error
       );
+
 
       applyAutomaticStatus();
 
@@ -1416,6 +1446,7 @@ async function loadStoreStatus() {
       error
     );
 
+
     applyAutomaticStatus();
 
   }
@@ -1424,47 +1455,7 @@ async function loadStoreStatus() {
 
 
 /* =========================================
-   MALAYSIA AUTOMATIC STATUS
-========================================= */
-
-function getAutomaticStoreStatus() {
-
-  const now =
-    new Date();
-
-
-  const malaysiaTime =
-    new Intl.DateTimeFormat(
-      "en-US",
-      {
-        timeZone:
-          "Asia/Kuala_Lumpur",
-
-        hour:
-          "numeric",
-
-        hour12:
-          false
-      }
-    ).format(now);
-
-
-  const hour =
-    Number(
-      malaysiaTime
-    );
-
-
-  return (
-    hour >= 8 &&
-    hour < 22
-  );
-
-}
-
-
-/* =========================================
-   APPLY FALLBACK STATUS
+   FALLBACK STATUS
 ========================================= */
 
 function applyAutomaticStatus() {
@@ -1489,6 +1480,8 @@ function applyAutomaticStatus() {
 /* =========================================
    START
 ========================================= */
+
+setupStoreLinks();
 
 loadStoreStatus();
 
