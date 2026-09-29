@@ -805,7 +805,7 @@
     <span class="status-dot"></span>
 
     <span id="status-text">
-      Checking KINO status...
+      Checking status...
     </span>
 
   </div>
@@ -823,7 +823,9 @@
   <div class="main-box">
 
 
-    <!-- PLANS -->
+    <!-- =====================================
+         PLANS
+    ====================================== -->
 
     <div class="section-title">
       Choose Your Affiliate Plan ♡
@@ -972,7 +974,9 @@
 
 
 
-    <!-- NOTE -->
+    <!-- =====================================
+         NOTE
+    ====================================== -->
 
     <div class="note-box">
 
@@ -1000,7 +1004,9 @@
 
 
 
-    <!-- JOIN -->
+    <!-- =====================================
+         JOIN
+    ====================================== -->
 
     <div class="join-section">
 
@@ -1013,11 +1019,6 @@
         Affiliate registration is available
         whenever KINO is open.
 
-        <br>
-
-        When KINO is closed, new affiliate
-        registration is temporarily unavailable.
-
       </div>
 
 
@@ -1026,6 +1027,8 @@
         class="message"
       ></div>
 
+
+      <!-- FORM -->
 
       <div class="form-grid">
 
@@ -1117,7 +1120,9 @@
 
 
 
-      <!-- PAYMENT -->
+      <!-- =====================================
+           PAYMENT
+      ====================================== -->
 
       <div class="payment-section">
 
@@ -1154,7 +1159,8 @@
 
 
           <!--
-            GANTI DENGAN QR TNG KAU NANTI
+            GANTI PLACEHOLDER INI
+            DENGAN QR TNG KAU NANTI
 
             <img
               src="images/tng-qr.png"
@@ -1188,7 +1194,9 @@
 
 
 
-      <!-- PAYMENT PROOF -->
+      <!-- =====================================
+           PAYMENT PROOF
+      ====================================== -->
 
       <div class="payment-proof-section">
 
@@ -1217,7 +1225,9 @@
 
 
 
-      <!-- CONFIRMATION -->
+      <!-- =====================================
+           CONFIRMATION
+      ====================================== -->
 
       <label class="confirmation">
 
@@ -1237,7 +1247,9 @@
 
 
 
-      <!-- BUTTON -->
+      <!-- =====================================
+           BUTTON
+      ====================================== -->
 
       <button
         type="button"
@@ -1245,9 +1257,11 @@
         id="join-button"
         disabled
       >
-        CHECKING KINO STATUS...
+        CHECKING...
       </button>
 
+
+      <!-- CLOSED NOTE -->
 
       <div
         class="closed-note"
@@ -1258,8 +1272,8 @@
 
         <br><br>
 
-        New affiliate registration is
-        available when KINO is open.
+        Affiliate registration will be
+        available when KINO opens again.
 
         <br><br>
 
@@ -1276,7 +1290,9 @@
 
 
 
-<!-- FOOTER -->
+<!-- =========================================
+     FOOTER
+========================================= -->
 
 <footer>
 
@@ -1295,12 +1311,15 @@
 const SUPABASE_URL =
   "https://vbdgzsapdbpgfcdksdoi.supabase.co";
 
+
 const SUPABASE_PUBLISHABLE_KEY =
   "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
+
 
 const {
   createClient
 } = supabase;
+
 
 const db =
   createClient(
@@ -1495,28 +1514,33 @@ planSelect.addEventListener(
 
 /* =========================================
    GET KINO STORE STATUS
-=========================================
-
-   IMPORTANT:
-
-   Affiliate follows ONLY KINO store status.
-
-   TRUE  = KINO OPEN
-   FALSE = KINO CLOSED
-
-   No separate affiliate status.
 ========================================= */
 
-async function getKinoStatus() {
+/*
+  IMPORTANT:
+
+  Affiliate sekarang HANYA ikut:
+
+  data.is_open
+
+  Tiada lagi:
+  affiliate_registration_open
+
+  Tiada lagi:
+  admin affiliate toggle
+*/
+
+async function getKinoStoreStatus() {
 
   try {
 
     const {
       data,
       error
-    } = await db.rpc(
-      "get_store_status"
-    );
+    } =
+      await db.rpc(
+        "get_store_status"
+      );
 
 
     if (error) {
@@ -1544,7 +1568,7 @@ async function getKinoStatus() {
     ) {
 
       throw new Error(
-        "No KINO store status returned."
+        "Store status was not returned."
       );
 
     }
@@ -1559,7 +1583,7 @@ async function getKinoStatus() {
   catch (error) {
 
     console.error(
-      "KINO STATUS ERROR:",
+      "KINO STORE STATUS ERROR:",
       error
     );
 
@@ -1586,7 +1610,7 @@ function enableRegistration() {
 
 
   statusText.textContent =
-    "KINO is OPEN";
+    "Affiliate Registration is OPEN";
 
 
   nameInput.disabled =
@@ -1673,10 +1697,10 @@ function disableRegistration() {
 
 
 /* =========================================
-   STATUS CHECK FAILED
+   STATUS ERROR
 ========================================= */
 
-function statusCheckFailed() {
+function showStatusError() {
 
   statusBox.classList.remove(
     "open"
@@ -1733,19 +1757,19 @@ function statusCheckFailed() {
 
 async function loadAffiliateStatus() {
 
-  const isOpen =
-    await getKinoStatus();
+  const storeIsOpen =
+    await getKinoStoreStatus();
 
 
   /*
-    Supabase status check failed.
+    SUPABASE ERROR
   */
 
   if (
-    isOpen === null
+    storeIsOpen === null
   ) {
 
-    statusCheckFailed();
+    showStatusError();
 
     return;
 
@@ -1754,12 +1778,10 @@ async function loadAffiliateStatus() {
 
   /*
     KINO OPEN
-
-    Affiliate registration OPEN.
   */
 
   if (
-    isOpen === true
+    storeIsOpen === true
   ) {
 
     enableRegistration();
@@ -1771,8 +1793,6 @@ async function loadAffiliateStatus() {
 
   /*
     KINO CLOSED
-
-    Affiliate registration CLOSED.
   */
 
   disableRegistration();
@@ -1780,11 +1800,22 @@ async function loadAffiliateStatus() {
 }
 
 
+/* =========================================
+   START STATUS
+========================================= */
+
 loadAffiliateStatus();
 
 
 /*
-  Refresh status every minute.
+  Refresh every minute.
+
+  Jadi bila KINO berubah:
+
+  OPEN → CLOSED
+  CLOSED → OPEN
+
+  Affiliate akan ikut automatik.
 */
 
 setInterval(
@@ -1926,7 +1957,7 @@ function validatePaymentProof(
 
 
 /* =========================================
-   REGISTER
+   REGISTER AFFILIATE
 ========================================= */
 
 async function registerAffiliate() {
@@ -1935,30 +1966,31 @@ async function registerAffiliate() {
 
 
   /*
-    CHECK KINO STATUS AGAIN
+    CHECK KINO STATUS AGAIN.
 
-    This is important because the store
-    could have closed after the page was
-    originally opened.
+    This is important because KINO could
+    have been closed after the page loaded.
   */
 
-  const isOpen =
-    await getKinoStatus();
+  const storeIsOpen =
+    await getKinoStoreStatus();
 
 
   /*
-    Supabase status check failed.
+    STATUS CHECK FAILED
   */
 
   if (
-    isOpen === null
+    storeIsOpen === null
   ) {
 
-    statusCheckFailed();
+    showStatusError();
+
 
     showMessage(
       "Unable to check KINO status. Please refresh the page."
     );
+
 
     return;
 
@@ -1967,28 +1999,28 @@ async function registerAffiliate() {
 
   /*
     KINO CLOSED
-
-    Do NOT allow registration.
   */
 
   if (
-    isOpen === false
+    storeIsOpen === false
   ) {
 
     disableRegistration();
 
+
     showMessage(
-      "Affiliate registration is currently closed because KINO is closed."
+      "KINO is currently closed. Affiliate registration is unavailable."
     );
+
 
     return;
 
   }
 
 
-  /* =======================================
+  /* =====================================
      PLAN
-  ======================================= */
+  ===================================== */
 
   const planKey =
     planSelect.value;
@@ -2016,9 +2048,9 @@ async function registerAffiliate() {
     PLANS[planKey];
 
 
-  /* =======================================
+  /* =====================================
      DETAILS
-  ======================================= */
+  ===================================== */
 
   const name =
     nameInput.value.trim();
@@ -2034,9 +2066,9 @@ async function registerAffiliate() {
     passwordInput.value;
 
 
-  /* =======================================
+  /* =====================================
      VALIDATION
-  ======================================= */
+  ===================================== */
 
   if (!name) {
 
@@ -2118,9 +2150,9 @@ async function registerAffiliate() {
   }
 
 
-  /* =======================================
+  /* =====================================
      BUTTON
-  ======================================= */
+  ===================================== */
 
   joinButton.disabled =
     true;
@@ -2132,43 +2164,9 @@ async function registerAffiliate() {
   try {
 
 
-    /* =====================================
-       CHECK KINO STATUS ONE MORE TIME
-    ===================================== */
-
-    const finalStatus =
-      await getKinoStatus();
-
-
-    if (
-      finalStatus !== true
-    ) {
-
-      if (
-        finalStatus === false
-      ) {
-
-        disableRegistration();
-
-      }
-
-      else {
-
-        statusCheckFailed();
-
-      }
-
-
-      throw new Error(
-        "KINO is no longer open for affiliate registration."
-      );
-
-    }
-
-
-    /* =====================================
+    /* ===================================
        CREATE AUTH ACCOUNT
-    ===================================== */
+    =================================== */
 
     const {
       data: authData,
@@ -2208,9 +2206,9 @@ async function registerAffiliate() {
       authData.user.id;
 
 
-    /* =====================================
+    /* ===================================
        AFFILIATE CODE
-    ===================================== */
+    =================================== */
 
     const affiliateCode =
       createAffiliateCode();
@@ -2220,9 +2218,9 @@ async function registerAffiliate() {
       getReferrerCode();
 
 
-    /* =====================================
+    /* ===================================
        INSERT AFFILIATE
-    ===================================== */
+    =================================== */
 
     const {
       error: affiliateError
@@ -2270,9 +2268,9 @@ async function registerAffiliate() {
     }
 
 
-    /* =====================================
+    /* ===================================
        PAYMENT PROOF
-    ===================================== */
+    =================================== */
 
     const extension =
       proofFile.name
@@ -2328,9 +2326,9 @@ async function registerAffiliate() {
     }
 
 
-    /* =====================================
+    /* ===================================
        SUCCESS
-    ===================================== */
+    =================================== */
 
     showMessage(
 
@@ -2349,9 +2347,9 @@ async function registerAffiliate() {
       true;
 
 
-    /* =====================================
+    /* ===================================
        CLEAR FORM
-    ===================================== */
+    =================================== */
 
     nameInput.value =
       "";
@@ -2402,15 +2400,12 @@ async function registerAffiliate() {
 
 
     /*
-      Only restore the button if KINO
-      is still open.
-
-      If KINO closed during submission,
-      keep registration disabled.
+      Re-check KINO status before
+      enabling the button again.
     */
 
     const currentStatus =
-      await getKinoStatus();
+      await getKinoStoreStatus();
 
 
     if (
@@ -2425,17 +2420,9 @@ async function registerAffiliate() {
 
     }
 
-    else if (
-      currentStatus === false
-    ) {
-
-      disableRegistration();
-
-    }
-
     else {
 
-      statusCheckFailed();
+      disableRegistration();
 
     }
 
