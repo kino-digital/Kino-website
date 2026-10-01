@@ -700,6 +700,133 @@ h1 {
 
 
 /* =========================
+   KINO ADMIN POPUP
+========================= */
+
+.kino-admin-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(95, 74, 80, 0.38);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.kino-admin-modal-overlay.show {
+  display: flex;
+}
+
+.kino-admin-modal {
+  width: 100%;
+  max-width: 430px;
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 32px 28px 28px;
+  text-align: center;
+  box-shadow: 0 15px 45px rgba(190,130,150,0.22);
+  animation: kinoAdminPopup .25s ease-out;
+}
+
+@keyframes kinoAdminPopup {
+
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+}
+
+.kino-admin-modal-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: #fde6ee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  color: #b96f8a;
+}
+
+.kino-admin-modal-title {
+  color: #b96f8a;
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.kino-admin-modal-text {
+  color: #8a747b;
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 22px;
+}
+
+.kino-admin-modal-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.kino-admin-modal-button {
+  flex: 1;
+  border: none;
+  padding: 13px 18px;
+  border-radius: 25px;
+  font-family: "Baloo 2", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+.kino-admin-cancel-button {
+  background: #f2e8ec;
+  color: #8a747b;
+}
+
+.kino-admin-cancel-button:hover {
+  background: #eadce2;
+}
+
+.kino-admin-confirm-button {
+  background: #d9829e;
+  color: white;
+}
+
+.kino-admin-confirm-button:hover {
+  background: #c97491;
+  transform: translateY(-1px);
+}
+
+.kino-admin-success-button {
+  width: 100%;
+  border: none;
+  padding: 13px 20px;
+  border-radius: 25px;
+  background: #d9829e;
+  color: white;
+  font-family: "Baloo 2", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+.kino-admin-success-button:hover {
+  background: #c97491;
+  transform: translateY(-1px);
+}
+
+
+/* =========================
    MOBILE
 ========================= */
 
@@ -775,6 +902,14 @@ h1 {
 
   .affiliate-plan {
     align-self: flex-start;
+  }
+
+  .kino-admin-modal {
+    padding: 28px 22px 24px;
+  }
+
+  .kino-admin-modal-buttons {
+    flex-direction: column;
   }
 
 }
@@ -1178,6 +1313,119 @@ h1 {
 </section>
 
 
+<!-- =========================================
+     KINO ADMIN CONFIRM POPUP
+========================================= -->
+
+<div
+  id="kino-admin-confirm-modal"
+  class="kino-admin-modal-overlay"
+>
+
+  <div
+    class="kino-admin-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="kino-admin-confirm-title"
+  >
+
+    <div class="kino-admin-modal-icon">
+      ♡
+    </div>
+
+
+    <div
+      id="kino-admin-confirm-title"
+      class="kino-admin-modal-title"
+    >
+      Approve Affiliate ♡
+    </div>
+
+
+    <div
+      id="kino-admin-confirm-text"
+      class="kino-admin-modal-text"
+    >
+      Are you sure?
+    </div>
+
+
+    <div class="kino-admin-modal-buttons">
+
+      <button
+        type="button"
+        id="kino-admin-confirm-cancel"
+        class="kino-admin-modal-button kino-admin-cancel-button"
+      >
+        CANCEL
+      </button>
+
+
+      <button
+        type="button"
+        id="kino-admin-confirm-ok"
+        class="kino-admin-modal-button kino-admin-confirm-button"
+      >
+        APPROVE ♡
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================
+     KINO ADMIN SUCCESS POPUP
+========================================= -->
+
+<div
+  id="kino-admin-success-modal"
+  class="kino-admin-modal-overlay"
+>
+
+  <div
+    class="kino-admin-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="kino-admin-success-title"
+  >
+
+    <div class="kino-admin-modal-icon">
+      ♡
+    </div>
+
+
+    <div
+      id="kino-admin-success-title"
+      class="kino-admin-modal-title"
+    >
+      Affiliate Approved ♡
+    </div>
+
+
+    <div
+      id="kino-admin-success-text"
+      class="kino-admin-modal-text"
+    >
+      Affiliate approved successfully.
+    </div>
+
+
+    <button
+      type="button"
+      id="kino-admin-success-button"
+      class="kino-admin-success-button"
+    >
+      OKAY ♡
+    </button>
+
+  </div>
+
+</div>
+
+
 <script>
 
 /* =========================================
@@ -1253,6 +1501,204 @@ let allOrders = [];
 let allAffiliates = [];
 
 let currentFilter = "all";
+
+
+/* =========================================
+   KINO ADMIN POPUP ELEMENTS
+========================================= */
+
+const confirmModal =
+  document.getElementById(
+    "kino-admin-confirm-modal"
+  );
+
+const confirmTitle =
+  document.getElementById(
+    "kino-admin-confirm-title"
+  );
+
+const confirmText =
+  document.getElementById(
+    "kino-admin-confirm-text"
+  );
+
+const confirmCancel =
+  document.getElementById(
+    "kino-admin-confirm-cancel"
+  );
+
+const confirmOk =
+  document.getElementById(
+    "kino-admin-confirm-ok"
+  );
+
+
+const successModal =
+  document.getElementById(
+    "kino-admin-success-modal"
+  );
+
+const successTitle =
+  document.getElementById(
+    "kino-admin-success-title"
+  );
+
+const successText =
+  document.getElementById(
+    "kino-admin-success-text"
+  );
+
+const successButton =
+  document.getElementById(
+    "kino-admin-success-button"
+  );
+
+
+let confirmResolver = null;
+
+
+/* =========================================
+   KINO CONFIRM POPUP
+========================================= */
+
+function showKinoConfirm(
+  title,
+  text,
+  buttonText = "OKAY ♡"
+) {
+
+  confirmTitle.textContent =
+    title;
+
+  confirmText.innerHTML =
+    text;
+
+  confirmOk.textContent =
+    buttonText;
+
+  confirmModal.classList.add(
+    "show"
+  );
+
+  document.body.style.overflow =
+    "hidden";
+
+
+  return new Promise(
+    function(resolve) {
+
+      confirmResolver =
+        resolve;
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   CLOSE KINO CONFIRM
+========================================= */
+
+function closeKinoConfirm(
+  result
+) {
+
+  confirmModal.classList.remove(
+    "show"
+  );
+
+  document.body.style.overflow =
+    "";
+
+  if (confirmResolver) {
+
+    confirmResolver(
+      result
+    );
+
+    confirmResolver =
+      null;
+
+  }
+
+}
+
+
+/* =========================================
+   CONFIRM CANCEL
+========================================= */
+
+confirmCancel.addEventListener(
+  "click",
+  function() {
+
+    closeKinoConfirm(
+      false
+    );
+
+  }
+);
+
+
+/* =========================================
+   CONFIRM OK
+========================================= */
+
+confirmOk.addEventListener(
+  "click",
+  function() {
+
+    closeKinoConfirm(
+      true
+    );
+
+  }
+);
+
+
+/* =========================================
+   SUCCESS POPUP
+========================================= */
+
+function showKinoSuccess(
+  title,
+  text
+) {
+
+  successTitle.textContent =
+    title;
+
+  successText.innerHTML =
+    text;
+
+  successModal.classList.add(
+    "show"
+  );
+
+  document.body.style.overflow =
+    "hidden";
+
+}
+
+
+/* =========================================
+   CLOSE SUCCESS
+========================================= */
+
+successButton.addEventListener(
+  "click",
+  function() {
+
+    successModal.classList.remove(
+      "show"
+    );
+
+    document.body.style.overflow =
+      "";
+
+  }
+);
 
 
 /* =========================================
@@ -2403,13 +2849,34 @@ async function approveAffiliate(
       : 5;
 
 
+  /* =======================================
+     KINO CUSTOM CONFIRM POPUP
+  ======================================= */
+
   const confirmed =
-    confirm(
-      `Approve ${affiliate.display_name} as ${
-        tier === "pro"
-          ? "PRO"
-          : "BASIC"
-      } affiliate?\n\nMembership payment: RM${amount.toFixed(2)}`
+    await showKinoConfirm(
+      "Approve Affiliate ♡",
+      `
+        Approve
+        <strong>
+          ${escapeHtml(
+            affiliate.display_name
+          )}
+        </strong>
+        as
+        <strong>
+          ${tier === "pro" ? "PRO" : "BASIC"}
+        </strong>
+        affiliate?
+
+        <br><br>
+
+        Membership payment:
+        <strong>
+          RM${amount.toFixed(2)}
+        </strong>
+      `,
+      "APPROVE ♡"
     );
 
 
@@ -2456,8 +2923,26 @@ async function approveAffiliate(
     }
 
 
-    alert(
-      "Affiliate approved successfully ♡"
+    /* ===================================
+       KINO SUCCESS POPUP
+    =================================== */
+
+    showKinoSuccess(
+      "Affiliate Approved ♡",
+      `
+        <strong>
+          ${escapeHtml(
+            affiliate.display_name
+          )}
+        </strong>
+
+        has been approved successfully
+        as a
+        <strong>
+          ${tier === "pro" ? "PRO" : "BASIC"}
+        </strong>
+        affiliate.
+      `
     );
 
 
@@ -2660,7 +3145,6 @@ function updateSummary() {
     Only affiliates with approved_at
     are counted.
 
-    This means:
     pending = RM0
     rejected = RM0
     approved = counted
@@ -2752,10 +3236,6 @@ function updateSummary() {
 
   /*
     FINAL ADMIN SALES
-
-    Product sales
-    +
-    Affiliate membership sales
   */
 
   const totalSales =
