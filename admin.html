@@ -1,2556 +1,2899 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>KINO Admin Dashboard</title>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  >
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <style>
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      background: #fff7fa;
-      color: #725f66;
-      font-family: "Baloo 2", sans-serif;
-    }
-
-    button,
-    input,
-    select {
-      font-family: "Baloo 2", sans-serif;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    .page {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 25px 18px 60px;
-    }
-
-    /* =========================
-       HEADER
-    ========================= */
-
-    .topbar {
-      background: white;
-      border-radius: 24px;
-      padding: 18px 22px;
-      margin-bottom: 22px;
-      box-shadow: 0 8px 25px rgba(190,130,150,.10);
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-    }
-
-    .brand {
-      color: #b96f8a;
-      font-size: 30px;
-      font-weight: 700;
-      line-height: 1;
-    }
-
-    .brand-sub {
-      color: #a88c95;
-      font-size: 13px;
-      margin-top: 4px;
-    }
-
-    .logout-button {
-      border: none;
-      background: #fde6ee;
-      color: #b96f8a;
-      padding: 10px 18px;
-      border-radius: 22px;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .logout-button:hover {
-      background: #f8d6e2;
-    }
-
-    /* =========================
-       LOGIN
-    ========================= */
-
-    .login-wrapper {
-      min-height: 100vh;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      padding: 20px;
-    }
-
-    .login-card {
-      width: 100%;
-      max-width: 420px;
-
-      background: white;
-      border-radius: 28px;
-      padding: 32px 28px;
-
-      box-shadow: 0 15px 45px rgba(190,130,150,.16);
-    }
-
-    .login-logo {
-      text-align: center;
-      color: #b96f8a;
-      font-size: 36px;
-      font-weight: 700;
-    }
-
-    .login-title {
-      text-align: center;
-      color: #8a747b;
-      font-size: 17px;
-      margin-bottom: 25px;
-    }
-
-    .field {
-      margin-bottom: 15px;
-    }
-
-    .field label {
-      display: block;
-      color: #8a747b;
-      font-size: 14px;
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
-
-    .field input,
-    .search-input,
-    .filter-select {
-      width: 100%;
-      border: 1px solid #efdce3;
-      background: #fffafb;
-      color: #725f66;
-
-      padding: 12px 14px;
-      border-radius: 15px;
-      outline: none;
-
-      font-size: 14px;
-    }
-
-    .field input:focus,
-    .search-input:focus,
-    .filter-select:focus {
-      border-color: #d9829e;
-    }
-
-    .primary-button {
-      width: 100%;
-      border: none;
-      border-radius: 24px;
-      padding: 13px 20px;
-
-      background: #d9829e;
-      color: white;
-
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .primary-button:hover {
-      background: #c97491;
-    }
-
-    .login-error {
-      display: none;
-
-      margin-top: 12px;
-      padding: 11px 14px;
-
-      background: #fff0f3;
-      color: #bd667f;
-
-      border-radius: 14px;
-      font-size: 14px;
-      text-align: center;
-    }
-
-    /* =========================
-       DASHBOARD
-    ========================= */
-
-    #dashboard {
-      display: none;
-    }
-
-    .section {
-      margin-bottom: 25px;
-    }
-
-    .section-title {
-      color: #b96f8a;
-      font-size: 23px;
-      font-weight: 700;
-      margin: 0 0 12px;
-    }
-
-    .section-subtitle {
-      color: #a88c95;
-      font-size: 13px;
-      margin-top: -7px;
-      margin-bottom: 15px;
-    }
-
-    /* =========================
-       STORE SETTINGS
-    ========================= */
-
-    .store-card {
-      background: white;
-      border-radius: 24px;
-      padding: 22px;
-
-      box-shadow: 0 8px 25px rgba(190,130,150,.10);
-    }
-
-    .store-status-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-
-      margin-bottom: 18px;
-    }
-
-    .store-status-label {
-      color: #8a747b;
-      font-size: 14px;
-    }
-
-    .store-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-
-      padding: 7px 14px;
-      border-radius: 20px;
-
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .store-status.open {
-      background: #eaf8ee;
-      color: #4f9b68;
-    }
-
-    .store-status.closed {
-      background: #fff0f3;
-      color: #bd667f;
-    }
-
-    .store-status.auto {
-      background: #fff6df;
-      color: #b48632;
-    }
-
-    .store-buttons {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-
-    .store-button {
-      border: none;
-      border-radius: 18px;
-      padding: 12px 10px;
-
-      background: #fde6ee;
-      color: #b96f8a;
-
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .store-button:hover {
-      background: #f8d6e2;
-    }
-
-    /* =========================
-       SUMMARY
-    ========================= */
-
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 12px;
-    }
-
-    .summary-card {
-      background: white;
-      border-radius: 20px;
-      padding: 17px;
-
-      box-shadow: 0 8px 25px rgba(190,130,150,.08);
-    }
-
-    .summary-label {
-      color: #a88c95;
-      font-size: 12px;
-      margin-bottom: 5px;
-    }
-
-    .summary-value {
-      color: #b96f8a;
-      font-size: 23px;
-      font-weight: 700;
-    }
-
-    /* =========================
-       ORDERS
-    ========================= */
-
-    .orders-card,
-    .affiliate-card {
-      background: white;
-      border-radius: 24px;
-      padding: 20px;
-
-      box-shadow: 0 8px 25px rgba(190,130,150,.10);
-    }
-
-    .toolbar {
-      display: grid;
-      grid-template-columns: 1fr 180px;
-      gap: 10px;
-
-      margin-bottom: 18px;
-    }
-
-    .order-list,
-    .affiliate-list {
-      display: grid;
-      gap: 14px;
-    }
-
-    .order-item,
-    .affiliate-item {
-      border: 1px solid #f1dfe5;
-      border-radius: 20px;
-      padding: 17px;
-
-      background: #fffafb;
-    }
-
-    .order-header,
-    .affiliate-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .order-code,
-    .affiliate-name {
-      color: #b96f8a;
-      font-size: 18px;
-      font-weight: 700;
-    }
-
-    .order-date,
-    .affiliate-email {
-      color: #a88c95;
-      font-size: 12px;
-    }
-
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-
-      padding: 5px 11px;
-      border-radius: 18px;
-
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .status-pending {
-      background: #fff3d9;
-      color: #ae8030;
-    }
-
-    .status-paid,
-    .status-active {
-      background: #eaf8ee;
-      color: #4f9b68;
-    }
-
-    .status-rejected {
-      background: #f1eeee;
-      color: #8c7e82;
-    }
-
-    .status-suspended {
-      background: #fff0f3;
-      color: #bd667f;
-    }
-
-    .order-info,
-    .affiliate-info {
-      margin-top: 13px;
-
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 7px 15px;
-    }
-
-    .info-row {
-      font-size: 13px;
-      color: #8a747b;
-    }
-
-    .info-row strong {
-      color: #725f66;
-    }
-
-    .order-actions,
-    .affiliate-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-
-      margin-top: 15px;
-    }
-
-    .action-button {
-      border: none;
-      border-radius: 18px;
-
-      padding: 9px 13px;
-
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    .action-primary {
-      background: #d9829e;
-      color: white;
-    }
-
-    .action-secondary {
-      background: #fde6ee;
-      color: #b96f8a;
-    }
-
-    .action-danger {
-      background: #fff0f3;
-      color: #bd667f;
-    }
-
-    .action-green {
-      background: #eaf8ee;
-      color: #4f9b68;
-    }
-
-    .action-button:hover {
-      opacity: .88;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 30px 15px;
-
-      color: #a88c95;
-      font-size: 14px;
-    }
-
-    /* =========================
-       AFFILIATE
-    ========================= */
-
-    .affiliate-count {
-      color: #a88c95;
-      font-size: 13px;
-      margin-top: -8px;
-      margin-bottom: 15px;
-    }
-
-    .affiliate-plan {
-      display: inline-block;
-
-      padding: 4px 10px;
-      border-radius: 15px;
-
-      background: #fde6ee;
-      color: #b96f8a;
-
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .affiliate-membership {
-      color: #8a747b;
-      font-size: 13px;
-    }
-
-    .approved-date {
-      color: #a88c95;
-      font-size: 12px;
-    }
-
-    /* =========================
-       KINO MODAL
-    ========================= */
-
-    .kino-modal-overlay {
-      display: none;
-
-      position: fixed;
-      inset: 0;
-
-      z-index: 9999;
-
-      background: rgba(95, 74, 80, 0.38);
-
-      align-items: center;
-      justify-content: center;
-
-      padding: 20px;
-    }
-
-    .kino-modal-overlay.show {
-      display: flex;
-    }
-
-    .kino-modal {
-      width: 100%;
-      max-width: 430px;
-
-      background: #ffffff;
-
-      border-radius: 28px;
-
-      padding: 32px 28px 28px;
-
-      text-align: center;
-
-      box-shadow:
-        0 15px 45px rgba(190,130,150,0.22);
-
-      animation: kinoPopup .25s ease-out;
-    }
-
-    @keyframes kinoPopup {
-      from {
-        opacity: 0;
-        transform: translateY(15px) scale(.96);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    .kino-modal-icon {
-      width: 70px;
-      height: 70px;
-
-      margin: 0 auto 18px;
-
-      border-radius: 50%;
-
-      background: #fde6ee;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      font-size: 34px;
-      color: #b96f8a;
-    }
-
-    .kino-modal-title {
-      color: #b96f8a;
-
-      font-size: 25px;
-      font-weight: 700;
-
-      margin-bottom: 8px;
-    }
-
-    .kino-modal-text {
-      color: #8a747b;
-
-      font-size: 15px;
-      line-height: 1.7;
-
-      margin-bottom: 20px;
-    }
-
-    .kino-modal-buttons {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 9px;
-    }
-
-    .kino-modal-button {
-      width: 100%;
-
-      border: none;
-
-      padding: 13px 20px;
-
-      border-radius: 25px;
-
-      background: #d9829e;
-      color: white;
-
-      font-size: 16px;
-      font-weight: 600;
-
-      cursor: pointer;
-
-      transition: .2s ease;
-    }
-
-    .kino-modal-button:hover {
-      background: #c97491;
-      transform: translateY(-1px);
-    }
-
-    .kino-modal-button.cancel {
-      background: #fde6ee;
-      color: #b96f8a;
-    }
-
-    .kino-modal-button.cancel:hover {
-      background: #f8d6e2;
-    }
-
-    @media (max-width: 900px) {
-
-      .summary-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-    }
-
-    @media (max-width: 650px) {
-
-      .page {
-        padding: 15px 12px 45px;
-      }
-
-      .topbar {
-        padding: 16px;
-      }
-
-      .brand {
-        font-size: 27px;
-      }
-
-      .summary-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .store-buttons {
-        grid-template-columns: 1fr;
-      }
-
-      .toolbar {
-        grid-template-columns: 1fr;
-      }
-
-      .order-info,
-      .affiliate-info {
-        grid-template-columns: 1fr;
-      }
-
-      .order-header,
-      .affiliate-header {
-        flex-direction: column;
-      }
-
-      .kino-modal {
-        padding: 28px 22px 24px;
-      }
-
-    }
-
-  </style>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>KINO Admin</title>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+/* =========================
+   GLOBAL
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #fff8fb;
+  color: #8a747b;
+  font-family: 'Baloo 2', sans-serif;
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+#login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 440px;
+  background: white;
+  padding: 45px 40px;
+  border-radius: 28px;
+  box-shadow: 0 8px 30px rgba(190,130,150,0.12);
+}
+
+.login-logo {
+  text-align: center;
+  color: #b96f8a;
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.login-title {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.input-group {
+  margin-bottom: 18px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 14px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #eadce2;
+  border-radius: 15px;
+  outline: none;
+  font-size: 15px;
+}
+
+.input-group input:focus {
+  border-color: #d9829e;
+}
+
+.login-button {
+  width: 100%;
+  border: none;
+  background: #d9829e;
+  color: white;
+  padding: 14px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.login-button:disabled {
+  opacity: 0.6;
+}
+
+.login-error {
+  display: none;
+  background: #fff0f3;
+  color: #a96b82;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+#dashboard-page {
+  display: none;
+}
+
+header {
+  background: white;
+  padding: 18px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 15px rgba(190,130,150,0.06);
+}
+
+.logo {
+  color: #b96f8a;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.admin-label {
+  font-size: 14px;
+}
+
+.logout-button {
+  border: none;
+  background: #f7dce5;
+  color: #a96b82;
+  padding: 8px 15px;
+  border-radius: 18px;
+  cursor: pointer;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.dashboard {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+h1 {
+  color: #b96f8a;
+  font-size: 32px;
+  margin: 0 0 25px;
+}
+
+
+/* =========================
+   STORE SETTINGS
+========================= */
+
+.store-settings {
+  background: white;
+  padding: 22px;
+  border-radius: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 5px 18px rgba(190,130,150,0.10);
+}
+
+.store-settings-title {
+  color: #b96f8a;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.store-settings-subtitle {
+  color: #aaa;
+  font-size: 13px;
+  margin-bottom: 18px;
+}
+
+.store-status-admin {
+  background: #fff8fb;
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.store-status-admin strong {
+  color: #b96f8a;
+}
+
+.store-mode {
+  font-size: 13px;
+  color: #8a747b;
+}
+
+.store-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.store-button {
+  border: none;
+  padding: 10px 18px;
+  border-radius: 22px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.store-open {
+  background: #dff3e6;
+  color: #4f8a68;
+}
+
+.store-close {
+  background: #f8dce5;
+  color: #a96b82;
+}
+
+.store-auto {
+  background: #eee7ea;
+  color: #806d74;
+}
+
+.store-button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+
+/* =========================
+   SUMMARY
+========================= */
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.summary-box {
+  background: white;
+  padding: 22px;
+  border-radius: 20px;
+  box-shadow: 0 5px 18px rgba(190,130,150,0.10);
+}
+
+.summary-label {
+  font-size: 14px;
+}
+
+.summary-number {
+  color: #b96f8a;
+  font-size: 28px;
+  font-weight: 700;
+  margin-top: 3px;
+}
+
+.summary-small {
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 3px;
+}
+
+
+/* =========================
+   AFFILIATE MANAGEMENT
+========================= */
+
+.affiliate-section {
+  background: white;
+  padding: 22px;
+  border-radius: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 5px 18px rgba(190,130,150,0.10);
+}
+
+.affiliate-title {
+  color: #b96f8a;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.affiliate-subtitle {
+  color: #aaa;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.affiliate-count {
+  display: inline-block;
+  background: #fde6ee;
+  color: #a96b82;
+  padding: 5px 12px;
+  border-radius: 18px;
+  font-size: 12px;
+  margin-bottom: 18px;
+}
+
+.affiliate-card {
+  background: #fff8fb;
+  border: 1px solid #f2e1e6;
+  padding: 18px;
+  border-radius: 17px;
+  margin-bottom: 12px;
+}
+
+.affiliate-card:last-child {
+  margin-bottom: 0;
+}
+
+.affiliate-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 12px;
+}
+
+.affiliate-name {
+  color: #806d74;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.affiliate-email {
+  font-size: 13px;
+  color: #aaa;
+  margin-top: 2px;
+}
+
+.affiliate-plan {
+  padding: 5px 12px;
+  border-radius: 18px;
+  background: #f7dce5;
+  color: #a96b82;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.affiliate-plan.pro {
+  background: #eadff5;
+  color: #80649a;
+}
+
+.affiliate-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.affiliate-detail {
+  background: white;
+  padding: 10px 12px;
+  border-radius: 12px;
+}
+
+.affiliate-detail-label {
+  color: #aaa;
+  font-size: 11px;
+}
+
+.affiliate-detail-value {
+  color: #806d74;
+  font-size: 14px;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.affiliate-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.affiliate-actions button {
+  border: none;
+  padding: 9px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.affiliate-proof-button {
+  background: #eadff5;
+  color: #80649a;
+}
+
+.affiliate-approve-button {
+  background: #dff3e6;
+  color: #4f8a68;
+}
+
+.affiliate-reject-button {
+  background: #f7dce5;
+  color: #a96b82;
+}
+
+.affiliate-email-button {
+  background: #eadff5;
+  color: #80649a;
+}
+
+.affiliate-actions button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.affiliate-empty {
+  background: #fff8fb;
+  padding: 28px;
+  text-align: center;
+  border-radius: 15px;
+  color: #aaa;
+}
+
+.affiliate-error {
+  background: #fff0f3;
+  color: #a96b82;
+  padding: 15px;
+  border-radius: 15px;
+  font-size: 14px;
+}
+
+
+/* =========================
+   SEARCH + FILTER
+========================= */
+
+.order-tools {
+  background: white;
+  padding: 18px;
+  border-radius: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 5px 18px rgba(190,130,150,0.08);
+}
+
+.search-box {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1px solid #eadce2;
+  border-radius: 15px;
+  outline: none;
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.search-box:focus {
+  border-color: #d9829e;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-button {
+  border: none;
+  background: #f7edf1;
+  color: #a96b82;
+  padding: 9px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.filter-button.active {
+  background: #d9829e;
+  color: white;
+}
+
+
+/* =========================
+   ORDERS
+========================= */
+
+.order-card {
+  background: white;
+  padding: 22px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 18px rgba(190,130,150,0.10);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 12px;
+}
+
+.order-code {
+  color: #b96f8a;
+  font-weight: 700;
+  font-size: 17px;
+}
+
+.status {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  background: #fde6ee;
+  color: #a96b82;
+}
+
+.status.paid {
+  background: #e5f6ec;
+  color: #4f8a68;
+}
+
+.status.rejected {
+  background: #f1eeee;
+  color: #777;
+}
+
+.customer {
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.customer strong {
+  color: #806d74;
+}
+
+.total {
+  font-size: 20px;
+  font-weight: 700;
+  color: #b96f8a;
+  margin-bottom: 15px;
+}
+
+.order-date {
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 15px;
+}
+
+
+/* =========================
+   PRODUCTS
+========================= */
+
+.products-box {
+  background: #fff8fb;
+  border-radius: 15px;
+  padding: 14px;
+  margin: 15px 0;
+}
+
+.products-title {
+  color: #b96f8a;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.product-row {
+  background: white;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.product-row:last-child {
+  margin-bottom: 0;
+}
+
+.product-name {
+  font-weight: 600;
+  color: #806d74;
+}
+
+.product-qty {
+  font-size: 13px;
+  color: #aaa;
+  margin-top: 2px;
+}
+
+.product-price {
+  text-align: right;
+  color: #a96b82;
+  font-weight: 600;
+}
+
+
+/* =========================
+   ACTIONS
+========================= */
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.actions button {
+  border: none;
+  padding: 9px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.proof-button {
+  background: #f7dce5;
+  color: #a96b82;
+}
+
+.paid-button {
+  background: #d9829e;
+  color: white;
+}
+
+.reject-button {
+  background: #f7dce5;
+  color: #a96b82;
+}
+
+.email-button {
+  background: #eadff5;
+  color: #80649a;
+}
+
+.copy-button {
+  background: #eee7ea;
+  color: #806d74;
+}
+
+
+/* =========================
+   STATES
+========================= */
+
+.loading,
+.empty,
+.error {
+  background: white;
+  padding: 35px;
+  text-align: center;
+  border-radius: 20px;
+}
+
+.error {
+  color: #a96b82;
+  background: #fff0f3;
+}
+
+.no-results {
+  background: white;
+  padding: 30px;
+  text-align: center;
+  border-radius: 20px;
+  color: #aaa;
+}
+
+
+/* =========================
+   KINO STANDARD POPUP
+========================= */
+
+.kino-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(95, 74, 80, 0.38);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.kino-modal-overlay.show {
+  display: flex;
+}
+
+.kino-modal {
+  width: 100%;
+  max-width: 430px;
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 32px 28px 28px;
+  text-align: center;
+  box-shadow: 0 15px 45px rgba(190,130,150,0.22);
+  animation: kinoPopup .25s ease-out;
+}
+
+@keyframes kinoPopup {
+
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+}
+
+.kino-modal-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: #fde6ee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  color: #b96f8a;
+}
+
+.kino-modal-title {
+  color: #b96f8a;
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.kino-modal-text {
+  color: #8a747b;
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 22px;
+}
+
+.kino-modal-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.kino-modal-button {
+  flex: 1;
+  border: none;
+  padding: 13px 18px;
+  border-radius: 25px;
+  font-family: "Baloo 2", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+.kino-modal-cancel {
+  background: #f2e8ec;
+  color: #8a747b;
+}
+
+.kino-modal-cancel:hover {
+  background: #eadce2;
+}
+
+.kino-modal-confirm {
+  background: #d9829e;
+  color: white;
+}
+
+.kino-modal-confirm:hover {
+  background: #c97491;
+  transform: translateY(-1px);
+}
+
+.kino-modal-single {
+  width: 100%;
+  border: none;
+  padding: 13px 20px;
+  border-radius: 25px;
+  background: #d9829e;
+  color: white;
+  font-family: "Baloo 2", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+.kino-modal-single:hover {
+  background: #c97491;
+  transform: translateY(-1px);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 750px) {
+
+  .summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .affiliate-details {
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+
+@media (max-width: 650px) {
+
+  .summary {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard {
+    margin: 25px auto;
+    padding: 15px;
+  }
+
+  header {
+    padding: 15px 5%;
+  }
+
+  .header-right {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+
+  .order-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .product-row {
+    align-items: flex-start;
+  }
+
+  .product-price {
+    white-space: nowrap;
+  }
+
+  .filter-buttons {
+    gap: 6px;
+  }
+
+  .filter-button {
+    padding: 8px 12px;
+  }
+
+  .store-buttons {
+    flex-direction: column;
+  }
+
+  .store-button {
+    width: 100%;
+  }
+
+  .affiliate-header {
+    flex-direction: column;
+  }
+
+  .affiliate-details {
+    grid-template-columns: 1fr;
+  }
+
+  .affiliate-plan {
+    align-self: flex-start;
+  }
+
+  .kino-modal {
+    padding: 28px 22px 24px;
+  }
+
+  .kino-modal-buttons {
+    flex-direction: column;
+  }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-  <!-- =========================
-       LOGIN
-  ========================== -->
 
-  <div
-    id="login-screen"
-    class="login-wrapper"
-  >
+<!-- =========================================
+     LOGIN
+========================================= -->
 
-    <div class="login-card">
+<section id="login-page">
 
-      <div class="login-logo">
-        KINO
-      </div>
+  <div class="login-box">
 
-      <div class="login-title">
-        Admin Dashboard
-      </div>
-
-      <form id="login-form">
-
-        <div class="field">
-
-          <label>
-            Email
-          </label>
-
-          <input
-            type="email"
-            id="login-email"
-            required
-            autocomplete="email"
-          >
-
-        </div>
-
-        <div class="field">
-
-          <label>
-            Password
-          </label>
-
-          <input
-            type="password"
-            id="login-password"
-            required
-            autocomplete="current-password"
-          >
-
-        </div>
-
-        <button
-          type="submit"
-          class="primary-button"
-        >
-          LOGIN ♡
-        </button>
-
-      </form>
-
-      <div
-        id="login-error"
-        class="login-error"
-      ></div>
-
+    <div class="login-logo">
+      KINO ♡
     </div>
+
+    <div class="login-title">
+      Admin Dashboard
+    </div>
+
+    <div
+      id="login-error"
+      class="login-error"
+    ></div>
+
+    <form id="login-form">
+
+      <div class="input-group">
+
+        <label>Email</label>
+
+        <input
+          type="email"
+          id="login-email"
+          placeholder="Admin email"
+          required
+        >
+
+      </div>
+
+
+      <div class="input-group">
+
+        <label>Password</label>
+
+        <input
+          type="password"
+          id="login-password"
+          placeholder="Password"
+          required
+        >
+
+      </div>
+
+
+      <button
+        type="submit"
+        class="login-button"
+        id="login-button"
+      >
+        LOGIN
+      </button>
+
+    </form>
 
   </div>
 
+</section>
 
-  <!-- =========================
-       DASHBOARD
-  ========================== -->
 
-  <div
-    id="dashboard"
-    class="page"
-  >
+<!-- =========================================
+     DASHBOARD
+========================================= -->
 
-    <!-- HEADER -->
+<section id="dashboard-page">
 
-    <div class="topbar">
+<header>
+
+  <div class="logo">
+    KINO
+  </div>
+
+  <div class="header-right">
+
+    <div class="admin-label">
+      Admin Dashboard
+    </div>
+
+    <button
+      class="logout-button"
+      onclick="logout()"
+    >
+      LOGOUT
+    </button>
+
+  </div>
+
+</header>
+
+
+<main class="dashboard">
+
+  <h1>
+    Dashboard ♡
+  </h1>
+
+
+  <!-- =======================================
+       STORE SETTINGS
+  ======================================== -->
+
+  <div class="store-settings">
+
+    <div class="store-settings-title">
+      Store Settings ⚙️
+    </div>
+
+    <div class="store-settings-subtitle">
+      Control KINO opening status.
+      Normal schedule is 8:00 AM – 10:00 PM.
+    </div>
+
+
+    <div class="store-status-admin">
 
       <div>
 
-        <div class="brand">
-          KINO
-        </div>
+        <strong id="admin-store-status">
+          Checking...
+        </strong>
 
-        <div class="brand-sub">
-          Admin Dashboard
+        <div
+          class="store-mode"
+          id="admin-store-mode"
+        >
+          Loading store status...
         </div>
 
       </div>
 
+    </div>
+
+
+    <div class="store-buttons">
+
       <button
-        id="logout-button"
-        class="logout-button"
+        type="button"
+        class="store-button store-open"
+        id="store-open-button"
+        onclick="openStore()"
       >
-        LOGOUT
+        🟢 OPEN STORE
+      </button>
+
+
+      <button
+        type="button"
+        class="store-button store-close"
+        id="store-close-button"
+        onclick="closeStore()"
+      >
+        🔴 CLOSE STORE
+      </button>
+
+
+      <button
+        type="button"
+        class="store-button store-auto"
+        id="store-auto-button"
+        onclick="resetAuto()"
+      >
+        🔄 AUTO 8AM–10PM
       </button>
 
     </div>
 
-
-    <!-- =========================
-         STORE SETTINGS
-    ========================== -->
-
-    <section class="section">
-
-      <h2 class="section-title">
-        Store Settings
-      </h2>
-
-      <div class="store-card">
-
-        <div class="store-status-row">
-
-          <div class="store-status-label">
-            Current KINO Store Status
-          </div>
-
-          <div
-            id="store-status"
-            class="store-status closed"
-          >
-            🔴 CLOSED
-          </div>
-
-        </div>
-
-        <div class="store-buttons">
-
-          <button
-            id="open-store-button"
-            class="store-button"
-          >
-            🟢 OPEN STORE
-          </button>
-
-          <button
-            id="close-store-button"
-            class="store-button"
-          >
-            🔴 CLOSE STORE
-          </button>
-
-          <button
-            id="auto-store-button"
-            class="store-button"
-          >
-            AUTO 8AM–10PM
-          </button>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         SUMMARY
-    ========================== -->
-
-    <section class="section">
-
-      <h2 class="section-title">
-        Summary
-      </h2>
-
-      <div class="summary-grid">
-
-        <div class="summary-card">
-          <div class="summary-label">
-            Today's Sales
-          </div>
-
-          <div
-            id="today-sales"
-            class="summary-value"
-          >
-            RM0.00
-          </div>
-        </div>
-
-        <div class="summary-card">
-          <div class="summary-label">
-            This Month
-          </div>
-
-          <div
-            id="month-sales"
-            class="summary-value"
-          >
-            RM0.00
-          </div>
-        </div>
-
-        <div class="summary-card">
-          <div class="summary-label">
-            Total Sales
-          </div>
-
-          <div
-            id="total-sales"
-            class="summary-value"
-          >
-            RM0.00
-          </div>
-        </div>
-
-        <div class="summary-card">
-          <div class="summary-label">
-            Today's Orders
-          </div>
-
-          <div
-            id="today-orders"
-            class="summary-value"
-          >
-            0
-          </div>
-        </div>
-
-        <div class="summary-card">
-          <div class="summary-label">
-            Pending Orders
-          </div>
-
-          <div
-            id="pending-orders"
-            class="summary-value"
-          >
-            0
-          </div>
-        </div>
-
-        <div class="summary-card">
-          <div class="summary-label">
-            Paid Orders
-          </div>
-
-          <div
-            id="paid-orders"
-            class="summary-value"
-          >
-            0
-          </div>
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         ORDERS
-    ========================== -->
-
-    <section class="section">
-
-      <h2 class="section-title">
-        Orders
-      </h2>
-
-      <div class="orders-card">
-
-        <div class="toolbar">
-
-          <input
-            id="order-search"
-            class="search-input"
-            type="text"
-            placeholder="Search order, name or email..."
-          >
-
-          <select
-            id="order-filter"
-            class="filter-select"
-          >
-
-            <option value="all">
-              All Orders
-            </option>
-
-            <option value="pending">
-              Pending
-            </option>
-
-            <option value="paid">
-              Paid
-            </option>
-
-            <option value="rejected">
-              Rejected
-            </option>
-
-          </select>
-
-        </div>
-
-        <div
-          id="order-list"
-          class="order-list"
-        ></div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         AFFILIATE MANAGEMENT
-    ========================== -->
-
-    <section class="section">
-
-      <h2 class="section-title">
-        Affiliate Management
-      </h2>
-
-      <div
-        id="affiliate-count"
-        class="affiliate-count"
-      >
-        0 affiliate
-      </div>
-
-      <div class="affiliate-card">
-
-        <div
-          id="affiliate-list"
-          class="affiliate-list"
-        ></div>
-
-      </div>
-
-    </section>
-
   </div>
 
 
-  <!-- =========================
-       KINO MODAL
-  ========================== -->
+  <!-- =======================================
+       SUMMARY
+  ======================================== -->
 
-  <div
-    id="kino-modal-overlay"
-    class="kino-modal-overlay"
-  >
+  <div class="summary">
 
-    <div
-      class="kino-modal"
-      role="dialog"
-      aria-modal="true"
-    >
 
-      <div class="kino-modal-icon">
-        ♡
+    <div class="summary-box">
+
+      <div class="summary-label">
+        Today's Sales
       </div>
 
       <div
-        id="kino-modal-title"
-        class="kino-modal-title"
+        class="summary-number"
+        id="today-sales"
       >
-        KINO
+        RM0.00
+      </div>
+
+      <div class="summary-small">
+        Paid product orders + affiliate sales
+      </div>
+
+    </div>
+
+
+    <div class="summary-box">
+
+      <div class="summary-label">
+        This Month
       </div>
 
       <div
-        id="kino-modal-text"
-        class="kino-modal-text"
-      ></div>
+        class="summary-number"
+        id="month-sales"
+      >
+        RM0.00
+      </div>
+
+      <div class="summary-small">
+        Paid product orders + affiliate sales
+      </div>
+
+    </div>
+
+
+    <div class="summary-box">
+
+      <div class="summary-label">
+        Total Sales
+      </div>
 
       <div
-        id="kino-modal-buttons"
-        class="kino-modal-buttons"
-      ></div>
+        class="summary-number"
+        id="sales-total"
+      >
+        RM0.00
+      </div>
+
+      <div class="summary-small">
+        All paid product + affiliate sales
+      </div>
+
+    </div>
+
+
+    <div class="summary-box">
+
+      <div class="summary-label">
+        Today's Orders
+      </div>
+
+      <div
+        class="summary-number"
+        id="today-orders"
+      >
+        0
+      </div>
+
+    </div>
+
+
+    <div class="summary-box">
+
+      <div class="summary-label">
+        Pending Orders
+      </div>
+
+      <div
+        class="summary-number"
+        id="pending-count"
+      >
+        0
+      </div>
+
+    </div>
+
+
+    <div class="summary-box">
+
+      <div class="summary-label">
+        Paid Orders
+      </div>
+
+      <div
+        class="summary-number"
+        id="paid-count"
+      >
+        0
+      </div>
 
     </div>
 
   </div>
 
 
-  <script>
+  <!-- =======================================
+       AFFILIATE MANAGEMENT
+  ======================================== -->
 
-    /* =========================================================
-       SUPABASE
-    ========================================================= */
+  <section class="affiliate-section">
 
-    const SUPABASE_URL =
-      "https://vbdgzsapdbpgfcdksdoi.supabase.co";
+    <div class="affiliate-title">
+      Affiliate Management ♡
+    </div>
 
-    const SUPABASE_KEY =
-      "sb_publishable_bBCTw0S0WLE_ydFw_wRyrRhYh";
+    <div class="affiliate-subtitle">
+      Review affiliate registrations and manage approved affiliates.
+    </div>
 
-    const db =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-      );
+    <div
+      class="affiliate-count"
+      id="affiliate-count"
+    >
+      0 affiliates
+    </div>
 
+    <div id="affiliate-list">
 
-    /* =========================================================
-       ELEMENTS
-    ========================================================= */
+      <div class="loading">
+        Loading affiliates...
+      </div>
 
-    const loginScreen =
-      document.getElementById("login-screen");
+    </div>
 
-    const dashboard =
-      document.getElementById("dashboard");
-
-    const loginForm =
-      document.getElementById("login-form");
-
-    const loginError =
-      document.getElementById("login-error");
-
-    const logoutButton =
-      document.getElementById("logout-button");
-
-    const storeStatus =
-      document.getElementById("store-status");
-
-    const openStoreButton =
-      document.getElementById("open-store-button");
-
-    const closeStoreButton =
-      document.getElementById("close-store-button");
-
-    const autoStoreButton =
-      document.getElementById("auto-store-button");
-
-    const orderList =
-      document.getElementById("order-list");
-
-    const orderSearch =
-      document.getElementById("order-search");
-
-    const orderFilter =
-      document.getElementById("order-filter");
-
-    const affiliateList =
-      document.getElementById("affiliate-list");
-
-    const affiliateCount =
-      document.getElementById("affiliate-count");
+  </section>
 
 
-    /* =========================================================
-       GLOBAL DATA
-    ========================================================= */
+  <!-- =======================================
+       SEARCH / FILTER
+  ======================================== -->
 
-    let allOrders = [];
-    let allAffiliates = [];
+  <div class="order-tools">
 
-    let currentModalResolve = null;
+    <input
+      type="search"
+      id="search-input"
+      class="search-box"
+      placeholder="🔍 Search name, email or order code..."
+    >
 
 
-    /* =========================================================
-       KINO MODAL
-    ========================================================= */
+    <div class="filter-buttons">
 
-    function showKinoConfirm(
-      title,
-      text,
-      confirmText = "YES ♡",
-      cancelText = "CANCEL"
+      <button
+        class="filter-button active"
+        data-filter="all"
+      >
+        ALL
+      </button>
+
+      <button
+        class="filter-button"
+        data-filter="pending"
+      >
+        PENDING
+      </button>
+
+      <button
+        class="filter-button"
+        data-filter="paid"
+      >
+        PAID
+      </button>
+
+      <button
+        class="filter-button"
+        data-filter="rejected"
+      >
+        REJECTED
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <h1 style="font-size:26px;">
+    Orders ♡
+  </h1>
+
+
+  <div id="orders">
+
+    <div class="loading">
+      Loading orders...
+    </div>
+
+  </div>
+
+</main>
+
+</section>
+
+
+<!-- =========================================
+     KINO STANDARD POPUP
+========================================= -->
+
+<div
+  id="kino-modal-overlay"
+  class="kino-modal-overlay"
+>
+
+  <div
+    class="kino-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="kino-modal-title"
+  >
+
+    <div class="kino-modal-icon">
+      ♡
+    </div>
+
+
+    <div
+      id="kino-modal-title"
+      class="kino-modal-title"
+    >
+      Confirm Action
+    </div>
+
+
+    <div
+      id="kino-modal-text"
+      class="kino-modal-text"
+    >
+      Are you sure?
+    </div>
+
+
+    <div
+      id="kino-modal-buttons"
+      class="kino-modal-buttons"
+    >
+
+      <button
+        type="button"
+        id="kino-modal-cancel"
+        class="kino-modal-button kino-modal-cancel"
+      >
+        CANCEL
+      </button>
+
+
+      <button
+        type="button"
+        id="kino-modal-confirm"
+        class="kino-modal-button kino-modal-confirm"
+      >
+        OKAY ♡
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   SUPABASE
+========================================= */
+
+const SUPABASE_URL =
+  "https://vbdgzsapdbpgfcdksdoi.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_bBCTw0S0WLE_ydFw_wRyrRhYh";
+
+const {
+  createClient
+} = supabase;
+
+const db =
+  createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const loginPage =
+  document.getElementById(
+    "login-page"
+  );
+
+const dashboardPage =
+  document.getElementById(
+    "dashboard-page"
+  );
+
+const loginForm =
+  document.getElementById(
+    "login-form"
+  );
+
+const loginError =
+  document.getElementById(
+    "login-error"
+  );
+
+const loginButton =
+  document.getElementById(
+    "login-button"
+  );
+
+const ordersContainer =
+  document.getElementById(
+    "orders"
+  );
+
+const pendingCount =
+  document.getElementById(
+    "pending-count"
+  );
+
+const paidCount =
+  document.getElementById(
+    "paid-count"
+  );
+
+const salesTotal =
+  document.getElementById(
+    "sales-total"
+  );
+
+const todaySales =
+  document.getElementById(
+    "today-sales"
+  );
+
+const monthSales =
+  document.getElementById(
+    "month-sales"
+  );
+
+const todayOrders =
+  document.getElementById(
+    "today-orders"
+  );
+
+const searchInput =
+  document.getElementById(
+    "search-input"
+  );
+
+const affiliateList =
+  document.getElementById(
+    "affiliate-list"
+  );
+
+const affiliateCount =
+  document.getElementById(
+    "affiliate-count"
+  );
+
+
+let allOrders = [];
+
+let allAffiliates = [];
+
+let currentFilter = "all";
+
+let kinoModalResolver = null;
+
+
+/* =========================================
+   KINO POPUP ELEMENTS
+========================================= */
+
+const kinoModal =
+  document.getElementById(
+    "kino-modal-overlay"
+  );
+
+const kinoModalTitle =
+  document.getElementById(
+    "kino-modal-title"
+  );
+
+const kinoModalText =
+  document.getElementById(
+    "kino-modal-text"
+  );
+
+const kinoModalButtons =
+  document.getElementById(
+    "kino-modal-buttons"
+  );
+
+const kinoModalCancel =
+  document.getElementById(
+    "kino-modal-cancel"
+  );
+
+const kinoModalConfirm =
+  document.getElementById(
+    "kino-modal-confirm"
+  );
+
+
+/* =========================================
+   KINO CONFIRM
+========================================= */
+
+function showKinoConfirm(
+  title,
+  text,
+  confirmText = "OKAY ♡",
+  cancelText = "CANCEL"
+) {
+
+  kinoModalTitle.textContent =
+    title;
+
+  kinoModalText.innerHTML =
+    text;
+
+  kinoModalButtons.style.display =
+    "flex";
+
+  kinoModalCancel.style.display =
+    "block";
+
+  kinoModalConfirm.style.display =
+    "block";
+
+  kinoModalCancel.className =
+    "kino-modal-button kino-modal-cancel";
+
+  kinoModalConfirm.className =
+    "kino-modal-button kino-modal-confirm";
+
+  kinoModalCancel.textContent =
+    cancelText;
+
+  kinoModalConfirm.textContent =
+    confirmText;
+
+  kinoModal.classList.add(
+    "show"
+  );
+
+  document.body.style.overflow =
+    "hidden";
+
+
+  return new Promise(
+    function(resolve) {
+
+      kinoModalResolver =
+        resolve;
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   KINO MESSAGE
+========================================= */
+
+function showKinoMessage(
+  title,
+  text,
+  buttonText = "OKAY ♡"
+) {
+
+  kinoModalTitle.textContent =
+    title;
+
+  kinoModalText.innerHTML =
+    text;
+
+  kinoModalButtons.style.display =
+    "block";
+
+  kinoModalCancel.style.display =
+    "none";
+
+  kinoModalConfirm.style.display =
+    "block";
+
+  kinoModalConfirm.className =
+    "kino-modal-single";
+
+  kinoModalConfirm.textContent =
+    buttonText;
+
+  kinoModal.classList.add(
+    "show"
+  );
+
+  document.body.style.overflow =
+    "hidden";
+
+
+  return new Promise(
+    function(resolve) {
+
+      kinoModalResolver =
+        resolve;
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   CLOSE POPUP
+========================================= */
+
+function closeKinoModal(
+  result
+) {
+
+  kinoModal.classList.remove(
+    "show"
+  );
+
+  document.body.style.overflow =
+    "";
+
+  kinoModalConfirm.className =
+    "kino-modal-button kino-modal-confirm";
+
+
+  if (kinoModalResolver) {
+
+    const resolver =
+      kinoModalResolver;
+
+    kinoModalResolver =
+      null;
+
+    resolver(result);
+
+  }
+
+}
+
+
+/* =========================================
+   POPUP BUTTONS
+========================================= */
+
+kinoModalCancel.addEventListener(
+  "click",
+  function() {
+
+    closeKinoModal(false);
+
+  }
+);
+
+
+kinoModalConfirm.addEventListener(
+  "click",
+  function() {
+
+    closeKinoModal(true);
+
+  }
+);
+
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (
+      event.key === "Escape" &&
+      kinoModal.classList.contains("show")
     ) {
 
-      return new Promise(function(resolve) {
-
-        currentModalResolve = resolve;
-
-        document.getElementById(
-          "kino-modal-title"
-        ).textContent = title;
-
-        document.getElementById(
-          "kino-modal-text"
-        ).innerHTML = text;
-
-        const buttons =
-          document.getElementById(
-            "kino-modal-buttons"
-          );
-
-        buttons.innerHTML = "";
-
-        const cancelButton =
-          document.createElement("button");
-
-        cancelButton.type = "button";
-        cancelButton.className =
-          "kino-modal-button cancel";
-
-        cancelButton.textContent =
-          cancelText;
-
-        cancelButton.onclick = function() {
-          closeKinoModal(false);
-        };
-
-
-        const confirmButton =
-          document.createElement("button");
-
-        confirmButton.type = "button";
-        confirmButton.className =
-          "kino-modal-button";
-
-        confirmButton.textContent =
-          confirmText;
-
-        confirmButton.onclick = function() {
-          closeKinoModal(true);
-        };
-
-
-        buttons.appendChild(cancelButton);
-        buttons.appendChild(confirmButton);
-
-
-        document.getElementById(
-          "kino-modal-overlay"
-        ).classList.add("show");
-
-        document.body.style.overflow = "hidden";
-
-      });
+      closeKinoModal(false);
 
     }
 
-
-    function showKinoMessage(
-      title,
-      text,
-      buttonText = "OKAY ♡"
-    ) {
-
-      return new Promise(function(resolve) {
-
-        currentModalResolve = resolve;
-
-        document.getElementById(
-          "kino-modal-title"
-        ).textContent = title;
-
-        document.getElementById(
-          "kino-modal-text"
-        ).innerHTML = text;
-
-        const buttons =
-          document.getElementById(
-            "kino-modal-buttons"
-          );
-
-        buttons.innerHTML = "";
-
-        const button =
-          document.createElement("button");
-
-        button.type = "button";
-        button.className =
-          "kino-modal-button";
-
-        button.textContent =
-          buttonText;
-
-        button.onclick = function() {
-          closeKinoModal(true);
-        };
-
-        buttons.appendChild(button);
+  }
+);
 
 
-        document.getElementById(
-          "kino-modal-overlay"
-        ).classList.add("show");
+/* =========================================
+   HELPERS
+========================================= */
 
-        document.body.style.overflow = "hidden";
+function escapeHtml(value) {
 
-      });
-
-    }
-
-
-    function closeKinoModal(result) {
-
-      document.getElementById(
-        "kino-modal-overlay"
-      ).classList.remove("show");
-
-      document.body.style.overflow = "";
-
-      if (currentModalResolve) {
-
-        const resolve =
-          currentModalResolve;
-
-        currentModalResolve = null;
-
-        resolve(result);
-      }
-
-    }
-
-
-    /* =========================================================
-       LOGIN
-    ========================================================= */
-
-    loginForm.addEventListener(
-      "submit",
-      async function(event) {
-
-        event.preventDefault();
-
-        loginError.style.display = "none";
-
-        const email =
-          document.getElementById(
-            "login-email"
-          ).value.trim();
-
-        const password =
-          document.getElementById(
-            "login-password"
-          ).value;
-
-
-        const {
-          data,
-          error
-        } = await db.auth.signInWithPassword({
-          email,
-          password
-        });
-
-
-        if (error) {
-
-          loginError.textContent =
-            error.message;
-
-          loginError.style.display =
-            "block";
-
-          return;
-        }
-
-
-        const user =
-          data.user;
-
-        if (!user) {
-
-          loginError.textContent =
-            "Login failed.";
-
-          loginError.style.display =
-            "block";
-
-          return;
-        }
-
-
-        const {
-          data: adminRecord,
-          error: adminError
-        } = await db
-          .from("admin_users")
-          .select("*")
-          .eq("user_id", user.id)
-          .maybeSingle();
-
-
-        if (adminError || !adminRecord) {
-
-          await db.auth.signOut();
-
-          loginError.textContent =
-            "You are not authorised as an admin.";
-
-          loginError.style.display =
-            "block";
-
-          return;
-        }
-
-
-        showDashboard();
-
-      }
+  return String(
+    value ?? ""
+  )
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
     );
 
-
-    async function checkSession() {
-
-      const {
-        data: {
-          session
-        }
-      } = await db.auth.getSession();
+}
 
 
-      if (!session) {
+function escapeJs(value) {
 
-        loginScreen.style.display =
-          "flex";
+  return String(
+    value ?? ""
+  )
+    .replace(
+      /\\/g,
+      "\\\\"
+    )
+    .replace(
+      /'/g,
+      "\\'"
+    )
+    .replace(
+      /\n/g,
+      "\\n"
+    )
+    .replace(
+      /\r/g,
+      "\\r"
+    );
 
-        dashboard.style.display =
-          "none";
-
-        return;
-      }
-
-
-      const {
-        data: adminRecord,
-        error
-      } = await db
-        .from("admin_users")
-        .select("*")
-        .eq("user_id", session.user.id)
-        .maybeSingle();
-
-
-      if (error || !adminRecord) {
-
-        await db.auth.signOut();
-
-        loginScreen.style.display =
-          "flex";
-
-        dashboard.style.display =
-          "none";
-
-        return;
-      }
+}
 
 
-      showDashboard();
+function isToday(
+  dateString
+) {
 
-    }
+  if (!dateString) {
+    return false;
+  }
+
+  const date =
+    new Date(dateString);
+
+  const now =
+    new Date();
+
+  return (
+    date.getFullYear() ===
+      now.getFullYear() &&
+    date.getMonth() ===
+      now.getMonth() &&
+    date.getDate() ===
+      now.getDate()
+  );
+
+}
 
 
-    function showDashboard() {
+function isThisMonth(
+  dateString
+) {
 
-      loginScreen.style.display =
-        "none";
+  if (!dateString) {
+    return false;
+  }
 
-      dashboard.style.display =
+  const date =
+    new Date(dateString);
+
+  const now =
+    new Date();
+
+  return (
+    date.getFullYear() ===
+      now.getFullYear() &&
+    date.getMonth() ===
+      now.getMonth()
+  );
+
+}
+
+
+/* =========================================
+   LOGIN
+========================================= */
+
+loginForm.addEventListener(
+  "submit",
+  async function(event) {
+
+    event.preventDefault();
+
+    loginError.style.display =
+      "none";
+
+    loginButton.disabled =
+      true;
+
+    loginButton.textContent =
+      "LOGGING IN...";
+
+
+    const email =
+      document
+        .getElementById(
+          "login-email"
+        )
+        .value
+        .trim();
+
+
+    const password =
+      document
+        .getElementById(
+          "login-password"
+        )
+        .value;
+
+
+    const {
+      data,
+      error
+    } =
+      await db.auth.signInWithPassword({
+
+        email,
+
+        password
+
+      });
+
+
+    if (error) {
+
+      console.error(error);
+
+      loginError.textContent =
+        error.message;
+
+      loginError.style.display =
         "block";
 
-      loadEverything();
+      loginButton.disabled =
+        false;
+
+      loginButton.textContent =
+        "LOGIN";
+
+      return;
 
     }
 
 
-    logoutButton.addEventListener(
-      "click",
-      async function() {
+    const user =
+      data?.user;
 
-        const confirmed =
-          await showKinoConfirm(
-            "LOGOUT ♡",
-            "Are you sure you want to logout?",
-            "LOGOUT",
-            "CANCEL"
-          );
 
-        if (!confirmed) {
-          return;
-        }
+    if (!user) {
 
+      loginError.textContent =
+        "Unable to log in.";
 
-        await db.auth.signOut();
+      loginError.style.display =
+        "block";
 
-        dashboard.style.display =
-          "none";
+      loginButton.disabled =
+        false;
 
-        loginScreen.style.display =
-          "flex";
+      loginButton.textContent =
+        "LOGIN";
 
-      }
-    );
-
-
-    /* =========================================================
-       STORE STATUS
-    ========================================================= */
-
-    async function loadStoreStatus() {
-
-      const {
-        data,
-        error
-      } = await db.rpc(
-        "get_store_status"
-      );
-
-
-      if (error) {
-
-        console.error(
-          "Store status error:",
-          error
-        );
-
-        return;
-      }
-
-
-      let status =
-        data;
-
-
-      if (
-        typeof data === "object" &&
-        data !== null
-      ) {
-
-        status =
-          data.status ||
-          data.store_status ||
-          data.mode;
-
-      }
-
-
-      status =
-        String(status || "")
-          .toLowerCase();
-
-
-      if (status === "open") {
-
-        storeStatus.textContent =
-          "🟢 OPEN";
-
-        storeStatus.className =
-          "store-status open";
-
-      }
-      else if (status === "auto") {
-
-        storeStatus.textContent =
-          "🟡 AUTO 8AM–10PM";
-
-        storeStatus.className =
-          "store-status auto";
-
-      }
-      else {
-
-        storeStatus.textContent =
-          "🔴 CLOSED";
-
-        storeStatus.className =
-          "store-status closed";
-
-      }
-
-    }
-
-
-    openStoreButton.addEventListener(
-      "click",
-      async function() {
-
-        const confirmed =
-          await showKinoConfirm(
-            "OPEN STORE ♡",
-            "Open KINO store now?",
-            "OPEN STORE",
-            "CANCEL"
-          );
-
-        if (!confirmed) {
-          return;
-        }
-
-
-        const {
-          error
-        } = await db.rpc(
-          "emergency_open_store"
-        );
-
-
-        if (error) {
-
-          await showKinoMessage(
-            "Something went wrong",
-            error.message
-          );
-
-          return;
-        }
-
-
-        await loadStoreStatus();
-
-        await showKinoMessage(
-          "KINO IS OPEN ♡",
-          "The KINO store is now open."
-        );
-
-      }
-    );
-
-
-    closeStoreButton.addEventListener(
-      "click",
-      async function() {
-
-        const confirmed =
-          await showKinoConfirm(
-            "CLOSE STORE",
-            "Close KINO store now?",
-            "CLOSE STORE",
-            "CANCEL"
-          );
-
-        if (!confirmed) {
-          return;
-        }
-
-
-        const {
-          error
-        } = await db.rpc(
-          "emergency_close_store"
-        );
-
-
-        if (error) {
-
-          await showKinoMessage(
-            "Something went wrong",
-            error.message
-          );
-
-          return;
-        }
-
-
-        await loadStoreStatus();
-
-        await showKinoMessage(
-          "KINO IS CLOSED",
-          "The KINO store is now closed."
-        );
-
-      }
-    );
-
-
-    autoStoreButton.addEventListener(
-      "click",
-      async function() {
-
-        const confirmed =
-          await showKinoConfirm(
-            "AUTO STORE",
-            "Set KINO to automatically open from 8AM to 10PM?",
-            "SET AUTO",
-            "CANCEL"
-          );
-
-        if (!confirmed) {
-          return;
-        }
-
-
-        const {
-          error
-        } = await db.rpc(
-          "reset_store_auto"
-        );
-
-
-        if (error) {
-
-          await showKinoMessage(
-            "Something went wrong",
-            error.message
-          );
-
-          return;
-        }
-
-
-        await loadStoreStatus();
-
-        await showKinoMessage(
-          "AUTO MODE ♡",
-          "KINO will now follow the 8AM–10PM schedule."
-        );
-
-      }
-    );
-
-
-    /* =========================================================
-       ORDERS
-    ========================================================= */
-
-    async function loadOrders() {
-
-      const {
-        data,
-        error
-      } = await db
-        .from("orders")
-        .select("*")
-        .order(
-          "created_at",
-          {
-            ascending: false
-          }
-        );
-
-
-      if (error) {
-
-        console.error(
-          "Orders error:",
-          error
-        );
-
-        orderList.innerHTML = `
-          <div class="empty-state">
-            Unable to load orders.
-          </div>
-        `;
-
-        return;
-      }
-
-
-      allOrders =
-        data || [];
-
-
-      renderOrders();
-      updateSummary();
-
-    }
-
-
-    function renderOrders() {
-
-      const search =
-        orderSearch.value
-          .trim()
-          .toLowerCase();
-
-      const filter =
-        orderFilter.value;
-
-
-      let orders =
-        allOrders.filter(
-          function(order) {
-
-            const status =
-              String(
-                order.status || ""
-              ).toLowerCase();
-
-
-            if (
-              filter !== "all" &&
-              status !== filter
-            ) {
-              return false;
-            }
-
-
-            if (!search) {
-              return true;
-            }
-
-
-            const searchable = [
-
-              order.order_code,
-
-              order.customer_name,
-
-              order.name,
-
-              order.email,
-
-              order.customer_email,
-
-              order.payment_method
-
-            ]
-              .filter(Boolean)
-              .join(" ")
-              .toLowerCase();
-
-
-            return searchable.includes(
-              search
-            );
-
-          }
-        );
-
-
-      if (!orders.length) {
-
-        orderList.innerHTML = `
-          <div class="empty-state">
-            No orders found ♡
-          </div>
-        `;
-
-        return;
-      }
-
-
-      orderList.innerHTML =
-        orders
-          .map(
-            function(order) {
-
-              return renderOrderCard(
-                order
-              );
-
-            }
-          )
-          .join("");
-
-    }
-
-
-    function renderOrderCard(order) {
-
-      const status =
-        String(
-          order.status || "pending"
-        ).toLowerCase();
-
-
-      const orderCode =
-        order.order_code ||
-        order.id ||
-        "Unknown";
-
-
-      const customerName =
-        order.customer_name ||
-        order.name ||
-        "-";
-
-
-      const customerEmail =
-        order.customer_email ||
-        order.email ||
-        "-";
-
-
-      const total =
-        Number(
-          order.total_amount ||
-          order.total ||
-          0
-        );
-
-
-      const date =
-        formatDate(
-          order.created_at
-        );
-
-
-      let badgeClass =
-        "status-pending";
-
-      if (status === "paid") {
-        badgeClass =
-          "status-paid";
-      }
-
-      if (status === "rejected") {
-        badgeClass =
-          "status-rejected";
-      }
-
-
-      let actions = "";
-
-
-      if (
-        order.payment_proof_path
-      ) {
-
-        actions += `
-          <button
-            class="action-button action-secondary"
-            onclick="viewPaymentProof('${escapeJs(order.payment_proof_path)}')"
-          >
-            VIEW PAYMENT PROOF
-          </button>
-        `;
-
-      }
-
-
-      if (status === "pending") {
-
-        actions += `
-          <button
-            class="action-button action-green"
-            onclick="markOrderPaid('${escapeJs(order.id)}')"
-          >
-            MARK AS PAID
-          </button>
-
-          <button
-            class="action-button action-danger"
-            onclick="rejectOrder('${escapeJs(order.id)}')"
-          >
-            REJECT
-          </button>
-        `;
-
-      }
-
-
-      actions += `
-        <button
-          class="action-button action-secondary"
-          onclick="emailCustomer('${escapeJs(customerEmail)}','${escapeJs(customerName)}','${escapeJs(orderCode)}')"
-        >
-          EMAIL CUSTOMER
-        </button>
-
-        <button
-          class="action-button action-secondary"
-          onclick="copyOrderInfo('${escapeJs(order.id)}')"
-        >
-          COPY ORDER INFO
-        </button>
-      `;
-
-
-      return `
-        <div class="order-item">
-
-          <div class="order-header">
-
-            <div>
-
-              <div class="order-code">
-                ${escapeHtml(orderCode)}
-              </div>
-
-              <div class="order-date">
-                ${escapeHtml(date)}
-              </div>
-
-            </div>
-
-            <div class="status-badge ${badgeClass}">
-              ${escapeHtml(status.toUpperCase())}
-            </div>
-
-          </div>
-
-
-          <div class="order-info">
-
-            <div class="info-row">
-              <strong>Name:</strong>
-              ${escapeHtml(customerName)}
-            </div>
-
-            <div class="info-row">
-              <strong>Email:</strong>
-              ${escapeHtml(customerEmail)}
-            </div>
-
-            <div class="info-row">
-              <strong>Total:</strong>
-              RM${total.toFixed(2)}
-            </div>
-
-            <div class="info-row">
-              <strong>Payment:</strong>
-              ${escapeHtml(
-                order.payment_method || "-"
-              )}
-            </div>
-
-          </div>
-
-
-          <div class="order-actions">
-            ${actions}
-          </div>
-
-        </div>
-      `;
-
-    }
-
-
-    async function viewPaymentProof(
-      path
-    ) {
-
-      if (!path) {
-
-        await showKinoMessage(
-          "PAYMENT PROOF",
-          "Payment proof was not found."
-        );
-
-        return;
-      }
-
-
-      const {
-        data,
-        error
-      } = await db.storage
-        .from("payment-proofs")
-        .createSignedUrl(
-          path,
-          300
-        );
-
-
-      if (error || !data?.signedUrl) {
-
-        await showKinoMessage(
-          "PAYMENT PROOF",
-          "Unable to open payment proof."
-        );
-
-        return;
-      }
-
-
-      window.open(
-        data.signedUrl,
-        "_blank"
-      );
-
-    }
-
-
-    async function markOrderPaid(
-      orderId
-    ) {
-
-      const confirmed =
-        await showKinoConfirm(
-          "MARK AS PAID ♡",
-          "Mark this order as paid?",
-          "MARK PAID",
-          "CANCEL"
-        );
-
-      if (!confirmed) {
-        return;
-      }
-
-
-      const {
-        error
-      } = await db
-        .from("orders")
-        .update({
-          status: "paid"
-        })
-        .eq("id", orderId);
-
-
-      if (error) {
-
-        await showKinoMessage(
-          "Something went wrong",
-          error.message
-        );
-
-        return;
-      }
-
-
-      await loadOrders();
-
-
-      await showKinoMessage(
-        "ORDER UPDATED ♡",
-        "The order has been marked as paid."
-      );
-
-    }
-
-
-    async function rejectOrder(
-      orderId
-    ) {
-
-      const confirmed =
-        await showKinoConfirm(
-          "REJECT ORDER",
-          "Are you sure you want to reject this order?",
-          "REJECT",
-          "CANCEL"
-        );
-
-      if (!confirmed) {
-        return;
-      }
-
-
-      const {
-        error
-      } = await db
-        .from("orders")
-        .update({
-          status: "rejected"
-        })
-        .eq("id", orderId);
-
-
-      if (error) {
-
-        await showKinoMessage(
-          "Something went wrong",
-          error.message
-        );
-
-        return;
-      }
-
-
-      await loadOrders();
-
-
-      await showKinoMessage(
-        "ORDER REJECTED",
-        "The order has been rejected."
-      );
-
-    }
-
-
-    function emailCustomer(
-      email,
-      name,
-      orderCode
-    ) {
-
-      if (!email || email === "-") {
-
-        showKinoMessage(
-          "EMAIL CUSTOMER",
-          "Customer email was not found."
-        );
-
-        return;
-      }
-
-
-      const subject =
-        "KINO Order Update ♡";
-
-
-      const body =
-`Hi ${name},
-
-Thank you for your order with KINO ♡
-
-Order:
-${orderCode}
-
-If you have any questions, please contact us through the About section.
-
-Thank you for supporting KINO ♡`;
-
-
-      const confirmed =
-        showKinoConfirm(
-          "EMAIL CUSTOMER",
-          `Open your email app to send an email to:<br><br><strong>${escapeHtml(email)}</strong>`,
-          "OPEN EMAIL",
-          "CANCEL"
-        );
-
-
-      confirmed.then(
-        function(ok) {
-
-          if (!ok) {
-            return;
-          }
-
-
-          window.location.href =
-            `mailto:${encodeURIComponent(email)}` +
-            `?subject=${encodeURIComponent(subject)}` +
-            `&body=${encodeURIComponent(body)}`;
-
-        }
-      );
-
-    }
-
-
-    async function copyOrderInfo(
-      orderId
-    ) {
-
-      const order =
-        allOrders.find(
-          function(item) {
-            return String(item.id) ===
-              String(orderId);
-          }
-        );
-
-
-      if (!order) {
-
-        await showKinoMessage(
-          "COPY ORDER",
-          "Order information was not found."
-        );
-
-        return;
-      }
-
-
-      const text =
-`KINO ORDER
-
-Order:
-${order.order_code || order.id}
-
-Customer:
-${order.customer_name || order.name || "-"}
-
-Email:
-${order.customer_email || order.email || "-"}
-
-Total:
-RM${Number(order.total_amount || order.total || 0).toFixed(2)}
-
-Status:
-${order.status || "-"}
-
-Payment:
-${order.payment_method || "-"}
-
-Date:
-${formatDate(order.created_at)}`;
-
-
-      try {
-
-        await navigator.clipboard.writeText(
-          text
-        );
-
-
-        await showKinoMessage(
-          "COPIED ♡",
-          "Order information has been copied."
-        );
-
-      }
-      catch (error) {
-
-        await showKinoMessage(
-          "COPY FAILED",
-          "Unable to copy order information."
-        );
-
-      }
-
-    }
-
-
-    orderSearch.addEventListener(
-      "input",
-      renderOrders
-    );
-
-    orderFilter.addEventListener(
-      "change",
-      renderOrders
-    );
-
-
-    /* =========================================================
-       AFFILIATES
-    ========================================================= */
-
-    async function loadAffiliates() {
-
-      const {
-        data,
-        error
-      } = await db
-        .from("affiliates")
-        .select("*")
-        .order(
-          "created_at",
-          {
-            ascending: false
-          }
-        );
-
-
-      if (error) {
-
-        console.error(
-          "Affiliates error:",
-          error
-        );
-
-        affiliateList.innerHTML = `
-          <div class="empty-state">
-            Unable to load affiliates.
-          </div>
-        `;
-
-        return;
-      }
-
-
-      allAffiliates =
-        data || [];
-
-
-      renderAffiliates();
+      return;
 
     }
 
 
     /*
-      IMPORTANT:
-
-      Before:
-      const pending = allAffiliates.filter(...pending)
-
-      That caused approved affiliates to disappear.
-
-      NOW:
-      We render ALL affiliates.
+      TRUE ADMIN CHECK
     */
 
-    function renderAffiliates() {
-
-      const affiliates =
-        [...allAffiliates];
-
-
-      const pendingCount =
-        affiliates.filter(
-          function(affiliate) {
-
-            return String(
-              affiliate.status || ""
-            ).toLowerCase() === "pending";
-
-          }
-        ).length;
+    const {
+      data: adminRecord,
+      error: adminError
+    } =
+      await db
+        .from("admin_users")
+        .select("user_id")
+        .eq(
+          "user_id",
+          user.id
+        )
+        .maybeSingle();
 
 
-      const activeCount =
-        affiliates.filter(
-          function(affiliate) {
+    if (
+      adminError ||
+      !adminRecord
+    ) {
 
-            return String(
-              affiliate.status || ""
-            ).toLowerCase() === "active";
+      console.error(
+        "ADMIN CHECK ERROR:",
+        adminError
+      );
 
-          }
-        ).length;
+      await db.auth.signOut();
 
+      loginError.textContent =
+        "Access denied. Admin sahaja boleh masuk.";
 
-      const rejectedCount =
-        affiliates.filter(
-          function(affiliate) {
+      loginError.style.display =
+        "block";
 
-            return String(
-              affiliate.status || ""
-            ).toLowerCase() === "rejected";
+      loginButton.disabled =
+        false;
 
-          }
-        ).length;
+      loginButton.textContent =
+        "LOGIN";
 
-
-      affiliateCount.textContent =
-        `${affiliates.length} affiliates · ` +
-        `${pendingCount} pending · ` +
-        `${activeCount} active` +
-        (
-          rejectedCount
-            ? ` · ${rejectedCount} rejected`
-            : ""
-        );
-
-
-      if (!affiliates.length) {
-
-        affiliateList.innerHTML = `
-          <div class="empty-state">
-            No affiliate registration yet ♡
-          </div>
-        `;
-
-        return;
-      }
-
-
-      affiliateList.innerHTML =
-        affiliates
-          .map(
-            function(affiliate) {
-
-              return renderAffiliateCard(
-                affiliate
-              );
-
-            }
-          )
-          .join("");
+      return;
 
     }
 
 
-    function renderAffiliateCard(
-      affiliate
+    loginButton.disabled =
+      false;
+
+    loginButton.textContent =
+      "LOGIN";
+
+
+    await showDashboard();
+
+  }
+);
+
+
+/* =========================================
+   SESSION
+========================================= */
+
+async function checkSession() {
+
+  const {
+    data: {
+      session
+    }
+  } =
+    await db.auth.getSession();
+
+
+  if (!session) {
+
+    loginPage.style.display =
+      "flex";
+
+    dashboardPage.style.display =
+      "none";
+
+    return;
+
+  }
+
+
+  const {
+    data: adminRecord,
+    error
+  } =
+    await db
+      .from("admin_users")
+      .select("user_id")
+      .eq(
+        "user_id",
+        session.user.id
+      )
+      .maybeSingle();
+
+
+  if (
+    error ||
+    !adminRecord
+  ) {
+
+    await db.auth.signOut();
+
+    loginPage.style.display =
+      "flex";
+
+    dashboardPage.style.display =
+      "none";
+
+    return;
+
+  }
+
+
+  await showDashboard();
+
+}
+
+
+/* =========================================
+   SHOW DASHBOARD
+========================================= */
+
+async function showDashboard() {
+
+  loginPage.style.display =
+    "none";
+
+  dashboardPage.style.display =
+    "block";
+
+
+  await loadAdminStoreStatus();
+
+  await loadOrders();
+
+  await loadAffiliates();
+
+}
+
+
+/* =========================================
+   STORE STATUS
+========================================= */
+
+async function loadAdminStoreStatus() {
+
+  const statusElement =
+    document.getElementById(
+      "admin-store-status"
+    );
+
+  const modeElement =
+    document.getElementById(
+      "admin-store-mode"
+    );
+
+
+  try {
+
+    const {
+      data,
+      error
+    } =
+      await db.rpc(
+        "get_store_status"
+      );
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    if (!data) {
+      throw new Error(
+        "Store status unavailable."
+      );
+    }
+
+
+    const isOpen =
+      data.is_open === true;
+
+    const mode =
+      data.mode || "auto";
+
+
+    statusElement.textContent =
+      isOpen
+        ? "🟢 KINO is OPEN"
+        : "🔴 KINO is CLOSED";
+
+
+    if (
+      mode ===
+      "emergency_close"
     ) {
+
+      modeElement.textContent =
+        "Store manually CLOSED for today.";
+
+    }
+
+    else if (
+      mode ===
+      "emergency_open"
+    ) {
+
+      modeElement.textContent =
+        "Store manually OPENED for today.";
+
+    }
+
+    else {
+
+      modeElement.textContent =
+        "Automatic schedule: 8:00 AM – 10:00 PM.";
+
+    }
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "STORE STATUS ERROR:",
+      error
+    );
+
+    statusElement.textContent =
+      "Unable to load store status.";
+
+    modeElement.textContent =
+      error.message || "";
+
+  }
+
+}
+
+
+/* =========================================
+   STORE BUTTONS
+========================================= */
+
+function setStoreButtonsDisabled(
+  disabled
+) {
+
+  document.getElementById(
+    "store-open-button"
+  ).disabled =
+    disabled;
+
+  document.getElementById(
+    "store-close-button"
+  ).disabled =
+    disabled;
+
+  document.getElementById(
+    "store-auto-button"
+  ).disabled =
+    disabled;
+
+}
+
+
+/* =========================================
+   OPEN STORE
+========================================= */
+
+async function openStore() {
+
+  const confirmed =
+    await showKinoConfirm(
+      "Open KINO ♡",
+      `
+        Are you sure you want to
+        <strong>
+          OPEN KINO
+        </strong>
+        manually for today?
+      `,
+      "OPEN STORE ♡"
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  setStoreButtonsDisabled(
+    true
+  );
+
+
+  try {
+
+    const {
+      error
+    } =
+      await db.rpc(
+        "emergency_open_store"
+      );
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    await loadAdminStoreStatus();
+
+
+    await showKinoMessage(
+      "KINO is OPEN ♡",
+      `
+        KINO is now
+        <strong>
+          OPEN
+        </strong>
+        for today.
+      `
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    await showKinoMessage(
+      "Unable to Open KINO",
+      `
+        Something went wrong.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+      `
+    );
+
+  }
+
+  finally {
+
+    setStoreButtonsDisabled(
+      false
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   CLOSE STORE
+========================================= */
+
+async function closeStore() {
+
+  const confirmed =
+    await showKinoConfirm(
+      "Close KINO",
+      `
+        Are you sure you want to
+        <strong>
+          CLOSE KINO
+        </strong>
+        manually for today?
+      `,
+      "CLOSE STORE"
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  setStoreButtonsDisabled(
+    true
+  );
+
+
+  try {
+
+    const {
+      error
+    } =
+      await db.rpc(
+        "emergency_close_store"
+      );
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    await loadAdminStoreStatus();
+
+
+    await showKinoMessage(
+      "KINO is CLOSED",
+      `
+        KINO is now
+        <strong>
+          CLOSED
+        </strong>
+        for today.
+      `
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    await showKinoMessage(
+      "Unable to Close KINO",
+      `
+        Something went wrong.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+      `
+    );
+
+  }
+
+  finally {
+
+    setStoreButtonsDisabled(
+      false
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   AUTO
+========================================= */
+
+async function resetAuto() {
+
+  const confirmed =
+    await showKinoConfirm(
+      "Automatic Schedule ♡",
+      `
+        Return KINO to the automatic
+        <strong>
+          8:00 AM – 10:00 PM
+        </strong>
+        schedule?
+      `,
+      "SET AUTO ♡"
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  setStoreButtonsDisabled(
+    true
+  );
+
+
+  try {
+
+    const {
+      error
+    } =
+      await db.rpc(
+        "reset_store_auto"
+      );
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    await loadAdminStoreStatus();
+
+
+    await showKinoMessage(
+      "Automatic Schedule Restored ♡",
+      `
+        KINO is back to the automatic
+        <strong>
+          8:00 AM – 10:00 PM
+        </strong>
+        schedule.
+      `
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    await showKinoMessage(
+      "Unable to Reset Schedule",
+      `
+        Something went wrong.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+      `
+    );
+
+  }
+
+  finally {
+
+    setStoreButtonsDisabled(
+      false
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   LOAD ORDERS
+========================================= */
+
+async function loadOrders() {
+
+  ordersContainer.innerHTML = `
+    <div class="loading">
+      Loading orders...
+    </div>
+  `;
+
+
+  const {
+    data,
+    error
+  } =
+    await db
+      .from("orders")
+      .select("*")
+      .order(
+        "created_at",
+        {
+          ascending: false
+        }
+      );
+
+
+  if (error) {
+
+    console.error(error);
+
+    ordersContainer.innerHTML = `
+      <div class="error">
+        Unable to load orders.<br><br>
+        ${escapeHtml(
+          error.message
+        )}
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  allOrders =
+    data || [];
+
+
+  await loadProducts();
+
+}
+
+
+/* =========================================
+   LOAD ORDER ITEMS
+========================================= */
+
+async function loadProducts() {
+
+  if (!allOrders.length) {
+
+    updateSummary();
+
+    renderOrders();
+
+    return;
+
+  }
+
+
+  const orderIds =
+    allOrders
+      .map(
+        order =>
+          order.id
+      )
+      .filter(Boolean);
+
+
+  if (!orderIds.length) {
+
+    updateSummary();
+
+    renderOrders();
+
+    return;
+
+  }
+
+
+  const {
+    data: items,
+    error
+  } =
+    await db
+      .from("order_items")
+      .select("*")
+      .in(
+        "order_id",
+        orderIds
+      );
+
+
+  if (error) {
+
+    console.error(
+      "ORDER ITEMS ERROR:",
+      error
+    );
+
+    allOrders =
+      allOrders.map(
+        order => ({
+          ...order,
+          items: []
+        })
+      );
+
+  }
+
+  else {
+
+    const itemList =
+      items || [];
+
+
+    allOrders =
+      allOrders.map(
+        order => ({
+
+          ...order,
+
+          items:
+            itemList.filter(
+              item =>
+                item.order_id ===
+                order.id
+            )
+
+        })
+      );
+
+  }
+
+
+  updateSummary();
+
+  renderOrders();
+
+}
+
+
+/* =========================================
+   LOAD AFFILIATES
+========================================= */
+
+async function loadAffiliates() {
+
+  affiliateList.innerHTML = `
+    <div class="loading">
+      Loading affiliates...
+    </div>
+  `;
+
+
+  const {
+    data,
+    error
+  } =
+    await db
+      .from("affiliates")
+      .select(`
+        id,
+        display_name,
+        email,
+        affiliate_code,
+        tier,
+        status,
+        referred_by,
+        created_at,
+        approved_at,
+        membership_amount
+      `)
+      .order(
+        "created_at",
+        {
+          ascending: false
+        }
+      );
+
+
+  if (error) {
+
+    console.error(
+      "AFFILIATE LOAD ERROR:",
+      error
+    );
+
+    affiliateList.innerHTML = `
+      <div class="affiliate-error">
+        Unable to load affiliates.<br><br>
+        ${escapeHtml(
+          error.message
+        )}
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  allAffiliates =
+    data || [];
+
+
+  renderAffiliates();
+
+  updateSummary();
+
+}
+
+
+/* =========================================
+   RENDER ALL AFFILIATES
+========================================= */
+
+function renderAffiliates() {
+
+  const pending =
+    allAffiliates.filter(
+      affiliate =>
+        String(
+          affiliate.status || ""
+        ).toLowerCase() ===
+        "pending"
+    );
+
+
+  const active =
+    allAffiliates.filter(
+      affiliate =>
+        String(
+          affiliate.status || ""
+        ).toLowerCase() ===
+        "active"
+    );
+
+
+  const rejected =
+    allAffiliates.filter(
+      affiliate =>
+        String(
+          affiliate.status || ""
+        ).toLowerCase() ===
+        "rejected"
+    );
+
+
+  affiliateCount.textContent =
+    `${allAffiliates.length} affiliates · ` +
+    `${pending.length} pending · ` +
+    `${active.length} active` +
+    (
+      rejected.length
+        ? ` · ${rejected.length} rejected`
+        : ""
+    );
+
+
+  if (!allAffiliates.length) {
+
+    affiliateList.innerHTML = `
+      <div class="affiliate-empty">
+        No affiliate registration yet ♡
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  affiliateList.innerHTML =
+    "";
+
+
+  allAffiliates.forEach(
+    affiliate => {
 
       const status =
         String(
-          affiliate.status || "pending"
+          affiliate.status ||
+          "pending"
         ).toLowerCase();
-
-
-      const name =
-        affiliate.display_name ||
-        affiliate.name ||
-        "-";
-
-
-      const email =
-        affiliate.email ||
-        "-";
-
-
-      const code =
-        affiliate.affiliate_code ||
-        "-";
 
 
       const tier =
         String(
-          affiliate.tier || "basic"
-        ).toUpperCase();
+          affiliate.tier ||
+          "basic"
+        ).toLowerCase();
 
 
-      const membershipAmount =
-        affiliate.membership_amount !== null &&
-        affiliate.membership_amount !== undefined
-          ? Number(
-              affiliate.membership_amount
+      const isPro =
+        tier === "pro";
+
+
+      const amount =
+        Number(
+          affiliate.membership_amount ||
+          (
+            isPro
+              ? 50
+              : 5
+          )
+        );
+
+
+      const createdAt =
+        affiliate.created_at
+          ? new Date(
+              affiliate.created_at
+            ).toLocaleString(
+              "en-MY"
             )
-          : (
-              tier === "PRO"
-                ? 50
-                : 5
-            );
+          : "-";
 
 
-      let badgeClass =
-        "status-pending";
+      const approvedAt =
+        affiliate.approved_at
+          ? new Date(
+              affiliate.approved_at
+            ).toLocaleString(
+              "en-MY"
+            )
+          : "-";
+
+
+      let statusStyle =
+        `
+          background:#fde6ee;
+          color:#a96b82;
+        `;
 
 
       if (status === "active") {
-        badgeClass =
-          "status-active";
+
+        statusStyle =
+          `
+            background:#dff3e6;
+            color:#4f8a68;
+          `;
+
       }
 
-      else if (status === "rejected") {
-        badgeClass =
-          "status-rejected";
+      else if (
+        status === "rejected"
+      ) {
+
+        statusStyle =
+          `
+            background:#eee7ea;
+            color:#806d74;
+          `;
+
       }
 
-      else if (status === "suspended") {
-        badgeClass =
-          "status-suspended";
+      else if (
+        status === "suspended"
+      ) {
+
+        statusStyle =
+          `
+            background:#fff0f3;
+            color:#a96b82;
+          `;
+
       }
 
 
-      let actions = "";
+      let actionHTML =
+        "";
 
 
       /*
         PENDING
       */
 
-      if (status === "pending") {
+      if (
+        status === "pending"
+      ) {
 
-        if (
-          affiliate.payment_proof_path
-        ) {
+        actionHTML = `
 
-          actions += `
-            <button
-              class="action-button action-secondary"
-              onclick="viewAffiliatePaymentProof('${escapeJs(affiliate.payment_proof_path)}')"
-            >
-              VIEW PAYMENT PROOF
-            </button>
-          `;
-
-        }
-
-
-        actions += `
           <button
-            class="action-button action-green"
-            onclick="approveAffiliate('${escapeJs(affiliate.id)}')"
+            class="affiliate-proof-button"
+            onclick="viewAffiliateProof(
+              '${escapeJs(
+                affiliate.id
+              )}'
+            )"
+          >
+            VIEW PAYMENT PROOF
+          </button>
+
+
+          <button
+            class="affiliate-approve-button"
+            onclick="approveAffiliate(
+              '${escapeJs(
+                affiliate.id
+              )}'
+            )"
           >
             APPROVE
           </button>
 
+
           <button
-            class="action-button action-danger"
-            onclick="rejectAffiliate('${escapeJs(affiliate.id)}')"
+            class="affiliate-reject-button"
+            onclick="rejectAffiliate(
+              '${escapeJs(
+                affiliate.id
+              )}'
+            )"
           >
             REJECT
           </button>
+
         `;
 
       }
@@ -2558,20 +2901,25 @@ ${formatDate(order.created_at)}`;
 
       /*
         ACTIVE
-
-        Approved affiliate stays visible
-        and gets EMAIL AFFILIATE.
       */
 
-      else if (status === "active") {
+      else if (
+        status === "active"
+      ) {
 
-        actions += `
+        actionHTML = `
+
           <button
-            class="action-button action-secondary"
-            onclick="emailAffiliate('${escapeJs(affiliate.id)}')"
+            class="affiliate-email-button"
+            onclick="emailAffiliate(
+              '${escapeJs(
+                affiliate.id
+              )}'
+            )"
           >
             EMAIL AFFILIATE
           </button>
+
         `;
 
       }
@@ -2579,23 +2927,24 @@ ${formatDate(order.created_at)}`;
 
       /*
         REJECTED
-
-        Keep record visible.
-        No destructive action.
       */
 
-      else if (status === "rejected") {
+      else if (
+        status === "rejected"
+      ) {
 
-        actions += `
-          <span
+        actionHTML = `
+
+          <div
             style="
-              color:#a88c95;
+              color:#aaa;
               font-size:13px;
               padding:9px 2px;
             "
           >
             Registration rejected
-          </span>
+          </div>
+
         `;
 
       }
@@ -2605,448 +2954,682 @@ ${formatDate(order.created_at)}`;
         SUSPENDED
       */
 
-      else if (status === "suspended") {
+      else if (
+        status === "suspended"
+      ) {
 
-        actions += `
-          <span
+        actionHTML = `
+
+          <div
             style="
-              color:#a88c95;
+              color:#aaa;
               font-size:13px;
               padding:9px 2px;
             "
           >
             Account suspended
-          </span>
+          </div>
+
         `;
 
       }
 
 
-      const approvedDate =
-        affiliate.approved_at
-          ? `
-            <div class="approved-date">
-              Approved:
+      const card =
+        document.createElement(
+          "div"
+        );
+
+
+      card.className =
+        "affiliate-card";
+
+
+      card.innerHTML = `
+
+        <div class="affiliate-header">
+
+          <div>
+
+            <div class="affiliate-name">
               ${escapeHtml(
-                formatDate(
-                  affiliate.approved_at
-                )
+                affiliate.display_name
               )}
             </div>
-          `
-          : "";
 
-
-      return `
-        <div class="affiliate-item">
-
-          <div class="affiliate-header">
-
-            <div>
-
-              <div class="affiliate-name">
-                ${escapeHtml(name)}
-              </div>
-
-              <div class="affiliate-email">
-                ${escapeHtml(email)}
-              </div>
-
-            </div>
-
-            <div class="status-badge ${badgeClass}">
+            <div class="affiliate-email">
               ${escapeHtml(
-                status.toUpperCase()
+                affiliate.email
               )}
             </div>
 
           </div>
 
 
-          <div class="affiliate-info">
-
-            <div class="info-row">
-
-              <strong>Plan:</strong>
-
-              <span class="affiliate-plan">
-                ${escapeHtml(tier)}
-              </span>
-
-            </div>
-
-
-            <div class="info-row">
-
-              <strong>Membership:</strong>
-
-              <span class="affiliate-membership">
-                RM${membershipAmount.toFixed(2)}
-              </span>
-
-            </div>
-
-
-            <div class="info-row">
-
-              <strong>Affiliate Code:</strong>
-
-              ${escapeHtml(code)}
-
-            </div>
-
-
-            <div class="info-row">
-
-              <strong>Commission:</strong>
-
-              ${tier === "PRO" ? "60%" : "40%"}
-
-            </div>
-
-
-            <div class="info-row">
-
-              <strong>Registered:</strong>
-
-              ${escapeHtml(
-                formatDate(
-                  affiliate.created_at
-                )
-              )}
-
-            </div>
-
+          <div
+            class="affiliate-plan ${
+              isPro
+                ? "pro"
+                : ""
+            }"
+          >
             ${
-              approvedDate
+              isPro
+                ? "PRO"
+                : "BASIC"
             }
-
-          </div>
-
-
-          <div class="affiliate-actions">
-            ${actions}
           </div>
 
         </div>
+
+
+        <div
+          style="
+            display:inline-block;
+            padding:5px 12px;
+            border-radius:18px;
+            font-size:12px;
+            font-weight:600;
+            margin-bottom:15px;
+            ${statusStyle}
+          "
+        >
+          ${escapeHtml(
+            status.toUpperCase()
+          )}
+        </div>
+
+
+        <div class="affiliate-details">
+
+          <div class="affiliate-detail">
+
+            <div class="affiliate-detail-label">
+              Membership
+            </div>
+
+            <div class="affiliate-detail-value">
+              RM${amount.toFixed(2)}
+            </div>
+
+          </div>
+
+
+          <div class="affiliate-detail">
+
+            <div class="affiliate-detail-label">
+              Affiliate Code
+            </div>
+
+            <div class="affiliate-detail-value">
+              ${escapeHtml(
+                affiliate.affiliate_code
+              )}
+            </div>
+
+          </div>
+
+
+          <div class="affiliate-detail">
+
+            <div class="affiliate-detail-label">
+              Registered
+            </div>
+
+            <div class="affiliate-detail-value">
+              ${escapeHtml(
+                createdAt
+              )}
+            </div>
+
+          </div>
+
+
+          ${
+            status === "active"
+              ? `
+                <div class="affiliate-detail">
+
+                  <div class="affiliate-detail-label">
+                    Approved
+                  </div>
+
+                  <div class="affiliate-detail-value">
+                    ${escapeHtml(
+                      approvedAt
+                    )}
+                  </div>
+
+                </div>
+              `
+              : ""
+          }
+
+        </div>
+
+
+        <div class="affiliate-actions">
+
+          ${actionHTML}
+
+        </div>
+
       `;
 
+
+      affiliateList.appendChild(
+        card
+      );
+
     }
+  );
+
+}
 
 
-    async function viewAffiliatePaymentProof(
-      path
+/* =========================================
+   VIEW AFFILIATE PAYMENT PROOF
+========================================= */
+
+async function viewAffiliateProof(
+  affiliateId
+) {
+
+  const affiliate =
+    allAffiliates.find(
+      item =>
+        String(item.id) ===
+        String(affiliateId)
+    );
+
+
+  if (!affiliate) {
+
+    await showKinoMessage(
+      "Affiliate Not Found",
+      `
+        The affiliate registration
+        could not be found.
+      `
+    );
+
+    return;
+
+  }
+
+
+  /*
+    Registration upload path:
+    affiliate-payments/{userId}/payment-proof.{extension}
+
+    Since extension is not stored in the
+    affiliates table, try the allowed
+    extensions.
+  */
+
+  const paths = [
+
+    `affiliate-payments/${affiliate.id}/payment-proof.jpg`,
+
+    `affiliate-payments/${affiliate.id}/payment-proof.jpeg`,
+
+    `affiliate-payments/${affiliate.id}/payment-proof.png`,
+
+    `affiliate-payments/${affiliate.id}/payment-proof.webp`
+
+  ];
+
+
+  try {
+
+    for (
+      const path of paths
     ) {
-
-      if (!path) {
-
-        await showKinoMessage(
-          "PAYMENT PROOF",
-          "Affiliate payment proof was not found."
-        );
-
-        return;
-      }
-
 
       const {
         data,
         error
-      } = await db.storage
-        .from("payment-proofs")
-        .createSignedUrl(
-          path,
-          300
-        );
+      } =
+        await db.storage
+          .from(
+            "payment-proofs"
+          )
+          .createSignedUrl(
+            path,
+            300
+          );
 
 
       if (
-        error ||
-        !data?.signedUrl
+        !error &&
+        data?.signedUrl
       ) {
 
-        await showKinoMessage(
-          "PAYMENT PROOF",
-          "Unable to open affiliate payment proof."
+        window.open(
+          data.signedUrl,
+          "_blank"
         );
 
         return;
+
       }
-
-
-      window.open(
-        data.signedUrl,
-        "_blank"
-      );
 
     }
 
 
-    async function approveAffiliate(
-      affiliateId
-    ) {
+    await showKinoMessage(
+      "Payment Proof Not Found",
+      `
+        The affiliate payment proof
+        could not be found.
+      `
+    );
 
-      const affiliate =
-        allAffiliates.find(
-          function(item) {
+  }
 
-            return String(item.id) ===
-              String(affiliateId);
+  catch (error) {
 
+    console.error(error);
+
+    await showKinoMessage(
+      "Unable to Open Payment Proof",
+      `
+        Something went wrong while
+        opening the payment proof.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+      `
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   APPROVE AFFILIATE
+========================================= */
+
+async function approveAffiliate(
+  affiliateId
+) {
+
+  const affiliate =
+    allAffiliates.find(
+      item =>
+        String(item.id) ===
+        String(affiliateId)
+    );
+
+
+  if (!affiliate) {
+
+    await showKinoMessage(
+      "Affiliate Not Found",
+      `
+        The affiliate registration
+        could not be found.
+      `
+    );
+
+    return;
+
+  }
+
+
+  const tier =
+    String(
+      affiliate.tier ||
+      "basic"
+    ).toLowerCase();
+
+
+  const amount =
+    tier === "pro"
+      ? 50
+      : 5;
+
+
+  const confirmed =
+    await showKinoConfirm(
+      "Approve Affiliate ♡",
+      `
+        Approve
+        <strong>
+          ${escapeHtml(
+            affiliate.display_name
+          )}
+        </strong>
+        as a
+        <strong>
+          ${
+            tier === "pro"
+              ? "PRO"
+              : "BASIC"
           }
-        );
+        </strong>
+        affiliate?
+
+        <br><br>
+
+        Membership payment:
+        <strong>
+          RM${amount.toFixed(2)}
+        </strong>
+      `,
+      "APPROVE ♡"
+    );
 
 
-      if (!affiliate) {
-
-        await showKinoMessage(
-          "AFFILIATE",
-          "Affiliate record was not found."
-        );
-
-        return;
-      }
+  if (!confirmed) {
+    return;
+  }
 
 
-      const name =
-        affiliate.display_name ||
-        affiliate.name ||
-        "this affiliate";
+  try {
 
-
-      const confirmed =
-        await showKinoConfirm(
-          "APPROVE AFFILIATE ♡",
-          `Approve <strong>${escapeHtml(name)}</strong> as a KINO affiliate?`,
-          "APPROVE",
-          "CANCEL"
-        );
-
-
-      if (!confirmed) {
-        return;
-      }
-
-
-      const tier =
-        String(
-          affiliate.tier || "basic"
-        ).toLowerCase();
-
-
-      const membershipAmount =
-        tier === "pro"
-          ? 50
-          : 5;
-
-
-      const {
-        error
-      } = await db
+    const {
+      error
+    } =
+      await db
         .from("affiliates")
         .update({
 
-          status: "active",
+          status:
+            "active",
 
           approved_at:
             new Date().toISOString(),
 
           membership_amount:
-            membershipAmount
+            amount
 
         })
         .eq(
           "id",
           affiliateId
+        )
+        .eq(
+          "status",
+          "pending"
         );
 
 
-      if (error) {
-
-        await showKinoMessage(
-          "APPROVAL FAILED",
-          error.message
-        );
-
-        return;
-      }
-
-
-      await loadAffiliates();
-
-      await loadOrders();
-
-
-      await showKinoMessage(
-        "AFFILIATE APPROVED ♡",
-        `${escapeHtml(name)} is now an active KINO affiliate.`
-      );
-
+    if (error) {
+      throw error;
     }
 
 
-    async function rejectAffiliate(
-      affiliateId
-    ) {
+    await loadAffiliates();
 
-      const affiliate =
-        allAffiliates.find(
-          function(item) {
-
-            return String(item.id) ===
-              String(affiliateId);
-
-          }
-        );
+    await loadOrders();
 
 
-      if (!affiliate) {
+    await showKinoMessage(
+      "Affiliate Approved ♡",
+      `
+        <strong>
+          ${escapeHtml(
+            affiliate.display_name
+          )}
+        </strong>
 
-        await showKinoMessage(
-          "AFFILIATE",
-          "Affiliate record was not found."
-        );
+        has been approved successfully.
 
-        return;
-      }
+        <br><br>
+
+        The affiliate will remain visible
+        in Affiliate Management and can now
+        be emailed from the dashboard.
+      `
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "APPROVE AFFILIATE ERROR:",
+      error
+    );
+
+    await showKinoMessage(
+      "Unable to Approve Affiliate",
+      `
+        Something went wrong while
+        approving this affiliate.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+      `
+    );
+
+  }
+
+}
 
 
-      const name =
-        affiliate.display_name ||
-        affiliate.name ||
-        "this affiliate";
+/* =========================================
+   REJECT AFFILIATE
+========================================= */
+
+async function rejectAffiliate(
+  affiliateId
+) {
+
+  const affiliate =
+    allAffiliates.find(
+      item =>
+        String(item.id) ===
+        String(affiliateId)
+    );
 
 
-      const confirmed =
-        await showKinoConfirm(
-          "REJECT AFFILIATE",
-          `Reject <strong>${escapeHtml(name)}</strong>'s affiliate registration?`,
-          "REJECT",
-          "CANCEL"
-        );
+  if (!affiliate) {
+
+    await showKinoMessage(
+      "Affiliate Not Found",
+      `
+        The affiliate registration
+        could not be found.
+      `
+    );
+
+    return;
+
+  }
 
 
-      if (!confirmed) {
-        return;
-      }
+  const confirmed =
+    await showKinoConfirm(
+      "Reject Affiliate",
+      `
+        Are you sure you want to reject
+        the affiliate registration from
+
+        <br><br>
+
+        <strong>
+          ${escapeHtml(
+            affiliate.display_name
+          )}
+        </strong>
+        ?
+      `,
+      "REJECT"
+    );
 
 
-      const {
-        error
-      } = await db
+  if (!confirmed) {
+    return;
+  }
+
+
+  try {
+
+    const {
+      error
+    } =
+      await db
         .from("affiliates")
         .update({
-          status: "rejected"
+
+          status:
+            "rejected"
+
         })
         .eq(
           "id",
           affiliateId
+        )
+        .eq(
+          "status",
+          "pending"
         );
 
 
-      if (error) {
-
-        await showKinoMessage(
-          "REJECTION FAILED",
-          error.message
-        );
-
-        return;
-      }
-
-
-      await loadAffiliates();
-
-
-      await showKinoMessage(
-        "AFFILIATE REJECTED",
-        `${escapeHtml(name)}'s registration has been rejected.`
-      );
-
+    if (error) {
+      throw error;
     }
 
 
-    /* =========================================================
-       EMAIL AFFILIATE
-    ========================================================= */
-
-    function emailAffiliate(
-      affiliateId
-    ) {
-
-      const affiliate =
-        allAffiliates.find(
-          function(item) {
-
-            return String(item.id) ===
-              String(affiliateId);
-
-          }
-        );
+    await loadAffiliates();
 
 
-      if (!affiliate) {
+    await showKinoMessage(
+      "Affiliate Rejected",
+      `
+        The affiliate registration from
+        <strong>
+          ${escapeHtml(
+            affiliate.display_name
+          )}
+        </strong>
+        has been rejected.
 
-        showKinoMessage(
-          "EMAIL AFFILIATE",
-          "Affiliate record was not found."
-        );
+        <br><br>
 
-        return;
-      }
+        The record will remain in Affiliate
+        Management.
+      `
+    );
 
+  }
 
-      const email =
-        affiliate.email;
+  catch (error) {
 
+    console.error(
+      "REJECT AFFILIATE ERROR:",
+      error
+    );
 
-      const name =
-        affiliate.display_name ||
-        affiliate.name ||
-        "Affiliate";
+    await showKinoMessage(
+      "Unable to Reject Affiliate",
+      `
+        Something went wrong while
+        rejecting this affiliate.
 
+        <br><br>
 
-      const code =
-        affiliate.affiliate_code ||
-        "-";
+        ${escapeHtml(
+          error.message
+        )}
+      `
+    );
 
+  }
 
-      const tier =
-        String(
-          affiliate.tier || "basic"
-        ).toUpperCase();
-
-
-      const commission =
-        tier === "PRO"
-          ? "60%"
-          : "40%";
-
-
-      if (!email) {
-
-        showKinoMessage(
-          "EMAIL AFFILIATE",
-          "Affiliate email was not found."
-        );
-
-        return;
-      }
+}
 
 
-      /*
-        KINO affiliate referral link
-      */
+/* =========================================
+   EMAIL AFFILIATE
+========================================= */
 
-      const affiliateLink =
-        `https://kino-website.pages.dev/?ref=${encodeURIComponent(code)}`;
+async function emailAffiliate(
+  affiliateId
+) {
+
+  const affiliate =
+    allAffiliates.find(
+      item =>
+        String(item.id) ===
+        String(affiliateId)
+    );
 
 
-      const subject =
-        "Welcome to KINO Affiliate ♡";
+  if (!affiliate) {
+
+    await showKinoMessage(
+      "Affiliate Not Found",
+      `
+        The affiliate record
+        could not be found.
+      `
+    );
+
+    return;
+
+  }
 
 
-      const body =
+  const email =
+    affiliate.email;
+
+
+  const name =
+    affiliate.display_name ||
+    "Affiliate";
+
+
+  const code =
+    affiliate.affiliate_code ||
+    "-";
+
+
+  const tier =
+    String(
+      affiliate.tier ||
+      "basic"
+    ).toUpperCase();
+
+
+  const commission =
+    tier === "PRO"
+      ? "60%"
+      : "40%";
+
+
+  if (!email) {
+
+    await showKinoMessage(
+      "Email Affiliate",
+      `
+        Affiliate email was not found.
+      `
+    );
+
+    return;
+
+  }
+
+
+  const affiliateLink =
+    `https://kino-website.pages.dev/?ref=${encodeURIComponent(code)}`;
+
+
+  const subject =
+    "Welcome to KINO Affiliate ♡";
+
+
+  const body =
 `Hi ${name},
 
 Thank you for joining KINO Affiliate ♡
@@ -3070,437 +3653,1281 @@ ${affiliateLink}
 Thank you for being part of KINO ♡`;
 
 
-      showKinoConfirm(
-        "EMAIL AFFILIATE",
-        `Open your email app to send an email to:<br><br><strong>${escapeHtml(email)}</strong>`,
-        "OPEN EMAIL",
-        "CANCEL"
+  const confirmed =
+    await showKinoConfirm(
+      "Email Affiliate ♡",
+      `
+        Open your email app to send
+        an email to:
+
+        <br><br>
+
+        <strong>
+          ${escapeHtml(email)}
+        </strong>
+      `,
+      "OPEN EMAIL ♡"
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  window.location.href =
+    `mailto:${encodeURIComponent(
+      email
+    )}` +
+    `?subject=${encodeURIComponent(
+      subject
+    )}` +
+    `&body=${encodeURIComponent(
+      body
+    )}`;
+
+}
+
+
+/* =========================================
+   SUMMARY
+========================================= */
+
+function updateSummary() {
+
+  const paidOrders =
+    allOrders.filter(
+      order =>
+        String(
+          order.status ||
+          ""
+        ).toLowerCase() ===
+        "paid"
+    );
+
+
+  const productTotal =
+    paidOrders.reduce(
+      (
+        sum,
+        order
+      ) =>
+        sum +
+        Number(
+          order.total || 0
+        ),
+      0
+    );
+
+
+  const todayProductSales =
+    paidOrders
+      .filter(
+        order =>
+          isToday(
+            order.created_at
+          )
       )
-      .then(
-        function(ok) {
+      .reduce(
+        (
+          sum,
+          order
+        ) =>
+          sum +
+          Number(
+            order.total || 0
+          ),
+        0
+      );
 
-          if (!ok) {
-            return;
-          }
+
+  const monthProductSales =
+    paidOrders
+      .filter(
+        order =>
+          isThisMonth(
+            order.created_at
+          )
+      )
+      .reduce(
+        (
+          sum,
+          order
+        ) =>
+          sum +
+          Number(
+            order.total || 0
+          ),
+        0
+      );
 
 
-          window.location.href =
-            `mailto:${encodeURIComponent(email)}` +
-            `?subject=${encodeURIComponent(subject)}` +
-            `&body=${encodeURIComponent(body)}`;
+  /*
+    Affiliate membership sales
+    ONLY approved/active affiliates
+    with approved_at are counted.
+  */
+
+  const approvedAffiliates =
+    allAffiliates.filter(
+      affiliate =>
+        String(
+          affiliate.status ||
+          ""
+        ).toLowerCase() ===
+        "active" &&
+        affiliate.approved_at
+    );
+
+
+  function membershipAmount(
+    affiliate
+  ) {
+
+    return Number(
+      affiliate.membership_amount ||
+      (
+        String(
+          affiliate.tier ||
+          ""
+        ).toLowerCase() ===
+        "pro"
+          ? 50
+          : 5
+      )
+    );
+
+  }
+
+
+  const affiliateTotal =
+    approvedAffiliates.reduce(
+      (
+        sum,
+        affiliate
+      ) =>
+        sum +
+        membershipAmount(
+          affiliate
+        ),
+      0
+    );
+
+
+  const todayAffiliateSales =
+    approvedAffiliates
+      .filter(
+        affiliate =>
+          isToday(
+            affiliate.approved_at
+          )
+      )
+      .reduce(
+        (
+          sum,
+          affiliate
+        ) =>
+          sum +
+          membershipAmount(
+            affiliate
+          ),
+        0
+      );
+
+
+  const monthAffiliateSales =
+    approvedAffiliates
+      .filter(
+        affiliate =>
+          isThisMonth(
+            affiliate.approved_at
+          )
+      )
+      .reduce(
+        (
+          sum,
+          affiliate
+        ) =>
+          sum +
+          membershipAmount(
+            affiliate
+          ),
+        0
+      );
+
+
+  const totalSales =
+    productTotal +
+    affiliateTotal;
+
+
+  const todaySalesValue =
+    todayProductSales +
+    todayAffiliateSales;
+
+
+  const monthSalesValue =
+    monthProductSales +
+    monthAffiliateSales;
+
+
+  const pending =
+    allOrders.filter(
+      order =>
+        String(
+          order.status ||
+          ""
+        ).toLowerCase() ===
+        "pending"
+    ).length;
+
+
+  const paid =
+    paidOrders.length;
+
+
+  const todayOrderCount =
+    allOrders.filter(
+      order =>
+        isToday(
+          order.created_at
+        )
+    ).length;
+
+
+  pendingCount.textContent =
+    pending;
+
+
+  paidCount.textContent =
+    paid;
+
+
+  salesTotal.textContent =
+    "RM" +
+    totalSales.toFixed(2);
+
+
+  todaySales.textContent =
+    "RM" +
+    todaySalesValue.toFixed(2);
+
+
+  monthSales.textContent =
+    "RM" +
+    monthSalesValue.toFixed(2);
+
+
+  todayOrders.textContent =
+    todayOrderCount;
+
+}
+
+
+/* =========================================
+   FILTER BUTTONS
+========================================= */
+
+document
+  .querySelectorAll(
+    ".filter-button"
+  )
+  .forEach(
+    button => {
+
+      button.addEventListener(
+        "click",
+        function() {
+
+          document
+            .querySelectorAll(
+              ".filter-button"
+            )
+            .forEach(
+              item =>
+                item.classList.remove(
+                  "active"
+                )
+            );
+
+
+          this.classList.add(
+            "active"
+          );
+
+
+          currentFilter =
+            this.dataset.filter;
+
+
+          renderOrders();
 
         }
       );
 
     }
+  );
 
 
-    /* =========================================================
-       SUMMARY
-    ========================================================= */
+/* =========================================
+   SEARCH
+========================================= */
 
-    function updateSummary() {
+searchInput.addEventListener(
+  "input",
+  function() {
 
-      const now =
-        new Date();
+    renderOrders();
 
-
-      const todayStart =
-        new Date(
-          now.getFullYear(),
-          now.getMonth(),
-          now.getDate()
-        );
+  }
+);
 
 
-      const monthStart =
-        new Date(
-          now.getFullYear(),
-          now.getMonth(),
-          1
-        );
+/* =========================================
+   RENDER ORDERS
+========================================= */
+
+function renderOrders() {
+
+  let orders =
+    [...allOrders];
 
 
-      const paidOrders =
-        allOrders.filter(
-          function(order) {
+  if (
+    currentFilter !==
+    "all"
+  ) {
 
-            return String(
-              order.status || ""
-            ).toLowerCase() === "paid";
+    orders =
+      orders.filter(
+        order =>
+          String(
+            order.status ||
+            "pending"
+          ).toLowerCase() ===
+          currentFilter
+      );
 
-          }
-        );
-
-
-      const todayOrders =
-        allOrders.filter(
-          function(order) {
-
-            if (!order.created_at) {
-              return false;
-            }
+  }
 
 
-            const date =
-              new Date(
-                order.created_at
-              );
+  const search =
+    searchInput.value
+      .trim()
+      .toLowerCase();
 
 
-            return date >= todayStart;
+  if (search) {
 
-          }
-        );
+    orders =
+      orders.filter(
+        order => {
 
+          const text = [
 
-      const pendingOrders =
-        allOrders.filter(
-          function(order) {
+            order.order_code,
 
-            return String(
-              order.status || ""
-            ).toLowerCase() === "pending";
+            order.customer_name,
 
-          }
-        );
+            order.customer_email,
 
+            order.status
 
-      const todayPaidOrders =
-        paidOrders.filter(
-          function(order) {
-
-            const date =
-              new Date(
-                order.created_at
-              );
-
-            return date >= todayStart;
-
-          }
-        );
+          ]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
 
 
-      const monthPaidOrders =
-        paidOrders.filter(
-          function(order) {
-
-            const date =
-              new Date(
-                order.created_at
-              );
-
-            return date >= monthStart;
-
-          }
-        );
-
-
-      function orderAmount(order) {
-
-        return Number(
-          order.total_amount ||
-          order.total ||
-          0
-        );
-
-      }
-
-
-      const todayOrderSales =
-        todayPaidOrders.reduce(
-          function(total, order) {
-
-            return total +
-              orderAmount(order);
-
-          },
-          0
-        );
-
-
-      const monthOrderSales =
-        monthPaidOrders.reduce(
-          function(total, order) {
-
-            return total +
-              orderAmount(order);
-
-          },
-          0
-        );
-
-
-      const totalOrderSales =
-        paidOrders.reduce(
-          function(total, order) {
-
-            return total +
-              orderAmount(order);
-
-          },
-          0
-        );
-
-
-      /*
-        Approved affiliate membership sales
-        are included in summary.
-      */
-
-      const activeAffiliates =
-        allAffiliates.filter(
-          function(affiliate) {
-
-            return String(
-              affiliate.status || ""
-            ).toLowerCase() === "active";
-
-          }
-        );
-
-
-      const todayMembershipSales =
-        activeAffiliates
-          .filter(
-            function(affiliate) {
-
-              if (!affiliate.approved_at) {
-                return false;
-              }
-
-              return new Date(
-                affiliate.approved_at
-              ) >= todayStart;
-
-            }
-          )
-          .reduce(
-            function(total, affiliate) {
-
-              return total +
-                Number(
-                  affiliate.membership_amount || 0
-                );
-
-            },
-            0
+          return text.includes(
+            search
           );
 
+        }
+      );
 
-      const monthMembershipSales =
-        activeAffiliates
-          .filter(
-            function(affiliate) {
-
-              if (!affiliate.approved_at) {
-                return false;
-              }
-
-              return new Date(
-                affiliate.approved_at
-              ) >= monthStart;
-
-            }
-          )
-          .reduce(
-            function(total, affiliate) {
-
-              return total +
-                Number(
-                  affiliate.membership_amount || 0
-                );
-
-            },
-            0
-          );
+  }
 
 
-      const totalMembershipSales =
-        activeAffiliates.reduce(
-          function(total, affiliate) {
+  if (!orders.length) {
 
-            return total +
-              Number(
-                affiliate.membership_amount || 0
-              );
+    ordersContainer.innerHTML = `
+      <div class="no-results">
+        No orders found ♡
+      </div>
+    `;
 
-          },
-          0
+    return;
+
+  }
+
+
+  ordersContainer.innerHTML =
+    "";
+
+
+  orders.forEach(
+    order => {
+
+      const card =
+        document.createElement(
+          "div"
         );
 
 
-      document.getElementById(
-        "today-sales"
-      ).textContent =
-        "RM" +
-        (
-          todayOrderSales +
-          todayMembershipSales
-        ).toFixed(2);
+      card.className =
+        "order-card";
 
 
-      document.getElementById(
-        "month-sales"
-      ).textContent =
-        "RM" +
-        (
-          monthOrderSales +
-          monthMembershipSales
-        ).toFixed(2);
+      const status =
+        String(
+          order.status ||
+          "pending"
+        ).toLowerCase();
 
 
-      document.getElementById(
-        "total-sales"
-      ).textContent =
-        "RM" +
-        (
-          totalOrderSales +
-          totalMembershipSales
-        ).toFixed(2);
+      const statusClass =
+        status === "paid"
+          ? "paid"
+          : status === "rejected"
+            ? "rejected"
+            : "";
 
 
-      document.getElementById(
-        "today-orders"
-      ).textContent =
-        todayOrders.length;
+      const createdAt =
+        order.created_at
+          ? new Date(
+              order.created_at
+            ).toLocaleString(
+              "en-MY"
+            )
+          : "-";
 
 
-      document.getElementById(
-        "pending-orders"
-      ).textContent =
-        pendingOrders.length;
+      const items =
+        order.items || [];
 
 
-      document.getElementById(
-        "paid-orders"
-      ).textContent =
-        paidOrders.length;
-
-    }
-
-
-    /* =========================================================
-       LOAD EVERYTHING
-    ========================================================= */
-
-    async function loadEverything() {
-
-      await loadStoreStatus();
-
-      await loadAffiliates();
-
-      await loadOrders();
-
-    }
-
-
-    /* =========================================================
-       HELPERS
-    ========================================================= */
-
-    function formatDate(
-      value
-    ) {
-
-      if (!value) {
-        return "-";
-      }
-
-
-      const date =
-        new Date(value);
+      let productsHTML =
+        "";
 
 
       if (
-        Number.isNaN(
-          date.getTime()
-        )
+        items.length > 0
       ) {
-        return "-";
+
+        productsHTML =
+          items
+            .map(
+              item => {
+
+                const name =
+                  item.product_name ||
+                  item.name ||
+                  "Product";
+
+
+                const quantity =
+                  Number(
+                    item.quantity ||
+                    1
+                  );
+
+
+                const subtotal =
+                  Number(
+                    item.subtotal ||
+                    (
+                      Number(
+                        item.product_price ||
+                        0
+                      ) *
+                      quantity
+                    )
+                  );
+
+
+                return `
+
+                  <div class="product-row">
+
+                    <div>
+
+                      <div class="product-name">
+                        ${escapeHtml(
+                          name
+                        )}
+                      </div>
+
+                      <div class="product-qty">
+                        RM${Number(
+                          item.product_price ||
+                          0
+                        ).toFixed(2)}
+                        × ${quantity}
+                      </div>
+
+                    </div>
+
+                    <div class="product-price">
+                      RM${subtotal.toFixed(2)}
+                    </div>
+
+                  </div>
+
+                `;
+
+              }
+            )
+            .join("");
+
+      }
+
+      else {
+
+        productsHTML = `
+          <div
+            style="
+              color:#aaa;
+              font-size:13px;
+            "
+          >
+            No product information.
+          </div>
+        `;
+
       }
 
 
-      return date.toLocaleString(
-        "en-MY",
-        {
-          day: "2-digit",
-          month: "short",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit"
-        }
+      let proofButton =
+        "";
+
+
+      if (
+        order.payment_proof_path
+      ) {
+
+        proofButton = `
+
+          <button
+            class="proof-button"
+            onclick="viewPaymentProof('${encodeURIComponent(
+              order.payment_proof_path
+            )}')"
+          >
+            VIEW PAYMENT PROOF
+          </button>
+
+        `;
+
+      }
+
+
+      let actionButtons =
+        "";
+
+
+      if (
+        status === "pending"
+      ) {
+
+        actionButtons = `
+
+          <button
+            class="paid-button"
+            onclick="updateStatus(
+              '${escapeJs(
+                order.id
+              )}',
+              'paid'
+            )"
+          >
+            MARK AS PAID
+          </button>
+
+          <button
+            class="reject-button"
+            onclick="updateStatus(
+              '${escapeJs(
+                order.id
+              )}',
+              'rejected'
+            )"
+          >
+            REJECT
+          </button>
+
+        `;
+
+      }
+
+
+      if (
+        status === "paid"
+      ) {
+
+        actionButtons = `
+
+          <button
+            class="email-button"
+            onclick="emailCustomer(
+              '${escapeJs(
+                order.id
+              )}'
+            )"
+          >
+            EMAIL ORDER
+          </button>
+
+          <button
+            class="copy-button"
+            onclick="copyOrderInfo(
+              '${escapeJs(
+                order.id
+              )}'
+            )"
+          >
+            COPY ORDER INFO
+          </button>
+
+        `;
+
+      }
+
+
+      card.innerHTML = `
+
+        <div class="order-header">
+
+          <div class="order-code">
+            ${escapeHtml(
+              order.order_code
+            )}
+          </div>
+
+          <div
+            class="status ${statusClass}"
+          >
+            ${escapeHtml(
+              status
+            )}
+          </div>
+
+        </div>
+
+
+        <div class="customer">
+
+          <strong>
+            ${escapeHtml(
+              order.customer_name
+            )}
+          </strong>
+
+          <br>
+
+          ${escapeHtml(
+            order.customer_email
+          )}
+
+        </div>
+
+
+        <div class="products-box">
+
+          <div class="products-title">
+            Products
+          </div>
+
+          ${productsHTML}
+
+        </div>
+
+
+        <div class="total">
+          RM${Number(
+            order.total || 0
+          ).toFixed(2)}
+        </div>
+
+
+        <div class="order-date">
+          ${escapeHtml(
+            createdAt
+          )}
+        </div>
+
+
+        <div class="actions">
+
+          ${proofButton}
+
+          ${actionButtons}
+
+        </div>
+
+      `;
+
+
+      ordersContainer.appendChild(
+        card
       );
 
     }
+  );
+
+}
 
 
-    function escapeHtml(
-      value
-    ) {
+/* =========================================
+   VIEW ORDER PAYMENT PROOF
+========================================= */
 
-      return String(
-        value ?? ""
-      )
-        .replace(
-          /&/g,
-          "&amp;"
+async function viewPaymentProof(
+  encodedPath
+) {
+
+  const path =
+    decodeURIComponent(
+      encodedPath
+    );
+
+
+  try {
+
+    const {
+      data,
+      error
+    } =
+      await db.storage
+        .from(
+          "payment-proofs"
         )
-        .replace(
-          /</g,
-          "&lt;"
-        )
-        .replace(
-          />/g,
-          "&gt;"
-        )
-        .replace(
-          /"/g,
-          "&quot;"
-        )
-        .replace(
-          /'/g,
-          "&#039;"
+        .createSignedUrl(
+          path,
+          300
         );
+
+
+    if (error) {
+
+      throw error;
 
     }
 
 
-    function escapeJs(
-      value
+    if (
+      !data ||
+      !data.signedUrl
     ) {
 
-      return String(
-        value ?? ""
-      )
-        .replace(
-          /\\/g,
-          "\\\\"
-        )
-        .replace(
-          /'/g,
-          "\\'"
-        )
-        .replace(
-          /\n/g,
-          "\\n"
-        )
-        .replace(
-          /\r/g,
-          "\\r"
-        );
+      await showKinoMessage(
+        "Payment Proof Not Found",
+        `
+          The payment proof could not
+          be found.
+        `
+      );
+
+      return;
 
     }
 
 
-    /* =========================================================
-       START
-    ========================================================= */
+    window.open(
+      data.signedUrl,
+      "_blank"
+    );
 
-    checkSession();
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    await showKinoMessage(
+      "Unable to Open Payment Proof",
+      `
+        Something went wrong while
+        opening the payment proof.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+      `
+    );
+
+  }
+
+}
 
 
-  </script>
+/* =========================================
+   UPDATE ORDER STATUS
+========================================= */
+
+async function updateStatus(
+  orderId,
+  status
+) {
+
+  const order =
+    allOrders.find(
+      item =>
+        String(item.id) ===
+        String(orderId)
+    );
+
+
+  if (!order) {
+
+    await showKinoMessage(
+      "Order Not Found",
+      `
+        The order could not be found.
+      `
+    );
+
+    return;
+
+  }
+
+
+  const isPaid =
+    status === "paid";
+
+
+  const confirmed =
+    await showKinoConfirm(
+      isPaid
+        ? "Mark Order as Paid ♡"
+        : "Reject Order",
+      `
+        Are you sure you want to
+
+        <strong>
+          ${
+            isPaid
+              ? "MARK THIS ORDER AS PAID"
+              : "REJECT THIS ORDER"
+          }
+        </strong>
+        ?
+
+        <br><br>
+
+        Order:
+        <strong>
+          ${escapeHtml(
+            order.order_code
+          )}
+        </strong>
+
+        <br>
+
+        Customer:
+        <strong>
+          ${escapeHtml(
+            order.customer_name
+          )}
+        </strong>
+
+        <br>
+
+        Total:
+        <strong>
+          RM${Number(
+            order.total || 0
+          ).toFixed(2)}
+        </strong>
+      `,
+      isPaid
+        ? "MARK AS PAID ♡"
+        : "REJECT"
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  try {
+
+    const {
+      error
+    } =
+      await db
+        .from("orders")
+        .update({
+          status: status
+        })
+        .eq(
+          "id",
+          orderId
+        );
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    await loadOrders();
+
+
+    await showKinoMessage(
+      isPaid
+        ? "Order Marked as Paid ♡"
+        : "Order Rejected",
+      `
+        Order
+        <strong>
+          ${escapeHtml(
+            order.order_code
+          )}
+        </strong>
+
+        has been
+        <strong>
+          ${
+            isPaid
+              ? "marked as PAID"
+              : "rejected"
+          }
+        </strong>
+        successfully.
+      `
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    await showKinoMessage(
+      "Unable to Update Order",
+      `
+        Something went wrong.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+      `
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   EMAIL CUSTOMER
+========================================= */
+
+async function emailCustomer(
+  orderId
+) {
+
+  const order =
+    allOrders.find(
+      item =>
+        String(item.id) ===
+        String(orderId)
+    );
+
+
+  if (!order) {
+
+    await showKinoMessage(
+      "Order Not Found",
+      `
+        The order could not be found.
+      `
+    );
+
+    return;
+
+  }
+
+
+  const email =
+    order.customer_email ||
+    "";
+
+
+  if (!email) {
+
+    await showKinoMessage(
+      "Customer Email Not Found",
+      `
+        This order does not contain
+        a customer email address.
+      `
+    );
+
+    return;
+
+  }
+
+
+  const confirmed =
+    await showKinoConfirm(
+      "Email Customer ♡",
+      `
+        Open your email app to send
+        the order email to:
+
+        <br><br>
+
+        <strong>
+          ${escapeHtml(
+            email
+          )}
+        </strong>
+      `,
+      "OPEN EMAIL ♡"
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  const items =
+    order.items || [];
+
+
+  const productText =
+    items.length
+      ? items
+          .map(
+            item =>
+              `${item.product_name || item.name || "Product"} x ${Number(item.quantity || 1)}`
+          )
+          .join("\n")
+      : "Digital product";
+
+
+  const subject =
+    `KINO Order ${order.order_code}`;
+
+
+  const body =
+`Hi ${order.customer_name || "there"},
+
+Thank you for your purchase from KINO ♡
+
+Order:
+${order.order_code}
+
+Products:
+${productText}
+
+Total:
+RM${Number(
+  order.total || 0
+).toFixed(2)}
+
+Your digital product will be sent to your email.
+
+Thank you for supporting KINO ♡`;
+
+
+  window.location.href =
+    "mailto:" +
+    encodeURIComponent(
+      email
+    ) +
+    "?subject=" +
+    encodeURIComponent(
+      subject
+    ) +
+    "&body=" +
+    encodeURIComponent(
+      body
+    );
+
+}
+
+
+/* =========================================
+   COPY ORDER INFO
+========================================= */
+
+async function copyOrderInfo(
+  orderId
+) {
+
+  const order =
+    allOrders.find(
+      item =>
+        String(item.id) ===
+        String(orderId)
+    );
+
+
+  if (!order) {
+
+    await showKinoMessage(
+      "Order Not Found",
+      `
+        The order could not be found.
+      `
+    );
+
+    return;
+
+  }
+
+
+  const items =
+    order.items || [];
+
+
+  const productText =
+    items.length
+      ? items
+          .map(
+            item =>
+              `${item.product_name || item.name || "Product"} x ${Number(item.quantity || 1)}`
+          )
+          .join("\n")
+      : "No product information";
+
+
+  const text =
+`KINO ORDER
+
+Order:
+${order.order_code}
+
+Customer:
+${order.customer_name || "-"}
+
+Email:
+${order.customer_email || "-"}
+
+Products:
+${productText}
+
+Total:
+RM${Number(
+  order.total || 0
+).toFixed(2)}
+
+Status:
+${order.status || "-"}
+
+Date:
+${
+  order.created_at
+    ? new Date(
+        order.created_at
+      ).toLocaleString("en-MY")
+    : "-"
+}`;
+
+
+  try {
+
+    await navigator.clipboard.writeText(
+      text
+    );
+
+
+    await showKinoMessage(
+      "Order Information Copied ♡",
+      `
+        The order information for
+        <strong>
+          ${escapeHtml(
+            order.order_code
+          )}
+        </strong>
+        has been copied successfully.
+      `
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    await showKinoMessage(
+      "Unable to Copy",
+      `
+        Unable to copy the order
+        information.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+      `
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+async function logout() {
+
+  const confirmed =
+    await showKinoConfirm(
+      "Logout ♡",
+      `
+        Are you sure you want to
+        log out from the KINO Admin Dashboard?
+      `,
+      "LOGOUT"
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  await db.auth.signOut();
+
+
+  dashboardPage.style.display =
+    "none";
+
+
+  loginPage.style.display =
+    "flex";
+
+
+  document.getElementById(
+    "login-password"
+  ).value = "";
+
+}
+
+
+/* =========================================
+   START
+========================================= */
+
+checkSession();
+
+</script>
 
 </body>
+
 </html>
