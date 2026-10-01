@@ -306,6 +306,164 @@ h1 {
 
 
 /* =========================
+   AFFILIATE MANAGEMENT
+========================= */
+
+.affiliate-section {
+  background: white;
+  padding: 22px;
+  border-radius: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 5px 18px rgba(190,130,150,0.10);
+}
+
+.affiliate-title {
+  color: #b96f8a;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.affiliate-subtitle {
+  color: #aaa;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.affiliate-count {
+  display: inline-block;
+  background: #fde6ee;
+  color: #a96b82;
+  padding: 5px 12px;
+  border-radius: 18px;
+  font-size: 12px;
+  margin-bottom: 18px;
+}
+
+.affiliate-card {
+  background: #fff8fb;
+  border: 1px solid #f2e1e6;
+  padding: 18px;
+  border-radius: 17px;
+  margin-bottom: 12px;
+}
+
+.affiliate-card:last-child {
+  margin-bottom: 0;
+}
+
+.affiliate-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 12px;
+}
+
+.affiliate-name {
+  color: #806d74;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.affiliate-email {
+  font-size: 13px;
+  color: #aaa;
+  margin-top: 2px;
+}
+
+.affiliate-plan {
+  padding: 5px 12px;
+  border-radius: 18px;
+  background: #f7dce5;
+  color: #a96b82;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.affiliate-plan.pro {
+  background: #eadff5;
+  color: #80649a;
+}
+
+.affiliate-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.affiliate-detail {
+  background: white;
+  padding: 10px 12px;
+  border-radius: 12px;
+}
+
+.affiliate-detail-label {
+  color: #aaa;
+  font-size: 11px;
+}
+
+.affiliate-detail-value {
+  color: #806d74;
+  font-size: 14px;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.affiliate-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.affiliate-actions button {
+  border: none;
+  padding: 9px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.affiliate-proof-button {
+  background: #eadff5;
+  color: #80649a;
+}
+
+.affiliate-approve-button {
+  background: #dff3e6;
+  color: #4f8a68;
+}
+
+.affiliate-reject-button {
+  background: #f7dce5;
+  color: #a96b82;
+}
+
+.affiliate-actions button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.affiliate-empty {
+  background: #fff8fb;
+  padding: 28px;
+  text-align: center;
+  border-radius: 15px;
+  color: #aaa;
+}
+
+.affiliate-error {
+  background: #fff0f3;
+  color: #a96b82;
+  padding: 15px;
+  border-radius: 15px;
+  font-size: 14px;
+}
+
+
+/* =========================
    SEARCH + FILTER
 ========================= */
 
@@ -551,6 +709,10 @@ h1 {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .affiliate-details {
+    grid-template-columns: 1fr 1fr;
+  }
+
 }
 
 @media (max-width: 650px) {
@@ -601,6 +763,18 @@ h1 {
 
   .store-button {
     width: 100%;
+  }
+
+  .affiliate-header {
+    flex-direction: column;
+  }
+
+  .affiliate-details {
+    grid-template-columns: 1fr;
+  }
+
+  .affiliate-plan {
+    align-self: flex-start;
   }
 
 }
@@ -809,7 +983,7 @@ h1 {
       </div>
 
       <div class="summary-small">
-        Paid orders today
+        Paid product orders + affiliate sales
       </div>
 
     </div>
@@ -829,7 +1003,7 @@ h1 {
       </div>
 
       <div class="summary-small">
-        Paid orders this month
+        Paid product orders + affiliate sales
       </div>
 
     </div>
@@ -849,7 +1023,7 @@ h1 {
       </div>
 
       <div class="summary-small">
-        All paid orders
+        All paid product + affiliate sales
       </div>
 
     </div>
@@ -903,6 +1077,38 @@ h1 {
     </div>
 
   </div>
+
+
+  <!-- =======================================
+       AFFILIATE MANAGEMENT
+  ======================================== -->
+
+  <section class="affiliate-section">
+
+    <div class="affiliate-title">
+      Affiliate Management ♡
+    </div>
+
+    <div class="affiliate-subtitle">
+      Review affiliate registrations and approve payment.
+    </div>
+
+    <div
+      class="affiliate-count"
+      id="affiliate-count"
+    >
+      0 pending
+    </div>
+
+    <div id="affiliate-list">
+
+      <div class="loading">
+        Loading affiliates...
+      </div>
+
+    </div>
+
+  </section>
 
 
   <!-- =======================================
@@ -1035,8 +1241,16 @@ const todayOrders =
 const searchInput =
   document.getElementById("search-input");
 
+const affiliateList =
+  document.getElementById("affiliate-list");
+
+const affiliateCount =
+  document.getElementById("affiliate-count");
+
 
 let allOrders = [];
+
+let allAffiliates = [];
 
 let currentFilter = "all";
 
@@ -1053,6 +1267,21 @@ function escapeHtml(value) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================
+   ESCAPE JS
+========================================= */
+
+function escapeJs(value) {
+
+  return String(value ?? "")
+    .replace(/\\/g, "\\\\")
+    .replace(/'/g, "\\'")
+    .replace(/\n/g, "\\n")
+    .replace(/\r/g, "\\r");
 
 }
 
@@ -1220,6 +1449,8 @@ async function showDashboard() {
   await loadAdminStoreStatus();
 
   await loadOrders();
+
+  await loadAffiliates();
 
 }
 
@@ -1662,9 +1893,7 @@ async function loadProducts() {
 
   if (!allOrders.length) {
 
-    updateSummary(
-      allOrders
-    );
+    updateSummary();
 
     renderOrders();
 
@@ -1684,9 +1913,7 @@ async function loadProducts() {
 
   if (!orderIds.length) {
 
-    updateSummary(
-      allOrders
-    );
+    updateSummary();
 
     renderOrders();
 
@@ -1750,11 +1977,598 @@ async function loadProducts() {
   }
 
 
-  updateSummary(
-    allOrders
-  );
+  updateSummary();
 
   renderOrders();
+
+}
+
+
+/* =========================================
+   LOAD AFFILIATES
+========================================= */
+
+async function loadAffiliates() {
+
+  affiliateList.innerHTML = `
+    <div class="loading">
+      Loading affiliates...
+    </div>
+  `;
+
+
+  const {
+    data,
+    error
+  } =
+    await db
+      .from("affiliates")
+      .select(`
+        id,
+        display_name,
+        email,
+        affiliate_code,
+        tier,
+        status,
+        referred_by,
+        created_at,
+        approved_at,
+        membership_amount
+      `)
+      .order(
+        "created_at",
+        {
+          ascending: false
+        }
+      );
+
+
+  if (error) {
+
+    console.error(
+      "AFFILIATE LOAD ERROR:",
+      error
+    );
+
+    affiliateList.innerHTML = `
+      <div class="affiliate-error">
+        Unable to load affiliates.<br><br>
+        ${escapeHtml(
+          error.message
+        )}
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  allAffiliates =
+    data || [];
+
+
+  renderAffiliates();
+
+  updateSummary();
+
+}
+
+
+/* =========================================
+   RENDER AFFILIATES
+========================================= */
+
+function renderAffiliates() {
+
+  const pending =
+    allAffiliates.filter(
+      affiliate =>
+        String(
+          affiliate.status || ""
+        ).toLowerCase() ===
+        "pending"
+    );
+
+
+  affiliateCount.textContent =
+    `${pending.length} pending`;
+
+
+  if (!pending.length) {
+
+    affiliateList.innerHTML = `
+      <div class="affiliate-empty">
+        No pending affiliate registration ♡
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  affiliateList.innerHTML =
+    "";
+
+
+  pending.forEach(
+    affiliate => {
+
+      const tier =
+        String(
+          affiliate.tier || "basic"
+        ).toLowerCase();
+
+
+      const isPro =
+        tier === "pro";
+
+
+      const amount =
+        Number(
+          affiliate.membership_amount ||
+          (
+            isPro
+              ? 50
+              : 5
+          )
+        );
+
+
+      const createdAt =
+        affiliate.created_at
+          ? new Date(
+              affiliate.created_at
+            ).toLocaleString(
+              "en-MY"
+            )
+          : "-";
+
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+
+      card.className =
+        "affiliate-card";
+
+
+      card.innerHTML = `
+
+        <div class="affiliate-header">
+
+          <div>
+
+            <div class="affiliate-name">
+              ${escapeHtml(
+                affiliate.display_name
+              )}
+            </div>
+
+            <div class="affiliate-email">
+              ${escapeHtml(
+                affiliate.email
+              )}
+            </div>
+
+          </div>
+
+
+          <div
+            class="affiliate-plan ${
+              isPro ? "pro" : ""
+            }"
+          >
+            ${isPro ? "PRO" : "BASIC"}
+          </div>
+
+        </div>
+
+
+        <div class="affiliate-details">
+
+          <div class="affiliate-detail">
+
+            <div class="affiliate-detail-label">
+              Membership
+            </div>
+
+            <div class="affiliate-detail-value">
+              RM${amount.toFixed(2)}
+            </div>
+
+          </div>
+
+
+          <div class="affiliate-detail">
+
+            <div class="affiliate-detail-label">
+              Affiliate Code
+            </div>
+
+            <div class="affiliate-detail-value">
+              ${escapeHtml(
+                affiliate.affiliate_code
+              )}
+            </div>
+
+          </div>
+
+
+          <div class="affiliate-detail">
+
+            <div class="affiliate-detail-label">
+              Registered
+            </div>
+
+            <div class="affiliate-detail-value">
+              ${escapeHtml(
+                createdAt
+              )}
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="affiliate-actions">
+
+          <button
+            class="affiliate-proof-button"
+            onclick="viewAffiliateProof(
+              '${escapeJs(
+                affiliate.id
+              )}'
+            )"
+          >
+            VIEW PAYMENT PROOF
+          </button>
+
+
+          <button
+            class="affiliate-approve-button"
+            onclick="approveAffiliate(
+              '${escapeJs(
+                affiliate.id
+              )}'
+            )"
+          >
+            APPROVE
+          </button>
+
+
+          <button
+            class="affiliate-reject-button"
+            onclick="rejectAffiliate(
+              '${escapeJs(
+                affiliate.id
+              )}'
+            )"
+          >
+            REJECT
+          </button>
+
+        </div>
+
+      `;
+
+
+      affiliateList.appendChild(
+        card
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   VIEW AFFILIATE PAYMENT PROOF
+========================================= */
+
+async function viewAffiliateProof(
+  affiliateId
+) {
+
+  const affiliate =
+    allAffiliates.find(
+      item =>
+        String(item.id) ===
+        String(affiliateId)
+    );
+
+
+  if (!affiliate) {
+
+    alert(
+      "Affiliate not found."
+    );
+
+    return;
+
+  }
+
+
+  const possiblePaths = [
+
+    `affiliate-payments/${affiliate.id}/payment-proof.jpg`,
+
+    `affiliate-payments/${affiliate.id}/payment-proof.jpeg`,
+
+    `affiliate-payments/${affiliate.id}/payment-proof.png`,
+
+    `affiliate-payments/${affiliate.id}/payment-proof.webp`
+
+  ];
+
+
+  try {
+
+    for (
+      const path of possiblePaths
+    ) {
+
+      const {
+        data,
+        error
+      } =
+        await db.storage
+          .from(
+            "payment-proofs"
+          )
+          .createSignedUrl(
+            path,
+            300
+          );
+
+
+      if (
+        !error &&
+        data &&
+        data.signedUrl
+      ) {
+
+        window.open(
+          data.signedUrl,
+          "_blank"
+        );
+
+        return;
+
+      }
+
+    }
+
+
+    alert(
+      "Payment proof was not found."
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Unable to open payment proof."
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   APPROVE AFFILIATE
+========================================= */
+
+async function approveAffiliate(
+  affiliateId
+) {
+
+  const affiliate =
+    allAffiliates.find(
+      item =>
+        String(item.id) ===
+        String(affiliateId)
+    );
+
+
+  if (!affiliate) {
+
+    alert(
+      "Affiliate not found."
+    );
+
+    return;
+
+  }
+
+
+  const tier =
+    String(
+      affiliate.tier || "basic"
+    ).toLowerCase();
+
+
+  const amount =
+    tier === "pro"
+      ? 50
+      : 5;
+
+
+  const confirmed =
+    confirm(
+      `Approve ${affiliate.display_name} as ${
+        tier === "pro"
+          ? "PRO"
+          : "BASIC"
+      } affiliate?\n\nMembership payment: RM${amount.toFixed(2)}`
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  try {
+
+    /*
+      Store the approved membership
+      amount and approval time.
+    */
+
+    const {
+      error
+    } =
+      await db
+        .from("affiliates")
+        .update({
+
+          status: "active",
+
+          approved_at:
+            new Date().toISOString(),
+
+          membership_amount:
+            amount
+
+        })
+        .eq(
+          "id",
+          affiliateId
+        )
+        .eq(
+          "status",
+          "pending"
+        );
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    alert(
+      "Affiliate approved successfully ♡"
+    );
+
+
+    await loadAffiliates();
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "APPROVE AFFILIATE ERROR:",
+      error
+    );
+
+    alert(
+      "Unable to approve affiliate.\n\n" +
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   REJECT AFFILIATE
+========================================= */
+
+async function rejectAffiliate(
+  affiliateId
+) {
+
+  const affiliate =
+    allAffiliates.find(
+      item =>
+        String(item.id) ===
+        String(affiliateId)
+    );
+
+
+  if (!affiliate) {
+
+    alert(
+      "Affiliate not found."
+    );
+
+    return;
+
+  }
+
+
+  const confirmed =
+    confirm(
+      `Reject affiliate registration from ${affiliate.display_name}?`
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  try {
+
+    const {
+      error
+    } =
+      await db
+        .from("affiliates")
+        .update({
+
+          status: "rejected"
+
+        })
+        .eq(
+          "id",
+          affiliateId
+        )
+        .eq(
+          "status",
+          "pending"
+        );
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    alert(
+      "Affiliate registration rejected."
+    );
+
+
+    await loadAffiliates();
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "REJECT AFFILIATE ERROR:",
+      error
+    );
+
+    alert(
+      "Unable to reject affiliate.\n\n" +
+      error.message
+    );
+
+  }
 
 }
 
@@ -1763,37 +2577,24 @@ async function loadProducts() {
    SUMMARY
 ========================================= */
 
-function updateSummary(
-  orders
-) {
+function updateSummary() {
 
-  const pending =
-    orders.filter(
-      order =>
-        String(
-          order.status || ""
-        )
-          .toLowerCase() ===
-        "pending"
-    ).length;
-
+  /*
+    PRODUCT SALES
+    Only orders with status = paid.
+  */
 
   const paidOrders =
-    orders.filter(
+    allOrders.filter(
       order =>
         String(
           order.status || ""
-        )
-          .toLowerCase() ===
+        ).toLowerCase() ===
         "paid"
     );
 
 
-  const paid =
-    paidOrders.length;
-
-
-  const totalSales =
+  const productTotal =
     paidOrders.reduce(
       (
         sum,
@@ -1807,7 +2608,7 @@ function updateSummary(
     );
 
 
-  const todayPaidOrders =
+  const todayProductOrders =
     paidOrders.filter(
       order =>
         isToday(
@@ -1816,8 +2617,8 @@ function updateSummary(
     );
 
 
-  const todaySalesValue =
-    todayPaidOrders.reduce(
+  const todayProductSales =
+    todayProductOrders.reduce(
       (
         sum,
         order
@@ -1830,7 +2631,7 @@ function updateSummary(
     );
 
 
-  const monthPaidOrders =
+  const monthProductOrders =
     paidOrders.filter(
       order =>
         isThisMonth(
@@ -1839,8 +2640,8 @@ function updateSummary(
     );
 
 
-  const monthSalesValue =
-    monthPaidOrders.reduce(
+  const monthProductSales =
+    monthProductOrders.reduce(
       (
         sum,
         order
@@ -1853,8 +2654,145 @@ function updateSummary(
     );
 
 
+  /*
+    AFFILIATE SALES
+
+    Only affiliates with approved_at
+    are counted.
+
+    This means:
+    pending = RM0
+    rejected = RM0
+    approved = counted
+  */
+
+  const approvedAffiliates =
+    allAffiliates.filter(
+      affiliate =>
+        affiliate.approved_at
+    );
+
+
+  const affiliateTotal =
+    approvedAffiliates.reduce(
+      (
+        sum,
+        affiliate
+      ) =>
+        sum +
+        Number(
+          affiliate.membership_amount ||
+          (
+            String(
+              affiliate.tier || ""
+            ).toLowerCase() === "pro"
+              ? 50
+              : 5
+          )
+        ),
+      0
+    );
+
+
+  const todayAffiliateSales =
+    approvedAffiliates
+      .filter(
+        affiliate =>
+          isToday(
+            affiliate.approved_at
+          )
+      )
+      .reduce(
+        (
+          sum,
+          affiliate
+        ) =>
+          sum +
+          Number(
+            affiliate.membership_amount ||
+            (
+              String(
+                affiliate.tier || ""
+              ).toLowerCase() === "pro"
+                ? 50
+                : 5
+            )
+          ),
+        0
+      );
+
+
+  const monthAffiliateSales =
+    approvedAffiliates
+      .filter(
+        affiliate =>
+          isThisMonth(
+            affiliate.approved_at
+          )
+      )
+      .reduce(
+        (
+          sum,
+          affiliate
+        ) =>
+          sum +
+          Number(
+            affiliate.membership_amount ||
+            (
+              String(
+                affiliate.tier || ""
+              ).toLowerCase() === "pro"
+                ? 50
+                : 5
+            )
+          ),
+        0
+      );
+
+
+  /*
+    FINAL ADMIN SALES
+
+    Product sales
+    +
+    Affiliate membership sales
+  */
+
+  const totalSales =
+    productTotal +
+    affiliateTotal;
+
+
+  const todaySalesValue =
+    todayProductSales +
+    todayAffiliateSales;
+
+
+  const monthSalesValue =
+    monthProductSales +
+    monthAffiliateSales;
+
+
+  /*
+    ORDER COUNTS
+  */
+
+  const pending =
+    allOrders.filter(
+      order =>
+        String(
+          order.status || ""
+        ).toLowerCase() ===
+        "pending"
+    ).length;
+
+
+  const paid =
+    paidOrders.length;
+
+
   const todayOrderCount =
-    orders.filter(
+    allOrders.filter(
       order =>
         isToday(
           order.created_at
@@ -2335,36 +3273,7 @@ function renderOrders() {
 
 
 /* =========================================
-   SAFE JS STRING
-========================================= */
-
-function escapeJs(value) {
-
-  return String(
-    value ?? ""
-  )
-    .replace(
-      /\\/g,
-      "\\\\"
-    )
-    .replace(
-      /'/g,
-      "\\'"
-    )
-    .replace(
-      /\n/g,
-      "\\n"
-    )
-    .replace(
-      /\r/g,
-      "\\r"
-    );
-
-}
-
-
-/* =========================================
-   VIEW PAYMENT PROOF
+   VIEW ORDER PAYMENT PROOF
 ========================================= */
 
 async function viewPaymentProof(
