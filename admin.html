@@ -700,10 +700,10 @@ h1 {
 
 
 /* =========================
-   KINO ADMIN POPUP
+   KINO STANDARD POPUP
 ========================= */
 
-.kino-admin-modal-overlay {
+.kino-modal-overlay {
   display: none;
   position: fixed;
   inset: 0;
@@ -714,11 +714,11 @@ h1 {
   padding: 20px;
 }
 
-.kino-admin-modal-overlay.show {
+.kino-modal-overlay.show {
   display: flex;
 }
 
-.kino-admin-modal {
+.kino-modal {
   width: 100%;
   max-width: 430px;
   background: #ffffff;
@@ -726,10 +726,10 @@ h1 {
   padding: 32px 28px 28px;
   text-align: center;
   box-shadow: 0 15px 45px rgba(190,130,150,0.22);
-  animation: kinoAdminPopup .25s ease-out;
+  animation: kinoPopup .25s ease-out;
 }
 
-@keyframes kinoAdminPopup {
+@keyframes kinoPopup {
 
   from {
     opacity: 0;
@@ -743,7 +743,7 @@ h1 {
 
 }
 
-.kino-admin-modal-icon {
+.kino-modal-icon {
   width: 70px;
   height: 70px;
   margin: 0 auto 18px;
@@ -756,26 +756,26 @@ h1 {
   color: #b96f8a;
 }
 
-.kino-admin-modal-title {
+.kino-modal-title {
   color: #b96f8a;
   font-size: 25px;
   font-weight: 700;
   margin-bottom: 8px;
 }
 
-.kino-admin-modal-text {
+.kino-modal-text {
   color: #8a747b;
   font-size: 15px;
   line-height: 1.7;
   margin-bottom: 22px;
 }
 
-.kino-admin-modal-buttons {
+.kino-modal-buttons {
   display: flex;
   gap: 10px;
 }
 
-.kino-admin-modal-button {
+.kino-modal-button {
   flex: 1;
   border: none;
   padding: 13px 18px;
@@ -787,26 +787,26 @@ h1 {
   transition: .2s ease;
 }
 
-.kino-admin-cancel-button {
+.kino-modal-cancel {
   background: #f2e8ec;
   color: #8a747b;
 }
 
-.kino-admin-cancel-button:hover {
+.kino-modal-cancel:hover {
   background: #eadce2;
 }
 
-.kino-admin-confirm-button {
+.kino-modal-confirm {
   background: #d9829e;
   color: white;
 }
 
-.kino-admin-confirm-button:hover {
+.kino-modal-confirm:hover {
   background: #c97491;
   transform: translateY(-1px);
 }
 
-.kino-admin-success-button {
+.kino-modal-single {
   width: 100%;
   border: none;
   padding: 13px 20px;
@@ -820,7 +820,7 @@ h1 {
   transition: .2s ease;
 }
 
-.kino-admin-success-button:hover {
+.kino-modal-single:hover {
   background: #c97491;
   transform: translateY(-1px);
 }
@@ -904,11 +904,11 @@ h1 {
     align-self: flex-start;
   }
 
-  .kino-admin-modal {
+  .kino-modal {
     padding: 28px 22px 24px;
   }
 
-  .kino-admin-modal-buttons {
+  .kino-modal-buttons {
     flex-direction: column;
   }
 
@@ -1314,48 +1314,51 @@ h1 {
 
 
 <!-- =========================================
-     KINO ADMIN CONFIRM POPUP
+     KINO STANDARD POPUP
 ========================================= -->
 
 <div
-  id="kino-admin-confirm-modal"
-  class="kino-admin-modal-overlay"
+  id="kino-modal-overlay"
+  class="kino-modal-overlay"
 >
 
   <div
-    class="kino-admin-modal"
+    class="kino-modal"
     role="dialog"
     aria-modal="true"
-    aria-labelledby="kino-admin-confirm-title"
+    aria-labelledby="kino-modal-title"
   >
 
-    <div class="kino-admin-modal-icon">
+    <div class="kino-modal-icon">
       ♡
     </div>
 
 
     <div
-      id="kino-admin-confirm-title"
-      class="kino-admin-modal-title"
+      id="kino-modal-title"
+      class="kino-modal-title"
     >
-      Approve Affiliate ♡
+      Confirm Action
     </div>
 
 
     <div
-      id="kino-admin-confirm-text"
-      class="kino-admin-modal-text"
+      id="kino-modal-text"
+      class="kino-modal-text"
     >
       Are you sure?
     </div>
 
 
-    <div class="kino-admin-modal-buttons">
+    <div
+      id="kino-modal-buttons"
+      class="kino-modal-buttons"
+    >
 
       <button
         type="button"
-        id="kino-admin-confirm-cancel"
-        class="kino-admin-modal-button kino-admin-cancel-button"
+        id="kino-modal-cancel"
+        class="kino-modal-button kino-modal-cancel"
       >
         CANCEL
       </button>
@@ -1363,63 +1366,13 @@ h1 {
 
       <button
         type="button"
-        id="kino-admin-confirm-ok"
-        class="kino-admin-modal-button kino-admin-confirm-button"
+        id="kino-modal-confirm"
+        class="kino-modal-button kino-modal-confirm"
       >
-        APPROVE ♡
+        OKAY ♡
       </button>
 
     </div>
-
-  </div>
-
-</div>
-
-
-<!-- =========================================
-     KINO ADMIN SUCCESS POPUP
-========================================= -->
-
-<div
-  id="kino-admin-success-modal"
-  class="kino-admin-modal-overlay"
->
-
-  <div
-    class="kino-admin-modal"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="kino-admin-success-title"
-  >
-
-    <div class="kino-admin-modal-icon">
-      ♡
-    </div>
-
-
-    <div
-      id="kino-admin-success-title"
-      class="kino-admin-modal-title"
-    >
-      Affiliate Approved ♡
-    </div>
-
-
-    <div
-      id="kino-admin-success-text"
-      class="kino-admin-modal-text"
-    >
-      Affiliate approved successfully.
-    </div>
-
-
-    <button
-      type="button"
-      id="kino-admin-success-button"
-      class="kino-admin-success-button"
-    >
-      OKAY ♡
-    </button>
 
   </div>
 
@@ -1504,57 +1457,41 @@ let currentFilter = "all";
 
 
 /* =========================================
-   KINO ADMIN POPUP ELEMENTS
+   KINO POPUP ELEMENTS
 ========================================= */
 
-const confirmModal =
+const kinoModal =
   document.getElementById(
-    "kino-admin-confirm-modal"
+    "kino-modal-overlay"
   );
 
-const confirmTitle =
+const kinoModalTitle =
   document.getElementById(
-    "kino-admin-confirm-title"
+    "kino-modal-title"
   );
 
-const confirmText =
+const kinoModalText =
   document.getElementById(
-    "kino-admin-confirm-text"
+    "kino-modal-text"
   );
 
-const confirmCancel =
+const kinoModalButtons =
   document.getElementById(
-    "kino-admin-confirm-cancel"
+    "kino-modal-buttons"
   );
 
-const confirmOk =
+const kinoModalCancel =
   document.getElementById(
-    "kino-admin-confirm-ok"
+    "kino-modal-cancel"
   );
 
-
-const successModal =
+const kinoModalConfirm =
   document.getElementById(
-    "kino-admin-success-modal"
-  );
-
-const successTitle =
-  document.getElementById(
-    "kino-admin-success-title"
-  );
-
-const successText =
-  document.getElementById(
-    "kino-admin-success-text"
-  );
-
-const successButton =
-  document.getElementById(
-    "kino-admin-success-button"
+    "kino-modal-confirm"
   );
 
 
-let confirmResolver = null;
+let kinoModalResolver = null;
 
 
 /* =========================================
@@ -1564,21 +1501,39 @@ let confirmResolver = null;
 function showKinoConfirm(
   title,
   text,
-  buttonText = "OKAY ♡"
+  confirmText = "OKAY ♡",
+  cancelText = "CANCEL"
 ) {
 
-  confirmTitle.textContent =
+  kinoModalTitle.textContent =
     title;
 
-  confirmText.innerHTML =
+  kinoModalText.innerHTML =
     text;
 
-  confirmOk.textContent =
-    buttonText;
+  kinoModalConfirm.textContent =
+    confirmText;
 
-  confirmModal.classList.add(
+  kinoModalCancel.textContent =
+    cancelText;
+
+
+  kinoModalButtons.style.display =
+    "flex";
+
+
+  kinoModalCancel.style.display =
+    "block";
+
+
+  kinoModalConfirm.style.display =
+    "block";
+
+
+  kinoModal.classList.add(
     "show"
   );
+
 
   document.body.style.overflow =
     "hidden";
@@ -1587,7 +1542,7 @@ function showKinoConfirm(
   return new Promise(
     function(resolve) {
 
-      confirmResolver =
+      kinoModalResolver =
         resolve;
 
     }
@@ -1597,27 +1552,91 @@ function showKinoConfirm(
 
 
 /* =========================================
-   CLOSE KINO CONFIRM
+   KINO MESSAGE POPUP
 ========================================= */
 
-function closeKinoConfirm(
+function showKinoMessage(
+  title,
+  text,
+  buttonText = "OKAY ♡"
+) {
+
+  kinoModalTitle.textContent =
+    title;
+
+  kinoModalText.innerHTML =
+    text;
+
+
+  kinoModalButtons.style.display =
+    "block";
+
+
+  kinoModalCancel.style.display =
+    "none";
+
+
+  kinoModalConfirm.style.display =
+    "block";
+
+
+  kinoModalConfirm.className =
+    "kino-modal-single";
+
+
+  kinoModalConfirm.textContent =
+    buttonText;
+
+
+  kinoModal.classList.add(
+    "show"
+  );
+
+
+  document.body.style.overflow =
+    "hidden";
+
+
+  return new Promise(
+    function(resolve) {
+
+      kinoModalResolver =
+        resolve;
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   CLOSE KINO POPUP
+========================================= */
+
+function closeKinoModal(
   result
 ) {
 
-  confirmModal.classList.remove(
+  kinoModal.classList.remove(
     "show"
   );
+
 
   document.body.style.overflow =
     "";
 
-  if (confirmResolver) {
 
-    confirmResolver(
+  kinoModalConfirm.className =
+    "kino-modal-button kino-modal-confirm";
+
+
+  if (kinoModalResolver) {
+
+    kinoModalResolver(
       result
     );
 
-    confirmResolver =
+    kinoModalResolver =
       null;
 
   }
@@ -1626,14 +1645,14 @@ function closeKinoConfirm(
 
 
 /* =========================================
-   CONFIRM CANCEL
+   POPUP BUTTONS
 ========================================= */
 
-confirmCancel.addEventListener(
+kinoModalCancel.addEventListener(
   "click",
   function() {
 
-    closeKinoConfirm(
+    closeKinoModal(
       false
     );
 
@@ -1641,15 +1660,11 @@ confirmCancel.addEventListener(
 );
 
 
-/* =========================================
-   CONFIRM OK
-========================================= */
-
-confirmOk.addEventListener(
+kinoModalConfirm.addEventListener(
   "click",
   function() {
 
-    closeKinoConfirm(
+    closeKinoModal(
       true
     );
 
@@ -1658,44 +1673,23 @@ confirmOk.addEventListener(
 
 
 /* =========================================
-   SUCCESS POPUP
+   ESC KEY
 ========================================= */
 
-function showKinoSuccess(
-  title,
-  text
-) {
+document.addEventListener(
+  "keydown",
+  function(event) {
 
-  successTitle.textContent =
-    title;
+    if (
+      event.key === "Escape" &&
+      kinoModal.classList.contains("show")
+    ) {
 
-  successText.innerHTML =
-    text;
+      closeKinoModal(
+        false
+      );
 
-  successModal.classList.add(
-    "show"
-  );
-
-  document.body.style.overflow =
-    "hidden";
-
-}
-
-
-/* =========================================
-   CLOSE SUCCESS
-========================================= */
-
-successButton.addEventListener(
-  "click",
-  function() {
-
-    successModal.classList.remove(
-      "show"
-    );
-
-    document.body.style.overflow =
-      "";
+    }
 
   }
 );
@@ -2093,8 +2087,16 @@ function setStoreButtonsDisabled(
 async function openStore() {
 
   const confirmed =
-    confirm(
-      "Open KINO manually for today?"
+    await showKinoConfirm(
+      "Open KINO ♡",
+      `
+        Are you sure you want to
+        <strong>
+          OPEN KINO
+        </strong>
+        manually for today?
+      `,
+      "OPEN STORE ♡"
     );
 
 
@@ -2124,8 +2126,15 @@ async function openStore() {
     await loadAdminStoreStatus();
 
 
-    alert(
-      "KINO is now OPEN for today ♡"
+    await showKinoMessage(
+      "KINO is OPEN ♡",
+      `
+        KINO is now
+        <strong>
+          OPEN
+        </strong>
+        for today.
+      `
     );
 
   }
@@ -2134,9 +2143,18 @@ async function openStore() {
 
     console.error(error);
 
-    alert(
-      "Unable to open KINO.\n\n" +
-      error.message
+    await showKinoMessage(
+      "Unable to Open KINO",
+      `
+        Something went wrong while
+        opening KINO.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+      `
     );
 
   }
@@ -2157,8 +2175,16 @@ async function openStore() {
 async function closeStore() {
 
   const confirmed =
-    confirm(
-      "Close KINO manually for today?"
+    await showKinoConfirm(
+      "Close KINO ♡",
+      `
+        Are you sure you want to
+        <strong>
+          CLOSE KINO
+        </strong>
+        manually for today?
+      `,
+      "CLOSE STORE"
     );
 
 
@@ -2188,8 +2214,15 @@ async function closeStore() {
     await loadAdminStoreStatus();
 
 
-    alert(
-      "KINO is now CLOSED for today."
+    await showKinoMessage(
+      "KINO is CLOSED",
+      `
+        KINO is now
+        <strong>
+          CLOSED
+        </strong>
+        for today.
+      `
     );
 
   }
@@ -2198,9 +2231,18 @@ async function closeStore() {
 
     console.error(error);
 
-    alert(
-      "Unable to close KINO.\n\n" +
-      error.message
+    await showKinoMessage(
+      "Unable to Close KINO",
+      `
+        Something went wrong while
+        closing KINO.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+      `
     );
 
   }
@@ -2221,8 +2263,16 @@ async function closeStore() {
 async function resetAuto() {
 
   const confirmed =
-    confirm(
-      "Return KINO to automatic 8AM–10PM schedule?"
+    await showKinoConfirm(
+      "Automatic Schedule ♡",
+      `
+        Return KINO to the automatic
+        <strong>
+          8:00 AM – 10:00 PM
+        </strong>
+        schedule?
+      `,
+      "SET AUTO ♡"
     );
 
 
@@ -2252,8 +2302,15 @@ async function resetAuto() {
     await loadAdminStoreStatus();
 
 
-    alert(
-      "KINO is back to automatic schedule ♡"
+    await showKinoMessage(
+      "Automatic Schedule Restored ♡",
+      `
+        KINO is back to the automatic
+        <strong>
+          8:00 AM – 10:00 PM
+        </strong>
+        schedule.
+      `
     );
 
   }
@@ -2262,9 +2319,18 @@ async function resetAuto() {
 
     console.error(error);
 
-    alert(
-      "Unable to reset store schedule.\n\n" +
-      error.message
+    await showKinoMessage(
+      "Unable to Reset Schedule",
+      `
+        Something went wrong while
+        resetting the store schedule.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+      `
     );
 
   }
@@ -2731,8 +2797,12 @@ async function viewAffiliateProof(
 
   if (!affiliate) {
 
-    alert(
-      "Affiliate not found."
+    await showKinoMessage(
+      "Affiliate Not Found",
+      `
+        The affiliate registration
+        could not be found.
+      `
     );
 
     return;
@@ -2791,8 +2861,12 @@ async function viewAffiliateProof(
     }
 
 
-    alert(
-      "Payment proof was not found."
+    await showKinoMessage(
+      "Payment Proof Not Found",
+      `
+        The affiliate payment proof
+        could not be found.
+      `
     );
 
   }
@@ -2801,8 +2875,18 @@ async function viewAffiliateProof(
 
     console.error(error);
 
-    alert(
-      "Unable to open payment proof."
+    await showKinoMessage(
+      "Unable to Open Payment Proof",
+      `
+        Something went wrong while
+        opening the payment proof.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+      `
     );
 
   }
@@ -2828,8 +2912,12 @@ async function approveAffiliate(
 
   if (!affiliate) {
 
-    alert(
-      "Affiliate not found."
+    await showKinoMessage(
+      "Affiliate Not Found",
+      `
+        The affiliate registration
+        could not be found.
+      `
     );
 
     return;
@@ -2849,10 +2937,6 @@ async function approveAffiliate(
       : 5;
 
 
-  /* =======================================
-     KINO CUSTOM CONFIRM POPUP
-  ======================================= */
-
   const confirmed =
     await showKinoConfirm(
       "Approve Affiliate ♡",
@@ -2865,7 +2949,9 @@ async function approveAffiliate(
         </strong>
         as
         <strong>
-          ${tier === "pro" ? "PRO" : "BASIC"}
+          ${tier === "pro"
+            ? "PRO"
+            : "BASIC"}
         </strong>
         affiliate?
 
@@ -2886,11 +2972,6 @@ async function approveAffiliate(
 
 
   try {
-
-    /*
-      Store the approved membership
-      amount and approval time.
-    */
 
     const {
       error
@@ -2923,11 +3004,7 @@ async function approveAffiliate(
     }
 
 
-    /* ===================================
-       KINO SUCCESS POPUP
-    =================================== */
-
-    showKinoSuccess(
+    await showKinoMessage(
       "Affiliate Approved ♡",
       `
         <strong>
@@ -2939,7 +3016,9 @@ async function approveAffiliate(
         has been approved successfully
         as a
         <strong>
-          ${tier === "pro" ? "PRO" : "BASIC"}
+          ${tier === "pro"
+            ? "PRO"
+            : "BASIC"}
         </strong>
         affiliate.
       `
@@ -2957,9 +3036,18 @@ async function approveAffiliate(
       error
     );
 
-    alert(
-      "Unable to approve affiliate.\n\n" +
-      error.message
+    await showKinoMessage(
+      "Unable to Approve Affiliate",
+      `
+        Something went wrong while
+        approving this affiliate.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+      `
     );
 
   }
@@ -2985,8 +3073,12 @@ async function rejectAffiliate(
 
   if (!affiliate) {
 
-    alert(
-      "Affiliate not found."
+    await showKinoMessage(
+      "Affiliate Not Found",
+      `
+        The affiliate registration
+        could not be found.
+      `
     );
 
     return;
@@ -2995,8 +3087,22 @@ async function rejectAffiliate(
 
 
   const confirmed =
-    confirm(
-      `Reject affiliate registration from ${affiliate.display_name}?`
+    await showKinoConfirm(
+      "Reject Affiliate",
+      `
+        Are you sure you want to reject
+        the affiliate registration from
+
+        <br><br>
+
+        <strong>
+          ${escapeHtml(
+            affiliate.display_name
+          )}
+        </strong>
+        ?
+      `,
+      "REJECT"
     );
 
 
@@ -3032,8 +3138,17 @@ async function rejectAffiliate(
     }
 
 
-    alert(
-      "Affiliate registration rejected."
+    await showKinoMessage(
+      "Affiliate Rejected",
+      `
+        The affiliate registration from
+        <strong>
+          ${escapeHtml(
+            affiliate.display_name
+          )}
+        </strong>
+        has been rejected.
+      `
     );
 
 
@@ -3048,9 +3163,18 @@ async function rejectAffiliate(
       error
     );
 
-    alert(
-      "Unable to reject affiliate.\n\n" +
-      error.message
+    await showKinoMessage(
+      "Unable to Reject Affiliate",
+      `
+        Something went wrong while
+        rejecting this affiliate.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+      `
     );
 
   }
@@ -3063,11 +3187,6 @@ async function rejectAffiliate(
 ========================================= */
 
 function updateSummary() {
-
-  /*
-    PRODUCT SALES
-    Only orders with status = paid.
-  */
 
   const paidOrders =
     allOrders.filter(
@@ -3138,17 +3257,6 @@ function updateSummary() {
       0
     );
 
-
-  /*
-    AFFILIATE SALES
-
-    Only affiliates with approved_at
-    are counted.
-
-    pending = RM0
-    rejected = RM0
-    approved = counted
-  */
 
   const approvedAffiliates =
     allAffiliates.filter(
@@ -3234,10 +3342,6 @@ function updateSummary() {
       );
 
 
-  /*
-    FINAL ADMIN SALES
-  */
-
   const totalSales =
     productTotal +
     affiliateTotal;
@@ -3252,10 +3356,6 @@ function updateSummary() {
     monthProductSales +
     monthAffiliateSales;
 
-
-  /*
-    ORDER COUNTS
-  */
 
   const pending =
     allOrders.filter(
@@ -3786,9 +3886,18 @@ async function viewPaymentProof(
 
       console.error(error);
 
-      alert(
-        "Unable to open payment proof.\n\n" +
-        error.message
+      await showKinoMessage(
+        "Unable to Open Payment Proof",
+        `
+          Something went wrong while
+          opening the payment proof.
+
+          <br><br>
+
+          ${escapeHtml(
+            error.message
+          )}
+        `
       );
 
       return;
@@ -3801,8 +3910,12 @@ async function viewPaymentProof(
       !data.signedUrl
     ) {
 
-      alert(
-        "Payment proof was not found."
+      await showKinoMessage(
+        "Payment Proof Not Found",
+        `
+          The payment proof could not
+          be found.
+        `
       );
 
       return;
@@ -3821,8 +3934,18 @@ async function viewPaymentProof(
 
     console.error(error);
 
-    alert(
-      "Unable to open payment proof."
+    await showKinoMessage(
+      "Unable to Open Payment Proof",
+      `
+        Something went wrong while
+        opening the payment proof.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+      `
     );
 
   }
@@ -3839,15 +3962,79 @@ async function updateStatus(
   status
 ) {
 
-  const action =
-    status === "paid"
-      ? "mark this order as PAID"
-      : "REJECT this order";
+  const order =
+    allOrders.find(
+      item =>
+        String(item.id) ===
+        String(orderId)
+    );
+
+
+  if (!order) {
+
+    await showKinoMessage(
+      "Order Not Found",
+      `
+        The order could not be found.
+      `
+    );
+
+    return;
+
+  }
+
+
+  const isPaid =
+    status === "paid";
 
 
   const confirmed =
-    confirm(
-      `Are you sure you want to ${action}?`
+    await showKinoConfirm(
+      isPaid
+        ? "Mark Order as Paid ♡"
+        : "Reject Order",
+      `
+        Are you sure you want to
+
+        <strong>
+          ${
+            isPaid
+              ? "MARK THIS ORDER AS PAID"
+              : "REJECT THIS ORDER"
+          }
+        </strong>
+        ?
+
+        <br><br>
+
+        Order:
+        <strong>
+          ${escapeHtml(
+            order.order_code
+          )}
+        </strong>
+
+        <br>
+
+        Customer:
+        <strong>
+          ${escapeHtml(
+            order.customer_name
+          )}
+        </strong>
+
+        <br>
+
+        Total:
+        <strong>
+          RM${Number(
+            order.total || 0
+          ).toFixed(2)}
+        </strong>
+      `,
+      isPaid
+        ? "MARK AS PAID ♡"
+        : "REJECT"
     );
 
 
@@ -3856,35 +4043,75 @@ async function updateStatus(
   }
 
 
-  const {
-    error
-  } =
-    await db
-      .from("orders")
-      .update({
-        status: status
-      })
-      .eq(
-        "id",
-        orderId
-      );
+  try {
+
+    const {
+      error
+    } =
+      await db
+        .from("orders")
+        .update({
+          status: status
+        })
+        .eq(
+          "id",
+          orderId
+        );
 
 
-  if (error) {
+    if (error) {
+      throw error;
+    }
 
-    console.error(error);
 
-    alert(
-      "Unable to update order.\n\n" +
-      error.message
+    await showKinoMessage(
+      isPaid
+        ? "Order Marked as Paid ♡"
+        : "Order Rejected",
+      `
+        Order
+        <strong>
+          ${escapeHtml(
+            order.order_code
+          )}
+        </strong>
+
+        has been
+        <strong>
+          ${
+            isPaid
+              ? "marked as PAID"
+              : "rejected"
+          }
+        </strong>
+        successfully.
+      `
     );
 
-    return;
+
+    await loadOrders();
 
   }
 
+  catch (error) {
 
-  await loadOrders();
+    console.error(error);
+
+    await showKinoMessage(
+      "Unable to Update Order",
+      `
+        Something went wrong while
+        updating the order.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+      `
+    );
+
+  }
 
 }
 
@@ -3893,7 +4120,7 @@ async function updateStatus(
    EMAIL CUSTOMER
 ========================================= */
 
-function emailCustomer(
+async function emailCustomer(
   orderId
 ) {
 
@@ -3907,8 +4134,11 @@ function emailCustomer(
 
   if (!order) {
 
-    alert(
-      "Order not found."
+    await showKinoMessage(
+      "Order Not Found",
+      `
+        The order could not be found.
+      `
     );
 
     return;
@@ -3922,12 +4152,40 @@ function emailCustomer(
 
   if (!email) {
 
-    alert(
-      "Customer email not found."
+    await showKinoMessage(
+      "Customer Email Not Found",
+      `
+        This order does not contain
+        a customer email address.
+      `
     );
 
     return;
 
+  }
+
+
+  const confirmed =
+    await showKinoConfirm(
+      "Email Customer ♡",
+      `
+        Open your email app to send
+        the order email to
+
+        <br><br>
+
+        <strong>
+          ${escapeHtml(email)}
+        </strong>
+
+        ?
+      `,
+      "OPEN EMAIL ♡"
+    );
+
+
+  if (!confirmed) {
+    return;
   }
 
 
@@ -4002,8 +4260,11 @@ async function copyOrderInfo(
 
   if (!order) {
 
-    alert(
-      "Order not found."
+    await showKinoMessage(
+      "Order Not Found",
+      `
+        The order could not be found.
+      `
     );
 
     return;
@@ -4066,8 +4327,17 @@ ${
     );
 
 
-    alert(
-      "Order information copied ♡"
+    await showKinoMessage(
+      "Order Information Copied ♡",
+      `
+        The order information for
+        <strong>
+          ${escapeHtml(
+            order.order_code
+          )}
+        </strong>
+        has been copied successfully.
+      `
     );
 
   }
@@ -4076,8 +4346,18 @@ ${
 
     console.error(error);
 
-    alert(
-      "Unable to copy order information."
+    await showKinoMessage(
+      "Unable to Copy",
+      `
+        Unable to copy the order
+        information.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+      `
     );
 
   }
@@ -4090,6 +4370,22 @@ ${
 ========================================= */
 
 async function logout() {
+
+  const confirmed =
+    await showKinoConfirm(
+      "Logout ♡",
+      `
+        Are you sure you want to
+        log out from the KINO Admin Dashboard?
+      `,
+      "LOGOUT"
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
 
   await db.auth.signOut();
 
