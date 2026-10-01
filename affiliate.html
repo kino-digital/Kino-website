@@ -19,7 +19,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
   <style>
 
     * {
@@ -273,10 +272,6 @@
       margin-bottom: 5px;
     }
 
-    .form-group.full {
-      grid-column: 1 / -1;
-    }
-
     label {
       display: block;
       color: #8a747b;
@@ -484,10 +479,6 @@
         grid-template-columns: 1fr;
       }
 
-      .form-group.full {
-        grid-column: auto;
-      }
-
       .main-box {
         padding: 25px 20px;
       }
@@ -524,10 +515,7 @@
 
 <header>
 
-  <a
-    href="index.html"
-    class="logo"
-  >
+  <a href="index.html" class="logo">
     KINO
   </a>
 
@@ -1002,6 +990,7 @@
 
 <script>
 
+
 /* =========================================
    SUPABASE
 ========================================= */
@@ -1211,7 +1200,7 @@ planSelect.addEventListener(
 
 
 /* =========================================
-   GET KINO STORE STATUS
+   GET STORE STATUS
 ========================================= */
 
 async function getKinoStoreStatus() {
@@ -1237,12 +1226,6 @@ async function getKinoStoreStatus() {
       throw error;
 
     }
-
-
-    console.log(
-      "KINO STORE STATUS:",
-      data
-    );
 
 
     if (
@@ -1291,7 +1274,6 @@ function enableRegistration() {
   statusBox.classList.add(
     "open"
   );
-
 
   statusText.textContent =
     "Affiliate Registration is OPEN";
@@ -1343,7 +1325,6 @@ function disableRegistration() {
     "closed"
   );
 
-
   statusText.textContent =
     "KINO is CLOSED";
 
@@ -1394,7 +1375,6 @@ function showStatusError() {
     "closed"
   );
 
-
   statusText.textContent =
     "Unable to check KINO status";
 
@@ -1436,7 +1416,7 @@ function showStatusError() {
 
 
 /* =========================================
-   LOAD AFFILIATE STATUS
+   LOAD STATUS
 ========================================= */
 
 async function loadAffiliateStatus() {
@@ -1471,10 +1451,6 @@ async function loadAffiliateStatus() {
 
 }
 
-
-/* =========================================
-   START STATUS
-========================================= */
 
 loadAffiliateStatus();
 
@@ -1636,11 +1612,9 @@ async function registerAffiliate() {
 
     showStatusError();
 
-
     showMessage(
       "Unable to check KINO status. Please refresh the page."
     );
-
 
     return;
 
@@ -1653,20 +1627,16 @@ async function registerAffiliate() {
 
     disableRegistration();
 
-
     showMessage(
       "KINO is currently closed. Affiliate registration is unavailable."
     );
-
 
     return;
 
   }
 
 
-  /* =====================================
-     PLAN
-  ===================================== */
+  /* PLAN */
 
   const planKey =
     planSelect.value;
@@ -1690,13 +1660,7 @@ async function registerAffiliate() {
     planKey;
 
 
-  const plan =
-    PLANS[planKey];
-
-
-  /* =====================================
-     DETAILS
-  ===================================== */
+  /* DETAILS */
 
   const name =
     nameInput.value.trim();
@@ -1712,9 +1676,7 @@ async function registerAffiliate() {
     passwordInput.value;
 
 
-  /* =====================================
-     VALIDATION
-  ===================================== */
+  /* VALIDATION */
 
   if (!name) {
 
@@ -1795,10 +1757,6 @@ async function registerAffiliate() {
 
   }
 
-
-  /* =====================================
-     BUTTON
-  ===================================== */
 
   joinButton.disabled =
     true;
@@ -1899,12 +1857,6 @@ async function registerAffiliate() {
         });
 
 
-    /*
-      IMPORTANT:
-      Show the REAL Supabase error
-      so we can find the exact problem.
-    */
-
     if (affiliateError) {
 
       console.error(
@@ -1964,6 +1916,11 @@ async function registerAffiliate() {
         );
 
 
+    /*
+      IMPORTANT:
+      Show the REAL storage error.
+    */
+
     if (uploadError) {
 
       console.error(
@@ -1973,7 +1930,8 @@ async function registerAffiliate() {
 
 
       throw new Error(
-        "Affiliate account was created, but payment proof could not be uploaded."
+        "Payment proof upload error: " +
+        uploadError.message
       );
 
     }
@@ -2000,9 +1958,7 @@ async function registerAffiliate() {
       true;
 
 
-    /* ===================================
-       CLEAR FORM
-    =================================== */
+    /* CLEAR FORM */
 
     nameInput.value =
       "";
