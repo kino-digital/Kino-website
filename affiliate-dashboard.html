@@ -663,6 +663,210 @@
 
 
     /* =========================
+       MALAYSIA DATE HELPERS
+    ========================= */
+
+    function getMalaysiaDateParts(date) {
+
+      const parts =
+        new Intl.DateTimeFormat(
+          "en-US",
+          {
+            timeZone: "Asia/Kuala_Lumpur",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit"
+          }
+        ).formatToParts(date);
+
+      const result = {};
+
+      parts.forEach(function (part) {
+
+        if (
+          part.type === "year" ||
+          part.type === "month" ||
+          part.type === "day"
+        ) {
+          result[part.type] =
+            part.value;
+        }
+
+      });
+
+      return result;
+    }
+
+
+    function getMalaysiaDateKey(date) {
+
+      const parts =
+        getMalaysiaDateParts(date);
+
+      return (
+        parts.year +
+        "-" +
+        parts.month +
+        "-" +
+        parts.day
+      );
+    }
+
+
+    function getMalaysiaMonthKey(date) {
+
+      const parts =
+        getMalaysiaDateParts(date);
+
+      return (
+        parts.year +
+        "-" +
+        parts.month
+      );
+    }
+
+
+    /* =========================
+       LOAD COMMISSION SUMMARY
+    ========================= */
+
+    async function loadCommissionSummary(
+      affiliateId
+    ) {
+
+      const {
+        data: commissions,
+        error: commissionError
+      } = await db
+        .from("commissions")
+        .select(`
+          amount,
+          status,
+          created_at
+        `)
+        .eq(
+          "affiliate_id",
+          affiliateId
+        )
+        .neq(
+          "status",
+          "rejected"
+        );
+
+
+      if (commissionError) {
+        throw commissionError;
+      }
+
+
+      const now =
+        new Date();
+
+
+      const todayKey =
+        getMalaysiaDateKey(now);
+
+
+      const monthKey =
+        getMalaysiaMonthKey(now);
+
+
+      let todayCommission = 0;
+
+      let monthCommission = 0;
+
+      let totalCommission = 0;
+
+
+      (commissions || [])
+        .forEach(function (commission) {
+
+          const amount =
+            Number(
+              commission.amount || 0
+            );
+
+
+          const createdAt =
+            new Date(
+              commission.created_at
+            );
+
+
+          if (
+            Number.isNaN(
+              createdAt.getTime()
+            )
+          ) {
+            return;
+          }
+
+
+          const commissionDateKey =
+            getMalaysiaDateKey(
+              createdAt
+            );
+
+
+          const commissionMonthKey =
+            getMalaysiaMonthKey(
+              createdAt
+            );
+
+
+          totalCommission +=
+            amount;
+
+
+          if (
+            commissionDateKey ===
+            todayKey
+          ) {
+
+            todayCommission +=
+              amount;
+          }
+
+
+          if (
+            commissionMonthKey ===
+            monthKey
+          ) {
+
+            monthCommission +=
+              amount;
+          }
+
+        });
+
+
+      document.getElementById(
+        "today-sale"
+      ).textContent =
+        formatMoney(
+          todayCommission
+        );
+
+
+      document.getElementById(
+        "month-sale"
+      ).textContent =
+        formatMoney(
+          monthCommission
+        );
+
+
+      document.getElementById(
+        "total-sale"
+      ).textContent =
+        formatMoney(
+          totalCommission
+        );
+
+    }
+
+
+    /* =========================
        LOAD DASHBOARD
     ========================= */
 
@@ -711,7 +915,10 @@
             tier,
             status
           `)
-          .eq("id", user.id)
+          .eq(
+            "id",
+            user.id
+          )
           .maybeSingle();
 
 
@@ -736,7 +943,8 @@
         */
 
         if (
-          affiliate.status !== "active"
+          affiliate.status !==
+          "active"
         ) {
 
           await db.auth.signOut();
@@ -755,25 +963,30 @@
         document.getElementById(
           "affiliate-name"
         ).textContent =
-          affiliate.display_name || "Affiliate";
+          affiliate.display_name ||
+          "Affiliate";
 
 
         document.getElementById(
           "profile-name"
         ).textContent =
-          affiliate.display_name || "-";
+          affiliate.display_name ||
+          "-";
 
 
         document.getElementById(
           "profile-email"
         ).textContent =
-          affiliate.email || user.email || "-";
+          affiliate.email ||
+          user.email ||
+          "-";
 
 
         document.getElementById(
           "profile-code"
         ).textContent =
-          affiliate.affiliate_code || "-";
+          affiliate.affiliate_code ||
+          "-";
 
 
         const tierElement =
@@ -783,7 +996,8 @@
 
 
         if (
-          affiliate.tier === "pro"
+          affiliate.tier ===
+          "pro"
         ) {
 
           tierElement.textContent =
@@ -810,7 +1024,7 @@
 
         /*
           AFFILIATE LINK
-          
+
           Example:
           https://kino-website.pages.dev/?ref=KINO123
         */
@@ -832,30 +1046,13 @@
         /*
           COMMISSION SUMMARY
 
-          Temporary values.
-
-          We will connect these to
-          public.commissions after
-          confirming the exact table
-          columns.
+          Loads real commission data
+          from public.commissions.
         */
 
-        document.getElementById(
-          "today-sale"
-        ).textContent =
-          formatMoney(0);
-
-
-        document.getElementById(
-          "month-sale"
-        ).textContent =
-          formatMoney(0);
-
-
-        document.getElementById(
-          "total-sale"
-        ).textContent =
-          formatMoney(0);
+        await loadCommissionSummary(
+          user.id
+        );
 
 
         /*
@@ -889,7 +1086,9 @@
     ========================= */
 
     document
-      .getElementById("copy-link-btn")
+      .getElementById(
+        "copy-link-btn"
+      )
       .addEventListener(
         "click",
         async function () {
@@ -946,14 +1145,17 @@
     ========================= */
 
     document
-      .getElementById("logout-btn")
+      .getElementById(
+        "logout-btn"
+      )
       .addEventListener(
         "click",
         async function () {
 
           const {
             error
-          } = await db.auth.signOut();
+          } =
+            await db.auth.signOut();
 
 
           if (error) {
