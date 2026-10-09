@@ -1156,19 +1156,19 @@ h1 {
     <div class="summary-box">
       <div class="summary-label">Today Sale</div>
       <div class="summary-number" id="today-sales">RM0.00</div>
-      <div class="summary-small">Commission earned today</div>
+      <div class="summary-small">Paid product orders + affiliate sales</div>
     </div>
 
     <div class="summary-box">
       <div class="summary-label">This Month Sale</div>
       <div class="summary-number" id="month-sales">RM0.00</div>
-      <div class="summary-small">Commission earned this month</div>
+      <div class="summary-small">Paid product orders + affiliate sales</div>
     </div>
 
     <div class="summary-box">
       <div class="summary-label">Total Sale</div>
       <div class="summary-number" id="sales-total">RM0.00</div>
-      <div class="summary-small">Total commission earned</div>
+      <div class="summary-small">All paid product + affiliate sales</div>
     </div>
 
     <div class="summary-box">
@@ -3621,32 +3621,55 @@ Thank you for being part of KINO ♡`;
 ========================================= */
 
 function updateSummary() {
-  // Commission earned = all non-cancelled commission records.
-  // Pending means awaiting payout; Paid means already transferred.
-  // Both count as earned. Cancelled commissions do not count.
-  const earnedCommissions = allCommissions.filter(commission => {
-    const status = String(commission.status || "").toLowerCase();
-    return status === "pending" || status === "paid";
-  });
+  // These three cards show KINO revenue, not affiliate commissions.
+  // Count paid product orders plus active affiliate membership sales.
+  const paidOrders = allOrders.filter(order =>
+    String(order.status || "").toLowerCase() === "paid"
+  );
 
-  const totalEarned = earnedCommissions.reduce(
-    (sum, commission) => sum + Number(commission.amount || 0),
+  const productTotal = paidOrders.reduce(
+    (sum, order) => sum + Number(order.total || 0),
     0
   );
 
-  const todayEarned = earnedCommissions
-    .filter(commission => isToday(commission.created_at))
-    .reduce((sum, commission) => sum + Number(commission.amount || 0), 0);
+  const todayProductSales = paidOrders
+    .filter(order => isToday(order.created_at))
+    .reduce((sum, order) => sum + Number(order.total || 0), 0);
 
-  const monthEarned = earnedCommissions
-    .filter(commission => isThisMonth(commission.created_at))
-    .reduce((sum, commission) => sum + Number(commission.amount || 0), 0);
+  const monthProductSales = paidOrders
+    .filter(order => isThisMonth(order.created_at))
+    .reduce((sum, order) => sum + Number(order.total || 0), 0);
 
-  salesTotal.textContent = "RM" + totalEarned.toFixed(2);
-  todaySales.textContent = "RM" + todayEarned.toFixed(2);
-  monthSales.textContent = "RM" + monthEarned.toFixed(2);
+  // Preserve the existing membership-sales calculation.
+  const approvedAffiliates = allAffiliates.filter(affiliate =>
+    String(affiliate.status || "").toLowerCase() === "active" &&
+    affiliate.approved_at
+  );
 
-  // Order counts remain separate from commission totals.
+  function membershipAmount(affiliate) {
+    const amount = Number(affiliate.membership_amount || 0);
+    if (amount > 0) return amount;
+    return String(affiliate.tier || "").toLowerCase() === "pro" ? 50 : 5;
+  }
+
+  const affiliateTotal = approvedAffiliates.reduce(
+    (sum, affiliate) => sum + membershipAmount(affiliate),
+    0
+  );
+
+  const todayAffiliateSales = approvedAffiliates
+    .filter(affiliate => isToday(affiliate.approved_at))
+    .reduce((sum, affiliate) => sum + membershipAmount(affiliate), 0);
+
+  const monthAffiliateSales = approvedAffiliates
+    .filter(affiliate => isThisMonth(affiliate.approved_at))
+    .reduce((sum, affiliate) => sum + membershipAmount(affiliate), 0);
+
+  salesTotal.textContent = "RM" + (productTotal + affiliateTotal).toFixed(2);
+  todaySales.textContent = "RM" + (todayProductSales + todayAffiliateSales).toFixed(2);
+  monthSales.textContent = "RM" + (monthProductSales + monthAffiliateSales).toFixed(2);
+
+  // Keep order counts in their own cards.
   const pendingOrders = allOrders.filter(order =>
     String(order.status || "").toLowerCase() === "pending"
   ).length;
@@ -3655,7 +3678,6 @@ function updateSummary() {
   if (pendingOrdersElement) pendingOrdersElement.textContent = String(pendingOrders);
   if (totalOrdersElement) totalOrdersElement.textContent = String(allOrders.length);
 }
-
 
 /* =========================================
    FILTER BUTTONS
