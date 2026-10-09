@@ -1,880 +1,302 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>KINO Affiliate Dashboard</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: "Baloo 2", cursive;
-      background: #fff7fa;
-      color: #5b4b52;
-      min-height: 100vh;
-    }
-
-    header {
-      background: #fff;
-      border-bottom: 1px solid #f2dfe5;
-      padding: 16px 20px;
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-    }
-
-    .logo {
-      font-size: 30px;
-      font-weight: 800;
-      color: #e89aaa;
-      text-decoration: none;
-      letter-spacing: 1px;
-    }
-
-    .logout-btn {
-      border: none;
-      background: #f8dce4;
-      color: #8d5968;
-      padding: 9px 18px;
-      border-radius: 20px;
-      font-family: inherit;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .logout-btn:hover {
-      background: #f3cbd6;
-    }
-
-    main {
-      max-width: 1100px;
-      margin: auto;
-      padding: 35px 20px 60px;
-    }
-
-    .welcome {
-      margin-bottom: 25px;
-    }
-
-    .welcome h1 {
-      font-size: 34px;
-      color: #594a50;
-      margin-bottom: 3px;
-    }
-
-    .welcome p {
-      font-size: 17px;
-      color: #9a858c;
-    }
-
-    .section-title {
-      font-size: 23px;
-      color: #6b555e;
-      margin-bottom: 15px;
-    }
-
-    .sales-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 30px;
-    }
-
-    .sale-card {
-      background: #fff;
-      border: 1px solid #f2dfe5;
-      border-radius: 20px;
-      padding: 22px;
-      box-shadow: 0 5px 15px rgba(200, 150, 165, 0.08);
-    }
-
-    .sale-label {
-      font-size: 15px;
-      color: #a38c94;
-      font-weight: 600;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .sale-amount {
-      font-size: 30px;
-      font-weight: 800;
-      color: #e28da0;
-      line-height: 1.1;
-    }
-
-    .sale-note {
-      margin-top: 5px;
-      font-size: 13px;
-      color: #b3a2a8;
-    }
-
-    .profile-card,
-    .link-card,
-    .history-card {
-      background: #fff;
-      border: 1px solid #f2dfe5;
-      border-radius: 22px;
-      padding: 25px;
-      margin-bottom: 25px;
-      box-shadow: 0 5px 15px rgba(200, 150, 165, 0.08);
-    }
-
-    .profile-title,
-    .link-title,
-    .history-title {
-      font-size: 23px;
-      font-weight: 700;
-      color: #6b555e;
-      margin-bottom: 15px;
-    }
-
-    .profile-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-
-    .info-box {
-      background: #fff8fa;
-      border: 1px solid #f5e3e8;
-      border-radius: 15px;
-      padding: 15px;
-    }
-
-    .info-label {
-      font-size: 13px;
-      color: #a38c94;
-      margin-bottom: 4px;
-    }
-
-    .info-value {
-      font-size: 18px;
-      font-weight: 600;
-      color: #66545b;
-      word-break: break-word;
-    }
-
-    .tier-basic {
-      color: #c88998;
-    }
-
-    .tier-pro {
-      color: #d17c92;
-    }
-
-    .status-active {
-      color: #63a47c;
-    }
-
-    .link-description {
-      font-size: 15px;
-      color: #9a858c;
-      margin-bottom: 15px;
-    }
-
-    .link-row {
-      display: flex;
-      gap: 10px;
-    }
-
-    .link-input {
-      flex: 1;
-      min-width: 0;
-      border: 1px solid #efd9e0;
-      background: #fff9fb;
-      border-radius: 12px;
-      padding: 12px 14px;
-      font-family: inherit;
-      font-size: 14px;
-      color: #75636a;
-      outline: none;
-    }
-
-    .copy-btn {
-      border: none;
-      background: #e9a1b0;
-      color: white;
-      padding: 0 22px;
-      border-radius: 12px;
-      font-family: inherit;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .copy-btn:hover {
-      background: #df8e9f;
-    }
-
-    .copy-message {
-      display: none;
-      margin-top: 9px;
-      font-size: 14px;
-      color: #63a47c;
-    }
-
-    /* COMMISSION HISTORY */
-
-    .history-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .history-item {
-      background: #fff8fa;
-      border: 1px solid #f5e3e8;
-      border-radius: 15px;
-      padding: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-    }
-
-    .history-info {
-      min-width: 0;
-    }
-
-    .history-type {
-      font-size: 16px;
-      font-weight: 700;
-      color: #66545b;
-      overflow-wrap: anywhere;
-    }
-
-    .history-date {
-      font-size: 13px;
-      color: #a38c94;
-      margin-top: 2px;
-    }
-
-    .history-right {
-      text-align: right;
-      flex-shrink: 0;
-    }
-
-    .history-amount {
-      font-size: 18px;
-      font-weight: 800;
-      color: #e28da0;
-    }
-
-    .history-status {
-      display: inline-block;
-      margin-top: 4px;
-      padding: 3px 9px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: capitalize;
-    }
-
-    .history-status.pending {
-      background: #fff1d8;
-      color: #b58235;
-    }
-
-    .history-status.approved {
-      background: #e4f5e9;
-      color: #4c9467;
-    }
-
-    .history-status.rejected {
-      background: #fde8ec;
-      color: #b45f73;
-    }
-
-    .history-status.other {
-      background: #f2edf0;
-      color: #806c75;
-    }
-
-    .history-empty {
-      text-align: center;
-      padding: 25px 10px;
-      color: #a38c94;
-      font-size: 15px;
-    }
-
-    .loading {
-      text-align: center;
-      padding: 60px 20px;
-      color: #a38c94;
-      font-size: 18px;
-    }
-
-    .error-box {
-      display: none;
-      background: #fff0f3;
-      border: 1px solid #f3cbd5;
-      color: #b45f73;
-      padding: 15px;
-      border-radius: 14px;
-      margin-bottom: 20px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 25px 20px 40px;
-      color: #b09ba2;
-      font-size: 14px;
-    }
-
-    @media (max-width: 700px) {
-      main {
-        padding: 28px 15px 45px;
-      }
-
-      .welcome h1 {
-        font-size: 29px;
-      }
-
-      .sales-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-
-      .sale-card {
-        padding: 18px;
-      }
-
-      .sale-amount {
-        font-size: 28px;
-      }
-
-      .profile-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .link-row {
-        flex-direction: column;
-      }
-
-      .copy-btn {
-        height: 45px;
-      }
-
-      .logo {
-        font-size: 27px;
-      }
-
-      .logout-btn {
-        padding: 8px 15px;
-      }
-
-      .history-item {
-        align-items: flex-start;
-      }
-
-      .history-right {
-        text-align: right;
-      }
-    }
+    :root{--pink:#e29aad;--pink-dark:#b96f88;--pink-soft:#fff7fa;--pink-pale:#fff0f4;--border:#f1dfe5;--text:#66545b;--muted:#a38c94;--green:#4f8a68;--green-bg:#e5f6ec;--yellow:#a9792c;--yellow-bg:#fff1d8;--gray:#786a70;--gray-bg:#f1ecef;}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:"Baloo 2",cursive;background:var(--pink-soft);color:var(--text);min-height:100vh}
+    header{background:#fff;border-bottom:1px solid var(--border);padding:14px 20px}
+    .header-inner{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .logo{font-size:29px;font-weight:800;color:var(--pink);text-decoration:none;letter-spacing:1px}
+    button,input,select{font:inherit}
+    button{cursor:pointer}
+    .logout-btn{border:0;background:#f8dce4;color:#8d5968;padding:8px 16px;border-radius:20px;font-weight:700}
+    main{max-width:1050px;margin:auto;padding:28px 18px 50px}
+    .loading{text-align:center;padding:55px 15px;color:var(--muted);font-size:18px}
+    .error-box{display:none;background:#fff0f3;border:1px solid #f3cbd5;color:#a8566d;padding:14px 16px;border-radius:14px;margin-bottom:18px}
+    .welcome{margin-bottom:22px}.welcome h1{font-size:30px;line-height:1.2;color:#594a50}.welcome p{color:var(--muted);margin-top:5px}
+    .section-title{font-size:21px;color:#6b555e;margin-bottom:12px}
+    .sales-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:18px}
+    .sale-card,.panel{background:#fff;border:1px solid var(--border);border-radius:18px;box-shadow:0 4px 14px rgba(200,150,165,.06)}
+    .sale-card{padding:18px}.sale-label{font-size:13px;color:var(--muted);font-weight:700;letter-spacing:.3px}.sale-amount{font-size:27px;font-weight:800;color:var(--pink-dark);line-height:1.25;margin-top:5px}.sale-note{font-size:12px;color:#b3a2a8;margin-top:3px}
+    .commission-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 22px}.commission-card{padding:16px 18px;border-radius:17px;border:1px solid var(--border);background:#fff}.commission-card.pending{background:#fffbf3}.commission-card.paid{background:#f7fcf8}.commission-label{font-size:13px;color:var(--muted);font-weight:700}.commission-value{font-size:24px;font-weight:800;margin-top:4px}.commission-card.pending .commission-value{color:var(--yellow)}.commission-card.paid .commission-value{color:var(--green)}
+    .panel{padding:21px;margin-bottom:18px}.panel-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}.panel-title{font-size:21px;color:#6b555e;font-weight:700}.panel-note{font-size:13px;color:var(--muted);margin-top:2px}
+    .link-input{width:100%;min-width:0;border:1px solid #efd9e0;background:#fff9fb;border-radius:12px;padding:12px 13px;color:#75636a;outline:none;font-size:14px}
+    .link-row{display:flex;gap:9px}.copy-btn{border:0;background:var(--pink);color:white;padding:0 22px;border-radius:12px;font-weight:700;white-space:nowrap}.copy-btn:hover{background:#d98b9e}.copy-message{display:none;margin-top:8px;font-size:13px;color:var(--green)}
+    .profile-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.info-box{background:#fff8fa;border:1px solid #f5e3e8;border-radius:13px;padding:12px}.info-label{font-size:12px;color:var(--muted)}.info-value{font-size:16px;font-weight:700;color:#66545b;overflow-wrap:anywhere}.tier-basic{color:#c88998}.tier-pro{color:#d17c92}.status-active{color:#63a47c}
+    .history-tools{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;margin-bottom:12px}.search-wrap{position:relative}.search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}.search-input{width:100%;border:1px solid #efd9e0;background:#fff9fb;border-radius:12px;padding:11px 13px 11px 37px;outline:none;color:var(--text);min-width:0}.search-input:focus,.link-input:focus{border-color:var(--pink)}
+    .filter-row{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}.filter-btn{border:0;background:#f7edf1;color:#a96b82;padding:7px 13px;border-radius:18px;font-size:13px;font-weight:700}.filter-btn.active{background:var(--pink);color:#fff}
+    .history-list{display:flex;flex-direction:column;gap:9px}.history-item{background:#fffafd;border:1px solid #f5e3e8;border-radius:14px;padding:13px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px}.history-info{min-width:0}.history-type{font-size:15px;font-weight:700;color:#66545b;overflow-wrap:anywhere;line-height:1.25}.history-date{font-size:12px;color:var(--muted);margin-top:4px}.history-right{text-align:right;flex-shrink:0}.history-amount{font-size:17px;font-weight:800;color:var(--pink-dark)}.history-status{display:inline-block;margin-top:3px;padding:3px 9px;border-radius:12px;font-size:11px;font-weight:700;text-transform:capitalize}.history-status.pending{background:var(--yellow-bg);color:var(--yellow)}.history-status.paid{background:var(--green-bg);color:var(--green)}.history-status.cancelled{background:var(--gray-bg);color:var(--gray)}.history-status.other{background:var(--gray-bg);color:var(--gray)}
+    .history-empty{text-align:center;padding:22px 10px;color:var(--muted);font-size:14px}.history-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:13px}.result-count{font-size:12px;color:var(--muted)}.load-more{border:1px solid #efd9e0;background:#fff7fa;color:#a96b82;padding:8px 15px;border-radius:18px;font-size:13px;font-weight:700}.load-more:disabled{opacity:.45;cursor:not-allowed}
+    footer{text-align:center;padding:20px;color:#b09ba2;font-size:13px}
+    @media(max-width:700px){main{padding:23px 13px 40px}.welcome h1{font-size:27px}.sales-grid{gap:8px}.sale-card{padding:12px 10px}.sale-label{font-size:11px;letter-spacing:0}.sale-amount{font-size:21px}.sale-note{font-size:11px}.commission-grid{gap:8px}.commission-card{padding:13px}.commission-value{font-size:21px}.panel{padding:16px}.profile-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.link-row{flex-direction:column}.copy-btn{height:43px}.history-tools{grid-template-columns:1fr}.history-item{align-items:flex-start;padding:12px}.history-right{min-width:75px}.history-amount{font-size:16px}.history-footer{align-items:flex-start;flex-direction:column}.logo{font-size:26px}}
+    @media(max-width:370px){.sale-amount{font-size:19px}.profile-grid{grid-template-columns:1fr}.history-type{font-size:14px}}
   </style>
 </head>
-
 <body>
-
   <header>
     <div class="header-inner">
       <a href="index.html" class="logo">KINO</a>
-      <button class="logout-btn" id="logout-btn">Logout</button>
+      <button class="logout-btn" id="logout-btn" type="button">Logout</button>
     </div>
   </header>
-
   <main>
-
-    <div id="loading" class="loading">
-      Loading your dashboard...
-    </div>
-
-    <div id="error-box" class="error-box"></div>
-
+    <div id="loading" class="loading">Loading your dashboard...</div>
+    <div id="error-box" class="error-box" role="alert"></div>
     <div id="dashboard" style="display:none;">
-
       <section class="welcome">
         <h1>Hi, <span id="affiliate-name">Affiliate</span>!</h1>
         <p>Welcome to your KINO Affiliate Dashboard.</p>
       </section>
 
-      <!-- COMMISSION SUMMARY -->
-
-      <section>
-        <h2 class="section-title">Commission Summary</h2>
-
+      <section aria-labelledby="summary-heading">
+        <h2 class="section-title" id="summary-heading">Sales Summary</h2>
         <div class="sales-grid">
-
-          <div class="sale-card">
-            <div class="sale-label">Today Sale</div>
-            <div class="sale-amount" id="today-sale">RM0.00</div>
-            <div class="sale-note">Commission today</div>
-          </div>
-
-          <div class="sale-card">
-            <div class="sale-label">This Month</div>
-            <div class="sale-amount" id="month-sale">RM0.00</div>
-            <div class="sale-note">Commission this month</div>
-          </div>
-
-          <div class="sale-card">
-            <div class="sale-label">Total Sale</div>
-            <div class="sale-amount" id="total-sale">RM0.00</div>
-            <div class="sale-note">Total commission</div>
-          </div>
-
+          <div class="sale-card"><div class="sale-label">Today Sale</div><div class="sale-amount" id="today-sale">RM0.00</div><div class="sale-note">Commission earned today</div></div>
+          <div class="sale-card"><div class="sale-label">This Month</div><div class="sale-amount" id="month-sale">RM0.00</div><div class="sale-note">Commission earned this month</div></div>
+          <div class="sale-card"><div class="sale-label">Total Sale</div><div class="sale-amount" id="total-sale">RM0.00</div><div class="sale-note">Total commission earned</div></div>
         </div>
       </section>
 
-      <!-- COMMISSION HISTORY -->
-
-      <section class="history-card">
-        <div class="history-title">Commission History</div>
-        <div class="history-list" id="commission-history">
-          <div class="history-empty">Loading commission history...</div>
-        </div>
+      <section class="commission-grid" aria-label="Commission payout summary">
+        <div class="commission-card pending"><div class="commission-label">Commission Pending</div><div class="commission-value" id="pending-commission">RM0.00</div></div>
+        <div class="commission-card paid"><div class="commission-label">Commission Paid</div><div class="commission-value" id="paid-commission">RM0.00</div></div>
       </section>
 
-      <!-- PROFILE -->
+      <section class="panel" aria-labelledby="link-heading">
+        <div class="panel-heading"><div><h2 class="panel-title" id="link-heading">Your Affiliate Link</h2><p class="panel-note">Copy your code or link and share it with customers.</p></div></div>
+        <div class="profile-grid" style="margin-bottom:12px;grid-template-columns:repeat(2,minmax(0,1fr));">
+          <div class="info-box"><div class="info-label">Affiliate Code</div><div class="info-value" id="profile-code">-</div></div>
+          <div class="info-box"><div class="info-label">Plan</div><div class="info-value" id="profile-tier">-</div></div>
+        </div>
+        <div class="link-row"><input type="text" id="affiliate-link" class="link-input" readonly aria-label="Your affiliate link"><button class="copy-btn" id="copy-link-btn" type="button">Copy Link</button></div>
+        <div class="copy-message" id="copy-message" role="status">Affiliate link copied!</div>
+      </section>
 
-      <section class="profile-card">
-        <div class="profile-title">Affiliate Account</div>
+      <section class="panel" aria-labelledby="history-heading">
+        <div class="panel-heading"><div><h2 class="panel-title" id="history-heading">Commission History</h2><p class="panel-note">Latest 5 records shown first. Search or filter to find a commission.</p></div></div>
+        <div class="history-tools">
+          <div class="search-wrap"><span class="search-icon" aria-hidden="true">⌕</span><input type="search" id="history-search" class="search-input" placeholder="Search product, order or commission..." aria-label="Search commission history"></div>
+          <div class="result-count" id="history-total" style="align-self:center;">0 records</div>
+        </div>
+        <div class="filter-row" id="history-filters" aria-label="Filter commission status">
+          <button class="filter-btn active" type="button" data-status="all">All</button>
+          <button class="filter-btn" type="button" data-status="pending">Pending</button>
+          <button class="filter-btn" type="button" data-status="paid">Paid</button>
+          <button class="filter-btn" type="button" data-status="cancelled">Cancelled</button>
+        </div>
+        <div class="history-list" id="commission-history"><div class="history-empty">Loading commission history...</div></div>
+        <div class="history-footer"><div class="result-count" id="history-showing">Showing 0 records</div><button class="load-more" id="load-more-btn" type="button" hidden>Load More</button></div>
+      </section>
 
+      <section class="panel" aria-labelledby="account-heading">
+        <div class="panel-heading"><div><h2 class="panel-title" id="account-heading">Affiliate Account</h2><p class="panel-note">Your account information.</p></div></div>
         <div class="profile-grid">
-
-          <div class="info-box">
-            <div class="info-label">Name</div>
-            <div class="info-value" id="profile-name">-</div>
-          </div>
-
-          <div class="info-box">
-            <div class="info-label">Email</div>
-            <div class="info-value" id="profile-email">-</div>
-          </div>
-
-          <div class="info-box">
-            <div class="info-label">Affiliate Code</div>
-            <div class="info-value" id="profile-code">-</div>
-          </div>
-
-          <div class="info-box">
-            <div class="info-label">Plan</div>
-            <div class="info-value" id="profile-tier">-</div>
-          </div>
-
-          <div class="info-box">
-            <div class="info-label">Account Status</div>
-            <div class="info-value status-active" id="profile-status">-</div>
-          </div>
-
+          <div class="info-box"><div class="info-label">Name</div><div class="info-value" id="profile-name">-</div></div>
+          <div class="info-box"><div class="info-label">Email</div><div class="info-value" id="profile-email">-</div></div>
+          <div class="info-box"><div class="info-label">Account Status</div><div class="info-value status-active" id="profile-status">-</div></div>
         </div>
       </section>
-
-      <!-- AFFILIATE LINK -->
-
-      <section class="link-card">
-        <div class="link-title">Your Affiliate Link</div>
-
-        <div class="link-description">
-          Share this link with your audience and earn commission from qualifying sales.
-        </div>
-
-        <div class="link-row">
-          <input
-            type="text"
-            id="affiliate-link"
-            class="link-input"
-            readonly
-          >
-
-          <button class="copy-btn" id="copy-link-btn">
-            Copy
-          </button>
-        </div>
-
-        <div class="copy-message" id="copy-message">
-          Affiliate link copied!
-        </div>
-      </section>
-
     </div>
   </main>
-
   <footer>© KINO. All rights reserved.</footer>
 
   <script>
-    /* =========================
-       SUPABASE
-    ========================= */
-
-    const SUPABASE_URL =
-      "https://vbdgzsapdbpgfcdksdoi.supabase.co";
-
-    const SUPABASE_KEY =
-      "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
-
-    const db = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_KEY
-    );
-
-    /* =========================
-       ELEMENTS
-    ========================= */
+    const SUPABASE_URL = "https://vbdgzsapdbpgfcdksdoi.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_bBCTwB_oXL5QS0WLE_ydFw_wRyrRhYh";
+    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     const loading = document.getElementById("loading");
     const dashboard = document.getElementById("dashboard");
     const errorBox = document.getElementById("error-box");
+    let allCommissions = [];
+    let activeStatus = "all";
+    let visibleCount = 5;
+    const PAGE_SIZE = 10;
 
+    function formatMoney(value) { return "RM" + Number(value || 0).toFixed(2); }
     function showError(message) {
       loading.style.display = "none";
       dashboard.style.display = "none";
       errorBox.textContent = message;
       errorBox.style.display = "block";
     }
-
-    function formatMoney(amount) {
-      return "RM" + Number(amount || 0).toFixed(2);
-    }
-
-    /* =========================
-       MALAYSIA DATE HELPERS
-    ========================= */
-
     function getMalaysiaDateParts(date) {
-      const parts = new Intl.DateTimeFormat("en-US", {
-        timeZone: "Asia/Kuala_Lumpur",
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit"
-      }).formatToParts(date);
-
+      const parts = new Intl.DateTimeFormat("en-US", { timeZone: "Asia/Kuala_Lumpur", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(date);
       const result = {};
-
-      parts.forEach(function (part) {
-        if (
-          part.type === "year" ||
-          part.type === "month" ||
-          part.type === "day"
-        ) {
-          result[part.type] = part.value;
-        }
-      });
-
+      parts.forEach(part => { if (["year", "month", "day"].includes(part.type)) result[part.type] = part.value; });
       return result;
     }
-
-    function getMalaysiaDateKey(date) {
-      const parts = getMalaysiaDateParts(date);
-      return parts.year + "-" + parts.month + "-" + parts.day;
+    function getMalaysiaDateKey(date) { const p = getMalaysiaDateParts(date); return `${p.year}-${p.month}-${p.day}`; }
+    function getMalaysiaMonthKey(date) { const p = getMalaysiaDateParts(date); return `${p.year}-${p.month}`; }
+    function prettyDate(value) {
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return "Date unavailable";
+      return date.toLocaleString("en-MY", { timeZone: "Asia/Kuala_Lumpur", day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: true });
     }
-
-    function getMalaysiaMonthKey(date) {
-      const parts = getMalaysiaDateParts(date);
-      return parts.year + "-" + parts.month;
+    function normalizedStatus(value) {
+      const status = String(value || "pending").toLowerCase();
+      // Display legacy labels safely, without changing the database values.
+      if (status === "approved") return "paid";
+      if (status === "rejected") return "cancelled";
+      return status;
     }
-
-    /* =========================
-       RENDER COMMISSION HISTORY
-    ========================= */
-
-    function renderCommissionHistory(commissions) {
-      const container = document.getElementById("commission-history");
-      container.replaceChildren();
-
-      if (!commissions || commissions.length === 0) {
-        const empty = document.createElement("div");
-        empty.className = "history-empty";
-        empty.textContent = "No commission yet.";
-        container.appendChild(empty);
-        return;
-      }
-
-      commissions.forEach(function (commission) {
-        const item = document.createElement("div");
-        item.className = "history-item";
-
-        const info = document.createElement("div");
-        info.className = "history-info";
-
-        const type = document.createElement("div");
-        type.className = "history-type";
-        type.textContent = commission.description || "Product Sale";
-
-        const date = document.createElement("div");
-        date.className = "history-date";
-
-        const createdAt = new Date(commission.created_at);
-
-        date.textContent = Number.isNaN(createdAt.getTime())
-          ? "Date unavailable"
-          : createdAt.toLocaleString("en-MY", {
-              timeZone: "Asia/Kuala_Lumpur",
-              day: "2-digit",
-              month: "short",
-              year: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: true
-            });
-
-        info.appendChild(type);
-        info.appendChild(date);
-
-        const right = document.createElement("div");
-        right.className = "history-right";
-
-        const amount = document.createElement("div");
-        amount.className = "history-amount";
-        amount.textContent = formatMoney(commission.amount);
-
-        const status = document.createElement("div");
-        const statusValue = String(commission.status || "pending").toLowerCase();
-
-        const allowedStatuses = ["pending", "approved", "rejected"];
-        const statusClass = allowedStatuses.includes(statusValue)
-          ? statusValue
-          : "other";
-
-        status.className = "history-status " + statusClass;
-        status.textContent = statusValue;
-
-        right.appendChild(amount);
-        right.appendChild(status);
-
-        item.appendChild(info);
-        item.appendChild(right);
-
-        container.appendChild(item);
-      });
-    }
-
-    /* =========================
-       LOAD COMMISSION SUMMARY
-    ========================= */
-
-    async function loadCommissionSummary(affiliateId) {
-      const {
-        data: commissions,
-        error: commissionError
-      } = await db
-        .from("commissions")
-        .select("amount, status, created_at, description")
-        .eq("affiliate_id", affiliateId)
-        .order("created_at", { ascending: false });
-
-      if (commissionError) {
-        throw commissionError;
-      }
-
-      const allCommissions = commissions || [];
-
-      // Rejected commissions remain visible in history,
-      // but are excluded from summary totals.
-      const countedCommissions = allCommissions.filter(function (commission) {
-        return String(commission.status || "").toLowerCase() !== "rejected";
-      });
-
+    function summaryCounts(commissions) {
+      const valid = commissions.filter(c => normalizedStatus(c.status) !== "cancelled");
       const todayKey = getMalaysiaDateKey(new Date());
       const monthKey = getMalaysiaMonthKey(new Date());
-
-      let todayCommission = 0;
-      let monthCommission = 0;
-      let totalCommission = 0;
-
-      countedCommissions.forEach(function (commission) {
-        const amount = Number(commission.amount || 0);
-        const createdAt = new Date(commission.created_at);
-
-        if (Number.isNaN(createdAt.getTime())) {
-          return;
-        }
-
-        const dateKey = getMalaysiaDateKey(createdAt);
-        const commissionMonthKey = getMalaysiaMonthKey(createdAt);
-
-        totalCommission += amount;
-
-        if (dateKey === todayKey) {
-          todayCommission += amount;
-        }
-
-        if (commissionMonthKey === monthKey) {
-          monthCommission += amount;
+      let today = 0, month = 0, total = 0, pending = 0, paid = 0;
+      valid.forEach(c => {
+        const amount = Number(c.amount || 0);
+        const date = new Date(c.created_at);
+        total += amount;
+        const status = normalizedStatus(c.status);
+        if (status === "pending") pending += amount;
+        if (status === "paid") paid += amount;
+        if (!Number.isNaN(date.getTime())) {
+          if (getMalaysiaDateKey(date) === todayKey) today += amount;
+          if (getMalaysiaMonthKey(date) === monthKey) month += amount;
         }
       });
-
-      document.getElementById("today-sale").textContent =
-        formatMoney(todayCommission);
-
-      document.getElementById("month-sale").textContent =
-        formatMoney(monthCommission);
-
-      document.getElementById("total-sale").textContent =
-        formatMoney(totalCommission);
-
-      // History displays all statuses, newest first.
-      renderCommissionHistory(allCommissions);
+      document.getElementById("today-sale").textContent = formatMoney(today);
+      document.getElementById("month-sale").textContent = formatMoney(month);
+      document.getElementById("total-sale").textContent = formatMoney(total);
+      document.getElementById("pending-commission").textContent = formatMoney(pending);
+      document.getElementById("paid-commission").textContent = formatMoney(paid);
     }
-
-    /* =========================
-       LOAD DASHBOARD
-    ========================= */
-
+    async function attachProductNames(commissions) {
+      const orderIds = [...new Set(commissions.map(c => c.order_id).filter(Boolean))];
+      if (!orderIds.length) return commissions;
+      try {
+        const { data: items, error } = await db.from("order_items").select("order_id, product_name, quantity").in("order_id", orderIds);
+        if (error) throw error;
+        const grouped = {};
+        (items || []).forEach(item => {
+          if (!grouped[item.order_id]) grouped[item.order_id] = [];
+          const name = String(item.product_name || "Product");
+          const qty = Number(item.quantity || 1);
+          const label = qty > 1 ? `${name} × ${qty}` : name;
+          if (!grouped[item.order_id].includes(label)) grouped[item.order_id].push(label);
+        });
+        return commissions.map(c => ({ ...c, product_names: grouped[c.order_id] || [] }));
+      } catch (error) {
+        // Product names are an enhancement; keep the dashboard usable if RLS blocks this query.
+        console.warn("Unable to load product names for commission history:", error.message || error);
+        return commissions.map(c => ({ ...c, product_names: [] }));
+      }
+    }
+    function commissionTitle(c) {
+      if (c.product_names && c.product_names.length) return c.product_names.join(", ");
+      return c.description || (c.commission_type === "affiliate_renewal" ? "Affiliate Renewal Commission" : c.commission_type === "affiliate_join" ? "Affiliate Registration Commission" : "Product Sale Commission");
+    }
+    function filteredCommissions() {
+      const query = document.getElementById("history-search").value.trim().toLowerCase();
+      return allCommissions.filter(c => {
+        const status = normalizedStatus(c.status);
+        const matchesStatus = activeStatus === "all" || status === activeStatus;
+        const searchable = [commissionTitle(c), c.description, c.order_id, c.commission_type, status, c.amount].join(" ").toLowerCase();
+        return matchesStatus && (!query || searchable.includes(query));
+      });
+    }
+    function renderHistory() {
+      const container = document.getElementById("commission-history");
+      const loadMoreBtn = document.getElementById("load-more-btn");
+      const matches = filteredCommissions();
+      const showing = matches.slice(0, visibleCount);
+      container.replaceChildren();
+      document.getElementById("history-total").textContent = `${matches.length} record${matches.length === 1 ? "" : "s"}`;
+      document.getElementById("history-showing").textContent = `Showing ${showing.length} of ${matches.length} record${matches.length === 1 ? "" : "s"}`;
+      if (!showing.length) {
+        const empty = document.createElement("div");
+        empty.className = "history-empty";
+        empty.textContent = allCommissions.length ? "No commissions match this search or filter." : "No commission records yet.";
+        container.appendChild(empty);
+      } else {
+        showing.forEach(c => {
+          const item = document.createElement("article");
+          item.className = "history-item";
+          const info = document.createElement("div"); info.className = "history-info";
+          const title = document.createElement("div"); title.className = "history-type"; title.textContent = commissionTitle(c);
+          const date = document.createElement("div"); date.className = "history-date";
+          const orderLabel = c.order_id ? ` · Order ${String(c.order_id).slice(0, 8)}` : "";
+          date.textContent = prettyDate(c.created_at) + orderLabel;
+          info.append(title, date);
+          const right = document.createElement("div"); right.className = "history-right";
+          const amount = document.createElement("div"); amount.className = "history-amount"; amount.textContent = formatMoney(c.amount);
+          const statusValue = normalizedStatus(c.status);
+          const status = document.createElement("span"); status.className = "history-status " + (["pending", "paid", "cancelled"].includes(statusValue) ? statusValue : "other"); status.textContent = statusValue;
+          right.append(amount, status); item.append(info, right); container.appendChild(item);
+        });
+      }
+      loadMoreBtn.hidden = matches.length <= showing.length;
+    }
+    async function loadCommissions(affiliateId) {
+      const { data, error } = await db.from("commissions")
+        .select("id, affiliate_id, order_id, commission_type, amount, status, description, created_at")
+        .eq("affiliate_id", affiliateId)
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      allCommissions = await attachProductNames(data || []);
+      summaryCounts(allCommissions);
+      renderHistory();
+    }
     async function loadDashboard() {
       try {
-        const {
-          data: { user },
-          error: sessionError
-        } = await db.auth.getUser();
-
-        if (sessionError || !user) {
-          window.location.href = "affiliate-login.html";
-          return;
-        }
-
-        const {
-          data: affiliate,
-          error: affiliateError
-        } = await db
-          .from("affiliates")
+        const { data: { user }, error: sessionError } = await db.auth.getUser();
+        if (sessionError || !user) { window.location.href = "affiliate-login.html"; return; }
+        const { data: affiliate, error: affiliateError } = await db.from("affiliates")
           .select("id, display_name, email, affiliate_code, tier, status")
-          .eq("id", user.id)
-          .maybeSingle();
-
-        if (affiliateError) {
-          throw affiliateError;
+          .eq("id", user.id).maybeSingle();
+        if (affiliateError) throw affiliateError;
+        if (!affiliate || String(affiliate.status || "").toLowerCase() !== "active") {
+          await db.auth.signOut(); window.location.href = "affiliate-login.html"; return;
         }
-
-        if (!affiliate) {
-          await db.auth.signOut();
-          window.location.href = "affiliate-login.html";
-          return;
-        }
-
-        if (affiliate.status !== "active") {
-          await db.auth.signOut();
-          window.location.href = "affiliate-login.html";
-          return;
-        }
-
-        document.getElementById("affiliate-name").textContent =
-          affiliate.display_name || "Affiliate";
-
-        document.getElementById("profile-name").textContent =
-          affiliate.display_name || "-";
-
-        document.getElementById("profile-email").textContent =
-          affiliate.email || user.email || "-";
-
-        document.getElementById("profile-code").textContent =
-          affiliate.affiliate_code || "-";
-
-        const tierElement = document.getElementById("profile-tier");
-
-        if (String(affiliate.tier || "").toLowerCase() === "pro") {
-          tierElement.textContent = "PRO";
-          tierElement.className = "info-value tier-pro";
-        } else {
-          tierElement.textContent = "BASIC";
-          tierElement.className = "info-value tier-basic";
-        }
-
+        document.getElementById("affiliate-name").textContent = affiliate.display_name || "Affiliate";
+        document.getElementById("profile-name").textContent = affiliate.display_name || "-";
+        document.getElementById("profile-email").textContent = affiliate.email || user.email || "-";
+        document.getElementById("profile-code").textContent = affiliate.affiliate_code || "-";
         document.getElementById("profile-status").textContent = "ACTIVE";
-
-        const affiliateLink =
-          window.location.origin +
-          "/?ref=" +
-          encodeURIComponent(affiliate.affiliate_code || "");
-
-        document.getElementById("affiliate-link").value = affiliateLink;
-
-        await loadCommissionSummary(user.id);
-
-        loading.style.display = "none";
-        dashboard.style.display = "block";
-
+        const tier = document.getElementById("profile-tier");
+        if (String(affiliate.tier || "basic").toLowerCase() === "pro") { tier.textContent = "PRO · 60%"; tier.className = "info-value tier-pro"; }
+        else { tier.textContent = "BASIC · 40%"; tier.className = "info-value tier-basic"; }
+        document.getElementById("affiliate-link").value = `${window.location.origin}/?ref=${encodeURIComponent(affiliate.affiliate_code || "")}`;
+        await loadCommissions(user.id);
+        loading.style.display = "none"; dashboard.style.display = "block";
       } catch (error) {
         console.error("Dashboard error:", error);
-        showError(
-          "Unable to load your affiliate dashboard. Please try again."
-        );
+        showError("Unable to load your affiliate dashboard. Please refresh and try again.");
       }
     }
-
-    /* =========================
-       COPY AFFILIATE LINK
-    ========================= */
-
-    document.getElementById("copy-link-btn").addEventListener(
-      "click",
-      async function () {
-        const input = document.getElementById("affiliate-link");
-        const message = document.getElementById("copy-message");
-
-        try {
-          await navigator.clipboard.writeText(input.value);
-        } catch {
-          input.select();
-          document.execCommand("copy");
-        }
-
-        message.style.display = "block";
-
-        setTimeout(function () {
-          message.style.display = "none";
-        }, 2000);
-      }
-    );
-
-    /* =========================
-       LOGOUT
-    ========================= */
-
-    document.getElementById("logout-btn").addEventListener(
-      "click",
-      async function () {
-        const { error } = await db.auth.signOut();
-
-        if (error) {
-          alert("Unable to logout. Please try again.");
-          return;
-        }
-
-        window.location.href = "affiliate-login.html";
-      }
-    );
-
-    /* =========================
-       START
-    ========================= */
-
+    document.getElementById("history-search").addEventListener("input", () => { visibleCount = 5; renderHistory(); });
+    document.getElementById("history-filters").addEventListener("click", event => {
+      const button = event.target.closest("button[data-status]"); if (!button) return;
+      activeStatus = button.dataset.status; visibleCount = 5;
+      document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.toggle("active", btn === button));
+      renderHistory();
+    });
+    document.getElementById("load-more-btn").addEventListener("click", () => { visibleCount += PAGE_SIZE; renderHistory(); });
+    document.getElementById("copy-link-btn").addEventListener("click", async () => {
+      const input = document.getElementById("affiliate-link"); const message = document.getElementById("copy-message");
+      try {
+        if (navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText(input.value);
+        else { input.focus(); input.select(); const copied = document.execCommand("copy"); if (!copied) throw new Error("Copy failed"); }
+        message.textContent = "Affiliate link copied!"; message.style.display = "block";
+      } catch (error) { message.textContent = "Copy failed. Please copy the link manually."; message.style.display = "block"; }
+      window.setTimeout(() => { message.style.display = "none"; }, 2500);
+    });
+    document.getElementById("logout-btn").addEventListener("click", async () => {
+      const { error } = await db.auth.signOut();
+      if (error) { alert("Unable to logout. Please try again."); return; }
+      window.location.href = "affiliate-login.html";
+    });
     loadDashboard();
   </script>
-
 </body>
 </html>
