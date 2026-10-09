@@ -275,7 +275,7 @@ h1 {
 
 .summary {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
   gap: 15px;
   margin-bottom: 30px;
 }
@@ -924,7 +924,6 @@ h1 {
 /* =========================
    CLEAN DASHBOARD NAV + PAYOUTS
 ========================= */
-.summary .summary-box:nth-child(n+4) { display: none; }
 .dashboard-nav {
   display: flex; flex-wrap: wrap; gap: 9px;
   margin: 0 0 22px; padding: 8px;
@@ -1154,115 +1153,30 @@ h1 {
   ======================================== -->
 
   <div class="summary">
-
-
     <div class="summary-box">
-
-      <div class="summary-label">
-        Today's Sales
-      </div>
-
-      <div
-        class="summary-number"
-        id="today-sales"
-      >
-        RM0.00
-      </div>
-
-      <div class="summary-small">
-        Paid product orders + affiliate sales
-      </div>
-
+      <div class="summary-label">Commission Earned Today</div>
+      <div class="summary-number" id="today-sales">RM0.00</div>
     </div>
 
-
     <div class="summary-box">
-
-      <div class="summary-label">
-        This Month
-      </div>
-
-      <div
-        class="summary-number"
-        id="month-sales"
-      >
-        RM0.00
-      </div>
-
-      <div class="summary-small">
-        Paid product orders + affiliate sales
-      </div>
-
+      <div class="summary-label">Commission Earned This Month</div>
+      <div class="summary-number" id="month-sales">RM0.00</div>
     </div>
 
-
     <div class="summary-box">
-
-      <div class="summary-label">
-        Total Sales
-      </div>
-
-      <div
-        class="summary-number"
-        id="sales-total"
-      >
-        RM0.00
-      </div>
-
-      <div class="summary-small">
-        All paid product + affiliate sales
-      </div>
-
+      <div class="summary-label">Total Commission Earned</div>
+      <div class="summary-number" id="sales-total">RM0.00</div>
     </div>
 
-
     <div class="summary-box">
-
-      <div class="summary-label">
-        Today's Orders
-      </div>
-
-      <div
-        class="summary-number"
-        id="today-orders"
-      >
-        0
-      </div>
-
+      <div class="summary-label">Pending Orders</div>
+      <div class="summary-number" id="pending-orders-total">0</div>
     </div>
 
-
     <div class="summary-box">
-
-      <div class="summary-label">
-        Pending Orders
-      </div>
-
-      <div
-        class="summary-number"
-        id="pending-count"
-      >
-        0
-      </div>
-
+      <div class="summary-label">Total Orders</div>
+      <div class="summary-number" id="total-orders-total">0</div>
     </div>
-
-
-    <div class="summary-box">
-
-      <div class="summary-label">
-        Paid Orders
-      </div>
-
-      <div
-        class="summary-number"
-        id="paid-count"
-      >
-        0
-      </div>
-
-    </div>
-
   </div>
 
 
@@ -1454,16 +1368,6 @@ const ordersContainer =
     "orders"
   );
 
-const pendingCount =
-  document.getElementById(
-    "pending-count"
-  );
-
-const paidCount =
-  document.getElementById(
-    "paid-count"
-  );
-
 const salesTotal =
   document.getElementById(
     "sales-total"
@@ -1477,11 +1381,6 @@ const todaySales =
 const monthSales =
   document.getElementById(
     "month-sales"
-  );
-
-const todayOrders =
-  document.getElementById(
-    "today-orders"
   );
 
 const searchInput =
@@ -3719,233 +3618,39 @@ Thank you for being part of KINO ♡`;
 ========================================= */
 
 function updateSummary() {
+  // Commission earned = all non-cancelled commission records.
+  // Pending means awaiting payout; Paid means already transferred.
+  // Both count as earned. Cancelled commissions do not count.
+  const earnedCommissions = allCommissions.filter(commission => {
+    const status = String(commission.status || "").toLowerCase();
+    return status === "pending" || status === "paid";
+  });
 
-  const paidOrders =
-    allOrders.filter(
-      order =>
-        String(
-          order.status ||
-          ""
-        ).toLowerCase() ===
-        "paid"
-    );
+  const totalEarned = earnedCommissions.reduce(
+    (sum, commission) => sum + Number(commission.amount || 0),
+    0
+  );
 
+  const todayEarned = earnedCommissions
+    .filter(commission => isToday(commission.created_at))
+    .reduce((sum, commission) => sum + Number(commission.amount || 0), 0);
 
-  const productTotal =
-    paidOrders.reduce(
-      (
-        sum,
-        order
-      ) =>
-        sum +
-        Number(
-          order.total || 0
-        ),
-      0
-    );
+  const monthEarned = earnedCommissions
+    .filter(commission => isThisMonth(commission.created_at))
+    .reduce((sum, commission) => sum + Number(commission.amount || 0), 0);
 
+  salesTotal.textContent = "RM" + totalEarned.toFixed(2);
+  todaySales.textContent = "RM" + todayEarned.toFixed(2);
+  monthSales.textContent = "RM" + monthEarned.toFixed(2);
 
-  const todayProductSales =
-    paidOrders
-      .filter(
-        order =>
-          isToday(
-            order.created_at
-          )
-      )
-      .reduce(
-        (
-          sum,
-          order
-        ) =>
-          sum +
-          Number(
-            order.total || 0
-          ),
-        0
-      );
-
-
-  const monthProductSales =
-    paidOrders
-      .filter(
-        order =>
-          isThisMonth(
-            order.created_at
-          )
-      )
-      .reduce(
-        (
-          sum,
-          order
-        ) =>
-          sum +
-          Number(
-            order.total || 0
-          ),
-        0
-      );
-
-
-  /*
-    Affiliate membership sales
-    ONLY approved/active affiliates
-    with approved_at are counted.
-  */
-
-  const approvedAffiliates =
-    allAffiliates.filter(
-      affiliate =>
-        String(
-          affiliate.status ||
-          ""
-        ).toLowerCase() ===
-        "active" &&
-        affiliate.approved_at
-    );
-
-
-  function membershipAmount(
-    affiliate
-  ) {
-
-    return Number(
-      affiliate.membership_amount ||
-      (
-        String(
-          affiliate.tier ||
-          ""
-        ).toLowerCase() ===
-        "pro"
-          ? 50
-          : 5
-      )
-    );
-
-  }
-
-
-  const affiliateTotal =
-    approvedAffiliates.reduce(
-      (
-        sum,
-        affiliate
-      ) =>
-        sum +
-        membershipAmount(
-          affiliate
-        ),
-      0
-    );
-
-
-  const todayAffiliateSales =
-    approvedAffiliates
-      .filter(
-        affiliate =>
-          isToday(
-            affiliate.approved_at
-          )
-      )
-      .reduce(
-        (
-          sum,
-          affiliate
-        ) =>
-          sum +
-          membershipAmount(
-            affiliate
-          ),
-        0
-      );
-
-
-  const monthAffiliateSales =
-    approvedAffiliates
-      .filter(
-        affiliate =>
-          isThisMonth(
-            affiliate.approved_at
-          )
-      )
-      .reduce(
-        (
-          sum,
-          affiliate
-        ) =>
-          sum +
-          membershipAmount(
-            affiliate
-          ),
-        0
-      );
-
-
-  const totalSales =
-    productTotal +
-    affiliateTotal;
-
-
-  const todaySalesValue =
-    todayProductSales +
-    todayAffiliateSales;
-
-
-  const monthSalesValue =
-    monthProductSales +
-    monthAffiliateSales;
-
-
-  const pending =
-    allOrders.filter(
-      order =>
-        String(
-          order.status ||
-          ""
-        ).toLowerCase() ===
-        "pending"
-    ).length;
-
-
-  const paid =
-    paidOrders.length;
-
-
-  const todayOrderCount =
-    allOrders.filter(
-      order =>
-        isToday(
-          order.created_at
-        )
-    ).length;
-
-
-  pendingCount.textContent =
-    pending;
-
-
-  paidCount.textContent =
-    paid;
-
-
-  salesTotal.textContent =
-    "RM" +
-    totalSales.toFixed(2);
-
-
-  todaySales.textContent =
-    "RM" +
-    todaySalesValue.toFixed(2);
-
-
-  monthSales.textContent =
-    "RM" +
-    monthSalesValue.toFixed(2);
-
-
-  todayOrders.textContent =
-    todayOrderCount;
-
+  // Order counts remain separate from commission totals.
+  const pendingOrders = allOrders.filter(order =>
+    String(order.status || "").toLowerCase() === "pending"
+  ).length;
+  const pendingOrdersElement = document.getElementById("pending-orders-total");
+  const totalOrdersElement = document.getElementById("total-orders-total");
+  if (pendingOrdersElement) pendingOrdersElement.textContent = String(pendingOrders);
+  if (totalOrdersElement) totalOrdersElement.textContent = String(allOrders.length);
 }
 
 
@@ -4993,9 +4698,12 @@ async function loadCommissions() {
     payoutList.innerHTML = `<div class="affiliate-error">Unable to load commissions.<br><br>${escapeHtml(error.message)}<br><br>Please check the commissions table permissions for the admin account.</div>`;
     document.getElementById("payout-pending-total").textContent = "—";
     document.getElementById("payout-paid-total").textContent = "—";
+    allCommissions = [];
+    updateSummary();
     return;
   }
   allCommissions = data || [];
+  updateSummary();
   renderCommissions();
 }
 
