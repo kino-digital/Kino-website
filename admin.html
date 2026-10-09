@@ -919,6 +919,53 @@ h1 {
 
 }
 
+
+
+/* =========================
+   CLEAN DASHBOARD NAV + PAYOUTS
+========================= */
+.summary .summary-box:nth-child(n+4) { display: none; }
+.dashboard-nav {
+  display: flex; flex-wrap: wrap; gap: 9px;
+  margin: 0 0 22px; padding: 8px;
+  background: #fff; border-radius: 18px;
+  box-shadow: 0 5px 18px rgba(190,130,150,.07);
+}
+.dashboard-tab {
+  flex: 1 1 140px; border: 0; border-radius: 13px;
+  padding: 12px 15px; background: #fff8fb;
+  color: #a96b82; font: inherit; font-weight: 600; cursor: pointer;
+}
+.dashboard-tab.active { background: #d9829e; color: #fff; }
+.dashboard-panel { display: none; }
+.dashboard-panel.active { display: block; }
+.panel-heading { color: #b96f8a; font-size: 25px; margin: 0 0 8px; }
+.panel-description { color: #a8949b; font-size: 14px; margin: 0 0 18px; }
+.section-tools { margin: 0 0 20px; }
+.payout-summary { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; margin-bottom: 18px; }
+.payout-summary-card { background: #fff; padding: 16px 18px; border-radius: 16px; box-shadow: 0 5px 18px rgba(190,130,150,.07); }
+.payout-summary-label { font-size: 13px; color: #a8949b; }
+.payout-summary-value { font-size: 24px; color: #b96f8a; font-weight: 700; }
+.payout-card { background: #fff; padding: 18px; border-radius: 17px; margin-bottom: 12px; box-shadow: 0 5px 18px rgba(190,130,150,.07); }
+.payout-card-top { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+.payout-name { color:#b96f8a; font-size:17px; font-weight:700; overflow-wrap:anywhere; }
+.payout-meta { color:#a8949b; font-size:13px; margin-top:3px; overflow-wrap:anywhere; }
+.payout-amount { color:#8a596d; font-weight:700; font-size:19px; white-space:nowrap; }
+.payout-description { margin-top:10px; font-size:13px; color:#8a747b; }
+.payout-actions { margin-top:13px; display:flex; flex-wrap:wrap; gap:8px; }
+.payout-mark-button { border:0; border-radius:18px; padding:9px 15px; background:#dff3e6; color:#4f8a68; font:inherit; cursor:pointer; }
+.payout-mark-button:disabled { opacity:.6; cursor:not-allowed; }
+.payout-status { display:inline-block; margin-top:8px; padding:4px 10px; border-radius:20px; background:#fff0f3; color:#a96b82; font-size:12px; }
+.payout-status.paid { background:#dff3e6; color:#4f8a68; }
+.payout-status.cancelled { background:#eee7ea; color:#806d74; }
+@media (max-width:650px) {
+  .dashboard-nav { display:grid; grid-template-columns:1fr 1fr; }
+  .dashboard-tab { min-width:0; }
+  .payout-summary { grid-template-columns:1fr 1fr; }
+  .payout-card-top { flex-direction:column; }
+  .payout-amount { font-size:18px; }
+}
+
 </style>
 
 </head>
@@ -1219,99 +1266,65 @@ h1 {
   </div>
 
 
-  <!-- =======================================
-       AFFILIATE MANAGEMENT
-  ======================================== -->
+  <!-- MAIN MANAGEMENT SECTIONS -->
+  <nav class="dashboard-nav" aria-label="Admin sections">
+    <button type="button" class="dashboard-tab active" data-panel="orders-panel">Orders</button>
+    <button type="button" class="dashboard-tab" data-panel="affiliates-panel">Affiliates</button>
+    <button type="button" class="dashboard-tab" data-panel="payouts-panel">Commission Payouts</button>
+  </nav>
 
-  <section class="affiliate-section">
-
-    <div class="affiliate-title">
-      Affiliate Management ♡
-    </div>
-
-    <div class="affiliate-subtitle">
-      Review affiliate registrations and manage approved affiliates.
-    </div>
-
-    <div
-      class="affiliate-count"
-      id="affiliate-count"
-    >
-      0 affiliates
-    </div>
-
-    <div id="affiliate-list">
-
-      <div class="loading">
-        Loading affiliates...
+  <!-- ORDERS -->
+  <section id="orders-panel" class="dashboard-panel active">
+    <h2 class="panel-heading">Orders ♡</h2>
+    <p class="panel-description">Search customer orders, check payment proof and update payment status.</p>
+    <div class="order-tools">
+      <input type="search" id="search-input" class="search-box" placeholder="🔍 Search name, email or order code...">
+      <div class="filter-buttons" id="order-filter-buttons">
+        <button class="filter-button active" data-filter="all">ALL</button>
+        <button class="filter-button" data-filter="pending">PENDING</button>
+        <button class="filter-button" data-filter="paid">PAID</button>
+        <button class="filter-button" data-filter="rejected">REJECTED</button>
       </div>
-
     </div>
-
+    <div id="orders"><div class="loading">Loading orders...</div></div>
   </section>
 
-
-  <!-- =======================================
-       SEARCH / FILTER
-  ======================================== -->
-
-  <div class="order-tools">
-
-    <input
-      type="search"
-      id="search-input"
-      class="search-box"
-      placeholder="🔍 Search name, email or order code..."
-    >
-
-
-    <div class="filter-buttons">
-
-      <button
-        class="filter-button active"
-        data-filter="all"
-      >
-        ALL
-      </button>
-
-      <button
-        class="filter-button"
-        data-filter="pending"
-      >
-        PENDING
-      </button>
-
-      <button
-        class="filter-button"
-        data-filter="paid"
-      >
-        PAID
-      </button>
-
-      <button
-        class="filter-button"
-        data-filter="rejected"
-      >
-        REJECTED
-      </button>
-
+  <!-- AFFILIATES -->
+  <section id="affiliates-panel" class="dashboard-panel">
+    <h2 class="panel-heading">Affiliates ♡</h2>
+    <p class="panel-description">Review applications and manage active affiliate accounts.</p>
+    <div class="order-tools section-tools">
+      <input type="search" id="affiliate-search-input" class="search-box" placeholder="🔍 Search affiliate name, email or code...">
+      <div class="filter-buttons" id="affiliate-filter-buttons">
+        <button class="filter-button active" data-affiliate-filter="all">ALL</button>
+        <button class="filter-button" data-affiliate-filter="pending">PENDING</button>
+        <button class="filter-button" data-affiliate-filter="active">ACTIVE</button>
+        <button class="filter-button" data-affiliate-filter="rejected">REJECTED</button>
+      </div>
     </div>
+    <div class="affiliate-count" id="affiliate-count">0 affiliates</div>
+    <div id="affiliate-list"><div class="loading">Loading affiliates...</div></div>
+  </section>
 
-  </div>
-
-
-  <h1 style="font-size:26px;">
-    Orders ♡
-  </h1>
-
-
-  <div id="orders">
-
-    <div class="loading">
-      Loading orders...
+  <!-- COMMISSION PAYOUTS -->
+  <section id="payouts-panel" class="dashboard-panel">
+    <h2 class="panel-heading">Commission Payouts ♡</h2>
+    <p class="panel-description">Transfer commissions manually through TNG after the store closes at 10 PM. Only mark a commission as paid after the transfer succeeds.</p>
+    <div class="payout-summary">
+      <div class="payout-summary-card"><div class="payout-summary-label">Pending Payout</div><div class="payout-summary-value" id="payout-pending-total">RM0.00</div></div>
+      <div class="payout-summary-card"><div class="payout-summary-label">Already Paid</div><div class="payout-summary-value" id="payout-paid-total">RM0.00</div></div>
     </div>
-
-  </div>
+    <div class="order-tools section-tools">
+      <input type="search" id="payout-search-input" class="search-box" placeholder="🔍 Search affiliate name, code or commission...">
+      <div class="filter-buttons" id="payout-filter-buttons">
+        <button class="filter-button active" data-payout-filter="all">ALL</button>
+        <button class="filter-button" data-payout-filter="pending">PENDING</button>
+        <button class="filter-button" data-payout-filter="paid">PAID</button>
+        <button class="filter-button" data-payout-filter="cancelled">CANCELLED</button>
+      </div>
+    </div>
+    <div id="payout-list"><div class="loading">Loading commissions...</div></div>
+  </section>
 
 </main>
 
@@ -1490,8 +1503,10 @@ const affiliateCount =
 let allOrders = [];
 
 let allAffiliates = [];
-
+let allCommissions = [];
 let currentFilter = "all";
+let currentAffiliateFilter = "all";
+let currentPayoutFilter = "all";
 
 let kinoModalResolver = null;
 
@@ -2059,6 +2074,7 @@ async function showDashboard() {
   await loadOrders();
 
   await loadAffiliates();
+  await loadCommissions();
 
 }
 
@@ -2693,6 +2709,15 @@ async function loadAffiliates() {
 
 function renderAffiliates() {
 
+  const affiliateSearch = (document.getElementById("affiliate-search-input")?.value || "").trim().toLowerCase();
+  let visibleAffiliates = [...allAffiliates];
+  if (currentAffiliateFilter !== "all") {
+    visibleAffiliates = visibleAffiliates.filter(a => String(a.status || "pending").toLowerCase() === currentAffiliateFilter);
+  }
+  if (affiliateSearch) {
+    visibleAffiliates = visibleAffiliates.filter(a => [a.display_name, a.email, a.affiliate_code, a.status, a.tier].filter(Boolean).join(" ").toLowerCase().includes(affiliateSearch));
+  }
+
   const pending =
     allAffiliates.filter(
       affiliate =>
@@ -2734,11 +2759,11 @@ function renderAffiliates() {
     );
 
 
-  if (!allAffiliates.length) {
+  if (!visibleAffiliates.length) {
 
     affiliateList.innerHTML = `
       <div class="affiliate-empty">
-        No affiliate registration yet ♡
+        No affiliates match this search/filter ♡
       </div>
     `;
 
@@ -2751,7 +2776,7 @@ function renderAffiliates() {
     "";
 
 
-  allAffiliates.forEach(
+  visibleAffiliates.forEach(
     affiliate => {
 
       const status =
@@ -3930,7 +3955,7 @@ function updateSummary() {
 
 document
   .querySelectorAll(
-    ".filter-button"
+    "#order-filter-buttons .filter-button"
   )
   .forEach(
     button => {
@@ -3941,7 +3966,7 @@ document
 
           document
             .querySelectorAll(
-              ".filter-button"
+              "#order-filter-buttons .filter-button"
             )
             .forEach(
               item =>
@@ -4919,6 +4944,137 @@ async function logout() {
 
 }
 
+
+/* =========================================
+   DASHBOARD TABS
+========================================= */
+document.querySelectorAll(".dashboard-tab").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".dashboard-tab").forEach(tab => tab.classList.remove("active"));
+    document.querySelectorAll(".dashboard-panel").forEach(panel => panel.classList.remove("active"));
+    button.classList.add("active");
+    const panel = document.getElementById(button.dataset.panel);
+    if (panel) panel.classList.add("active");
+  });
+});
+
+/* =========================================
+   AFFILIATE SEARCH + FILTER
+========================================= */
+document.getElementById("affiliate-search-input").addEventListener("input", renderAffiliates);
+document.querySelectorAll("#affiliate-filter-buttons .filter-button").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll("#affiliate-filter-buttons .filter-button").forEach(item => item.classList.remove("active"));
+    button.classList.add("active");
+    currentAffiliateFilter = button.dataset.affiliateFilter;
+    renderAffiliates();
+  });
+});
+
+/* =========================================
+   COMMISSION PAYOUTS
+========================================= */
+const payoutList = document.getElementById("payout-list");
+const payoutSearchInput = document.getElementById("payout-search-input");
+
+function money(value) {
+  return "RM" + Number(value || 0).toFixed(2);
+}
+
+function commissionAffiliate(commission) {
+  return allAffiliates.find(a => String(a.id) === String(commission.affiliate_id)) || null;
+}
+
+async function loadCommissions() {
+  payoutList.innerHTML = '<div class="loading">Loading commissions...</div>';
+  const { data, error } = await db.from("commissions").select("*").order("created_at", { ascending: false });
+  if (error) {
+    console.error("COMMISSION LOAD ERROR:", error);
+    payoutList.innerHTML = `<div class="affiliate-error">Unable to load commissions.<br><br>${escapeHtml(error.message)}<br><br>Please check the commissions table permissions for the admin account.</div>`;
+    document.getElementById("payout-pending-total").textContent = "—";
+    document.getElementById("payout-paid-total").textContent = "—";
+    return;
+  }
+  allCommissions = data || [];
+  renderCommissions();
+}
+
+function renderCommissions() {
+  const pendingTotal = allCommissions.filter(c => String(c.status || "").toLowerCase() === "pending").reduce((sum,c) => sum + Number(c.amount || 0), 0);
+  const paidTotal = allCommissions.filter(c => String(c.status || "").toLowerCase() === "paid").reduce((sum,c) => sum + Number(c.amount || 0), 0);
+  document.getElementById("payout-pending-total").textContent = money(pendingTotal);
+  document.getElementById("payout-paid-total").textContent = money(paidTotal);
+
+  const search = (payoutSearchInput.value || "").trim().toLowerCase();
+  let rows = [...allCommissions];
+  if (currentPayoutFilter !== "all") rows = rows.filter(c => String(c.status || "").toLowerCase() === currentPayoutFilter);
+  if (search) rows = rows.filter(c => {
+    const affiliate = commissionAffiliate(c);
+    return [affiliate?.display_name, affiliate?.email, affiliate?.affiliate_code, c.commission_type, c.description, c.status, c.amount, c.id].filter(Boolean).join(" ").toLowerCase().includes(search);
+  });
+
+  if (!rows.length) {
+    payoutList.innerHTML = '<div class="affiliate-empty">No commission records found ♡</div>';
+    return;
+  }
+
+  payoutList.innerHTML = rows.map(c => {
+    const affiliate = commissionAffiliate(c);
+    const status = String(c.status || "pending").toLowerCase();
+    const statusClass = status === "paid" ? "paid" : status === "cancelled" ? "cancelled" : "";
+    const date = c.created_at ? new Date(c.created_at).toLocaleString("en-MY", { dateStyle: "medium", timeStyle: "short" }) : "Date unavailable";
+    const type = String(c.commission_type || "commission").replaceAll("_", " ");
+    const description = c.description ? `<div class="payout-description">${escapeHtml(c.description)}</div>` : "";
+    const markButton = status === "pending" ? `<div class="payout-actions"><button type="button" class="payout-mark-button" onclick="markCommissionPaid('${escapeJs(c.id)}')">MARK AS PAID</button></div>` : "";
+    return `<article class="payout-card">
+      <div class="payout-card-top">
+        <div><div class="payout-name">${escapeHtml(affiliate?.display_name || "Affiliate account")}</div>
+        <div class="payout-meta">${escapeHtml(affiliate?.affiliate_code || "No affiliate code")} · ${escapeHtml(affiliate?.email || "")}</div>
+        <div class="payout-meta">${escapeHtml(date)} · ${escapeHtml(type)}</div></div>
+        <div><div class="payout-amount">${money(c.amount)}</div><span class="payout-status ${statusClass}">${escapeHtml(status.toUpperCase())}</span></div>
+      </div>${description}${markButton}</article>`;
+  }).join("");
+}
+
+async function markCommissionPaid(id) {
+  const commission = allCommissions.find(c => String(c.id) === String(id));
+  if (!commission || String(commission.status || "").toLowerCase() !== "pending") {
+    await showKinoMessage("Commission status", "This commission is no longer pending. Refreshing the list.", "OK");
+    await loadCommissions();
+    return;
+  }
+  const affiliate = commissionAffiliate(commission);
+  const confirmed = await showKinoConfirm(
+    "Mark commission as paid?",
+    `Confirm that ${money(commission.amount)} has already been transferred through TNG to ${escapeHtml(affiliate?.display_name || "this affiliate")}. Only continue after the transfer succeeds.`,
+    "MARK AS PAID"
+  );
+  if (!confirmed) return;
+
+  const { data, error } = await db.from("commissions").update({ status: "paid" }).eq("id", id).eq("status", "pending").select("id,status").maybeSingle();
+  if (error) {
+    console.error("COMMISSION PAYOUT UPDATE ERROR:", error);
+    await showKinoMessage("Payout not updated", `Could not update commission status. ${error.message}`, "OK");
+    return;
+  }
+  if (!data) {
+    await showKinoMessage("No change made", "This commission may already have been updated. The list will refresh.", "OK");
+    await loadCommissions();
+    return;
+  }
+  await showKinoMessage("Payout recorded", "Commission status is now Paid.", "OK");
+  await loadCommissions();
+}
+
+payoutSearchInput.addEventListener("input", renderCommissions);
+document.querySelectorAll("#payout-filter-buttons .filter-button").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll("#payout-filter-buttons .filter-button").forEach(item => item.classList.remove("active"));
+    button.classList.add("active");
+    currentPayoutFilter = button.dataset.payoutFilter;
+    renderCommissions();
+  });
+});
 
 /* =========================================
    START
